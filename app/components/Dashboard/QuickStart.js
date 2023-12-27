@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon, CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -231,7 +231,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                         {
                             billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="text-center text-sm flex justify-center">
@@ -255,7 +255,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                         {loadingScrapper && billingState == "demo" &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="flex justify-center text-sm mb-2">
@@ -275,7 +275,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* we will only show suggested actions for account if the profile is not completed */}
                         {(!loadingData && profileComplete) ? null :
 
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
                                     <div className="flex items-center  gap-2">
                                         <BoltIcon className="text-[#FF822D] w-5" />
@@ -283,16 +283,10 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                             Quick Start
                                         </p>
                                     </div>
-                                </div>
-
-
-
-                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
-
-                                {billingState == "normal" && !profileComplete &&
+                                    {billingState == "normal" && !profileComplete &&
                                     <div className="flex items-center gap-4 justify-end">
                                         <button
-                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
+                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg"
                                             onClick={ExpandChange}>
                                             {isExpand === true ? (
                                                 <>
@@ -308,6 +302,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                         </button>
                                     </div>
                                 }
+                                </div>
+
+
+
+                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
+
+                              
 
 
 
@@ -319,7 +320,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {/********* DEMO ACCOUNTS PANEL ************/}
                                 {billingState == "demo" &&
-                                    <div className='mt-3'>
+                                    <div className={`${isExpand === true && 'mt-3'}`}>
 
 
                                         {stripePromise && <Method></Method>}
@@ -448,7 +449,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {(billingState === "normal") &&
 
-                                    <div className='mt-3'>
+                                    <div className={`${isExpand === true && 'mt-3'}`}>
 
                                         <div className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
@@ -603,7 +604,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* ***** EXTRA DATA FOR BOTH TYPE OF ACCOUNTS (PAID AND DEMO) *******/}
 
                         {recentlyView && (
-                            <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                            <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                                 <div className='py-4 px-6'>
                                     <div className="flex items-center  gap-2">
                                         {loadingData ?
@@ -653,7 +654,10 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                         {loadingData ?
                                                             <SkeletonLoader count={1} height={30} width="50%" />
                                                             :
-                                                            <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                            <button className={'flex items-center justify-center gap-2 border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>
+                                                                Go To
+                                                                <ArrowRightIcon className='h-4 w-5' />
+                                                                </button>
                                                         }
                                                     </div>
                                                 </Link>
@@ -690,7 +694,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                     ///////////// SKELETON FOR QUICKSTART
                     <>
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />
@@ -702,7 +706,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             </div>
                         </div>
 
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />

@@ -351,7 +351,7 @@ const WorkFlowSelector = ({
               )}
               // style={getListStyle(snapshot.isDraggingOver)}
             >
-              <div className="w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto">
+              <div className="w-[auto] xs:w-[80%] sm:w-[70%] md:w-[70%] lg:w-[70%] mx-auto">
                 {/* {stepData?.length !== 0 &&
                                     <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
                                         <div className='flex justify-between gap-2 items-center'>
