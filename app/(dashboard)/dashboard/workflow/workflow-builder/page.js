@@ -6,7 +6,7 @@ import WorkFlowTemplates from '@/app/components/Workflows/WorkflowBuilder/WorkFl
 import Workflows from '@/app/components/Workflows/Workflows';
 import { useSelector } from 'react-redux';
 import Loading from '@/app/components/Loading/Loading';
-import { createWorkflow, getAllWorkflowTemplates, createWorkflowTemplate, getWorkflowUsageLogs } from '@/app/API/pages/Workflow';
+import { createWorkflow, getAllWorkflowTemplates, createWorkflowTemplate, getWorkflowUsageLogs, getAllWorkflow } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
@@ -39,12 +39,14 @@ const Page = () => {
     const [template, setTemplate] = useState([])
     const [skeletonloading, setSkeetonLoading] = useState(true);
 
+    const [initialized, setInitialized] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
             setSkeetonLoading(false);
         }, 300);
     }, [])
+
     // logs function check logs has data or not
 
     const getAllLogs = async () => {
@@ -57,23 +59,21 @@ const Page = () => {
 
     useEffect(() => {
         getAllLogs()
-        if (!workflowState?.data?.results?.some(e => e.active === true)) {
-            setTab(5)
-        } else {
-            setShowActive(true)
-            setTab(0)
-        } // If there is no active workflows, setTab to draft section.
-
-    }, [])
-
-    useEffect(() => {
         getAllWorkflowData();
-    }, [])
-
-    useEffect(() => {
+        initializeWorkflows()
         allWorkflowTemplates();
     }, [])
 
+    const initializeWorkflows = async () => {
+        let data = await getAllWorkflow()
+        if (!data.results?.some(e => e.active === true)) {
+            setTab(5)
+            setInitialized(true)
+        } else {
+            setShowActive(true)
+            setTab(0)
+        }
+    }
 
     const allWorkflowTemplates = async () => {
         const allData = await getAllWorkflowTemplates()
@@ -83,7 +83,6 @@ const Page = () => {
 
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
-
     }
 
     const createNewWorkFlow = async () => {
@@ -116,35 +115,20 @@ const Page = () => {
     return (
         <>
             <>
-                {state?.data?.enterprise && (
-                    <>
-                        <h1 className='pl-2 text-xl font-semibold'>
-                            {skeletonloading ?
-                                <SkeletonLoader count={1} height={30} width={150} />
-                                :
-                                "Your Workflows"
-                            }
-                        </h1>
+                <>
+                    <h1 className='pl-2 text-xl font-semibold'>
+                        {skeletonloading ?
+                            <SkeletonLoader count={1} height={30} width={150} />
+                            :
+                            "Your Workflows"
+                        }
+                    </h1>
 
 
-                        <div className={skeletonloading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
-                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
-                                {showActive && (
-                                    <li className={` ${skeletonloading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
-                                        {skeletonloading ?
-                                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                                            :
-                                            <span
-                                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
-                  rounded-lg active  group`}
-                                                aria-current="page"
-                                            >
-                                                Active
-                                            </span>
-                                        }
-                                    </li>
-                                )}
-                                <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                    <div className={skeletonloading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                        <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+                            {showActive && (
+                                <li className={` ${skeletonloading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
@@ -153,12 +137,42 @@ const Page = () => {
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            Draft
+                                            Active
                                         </span>
                                     }
                                 </li>
+                            )}
+                            <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                                {skeletonloading ?
+                                    <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                    :
+                                    <span
+                                        className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                        aria-current="page"
+                                    >
+                                        Draft
+                                    </span>
+                                }
+                            </li>
 
-                                <li className={` ${skeletonloading ? "" : tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(2) }}>
+                            <li className={` ${skeletonloading ? "" : tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(2) }}>
+                                {skeletonloading ?
+                                    <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                    :
+                                    <span
+                                        className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                        aria-current="page"
+                                    >
+                                        Templates
+                                    </span>
+                                }
+                            </li>
+
+
+                            {showLogs === true && (
+                                <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
@@ -167,27 +181,11 @@ const Page = () => {
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            Templates
+                                            Logs
                                         </span>
                                     }
-                                </li>
-
-
-                                {showLogs === true && (
-                                    <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
-                                        {skeletonloading ?
-                                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                                            :
-                                            <span
-                                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
-                  rounded-lg active  group`}
-                                                aria-current="page"
-                                            >
-                                                Logs
-                                            </span>
-                                        }
-                                    </li>)}
-                                {/* 
+                                </li>)}
+                            {/* 
                                 {
                                     template?.length > 0 &&
                                     <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => { setTab(2) }}>
@@ -204,34 +202,34 @@ const Page = () => {
                                         }
                                     </li>} */}
 
-                            </ul>
-                        </div>
+                        </ul>
+                    </div>
 
 
 
 
-                        {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
-                        {tab === 0 && (
-                            <WorkFlowTemplates setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
-                        )}
-                        {tab === 1 && (
-                            <WorkFlowTemplates setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
-                        )}
-                        {/* {tab === 1 && (
+                    {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
+                    {tab === 0 && (
+                        <WorkFlowTemplates setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                    )}
+                    {tab === 1 && (
+                        <WorkFlowTemplates setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                    )}
+                    {/* {tab === 1 && (
                             // <AutomationTemplates></AutomationTemplates>
                             <WorkFlowTemplates source={'template'} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
 
                         )} */}
 
-                        {tab === 2 && (
-                            <GlobalTemplates></GlobalTemplates>
-                        )}
+                    {tab === 2 && (
+                        <GlobalTemplates></GlobalTemplates>
+                    )}
 
-                        {tab === 3 && (
-                            <WorkflowUsageLogs></WorkflowUsageLogs>
-                        )}
-                    </>
-                )}
+                    {tab === 3 && (
+                        <WorkflowUsageLogs></WorkflowUsageLogs>
+                    )}
+                </>
+
             </>
 
             <ToastContainer />
