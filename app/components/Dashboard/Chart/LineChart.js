@@ -147,7 +147,7 @@ const LineChart = ({ chartData }) => {
     labels: labels,
     datasets: [{
       label: 'usage',
-      data: [0,0,0,5,0,0,2],
+      data: dataPoints,
       fill: true,
       backgroundColor: 'rgb(222,236,249, 0.3)',
       borderColor: '#2563EB', // Color of the line
