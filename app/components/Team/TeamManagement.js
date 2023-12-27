@@ -10,6 +10,15 @@ import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/2
 import { useRouter } from "next/router";
 import { Tooltip } from 'react-tooltip'
 import { getPermissionHelper } from "../helper/returnPermissions";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import EditProfileModal from "../SideModal/EditProfileModal";
+
+
+
+
+
+
 
 const TeamManagement = ({ state, removeMember, changeRole }) => {
   const stateM = useSelector((state) => state.user);
@@ -17,6 +26,12 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   const [perPage, setPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const userState = useSelector((state) => state.user.data)
+  const [showModal, setShowModal] = useState(false);
+
+  const handleEditClick = () => {
+    setShowModal(!showModal)
+    console.log(showModal)
+  }
 
   function addSpaceAfterPrefix(phoneNumber) {
     // Use a regular expression to add a space after '+1' if it exists
@@ -101,59 +116,80 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     //   width: "80px",
     //   hide: "sm",
     // },
-    {
-      name: "Email",
-      id: "Email",
-      selector: (row) => row?.email,
-      cell: (row) =>
-        <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>{row.email}</p>,
-      reorder: true,
-      width: isMobile ? '220px' : '300px',
-    },
+    // {
+    //   name: "Email",
+    //   id: "Email",
+    //   selector: (row) => row?.email,
+    //   cell: (row) =>
+    //     <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>{row.email}</p>,
+    //   reorder: true,
+    //   width: isMobile ? '220px' : '300px',
+    // },
     {
       name: "Name",
       id: "Name",
       selector: (row) => row?.name,
-      cell: (row) => <p className="whitespace-normal text-xs">{row?.name}</p>,
+      cell: (row) =>
+        <div className="flex gap-3 items-center">
+          {row.enterprise && row.enterprise[0]?.logo ? (
+            <div><img src={row.enterprise[0]?.logo} alt="Enterprise Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }}></img></div>) : <><div className="bg-soft-blue p-3 rounded-full text-white">YS</div></>}
+          <div>
+            <p className="whitespace-normal text-xs font-semibold">{row?.name}</p>
+            <p className="whitespace-normal text-xs">{row?.email}</p>
+          </div>
+        </div>,
       reorder: true,
-      width: isMobile ? "100px" : "200px",
+      width: isMobile ? "100px" : "300px",
       hide: "sm",
     },
-    {
-      name: "Contact",
-      id: "Contact",
-      selector: (row) => row?.contact,
-      cell: (row) => (
-        <p className="whitespace-normal xs">
-          {" "}
-          {row?.contact !== "" && row?.contact !== " "
-            ? formatPhoneNumber(row?.contact)
-            : ""}
-        </p>
-      ),
-      reorder: true,
-      width: "200px",
-      hide: "sm",
-    },
+    // {
+    //   name: "Contact",
+    //   id: "Contact",
+    //   selector: (row) => row?.contact,
+    //   cell: (row) => (
+    //     <p className="whitespace-normal xs">
+    //       {" "}
+    //       {row?.contact !== "" && row?.contact !== " "
+    //         ? formatPhoneNumber(row?.contact)
+    //         : ""}
+    //     </p>
+    //   ),
+    //   reorder: true,
+    //   width: "200px",
+    //   hide: "sm",
+    // },
 
     {
-      name: "Role",
-      id: " Role",
+      name: "Permissions",
+      id: "Permissions",
       selector: row => row?.role,
       cell: (element) => (
-        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : element.role == "COLLABORATOR" ? "Collaborator" : "Admin"}</p>
+        <p className={`whitespace-normal text-white text-xs flex font-semibold items-center px-3 py-1 rounded-3xl ${element.role === "ADMINISTRATOR" && "bg-black"}`} >{element.role == "MEMBER" ? "Member" : element.role == "COLLABORATOR" ? "Administrator" : element.role == "ADMINISTRATOR" ? "Owner" : "Admin"}</p>
       ),
       // reorder: true,
-      width: isMobile ? "120px" : "200px",
+      width: isMobile ? "120px" : "300px",
       hide: "",
     },
-
+    {
+      name: "Account Status",
+      id: "Status",
+      selector: (row) => row?.email,
+      cell: (row) =>
+        <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>Active</p>,
+      reorder: true,
+      width: isMobile ? '220px' : '300px',
+    },
     {
       name: "Action",
       id: "Action",
       selector: (row) => row?.action,
       cell: (ele) => (
-        <ButtonComponent ele={ele} show={show} setShow={setShow} removeMember={removeMember} changeRole={changeRole} role={ele.role} />
+        <><div className="flex gap-2 items-center justify-normal">
+          <PencilSquareIcon className="h-6 w-6 text-gray-500" onClick={handleEditClick} />
+          {ele.role === "ADMINISTRATOR" ?
+            <TrashIcon className="h-6 w-6 text-gray" /> : <TrashIcon className="h-6 w-6 text-gray-500" />
+          }
+        </div></>
       ),
       reorder: true,
       width: "100px",
@@ -164,7 +200,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
   const [show, setShow] = useState(null)
   return (
-    <div className="mt-5">
+    <div className="mt-5 relative">
       <div className="w-full ">
         <DataTable
           title={""}
@@ -184,7 +220,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           paginationPerPage={perPage}
         />
       </div>
-
+      {showModal ? <><EditProfileModal setShowModal={setShowModal} /> </> : ""}
     </div>
   );
 };
@@ -228,7 +264,6 @@ export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, 
       {show === ele?.email && (
         // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
         <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
-
           <ul className="py-2 text-xs text-gray-700 ">
             {data.map((element, key) =>
               element.value !== role &&

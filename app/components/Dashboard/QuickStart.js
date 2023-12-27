@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
+import React, { useState, useEffect , useRef} from 'react'
+import { ArrowRightIcon, CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -36,7 +36,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { elements } from 'chart.js';
 
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
-
+    const divRef = useRef();
     // Helpers
     const dispatch = useDispatch();
     const router = useRouter();
@@ -67,6 +67,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [profileComplete, setProfileComplete] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
+const [showWidget, setShowWidget] = useState(false);
 
     const SideBarRoutes = [
         {
@@ -158,6 +159,35 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     }, []);
 
+    useEffect(() => {
+        if (showWidget) {
+           
+          window.scrollTo({ top: 500, behavior: 'smooth' });
+        }
+      }, [showWidget]);
+
+
+    // outside click event for bottom text  
+      const handleClickOutside = (event) => {
+        
+        if (divRef.current && !divRef.current.contains(event.target)) {
+          setShowWidget(false);
+        console.log("outside");
+        }
+      };
+    
+      useEffect(() => {
+        // Attach the click event listener to the document
+        document.addEventListener('click', handleClickOutside);
+    
+        // Cleanup the event listener when the component is unmounted
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+      }, []);
+
+
+
     // Control loader after load data from redux
     useEffect(() => {
         if (userLoader.isLoading == false && members.isLoading == false && workflow.isLoading == false && integrations.isLoading == false && billingState !== null && botData.botData.isLoading == false) {
@@ -231,7 +261,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                         {
                             billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="text-center text-sm flex justify-center">
@@ -255,7 +285,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                         {loadingScrapper && billingState == "demo" &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="flex justify-center text-sm mb-2">
@@ -275,7 +305,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* we will only show suggested actions for account if the profile is not completed */}
                         {(!loadingData && profileComplete) ? null :
 
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
                                     <div className="flex items-center  gap-2">
                                         <BoltIcon className="text-[#FF822D] w-5" />
@@ -283,16 +313,10 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                             Quick Start
                                         </p>
                                     </div>
-                                </div>
-
-
-
-                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
-
-                                {billingState == "normal" && !profileComplete &&
+                                    {billingState == "normal" && !profileComplete &&
                                     <div className="flex items-center gap-4 justify-end">
                                         <button
-                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
+                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg"
                                             onClick={ExpandChange}>
                                             {isExpand === true ? (
                                                 <>
@@ -308,6 +332,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                         </button>
                                     </div>
                                 }
+                                </div>
+
+
+
+                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
+
+                              
 
 
 
@@ -319,7 +350,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {/********* DEMO ACCOUNTS PANEL ************/}
                                 {billingState == "demo" &&
-                                    <div className='mt-3'>
+                                    <div className={`${isExpand === true && 'mt-3'}`}>
 
 
                                         {stripePromise && <Method></Method>}
@@ -448,7 +479,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {(billingState === "normal") &&
 
-                                    <div className='mt-3'>
+                                    <div className={`${isExpand === true && 'mt-3'}`}>
 
                                         <div className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
@@ -603,7 +634,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* ***** EXTRA DATA FOR BOTH TYPE OF ACCOUNTS (PAID AND DEMO) *******/}
 
                         {recentlyView && (
-                            <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                            <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                                 <div className='py-4 px-6'>
                                     <div className="flex items-center  gap-2">
                                         {loadingData ?
@@ -653,7 +684,10 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                         {loadingData ?
                                                             <SkeletonLoader count={1} height={30} width="50%" />
                                                             :
-                                                            <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                            <button className={'flex items-center justify-center gap-2 border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>
+                                                                Go To
+                                                                <ArrowRightIcon className='h-4 w-5' />
+                                                                </button>
                                                         }
                                                     </div>
                                                 </Link>
@@ -667,21 +701,22 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         <ChatBots setSkeleton={setLoadingData} skeleton={loadingData} />
 
 
-                        <Modal title={`How to pass user's data to your widget`}
+                        {/* <Modal title={`How to pass user's data to your widget`}
                             show={metaDataInfoModal}
                             setShow={setMetaDataInfoModal}
                             showCancel={true}
                             className={"pt-5 lg:w-1/2 m-auto"} >
-                            <MetaDataInfo></MetaDataInfo>
-                        </Modal >
-                        <div className='w-100 flex justify-center mt-5'>
-                            <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
-                                <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
+                           
+                        </Modal > */}
+                        <div className='w-100 flex justify-center mt-5 align-middle'>
+                            <button onClick={() => setShowWidget(!showWidget)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center border-[0px]'} style={{ fontSize: '10px' }}>
+                                <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4 m-[auto] '></InformationCircleIcon>
 
-                                Learn how to pass user's data to your widget
+                              <p className='mt-[3px]' ref={divRef}>  Learn how to pass user's data to your widget</p>
                             </button>
                         </div>
-
+                      {showWidget === true && <div ><MetaDataInfo /></div>  }
+                        
                     </>
                 )
 
@@ -690,7 +725,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                     ///////////// SKELETON FOR QUICKSTART
                     <>
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />
@@ -702,7 +737,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             </div>
                         </div>
 
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />

@@ -39,7 +39,7 @@ const HistoryRecord = ({ item }) => {
 
     return (
         <div key={item.id} className="mb-5 p-4 bg-white rounded-md shadow-sm">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3 gap-[10px]">
                 <div className="flex items-center">
                     <ClockIcon className="w-5 h-5 mr-2 text-primary" />
                     <span className="text-xs text-black" style={{ opacity: '0.6' }}>
