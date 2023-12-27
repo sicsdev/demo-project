@@ -24,6 +24,8 @@ import { AdjustmentsHorizontalIcon, EllipsisHorizontalIcon } from '@heroicons/re
 
 const ChatBots = ({ setSkeleton, skeleton }) => {
     const state = useSelector(state => state.user)
+    const stateBotData = useSelector((state) => state.botId);
+    
     const dispatch = useDispatch()
     const router = useRouter()
     const [showModal, setShowModal] = useState(false)
@@ -86,7 +88,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
             }
         })
     }
-
+    
     return (
         <>
             <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
@@ -102,24 +104,39 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                         </div>
                     ) : (
                         <div
-                            className={`py-4 flex  justify-center  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
+                            className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
                         >
-                            {skeleton ?
-                                <SkeletonLoader count={1} height={30} width={140} />
-                                :
-                                <>
-                                    <AdjustmentsHorizontalIcon className="text-primary w-5" />
-                                    <p className="text-base font-medium text-[#151D23]">
-                                        {totalRecords?.length > 1 ? 'Manage Bots' : 'Manage Bot'}
-                                    </p>
-                                </>
+                            <div className="flex items-start sm:items-center  gap-2">
+                                {skeleton ?
+                                    <SkeletonLoader count={1} height={30} width={140} />
+                                    :
+                                    <>
+                                        <AdjustmentsHorizontalIcon className="text-primary w-5" />
+                                        <p className="text-base font-medium text-[#151D23]">
+                                            {stateBotData?.botData.data?.bots?.length > 1 ? 'Manage Bots' : 'Manage Bot'}
+                                        </p>
+                                    </>
 
-                            }
+                                }
 
+                            </div>
+                            <div className="flex items-center gap-4 ">
+                                {skeleton ?
+                                    <SkeletonLoader count={1} height={30} width={100} />
+                                    :
+                                    (getPermissionHelper('CREATE NEW AGENT', state?.data?.role) && <button
+                                        onClick={(e) => { setShowModal(true) }}
+                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none hover:bg-primary hover:text-[#ffffff] transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+
+                                    >
+                                        Create New Agent
+                                    </button>)
+                                }
+                            </div>
                         </div>
                     )
                 }
-              
+
                 <Embed form={false} skeleton={skeleton} getPermissionHelper={getPermissionHelper} state1={state} setShowModal={setShowModal} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
