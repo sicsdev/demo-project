@@ -153,9 +153,9 @@ const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('MMM D
     gradient.addColorStop(0, "#fff");
     return gradient;
   }
-
+console.log("dataPoints",dataPoints)
   const data = {
-    labels: labels,
+    labels: labels.reverse(),
     datasets: [{
       label: 'chats',
       data: dataPoints.reverse(),
