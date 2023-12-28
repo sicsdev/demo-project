@@ -790,21 +790,22 @@ const Logs = () => {
     if (hasEmail && hasPhone) {
       return [{ name: "Select", value: "all" },
       { name: "Email", value: "email" },
+      { name: "Chat", value: "chat" },
       { name: "Phone", value: "phone" }]
     } else if (hasEmail) {
       return [{ name: "Select", value: "all" },
-      { name: "Email", value: "email" },]
+      { name: "Email", value: "email" },{ name: "Chat", value: "chat" },]
     } else if (hasPhone) {
       return [{ name: "Select", value: "all" },
-      { name: "Phone", value: "phone" }]
+      { name: "Phone", value: "phone" }, { name: "Chat", value: "chat" },]
     } else {
-      return [{ name: "Select", value: "all" }];
+      return [{ name: "Select", value: "all" },  { name: "Chat", value: "chat" },];
     }
   }
   function checkContentsName(arr) {
     const hasEmail = arr.includes("email");
     const hasPhone = arr.includes("phone");
-     if (hasEmail) {
+    if (hasEmail) {
       return "Email"
     } else if (hasPhone) {
       return "Phone"
@@ -839,7 +840,7 @@ const Logs = () => {
     }
 
   }
-  const getNameOfChat = ()=>{
+  const getNameOfChat = () => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
@@ -943,7 +944,7 @@ const Logs = () => {
           <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[180px] sm:h-[171px]">
               <h1 className="text-[11px] sm:text-sm text-heading font-semibold break-all">Conversations</h1>
-              <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
+              <p className="text-2xl text-heading font-bold my-2">{parseInt(additionalData.conversations).toLocaleString()}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
                 <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
