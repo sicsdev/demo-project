@@ -893,7 +893,7 @@ const Page = () => {
                         </div>
 
                         <div className="flex justify-end gap-4 items-center sm:mt-[20px]">
-                            <div className="w-full sm:w-[15%]">
+                            <div className="w-full sm:w-[16%]">
                                 <SelectOption
                                     onChange={(e) => handleSelectChange(e)}
                                     value={selectedOption || ""}
