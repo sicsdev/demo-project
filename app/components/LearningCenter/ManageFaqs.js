@@ -14,7 +14,6 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
-import Select from 'react-select';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 import { useSearchParams } from 'next/navigation';
 import { DocumentTextIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
