@@ -11,12 +11,9 @@ import NewSidebar from '../Dashboard/AuthLayout/NewSidebar'
 import { fetchBot } from '../store/slices/botIdSlice'
 import Cookies from 'js-cookie'
 import { usePathname, useSearchParams } from 'next/navigation';
-import TestingMiniBot from '../Chats/TestingMiniBot'
 import { useState } from 'react'
-import TestWidgetLayout from './TestWidgetLayout'
 import { getAllActiveBots } from '@/app/API/pages/Bot'
 import { getUserProfile } from '@/app/API/components/Sidebar'
-import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import { useRouter } from 'next/navigation'
 import { fetchMembers } from '../store/slices/memberSlice'
@@ -171,7 +168,6 @@ const Dashboard = ({ children }) => {
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res?.results)
             const profile = await getUserProfile()
-            const testBot = await getTestBot()
 
             sessionStorage.setItem('userHasKnowledgeUploaded', profile?.enterprise?.information_filled)
 

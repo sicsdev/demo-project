@@ -14,13 +14,14 @@ import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import EmailHandle from '@/app/components/VerifyEmail/EmailHaandle'
 import { getPermissionHelper } from '@/app/components/helper/returnPermissions'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
-import { AdjustmentsHorizontalIcon, CheckIcon, ClipboardIcon, InboxArrowDownIcon, InboxIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
+import { AdjustmentsHorizontalIcon, CalendarDaysIcon, CheckIcon, ClipboardIcon, QrCodeIcon, InboxIcon, ArrowPathIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import StatusIndicator from '@/app/components/StatusIndicator/Status'
 const page = () => {
 
     // Helpers / Selectors
@@ -33,6 +34,7 @@ const page = () => {
     const [pageSubLoading, setPageSubLoading] = useState(true);
     const [isCopy, setIsCopy] = useState(false);
     const [loading, setLoading] = useState(null)
+    const [driveLoad, setDriveLoad] = useState(false)
     const [basicFormData, setBasicFormData] = useState({});
     const [botValue, setBotValue] = useState([]);
     const [selectedBot, setSelectedBot] = useState('Select');
@@ -132,9 +134,7 @@ const page = () => {
         return checkFormData(tab0Keys) || (!basicFormData['agent_name'] || basicFormData['agent_name'].length === 0);
     }
 
-
     const SubmitForm = async () => {
-        // setLoading(true);
         let payload = {}
         payload = {
             agent_name: basicFormData.agent_name,
@@ -153,25 +153,11 @@ const page = () => {
                 agent_email_value: true
             }
         })
-
-        //E.G: nextmed-tickets-dev.deflection.ai
-
         !payload.logo && delete payload.logo;
         !payload.email && delete payload.email;
-        // const response_companyname = await createEnterpriseAccount({
-        //     domain: basicFormData.company_name + '-tickets-dev.deflection.ai',
-        // });
-        // if (user && user?.enterprise?.domain === '') {
-        //     const domains = await enterpriseDomainInitialize({
-        //         domain: basicFormData.company_name + '-tickets-dev.deflection.ai',
-        //     });
-        // }
-
-        // if (response_companyname.status === 200) {
         modifyBot(selectedBot, payload)
             .then(async (res) => {
                 if (res?.status === 200 || res?.status === 201) {
-
                     setLoading(false);
                     dispatch(fetchBot());
                     getBotInfo(selectedBot)
@@ -186,12 +172,65 @@ const page = () => {
                 setLoading(false);
                 errorMessage("Unable to update!");
             });
-        // } else {
-        //     console.log(err);
-        //     setLoading(false);
-        //     errorMessage("Unable to update!");
-        // }
     }
+
+
+    const [typingTimeout, setTypingTimeout] = useState(null)
+    const submissonForm = (formattedValue) => {
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+        const newTypingTimeout = setTimeout(() => {
+            Submission(formattedValue)
+        }, 2000);
+        setTypingTimeout(newTypingTimeout); // Assuming setTypingTimeout is the setter for typingTimeout state
+    }
+    const Submission = async (payloadData) => {
+        let payload = {}
+        payload = {
+            agent_name: payloadData.agent_name,
+            email_agent_title: payloadData.agent_title,
+            email_greeting: payloadData.email_greeting,
+            email_farewell: payloadData.email_farewell,
+            email_prefix: payloadData.email_prefix,
+            email: payloadData.email_prefix || 'support' +
+                "@" +
+                payloadData.company_name +
+                ".deflection.ai",
+        }
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                agent_email_value: true
+            }
+        })
+        !payload.logo && delete payload.logo;
+        !payload.email && delete payload.email;
+        modifyBot(selectedBot, payload)
+            .then(async (res) => {
+                if (res?.status === 200 || res?.status === 201) {
+
+                    setLoading(false);
+                    setDriveLoad(true)
+                    setTimeout(() => {
+                        setDriveLoad(false)
+                    }, 2000);
+                    dispatch(fetchBot());
+                    getBotInfo(selectedBot)
+
+                } else {
+                    setLoading(false);
+                    errorMessage("Unable to update!");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+                errorMessage("Unable to update!");
+            });
+    }
+
+
 
 
     return (
@@ -363,12 +402,14 @@ const page = () => {
 
                                 <div className='px-6 my-2'>
                                     {/* {user && user?.enterprise?.domain === '' && ( */}
-                                    <EmailAgentSetting selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                                    <EmailAgentSetting selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} Submission={submissonForm} />
                                     {/* )} */}
-                                    <EmailConfig selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                                    <EmailConfig selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} Submission={submissonForm} />
+
+                                    <StatusIndicator driveLoad={driveLoad} loading={loading} />
                                 </div>
 
-                                <div className='flex justify-end items-center px-6 py-4'>
+                                {/* <div className='flex justify-end items-center px-6 py-4'>
                                     {user && user?.enterprise?.domain === '' ?
                                         <Button
                                             type={"button"}
@@ -396,7 +437,7 @@ const page = () => {
                                                 <span>Loading...</span> </> : "Save"}
                                         </Button>
                                     }
-                                </div>
+                                </div> */}
                                 <ToastContainer />
                             </>
                         }

@@ -79,7 +79,7 @@ const NewSidebar = ({ children }) => {
     // State to store profile info locally
     const [profileInfo, setProfileInfo] = useState([])
     const [enterpriseInfo, setEnterpriseInfo] = useState(null)
-    
+
     // Selectors
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
     const userLoader = useSelector(state => state.user)
@@ -90,6 +90,7 @@ const NewSidebar = ({ children }) => {
 
     useEffect(() => {
         if (state?.enterprise && !enterpriseInfo) { setEnterpriseInfo(state.enterprise) }
+        console.log(state?.email)
     }, [state])
 
     // useEffect(() => {
@@ -632,30 +633,38 @@ const NewSidebar = ({ children }) => {
                                                             </Link>
                                                         ) : (
 
+                                                            (
+                                                                ele.name == 'Phone' &&
+                                                                    (
+                                                                        state?.email !== "admin@tempowidgets.com"
+                                                                        && !(state?.email.endsWith("joinnextmed.com"))
+                                                                        && !(state?.email.endsWith("usetempo.ai"))
+                                                                    )
 
-                                                            ((ele.name == 'Phone' && state?.email !== 'admin@tempowidgets.com') ? '' :
-                                                                <Link
-                                                                    href={ele.href}
-                                                                    onClick={() => handlerclosemenu(ele.href)}
-                                                                    className={`p-2 flex items-center justify-center !bg-transparent`}
-                                                                >
-                                                                    <div className="relative">
-                                                                        {ele.icon}
-                                                                        {ele.notification !== 0 && (
-                                                                            <span
-                                                                                style={{ fontSize: "10px" }}
-                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                            >
-                                                                                {ele.notification}
+                                                                    ? ''
+                                                                    :
+                                                                    <Link
+                                                                        href={ele.href}
+                                                                        onClick={() => handlerclosemenu(ele.href)}
+                                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                                    >
+                                                                        <div className="relative">
+                                                                            {ele.icon}
+                                                                            {ele.notification !== 0 && (
+                                                                                <span
+                                                                                    style={{ fontSize: "10px" }}
+                                                                                    className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                                >
+                                                                                    {ele.notification}
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+                                                                        {!collaps && (
+                                                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                                {ele.name}
                                                                             </span>
                                                                         )}
-                                                                    </div>
-                                                                    {!collaps && (
-                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                            {ele.name}
-                                                                        </span>
-                                                                    )}
-                                                                </Link>)
+                                                                    </Link>)
                                                         )
                                                     )
                                                 }
@@ -1091,7 +1100,7 @@ const NewSidebar = ({ children }) => {
 
                                         {!collaps && (
                                             <div className="relative ">
-                                                { enterpriseInfo ?
+                                                {enterpriseInfo ?
                                                     <>
                                                         <p className="text-[12px] text-normal">{enterpriseInfo?.name}</p>
                                                         <p className="text-[12px] text-normal">{state?.role ? makeCapital(state?.role) : 'Administrator'}</p>

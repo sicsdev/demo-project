@@ -17,7 +17,8 @@ const EmailAgentSetting = ({
   basicFormData,
   setBasicFormData,
   form = true,
-  selectedBot
+  selectedBot,
+  Submission
 }) => {
   const userState = useSelector((state) => state.user.data);
 
@@ -42,10 +43,8 @@ const EmailAgentSetting = ({
 
   const handleInputValues = (e) => {
     const { value } = e.target;
-
     console.log(e.target.value, e.target.name)
     if (value !== " ") {
-      // setErrors([])
       setFormValues({ ...formValues, [e.target.name]: value });
       setBasicFormData((prev) => {
         return {
@@ -53,6 +52,7 @@ const EmailAgentSetting = ({
           [e.target.name]: value,
         };
       });
+      Submission({...basicFormData,[e.target.name]: value,})
       switch (e.target.name) {
         case "company_name":
           value !== ""
@@ -64,6 +64,7 @@ const EmailAgentSetting = ({
               [e.target.name]: value !== "" ? value : "{company_name}",
             };
           });
+          Submission({...basicFormData,[e.target.name]: value !== "" ? value : "{company_name}",})
           break;
         case "email_prefix":
           setEmail_Prefix(value);
@@ -73,6 +74,7 @@ const EmailAgentSetting = ({
               [e.target.name]: value,
             };
           });
+          Submission({...basicFormData,[e.target.name]: value,})
           break;
 
         default:
@@ -81,6 +83,8 @@ const EmailAgentSetting = ({
     }
   };
 
+
+  
   const returnErrorMessage = (key) => {
     // if (errors.length) {
     //     const findErr = errors.find((x) => x.field === key)

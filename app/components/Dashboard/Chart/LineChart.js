@@ -153,12 +153,12 @@ const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('MMM D
     gradient.addColorStop(0, "#fff");
     return gradient;
   }
-
+console.log("dataPoints",dataPoints)
   const data = {
-    labels: labels,
+    labels: labels.reverse(),
     datasets: [{
       label: 'chats',
-      data: dataPoints,
+      data: dataPoints.reverse(),
       // data: [0, 2, 5, 0, 0, 5, 0],
       fill: true,
       // backgroundColor: 'rgb(222,236,249, 0.3)',

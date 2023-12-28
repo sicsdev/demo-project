@@ -11,8 +11,12 @@ import { useSearchParams } from "next/navigation";
 import Button from "../Common/Button/Button";
 import { MinusIcon } from "@heroicons/react/24/outline";
 
-const Schedule = ({ basicFormData, setBasicFormData }) => {
+import { DocumentIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import StatusIndicator from "../StatusIndicator/Status";
+const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setDriveLoad, loading, setLoading }) => {
   const searchParams = useSearchParams();
+
+
   const [custom, setCustom] = useState(true);
   const [errors, setErrors] = useState([]);
   const [schedule, setSchedules] = useState(basicFormData);
@@ -22,6 +26,8 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
     const updatedSchedule = { ...schedule };
     updatedSchedule[name][id].start = value;
     setSchedules(updatedSchedule);
+    debugger
+    Submission(updatedSchedule)
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -35,6 +41,8 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
     const updatedSchedule = { ...schedule };
     updatedSchedule[name][id].end = value;
     setSchedules(updatedSchedule);
+    debugger
+    Submission( updatedSchedule )
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -57,6 +65,8 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
       ...prevState,
       [day]: dayArray,
     }));
+    debugger
+    Submission({ ...schedule, [day]: dayArray })
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -78,34 +88,26 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
         [day]: dayArray,
       };
     });
+    debugger
+    Submission({ ...schedule, [day]: dayArray })
   };
-  console.log("schedule", schedule)
   const handleCheckbox = (day) => {
+    let dayArray = []
     if (schedule[day].length === 0) {
-      const dayArray = [...schedule[day]];
+      dayArray = [...schedule[day]];
       dayArray.push({ start: "00:00", end: "23:59" });
-      setSchedules((prevState) => ({
-        ...prevState,
-        [day]: dayArray,
-      }));
-      setBasicFormData((prev) => {
-        return {
-          ...prev,
-          [day]: dayArray,
-        };
-      });
-    } else {
-      setSchedules((prevState) => ({
-        ...prevState,
-        [day]: [],
-      }));
-      setBasicFormData((prev) => {
-        return {
-          ...prev,
-          [day]: [],
-        };
-      });
     }
+    setSchedules((prevState) => ({
+      ...prevState,
+      [day]: dayArray,
+    }));
+    setBasicFormData((prev) => {
+      return {
+        ...prev,
+        [day]: dayArray,
+      };
+    });
+    Submission({ ...schedule, [day]: dayArray })
   };
 
   return (
@@ -289,7 +291,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                 </>
               ))}
             </div>
-
+            <StatusIndicator driveLoad={driveLoad} loading={loading}/>
             {errors?.map((e) => (
               <div className="text-center my-2">
                 <small className="text-red">{e}</small>
