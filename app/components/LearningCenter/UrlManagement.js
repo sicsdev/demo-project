@@ -78,7 +78,7 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
             const response = await getDomainSubPages(payload);
             if (response.status === 201 || response.status === 200) {
                 const newData = [
-                    { 0: basicFormData.url, 1: "Genral" },
+                    { 0: basicFormData.url, 1: "General" },
                     ...response?.data // Add the existing data after the new object
                 ];
                 setSubDomainPages(newData);
