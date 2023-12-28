@@ -5,11 +5,13 @@ import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import SelectOption from "@/app/components/Common/Input/SelectOption";
 import Customize from "@/app/components/Customize/Customize";
+import { DebounceSubmitForm } from "@/app/components/Debouncing/Deboucing";
 import {
   errorMessage,
   successMessage,
 } from "@/app/components/Messages/Messages";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+import StatusIndicator from "@/app/components/StatusIndicator/Status";
 import EmailHandle from "@/app/components/VerifyEmail/EmailHaandle";
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 import {
@@ -157,6 +159,55 @@ const page = () => {
       });
   };
 
+  const [typingTimeout, setTypingTimeout] = useState(null)
+  const [driveLoad, setDriveLoad] = useState(false)
+
+  const Submission = async (formattedValue) => {
+    setLoading(true);
+    let payload = {};
+    payload = {
+      ...formattedValue,
+      logo: formattedValue.logo_file_name ? formattedValue.logo : "",
+    };
+    delete payload.payment_platform;
+    delete payload.ticketing_platform;
+    delete payload.cancellation_tolerance;
+
+    !payload.logo && delete payload.logo;
+    // !payload.description && delete payload.description;
+    if (payload["category"] === "") {
+      payload["category"] = "standard";
+    }
+    !payload.email && delete payload.email;
+
+    modifyBot(selectedBot, payload)
+      .then((res) => {
+        if (res?.status === 200 || res?.status === 201) {
+          setLoading(false);
+          dispatch(fetchBot());
+          getBotInfo(selectedBot);
+          setDriveLoad(true)
+          setTimeout(() => {
+            setDriveLoad(false)
+          }, 2000);
+          // successMessage("Changes successfully saved!");
+          // router.push(`/dashboard`);
+        } else {
+          setLoading(false);
+          errorMessage("Unable to update!");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        errorMessage("Unable to update!");
+      });
+  };
+
+  const SubmissionForm = (formattedValue) => {
+    DebounceSubmitForm(formattedValue, Submission, setTypingTimeout, typingTimeout)
+  }
+
   return (
     <div style={{ whiteSpace: "normal" }}>
       <TopBar
@@ -202,8 +253,8 @@ const page = () => {
                               onClick={(e) => selectBotHandler(element.value)}
                               key={key}
                               className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot
-                                  ? "text-white bg-primary"
-                                  : "bg-white text-[#151D23]"
+                                ? "text-white bg-primary"
+                                : "bg-white text-[#151D23]"
                                 } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                             >
                               {" "}
@@ -304,14 +355,20 @@ const page = () => {
             ) : (
               <>
                 {tab == 0 && (
-                  <Customize
-                    form={false}
-                    basicFormData={basicFormData}
-                    setBasicFormData={setBasicFormData}
-                    buttonLoading={loading}
-                    DisablingButton={DisablingButton}
-                    SubmitForm={SubmitForm}
-                  />
+                  <>
+                    <Customize
+                      form={false}
+                      basicFormData={basicFormData}
+                      setBasicFormData={setBasicFormData}
+                      buttonLoading={loading}
+                      DisablingButton={DisablingButton}
+                      SubmitForm={SubmitForm}
+                      Submission={SubmissionForm}
+                    />
+                    <div className="p-8">
+                      <StatusIndicator loading={loading} driveLoad={driveLoad} />
+                    </div>
+                  </>
                 )}
               </>
             )}

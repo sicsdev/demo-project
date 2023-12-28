@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SideModal from '../SideModal/SideModal'
-import { DocumentTextIcon, LinkIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+import { DocumentTextIcon, GlobeAmericasIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
@@ -242,69 +242,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
 
 
-    const DateValues = ["Filter by date", "Today", "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "Last 3 Months", "This Year", "Last Year"]
-
-    const [selectedOption, setSelectedOption] = useState('');
-
-    const handleSelectChange = (event) => {
-        setSelectedOption(event.target.value);
-        const dates = getDatesForOption(event.target.value);
-        setSelectedOptionValue(dates)
-    };
-
-    const getDatesForOption = (option) => {
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        let startDate, endDate;
-        if (option === "Filter by date") {
-            return null
-        }
-        switch (option) {
-            case 'Today':
-                startDate = endDate = today;
-                break;
-            case 'Yesterday':
-                startDate = endDate = new Date(today.setDate(today.getDate() - 1));
-                break;
-            case 'Last 7 Days':
-                startDate = new Date(today.setDate(today.getDate() - 7));
-                endDate = today;
-                break;
-            case 'Last 30 Days':
-                startDate = new Date(today.setDate(today.getDate() - 30));
-                endDate = today;
-                break;
-            case 'This Month':
-                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-                endDate = today;
-                break;
-            case 'Last Month':
-                startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-                endDate = new Date(today.getFullYear(), today.getMonth(), 0);
-                break;
-            case 'Last 3 Months':
-                startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
-                endDate = today;
-                break;
-            case 'This Year':
-                startDate = new Date(today.getFullYear(), 0, 1);
-                endDate = today;
-                break;
-            case 'Last Year':
-                startDate = new Date(today.getFullYear() - 1, 0, 1);
-                endDate = new Date(today.getFullYear() - 1, 11, 31);
-                break;
-            default:
-                // Default to today if no option is matched
-                startDate = endDate = today;
-                break;
-        }
-
-        return {
-            created__gte: startDate.toISOString().split('T')[0],
-            created__lte: endDate.toISOString().split('T')[0]
-        };
-    };
     return (
         <>
 
@@ -434,19 +371,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             </div>
 
             <div className='flex flex-col sm:flex-row items-center justify-end'>
-                <div className="w-full sm:w-[15%] mt-2  mx-auto sm:m-0">
-                    <SelectOption
-                        onChange={(e) => handleSelectChange(e)}
-                        value={selectedOption || ""}
-                        name="filtering"
-                        values={DateValues.map((e) => { return { name: e, value: e } })}
-                        title={""}
-                        id={"filtering"}
-                        className="!py-1.5  !m-0"
-                        error={""}
-                        showOption={false}
-                    />
-                </div>
+               
                 <div className='sm:flex md:flex lg:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 sm:text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -649,7 +574,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     className="flex items-center"
                                 >
                                     <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
-                                        <LinkIcon className="h-full w-full text-white" />
+                                        <GlobeAmericasIcon className="h-full w-full text-white" />
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-sm font-bold">

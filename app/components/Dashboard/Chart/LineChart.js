@@ -158,7 +158,7 @@ const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('MMM D
     labels: labels,
     datasets: [{
       label: 'chats',
-      data: dataPoints,
+      data: dataPoints.reverse(),
       // data: [0, 2, 5, 0, 0, 5, 0],
       fill: true,
       // backgroundColor: 'rgb(222,236,249, 0.3)',
