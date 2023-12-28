@@ -171,7 +171,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.external = basicFormData.external + 1;
                 setBasicFormData(updatedFormData);
-
             } else if (value.type === 'PRODUCT') {
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.product = basicFormData.product + 1;
