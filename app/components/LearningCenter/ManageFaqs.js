@@ -83,7 +83,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             // Handle error
         }
     };
-
+    const getIndex = (elementId) => {
+        const findIndex = questions?.data?.results.findIndex(x => x.id === elementId)
+        return findIndex
+    }
     const onSelectData = (selectedList, selectedItem, index) => {
         let updatedSelectedList = [...questions.selectedBot];
         updatedSelectedList[index] = selectedList;
@@ -117,7 +120,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         const response = await patchKnowledgeQuestion(newPayload, selected?.id)
         if (response.status === 200 || response.status === 201) {
             // dispatch(fetchFaqQuestions('page=1&page_size=10'));
-            getQuestionsData()
+            // getQuestionsData()
             setUpdateLoader(false)
             setDriveLoad(true)
             setTimeout(() => {
@@ -596,7 +599,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         setDeleteWorkflowModal={setDeleteWorkflowModal}
                         deleteWorkflowModal={deleteWorkflowModal}
                         showSubHeadings={true}
-                        subHeadings={faqKnowledgeSubheading()}
+                        subHeadings={""}
                     >
 
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
@@ -668,6 +671,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                                 }
                                                 return { selectBots: selectedList }
                                             })
+
+                                            onSelectData(selectedList, selectedItem, getIndex(selected.id));
                                         }}
                                         onRemove={(selectedList, selectedItem) => {
                                             setSelected((prev) => {
@@ -679,6 +684,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                                 }
                                                 return { selectBots: selectedList }
                                             })
+                                            onSelectData(selectedList, selectedItem, getIndex(selected.id));
                                         }}
                                         placeholder={"Select Bots"}
 
