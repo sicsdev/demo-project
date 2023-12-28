@@ -168,13 +168,26 @@ const Logs = () => {
     }
 
   })
+  function combineArrays(main, usage, usedIn) {
+    // Combine the arrays
+    const combinedArray = main.map((item, index) => {
+      return {
+        ...item, // Spread the properties of the main array item
+        usage: main.length !== usage.length ? [] : usage[index], // Add usage array's corresponding item
+        usedIn: main.length !== usedIn.length ? [] : usedIn[index] // Add usedIn array's corresponding item
+      };
+    });
+
+    return combinedArray;
+  }
   const getAllBots = async () => {
     let allBots = await getBotAllData()
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
     const widgetCode = state.botData.data.widgets;
-
+    const usage = state.botData.data.usage || [];
+    const usedIn = state.botData.data.usedIn || [];
     const mergedArray = widgetCode.map((item, index) => {
       const title = getTitle[index];
       return {
@@ -184,7 +197,8 @@ const Logs = () => {
     });
 
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
-    setBotValue(mergedArray);
+    let combineData = combineArrays(mergedArray, usage, usedIn)
+    setBotValue(combineData);
     // getAdditionalData(mergedArray)
 
     const selectedWorkflowParam = params.get('selectedWorkflow')
@@ -770,8 +784,70 @@ const Logs = () => {
     setIdOfOpenConversation(newPage[newPage.length - 1].id)
 
   }
+  function checkContents(arr) {
+    const hasEmail = arr.includes("email");
+    const hasPhone = arr.includes("phone");
+    if (hasEmail && hasPhone) {
+      return [{ name: "Select", value: "all" },
+      { name: "Email", value: "email" },
+      { name: "Phone", value: "phone" }]
+    } else if (hasEmail) {
+      return [{ name: "Select", value: "all" },
+      { name: "Email", value: "email" },]
+    } else if (hasPhone) {
+      return [{ name: "Select", value: "all" },
+      { name: "Phone", value: "phone" }]
+    } else {
+      return [{ name: "Select", value: "all" }];
+    }
+  }
+  function checkContentsName(arr) {
+    const hasEmail = arr.includes("email");
+    const hasPhone = arr.includes("phone");
+     if (hasEmail) {
+      return "Email"
+    } else if (hasPhone) {
+      return "Phone"
+    } else {
+      return "Chat"
+    }
+  }
+
+  const getEmailPhoneData = (userState) => {
+    if (selectedBot !== "Select" && botValue.length !== 0) {
+      const findBot = botValue.find((x) => x.value === selectedBot)
+      if (findBot) {
+        return checkContents(findBot.usedIn)
+      }
+    }
+    if (userState && userState?.email?.split("@")[1] === 'joinnextmed.com') {
+      return [
+        { name: "Select", value: "all" },
+        { name: "Chat", value: "chat" },
+        { name: "Email", value: "email" },
+        { name: "Phone", value: "phone" }
+      ]
+    }
+    else {
+      return [
+        { name: "Select", value: "all" },
+        { name: "Chat", value: "chat" },
+        { name: "Email", value: "email" },
+      ]
 
 
+    }
+
+  }
+  const getNameOfChat = ()=>{
+    if (selectedBot !== "Select" && botValue.length !== 0) {
+      const findBot = botValue.find((x) => x.value === selectedBot)
+      if (findBot) {
+        return checkContentsName(findBot.usedIn)
+      }
+    }
+    return "Chat"
+  }
   return (
     <>
       <div>
@@ -1027,16 +1103,7 @@ const Logs = () => {
                     onChange={(e) => filterDataHandler(e)}
                     value={selectedFilters.type || ""}
                     name="type"
-                    values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
-                      { name: "Select", value: "all" },
-                      { name: "Chat", value: "chat" },
-                      { name: "Email", value: "email" },
-                      { name: "Phone", value: "phone" }
-                    ] : [
-                      { name: "Select", value: "all" },
-                      { name: "Chat", value: "chat" },
-                      { name: "Email", value: "email" },
-                    ]}
+                    values={getEmailPhoneData(userState)}
                     title={
                       <h3 className="text-sm my-4 font-semibold">Channel</h3>
                     }
@@ -1210,7 +1277,7 @@ const Logs = () => {
               <>
                 {/* <Card> */}
                 <div className="hidden sm:flex justify-center">
-                  <h1 className="text-heading text-sm font-semibold">Chat</h1>
+                  <h1 className="text-heading text-sm font-semibold">{getNameOfChat()}</h1>
 
                 </div>
 

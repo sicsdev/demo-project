@@ -307,7 +307,7 @@ const UsageLimit = () => {
 
 
     setLoadingCharBar(true)
-    setFormData(state?.enterprise.billing_thresholds?.amount_gte);
+    setFormData("$ " + state?.enterprise.billing_thresholds?.amount_gte);
 
 
 
@@ -419,27 +419,30 @@ const UsageLimit = () => {
       setLoadingCharBar(false)
     }
   };
-
   const handleInputValues = (event) => {
-    let inputValue = event.target.value.replace(/[.,]/g, "");
-    if (inputValue > 10000) {
-      inputValue = 10000;
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^0-9$,.]/g, '');
+    let numericValue = inputValue.replace(/[$,.]/g, '');
+    if (numericValue > 10000) {
+      numericValue = 10000;
     }
-    if (inputValue < 50 || inputValue > 10000) {
+    if (numericValue < 50 || numericValue > 10000) {
       setError(true);
     } else {
       setError(false);
     }
-
-    setFormData(inputValue);
+    const formattedValue = inputValue ? `$ ${numericValue}` : '';
+    setFormData(formattedValue);
   };
 
+
   const SubmitForm = async () => {
-    if (formData < 50 || formData > 10000) {
+    const apiValue = formData.replace(/[$]/g, '');
+    if (apiValue < 50 || apiValue > 10000) {
     } else {
       setBtnLoading(true);
       const response = await updateThresholds({
-        billing_thresholds: { amount_gte: parseInt(formData) },
+        billing_thresholds: { amount_gte: parseInt(apiValue) },
       });
       if (response.status === 200) {
         // successMessage("Form update successfully !")
@@ -573,19 +576,15 @@ const UsageLimit = () => {
 
 
                       <div className="relative flex items-center mt-1">
-                        <small className="z-50 m-auto opacity-80 absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2">
-                          $
-                        </small>
                         <input
-                          style={{ paddingLeft: '20px' }}
                           onChange={handleInputValues}
-                          value={formData}
-                          className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400 focus:border-sky disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white border-danger focus:invalid:border-danger z-10 focus:!pl-[20px]"
+                          value={formData || "$"}
+                          className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400 focus:border-sky disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white focus:invalid:border-danger z-10"
                           placeholder=''
                           id='billing_thresholds'
                           name='billing_thresholds'
                           title={""}
-                          type={"number"}
+                          type={"text"}
                         >
                         </input>
 

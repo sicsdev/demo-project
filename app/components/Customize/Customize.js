@@ -710,12 +710,23 @@ const Customize = ({
                       Default Prompts
                     </span>
                   </div>
-                  <div className="flex justify-start w-1/2">
-                    <div
-                      className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length > 0 && "p-2"
-                        }`}
-                    >
-                      <div className="flex flex-wrap items-center justify-start gap-1">
+                  <div className="flex flex-col justify-start w-1/2">
+                  
+                    
+                      <input
+                        value={formValues.agent_name}
+                        onKeyDown={handleKeyDown}
+                        required
+                        onChange={handleAgentNameValue}
+                        type={"text"}
+                        placeholder={"Enter prompts separated by commas"}
+                        className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                        id={"chat_suggestions"}
+                        name={"chat_suggestions"}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
+                      />
+                    <div className="flex mt-2 flex-wrap items-center justify-start gap-1">
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
                             <div
@@ -732,21 +743,8 @@ const Customize = ({
                             </div>
                           ))}
                       </div>
-                      <input
-                        value={formValues.agent_name}
-                        onKeyDown={handleKeyDown}
-                        required
-                        onChange={handleAgentNameValue}
-                        type={"text"}
-                        placeholder={"Enter prompts separated by commas"}
-                        className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none`}
-                        id={"chat_suggestions"}
-                        name={"chat_suggestions"}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
-                      />
-                    </div>
                   </div>
+              
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">

@@ -37,12 +37,13 @@ const SideModal = ({ deleteWorkflowModal,
         >
           <div className="block md:flex flex-1 items-center justify-start gap-3 mx-2">
             <h2 className={`max-w-[100%] md:max-w-[75%] text-black-color text-sm !font-semibold opacity-90 ${titleStyles && titleStyles}`} style={{ fontFamily: '' }}>{heading}</h2>
-            {showSubHeadings && (
-              subHeadings
-            )}
+            
 
           </div>
           <div className="flex hover:cursor-pointer items-center justify-center gap-2">
+          {showSubHeadings && (
+              subHeadings
+            )}
             {deleteButton && (
               <ButtonComponent
                 data={data}

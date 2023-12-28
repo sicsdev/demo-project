@@ -20,7 +20,7 @@ import { html } from "@codemirror/lang-html";
 import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
-import { EmbedCard } from "./EmbedCard";  
+import { EmbedCard } from "./EmbedCard";
 import LineChart from "../Dashboard/Chart/LineChart";
 const Embed = ({ form = true, setTotalRecords,
   skeleton,
@@ -49,8 +49,8 @@ const Embed = ({ form = true, setTotalRecords,
     const combinedArray = main.map((item, index) => {
       return {
         ...item, // Spread the properties of the main array item
-        usage:main.length !== usage.length?[]: usage[index], // Add usage array's corresponding item
-        usedIn: main.length !== usedIn.length ? []:usedIn[index] // Add usedIn array's corresponding item
+        usage: main.length !== usage.length ? [] : usage[index], // Add usage array's corresponding item
+        usedIn: main.length !== usedIn.length ? [] : usedIn[index] // Add usedIn array's corresponding item
       };
     });
 
@@ -58,7 +58,7 @@ const Embed = ({ form = true, setTotalRecords,
   }
   useEffect(() => {
     if (state.botData.data?.bots && state.botData.data?.widgets) {
-      const getTitle = state.botData.data.bots.map(     
+      const getTitle = state.botData.data.bots.map(
         (element) => element.chat_title
       );
       const widgetCode = state.botData.data.widgets;
@@ -166,18 +166,22 @@ const Embed = ({ form = true, setTotalRecords,
             <>
               <div className="grid grid-cols-1 sm:pb-3 md:grid-cols-2 lg:grid-cols-2">
                 {detailsData &&
-                  detailsData.map((element, key) => (
-                    <div className="p-2 sm:pt-0 sm:px-5" key={key}>
+                  detailsData.length > 0 && detailsData.map((element, index) => (
+                    <>
                       <EmbedCard
-                        key={key}
+                        detailsData={detailsData}
+                        setDetailsData={setDetailsData}
+                        key={index}
                         skeleton={skeleton}
                         setSkeleton={setSkeleton}
                         element={element}
                         copied={copied}
+                        index={index}
                         setCopied={setCopied}
                       ></EmbedCard>
-                    </div>
+                    </>
                   ))}
+
               </div>
 
               {state.botData.error && (
