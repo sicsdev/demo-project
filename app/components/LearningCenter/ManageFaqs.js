@@ -10,16 +10,14 @@ import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
 import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, getFaqQuestionById, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, addNegativeBulkCreate, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
-import { makeCapital } from '../helper/capitalName';
-import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
-import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 import { useSearchParams } from 'next/navigation';
-import { DocumentIcon, ChartBarIcon, CheckBadgeIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import { DocumentTextIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import StatusIndicator from '../StatusIndicator/Status';
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
 
     const params = useSearchParams()
@@ -478,8 +476,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                             {
                                 selected?.knowledge?.source === 'snippet' ?
                                     <>
-                                        <span className="text-sm text-heading font-semibold">Type: </span>
-                                        <DocumentIcon className='h-4 w-4 text-primary' />
+                                        <span className="text-sm text-primary font-semibold">Type: </span>
+                                        <DocumentTextIcon className='h-4 w-4 text-heading' />
 
                                     </>
                                     : selected?.knowledge?.source === 'file' ?
@@ -489,12 +487,12 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                         :
                                         <ChartBarIcon className='h-4 w-4 text-primary' />
                             }
-                            <span className="text-sm text-primary font-semibold">{selected?.knowledge?.source}</span>
+                            <span className="text-sm text-heading font-semibold">{selected?.knowledge?.source}</span>
                         </div>
                         <h2
-                            className={`text-primary text-sm !font-semibold opacity-90`}
+                            className={`text-heading text-sm !font-semibold opacity-90`}
                         >
-                            Usage: {selected.knowledgefaq_usage_last_24_hours}
+                            <span className="text-sm text-primary font-semibold"> Usage:</span> {selected.knowledgefaq_usage_last_24_hours}
                         </h2>
                     </div>
 
@@ -699,15 +697,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                         </svg>
                                         <span>Loading...</span> </> : "Save"}
                                 </button> */}
-                                {driveLoad === true ? <div className='text-center flex justify-center gap-2 items-center'><CheckBadgeIcon className='h-5 w-5' /><span className='text-sm text-heading'> Saved</span></div> :
-                                    <>
-                                        {updateLoader ?
-                                            <div className='text-center flex justify-center gap-2 items-center'>
-                                                <ArrowPathIcon className='h-5 w-5' />
-                                                <span className=' text-sm text-heading'>Saving...</span></div> :
-                                            <div className='text-center flex justify-center gap-2 items-center'><CheckBadgeIcon className='h-5 w-5' /></div>}
-                                    </>
-                                }
+                                <StatusIndicator driveLoad={driveLoad} loading={updateLoader} />
+
                             </>
                         )}
                         {tab === 1 && (
@@ -731,7 +722,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
                     </SideModal>
                 )}
-            </div>
+            </div >
         </>
     )
 }

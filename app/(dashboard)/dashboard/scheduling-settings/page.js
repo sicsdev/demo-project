@@ -3,9 +3,6 @@ import { getAllBotData, modifyBot } from '@/app/API/pages/Bot'
 import Button from '@/app/components/Common/Button/Button'
 import LoaderButton from '@/app/components/Common/Button/Loaderbutton'
 import TopBar from '@/app/components/Common/Card/TopBar'
-import SelectOption from '@/app/components/Common/Input/SelectOption'
-import TextField from '@/app/components/Common/Input/TextField'
-import Customize from '@/app/components/Customize/Customize'
 import Schedule from '@/app/components/Customize/Schedule'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
@@ -17,6 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 const page = () => {
+    const [driveLoad, setDriveLoad] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
     const [pageSubLoading, setSubLoading] = useState(true);
     const [isCopy, setIsCopy] = useState(false);
@@ -122,6 +120,42 @@ const page = () => {
                 errorMessage("Unable to update!");
             });
     }
+    const [typingTimeout, setTypingTimeout] = useState(null)
+    const submissonForm = (formattedValue) => {
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+        const newTypingTimeout = setTimeout(() => {
+            Submission(formattedValue)
+        }, 2000);
+        setTypingTimeout(newTypingTimeout); // Assuming setTypingTimeout is the setter for typingTimeout state
+    }
+    const Submission = (schedule) => {
+        setLoading(true);
+        let payload = {}
+        payload = { schedule }
+
+        modifyBot(selectedBot, payload)
+            .then((res) => {
+                if (res?.status === 200 || res?.status === 201) {
+                    setLoading(false);
+                    dispatch(fetchBot());
+                    getBotInfo(selectedBot)
+                    setDriveLoad(true)
+                    setTimeout(() => {
+                        setDriveLoad(false)
+                    }, 2000);
+                } else {
+                    setLoading(false);
+                    errorMessage("Unable to update!");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+                errorMessage("Unable to update!");
+            });
+    }
 
     return (
         <div style={{ whiteSpace: "normal" }}>
@@ -194,8 +228,8 @@ const page = () => {
                     ) : (
                         <>
 
-                            <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
-                            <div className='flex justify-end items-center px-6 py-4'>
+                            <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} Submission={submissonForm} driveLoad={driveLoad} setDriveLoad={setDriveLoad} loading={loading} setLoading={setLoading} />
+                            {/* <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
                                         <LoaderButton />
@@ -210,7 +244,7 @@ const page = () => {
                                             </Button>
                                         </>
                                     )}
-                            </div>
+                            </div> */}
                             <ToastContainer />
                         </>
                     )}
