@@ -325,9 +325,9 @@ const Login = () => {
                     {loading ? (
                       <>
                         <div className='flex gap-6 justify-center'>
-                          <div className='relative flex'>
+                          <div className='relative flex w-[4px]'>
 
-                            <div className='absolute z-50'>
+                            <div className='absolute z-50 top-[-2px]'>
                               <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" className='animate-spin'>
                                 <circle cx="50" cy="50" fill="none" stroke="#E5E7EB" stroke-width="8" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
                                   <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="5s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
@@ -335,7 +335,7 @@ const Login = () => {
                               </svg>
                             </div>
 
-                            <div className='absolute z-10'>
+                            <div className='absolute z-10 top-[-2px]'>
                               <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 97 100" preserveAspectRatio="xMidYMid" className=''>
                                 <circle cx="50" cy="50" fill="none" stroke="white" stroke-width="8" r="35" stroke-dasharray="219.91">
                                 </circle>
@@ -344,7 +344,7 @@ const Login = () => {
                             </div>
 
                           </div>
-                          <span>Loading...</span>{" "}
+                          <span className="leading-[13px] py-[2px]">Loading...</span>{" "}
                         </div>
                       </>
                     ) : (
