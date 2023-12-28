@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, CheckCircleIcon, EnvelopeIcon, ArrowRightIcon, CalendarIcon, PhoneArrowDownLeftIcon, UserIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, CheckCircleIcon, EnvelopeIcon, ArrowRightIcon, CalendarIcon, PhoneArrowDownLeftIcon, UserIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -480,12 +480,22 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                             <div className="infoContainer text-xs" >
 
+                                                {
+                                                    !(conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name)
+                                                    && !(conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email)
+                                                    && !(conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone)
+                                                    && (numberOfTicketsForThisCustomer > 1)
+                                                    &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <GlobeAltIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails.customer?.ip || 'Unknown'}</span>
+                                                    </div>
+                                                }
 
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <UserIcon className="h-4 w-4 text-primary" />
                                                     <span>{conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name || 'Unknown'}</span>
                                                 </div>
-
 
 
                                                 <div className="flex items-center gap-2 mb-1">
