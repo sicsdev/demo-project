@@ -61,7 +61,7 @@ const hoverShadowPlugin = {
 // You need to register this plugin with Chart.js
 ChartJS.register(hoverShadowPlugin);
 const LineChart = ({ chartData }) => {
-  const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('ddd YY')
+const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('MMM DD YY'));
   )
   const dataPoints = chartData.map(ele => ele.usage) // Example data points
   const options = {
