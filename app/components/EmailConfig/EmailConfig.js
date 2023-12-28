@@ -150,21 +150,19 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
     <div className="container my-3">
       <div className="grid grid-cols-1 my-3">
 
-        {/* <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
+        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
           <div className='flex items-center gap-2'>
-            <UserCircleIcon className='h-5 w-5'></UserCircleIcon> Agent Names Configuration
-          </div>
-          <small className='flex items-center text-xs'>Define AI Agent Identities for your {selectedBot} bot. </small>
-        </div> */}
-
 <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
-Agent Names Configuration        </h2>
+Agent Names Configuration        </h2>          </div>
+        </div>
+
+
         <div className="my-2">
           <TextField
             onChange={handleInputValues}
             value={formValues.agent_title}
             name="agent_title"
-            className="py-3 mt-1"
+            className="py-3 mt-1 !rounded-none"
             title={
               <div className="flex items-center gap-2 w-[150px]">
                 <span>Agent Job Title</span>{" "}
@@ -220,7 +218,7 @@ Agent Names Configuration        </h2>
                 onChange={handleAgentNameValue}
                 type={"text"}
                 placeholder={"Enter names separate by commas"}
-                className={`new_input block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
+                className={`new_input !rounded-none block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
                 id={"agent_name"}
                 name={"agent_name"}
                 disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}

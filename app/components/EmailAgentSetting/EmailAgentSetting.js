@@ -103,15 +103,13 @@ const EmailAgentSetting = ({
     
     >
       <div className="">
-        {/* <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
+        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
           <div className='flex items-center gap-2'>
-            <EnvelopeIcon className='h-5 w-5'></EnvelopeIcon> Email Settings
-          </div>
-          <small className='flex items-center text-xs'>Configure Your Email Preferences for your {selectedBot} bot. </small>
-        </div> */}
-        <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
-          Email Settings{" "}
-        </h2>
+          <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+Email Settings       </h2>             </div>
+        </div>
+        
+  
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
@@ -135,7 +133,7 @@ const EmailAgentSetting = ({
               </div>
             }
             id={"email_prefix"}
-            className="py-3 w-full"
+            className="py-3 w-full !rounded-none"
           />
         </div>
 
@@ -222,7 +220,7 @@ const EmailAgentSetting = ({
               </div>
             }
             id={"email_greeting"}
-            className="py-3"
+            className="py-3 !rounded-none"
           />{" "}
         </div>
 
@@ -250,7 +248,7 @@ const EmailAgentSetting = ({
               </div>
             }
             id={"email_farewell"}
-            className="py-3"
+            className="py-3 !rounded-none"
           />{" "}
         </div>
 
