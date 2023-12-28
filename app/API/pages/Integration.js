@@ -45,6 +45,8 @@ export const getAllIntegrationTemplates = async () => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/integration-templates/`, config);
+
+        console.log("response", response.data)
         return response.data;
     } catch (error) {
         return error

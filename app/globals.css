@@ -1508,6 +1508,9 @@ div[data-column-id="used"] {
   display: flex;
   justify-content: center;
 }
+div[data-column-id="question"] {
+  min-width:70%;
+}
 
 div[data-column-id="term"] {
   width: 67px;
@@ -2216,3 +2219,43 @@ input:-webkit-autofill:active {
 .chart-animation {
   animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
 }
+input#domainName {
+  border: 1px solid #d5dbe7 !important;
+}
+
+.myDataTable .rdt_Table.rdt_TableHead {
+  border: none !important;
+}
+
+.myDataTable .rdt_Table.rdt_TableHeadRow {
+  border: none !important;
+}
+
+.myDataTable .rdt_Table .rdt_TableRow {
+  border: 1px solid ;
+  border-bottom: 0;
+  border-color: #dbe1e8;
+}
+.myDataTable .rdt_Table .rdt_TableRow:last-child {
+  border-bottom: 1px solid ;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-color: #dbe1e8;
+
+}
+.myDataTable .rdt_Table .rdt_TableRow:first-child {
+  
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-color: #dbe1e8;
+}
+
+
+.myDataTable .rdt_Table .rdt_thead {
+  border-bottom: none;
+}
+.myDataTable .rdt_TableHeadRow:first-child {
+  border: none;
+}
+
+

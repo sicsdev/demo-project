@@ -52,7 +52,7 @@ const EmailHandle = () => {
 
     return (
         <>
-            <div className='bg-white my-4'>
+            <div className='bg-white my-4 sm:max-w-[820px]'>
                 <div style={{ whiteSpace: "normal" }}>
                 
                     {/* <TopBar title={`DNS Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} /> */}

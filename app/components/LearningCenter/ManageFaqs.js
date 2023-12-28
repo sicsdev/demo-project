@@ -699,13 +699,13 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                         </svg>
                                         <span>Loading...</span> </> : "Save"}
                                 </button> */}
-                                {driveLoad === true ? <div className='text-center flex justify-center gap-4 items-center'><CheckBadgeIcon className='h-5 w-5' /><span className='text-sm text-heading'> Saved</span></div> :
+                                {driveLoad === true ? <div className='text-center flex justify-center gap-2 items-center'><CheckBadgeIcon className='h-5 w-5' /><span className='text-sm text-heading'> Saved</span></div> :
                                     <>
                                         {updateLoader ?
-                                            <div className='text-center flex justify-center gap-4 items-center'>
+                                            <div className='text-center flex justify-center gap-2 items-center'>
                                                 <ArrowPathIcon className='h-5 w-5' />
                                                 <span className=' text-sm text-heading'>Saving...</span></div> :
-                                            <div className='text-center flex justify-center gap-4 items-center'><CheckBadgeIcon className='h-5 w-5' /></div>}
+                                            <div className='text-center flex justify-center gap-2 items-center'><CheckBadgeIcon className='h-5 w-5' /></div>}
                                     </>
                                 }
                             </>
