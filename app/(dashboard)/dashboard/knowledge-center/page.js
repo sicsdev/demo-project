@@ -266,13 +266,14 @@ const Page = () => {
             )
         },
         {
-            name: <p className="font-[600]">Count</p>,
+            name: <p className="font-[600] m">Count</p>,
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
             width: "100px",
             center: true,
             hide: "sm",
+            style:{paddingRight:"25px"}
         },
         {
             name: <p className="font-[600] ">Created</p>,
@@ -892,7 +893,7 @@ const Page = () => {
                             </p>
                         </div>
 
-                        <div className="flex justify-end gap-4 items-center sm:mt-[20px]">
+                        <div className="flex justify-end gap-4 items-center sm:mt-[20px] !w-[97.5%]">
                             <div className="w-full sm:w-[16%]">
                                 <SelectOption
                                     onChange={(e) => handleSelectChange(e)}
@@ -958,7 +959,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[82vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden !overflow-x-hidden  myDataTable'
+                                className='sm:!h-[117vh] !h-[65vh] !w-[95%] !m-[auto] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}
