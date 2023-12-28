@@ -190,8 +190,8 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
             className="py-3 mt-1 "
             title={
               <div className="flex items-center gap-2 w-[150px]">
-                {/* <span>Agent Job Title</span>{" "}
-                <div className="group w-[2px] relative">
+                <span>Agent Job Title</span>{" "}
+                {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-106px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}

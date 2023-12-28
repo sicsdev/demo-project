@@ -394,7 +394,7 @@ const CheckEmail = ({
         <>
           <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
             <h1 className="text-sm font-semibold flex items-center gap-2">
-              <GlobeAltIcon className="h-5 w-5"></GlobeAltIcon>
+              <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
               {user?.enterprise?.domain}{" "}
             </h1>
           </div>

@@ -422,7 +422,7 @@ const page = () => {
                       >
                         <div className="flex flex-col  xl:flex-row justify-between">
                           <h3 className="text-sm font-semibold flex items-center ">
-                            {user?.enterprise?.domain}{" "}
+ {basicFormData.email_prefix + "@" + user?.enterprise?.domain}
                           </h3>
 
                           <div className="">
