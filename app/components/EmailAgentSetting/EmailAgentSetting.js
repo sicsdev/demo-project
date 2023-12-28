@@ -25,6 +25,7 @@ const EmailAgentSetting = ({
   setBasicFormData,
   form = true,
   selectedBot,
+  Submission
 }) => {
   const userState = useSelector((state) => state.user.data);
 
@@ -36,7 +37,7 @@ const EmailAgentSetting = ({
     basicFormData?.company_name ?? "{company_name}"
   );
   const [formValues, setFormValues] = useState({
-    email_prefix: basicFormData?.email_prefix ?? "",
+    email_prefix: basicFormData?.email_prefix ?? "support",
     custom_email: basicFormData?.custom_email ?? "",
     enable_email_forwarding: basicFormData?.enable_email_forwarding ?? "",
     company_name: basicFormData?.company_name ?? "",
@@ -49,10 +50,8 @@ const EmailAgentSetting = ({
 
   const handleInputValues = (e) => {
     const { value } = e.target;
-
-    console.log(e.target.value, e.target.name);
+    console.log(e.target.value, e.target.name)
     if (value !== " ") {
-      // setErrors([])
       setFormValues({ ...formValues, [e.target.name]: value });
       setBasicFormData((prev) => {
         return {
@@ -60,6 +59,7 @@ const EmailAgentSetting = ({
           [e.target.name]: value,
         };
       });
+      Submission({...basicFormData,[e.target.name]: value,})
       switch (e.target.name) {
         case "company_name":
           value !== ""
@@ -71,6 +71,7 @@ const EmailAgentSetting = ({
               [e.target.name]: value !== "" ? value : "{company_name}",
             };
           });
+          Submission({...basicFormData,[e.target.name]: value !== "" ? value : "{company_name}",})
           break;
         case "email_prefix":
           setEmail_Prefix(value);
@@ -80,6 +81,7 @@ const EmailAgentSetting = ({
               [e.target.name]: value,
             };
           });
+          Submission({...basicFormData,[e.target.name]: value,})
           break;
 
         default:
@@ -88,6 +90,8 @@ const EmailAgentSetting = ({
     }
   };
 
+
+  
   const returnErrorMessage = (key) => {
     // if (errors.length) {
     //     const findErr = errors.find((x) => x.field === key)
@@ -99,20 +103,27 @@ const EmailAgentSetting = ({
   };
 
   return (
+    <>
+      <div className=" px-3 py-2 sm:px-0 sm:py-0 rounded  items-center justify-between my-3">
+          <div className=" items-center gap-2">
+            <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-2 ">
+              Email Settings{" "}
+            </h2>{" "}
+       
+          </div>
+               <p className="new_input_label ">
+
+            Configure your email preferences to personalize the communication from your bot.
+            </p>
+        </div>
     <div
-      className="container my-3 sm:my-8 px-5 rounded-lg"
+      className="container my-3 sm:my-2 px-5 rounded-lg"
       style={{
         border: "1px solid #d5dbe7",
       }}
     >
       <div className=" sm:my-3">
-        <div className="bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3">
-          <div className="flex items-center gap-2">
-            <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-2 ">
-              Email Settings{" "}
-            </h2>{" "}
-          </div>
-        </div>
+      
 
         <div className="my-2">
           <SelectField
@@ -123,7 +134,7 @@ const EmailAgentSetting = ({
             values={email_prefix_data}
             title={
               <div className="flex items-center gap-2 mb-3">
-                <span>Support Email Username</span>{" "}
+                <span>Support Email</span>{" "}
                 {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
@@ -272,6 +283,8 @@ const EmailAgentSetting = ({
         )}
       </div>
     </div>
+    </>
+
   );
 };
 

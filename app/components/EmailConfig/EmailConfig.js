@@ -9,17 +9,8 @@ import Card from "../Common/Card/Card";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getPermissionHelper } from "../helper/returnPermissions";
-import {
-  CogIcon,
-  EnvelopeOpenIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
-const EmailConfig = ({
-  basicFormData,
-  setBasicFormData,
-  error = null,
-  selectedBot,
-}) => {
+import { CogIcon, EnvelopeOpenIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBot, Submission }) => {
   const [errors, setErrors] = useState([]);
   const userState = useSelector((state) => state.user.data);
 
@@ -60,9 +51,11 @@ const EmailConfig = ({
             [e.target.name]: makeCapital(value),
           };
         });
+        Submission({ ...basicFormData, [e.target.name]: makeCapital(value) })
       }
     } else {
       setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
+      Submission({ ...basicFormData, [e.target.name]: makeCapital(value) })
       setBasicFormData((prev) => {
         return {
           ...prev,
@@ -92,12 +85,14 @@ const EmailConfig = ({
                 agent_name: [...prev, trimmedName],
               };
             });
+            Submission({ ...basicFormData, agent_name: [...prev, trimmedName], })
             return [...prev, makeCapital(trimmedName)];
           });
         }
       });
     } else {
       setFormValues({ ...formValues, agent_name: value });
+      Submission({ ...formValues, agent_name: value })
     }
   };
 
@@ -122,6 +117,7 @@ const EmailConfig = ({
                 agent_name: [...prev, trimmedName],
               };
             });
+            Submission({ ...basicFormData, agent_name: [...prev, trimmedName], })
             return [...prev, makeCapital(trimmedName)];
           });
         }
@@ -149,6 +145,11 @@ const EmailConfig = ({
           updatedChips.length > 0 ? basicFormData.email_signOff : "",
       };
     });
+    Submission({
+      ...basicFormData, agent_name: [...updatedChips],
+      agent_title: updatedChips.length > 0 ? basicFormData.agent_title : '',
+      email_signOff: updatedChips.length > 0 ? basicFormData.email_signOff : '',
+    })
   };
   const makeCapital = (str) => {
     if (str.includes(" ")) {
@@ -161,6 +162,18 @@ const EmailConfig = ({
     }
   };
   return (
+    <>
+     <div className="px-3 py-2 sm:px-0 sm:py-0 rounded  items-center justify-between my-3">
+          <div className=" items-center gap-2">
+            <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-2 ">
+              Agent Names Configuration{" "}
+            </h2>{" "}
+          </div>
+          <p className="new_input_label ">
+
+          Define AI Agent identities to represent your customer service team, enhancing the personal touch in automated responses.</p>
+        </div>
+
     <div
       className="container my-3 px-5 rounded-lg"
       style={{
@@ -168,14 +181,7 @@ const EmailConfig = ({
       }}
     >
       <div className="sm:my-3">
-        <div className="bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3">
-          <div className="flex items-center gap-2">
-            <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-2 ">
-              Agent Names Configuration{" "}
-            </h2>{" "}
-          </div>
-        </div>
-
+       
         <div className="my-2">
           <TextField
             onChange={handleInputValues}
@@ -291,6 +297,8 @@ const EmailConfig = ({
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 

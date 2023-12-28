@@ -29,6 +29,7 @@ import TextEditor from "@/app/components/URL/Richtext";
 import AnswersEditor from "./AnswersEditor";
 import { useSearchParams } from "next/navigation";
 import FaqHistoryTab from "@/app/components/LearningCenter/FaqHistoryTab";
+import SelectOption from "@/app/components/Common/Input/SelectOption";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -290,60 +291,60 @@ const Page = () => {
         },
 
 
-{
-    name: "",
-    center: true,
-    cell: (row, index) => (
-        <>
-            <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-                setWorkflowView(row)
-                searchMatched({ question: row.question }, false)
-                getWorkFlowReccomodation(row.question)
-                setShow(true)
-                setAnswer('')
-                setQuestionData([])
-                setSearchKnowledge('')
-                setKnowledgeId(null)
-            }}>
-                {
-                    row?.accepted === false && (
-                        <>
-                            <div>
-                                <button type="button">
-                                    <PlusCircleIcon className="h-6 w-6 text-success " />
-                                </button>
-                            </div>
-                            <>
-                                {deleteLoader === row.id ?
-                                    <ColorRing
-                                        height="30"
-                                        width="30"
-                                        color="#4fa94d"
-                                        ariaLabel="tail-spin-loading"
-                                        radius="1"
-                                        wrapperClass="text-center"
-                                        visible={true}
-                                    /> :
+        {
+            name: "",
+            center: true,
+            cell: (row, index) => (
+                <>
+                    <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                        setWorkflowView(row)
+                        searchMatched({ question: row.question }, false)
+                        getWorkFlowReccomodation(row.question)
+                        setShow(true)
+                        setAnswer('')
+                        setQuestionData([])
+                        setSearchKnowledge('')
+                        setKnowledgeId(null)
+                    }}>
+                        {
+                            row?.accepted === false && (
+                                <>
                                     <div>
-                                        <button
-                                            type="button"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                deleteButtonHandler(row.id);
-                                            }}
-                                        >
-                                            <XCircleIcon className="h-6 w-6 text-danger " />
+                                        <button type="button">
+                                            <PlusCircleIcon className="h-6 w-6 text-success " />
                                         </button>
                                     </div>
-                                }
-                            </>
-                        </>
-                    )
-                }
-            </div>
-        </>
-    ),
-},
+                                    <>
+                                        {deleteLoader === row.id ?
+                                            <ColorRing
+                                                height="30"
+                                                width="30"
+                                                color="#4fa94d"
+                                                ariaLabel="tail-spin-loading"
+                                                radius="1"
+                                                wrapperClass="text-center"
+                                                visible={true}
+                                            /> :
+                                            <div>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        deleteButtonHandler(row.id);
+                                                    }}
+                                                >
+                                                    <XCircleIcon className="h-6 w-6 text-danger " />
+                                                </button>
+                                            </div>
+                                        }
+                                    </>
+                                </>
+                            )
+                        }
+                    </div>
+                </>
+            ),
+        },
 
 
 
@@ -404,6 +405,17 @@ const Page = () => {
             }
         }
     };
+
+    const getReccomodationByTime = async (filterDate) => {
+        setLoading(true)
+        const query = `&page=${pageVal}&page_size=${perPage}&created__gte=${filterDate?.created__gte}&created__lte=${filterDate?.created__lte}`
+        const response = await GetAllRecommendations(query)
+        debugger
+        if (response) {
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+            setLoading(false)
+        }
+    }
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true)
         setPageVal(page)
@@ -746,6 +758,74 @@ const Page = () => {
         // setIsMouseOver(null);
     }
 
+
+    const DateValues = ["Filter by date", "Today", "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "Last 3 Months", "This Year", "Last Year"]
+
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleSelectChange = (event) => {
+        setSelectedOption(event.target.value);
+        const dates = getDatesForOption(event.target.value);
+        if (dates) {
+            getReccomodationByTime(dates)
+        }
+    };
+
+    const getDatesForOption = (option) => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let startDate, endDate;
+        if (option === "Filter by date") {
+            return null
+        }
+        switch (option) {
+            case 'Today':
+                startDate = endDate = today;
+                break;
+            case 'Yesterday':
+                startDate = endDate = new Date(today.setDate(today.getDate() - 1));
+                break;
+            case 'Last 7 Days':
+                startDate = new Date(today.setDate(today.getDate() - 7));
+                endDate = today;
+                break;
+            case 'Last 30 Days':
+                startDate = new Date(today.setDate(today.getDate() - 30));
+                endDate = today;
+                break;
+            case 'This Month':
+                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                endDate = today;
+                break;
+            case 'Last Month':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+                break;
+            case 'Last 3 Months':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+                endDate = today;
+                break;
+            case 'This Year':
+                startDate = new Date(today.getFullYear(), 0, 1);
+                endDate = today;
+                break;
+            case 'Last Year':
+                startDate = new Date(today.getFullYear() - 1, 0, 1);
+                endDate = new Date(today.getFullYear() - 1, 11, 31);
+                break;
+            default:
+                // Default to today if no option is matched
+                startDate = endDate = today;
+                break;
+        }
+
+        return {
+            created__gte: startDate.toISOString().split('T')[0],
+            created__lte: endDate.toISOString().split('T')[0]
+        };
+
+    };
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -812,9 +892,21 @@ const Page = () => {
                             </p>
                         </div>
 
-                        <div className="w-full sm:relative sm:mt-[20px]">
-
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[1rem] mb-[0px] sm:mr-[53px] mr-[0px] '>
+                        <div className="flex justify-end gap-4 items-center sm:mt-[20px]">
+                            <div className="w-full sm:w-[15%]">
+                                <SelectOption
+                                    onChange={(e) => handleSelectChange(e)}
+                                    value={selectedOption || ""}
+                                    name="filtering"
+                                    values={DateValues.map((e) => { return { name: e, value: e } })}
+                                    title={""}
+                                    id={"filtering"}
+                                    className="!py-1.5  !m-0"
+                                    error={""}
+                                    showOption={false}
+                                />
+                            </div>
+                            <div className='flex justify-end gap-4 items-center '>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
@@ -829,7 +921,8 @@ const Page = () => {
                                     </div>
                                 }
                             </div>
-
+                        </div>
+                        <div className=" sm:mt-[20px]">
                             <DataTable
                                 title={''}
                                 fixedHeader
