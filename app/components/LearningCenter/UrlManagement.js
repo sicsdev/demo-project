@@ -6,6 +6,9 @@ import TextField from '../Common/Input/TextField'
 import Button from '../Common/Button/Button'
 import SkeletonLoader from '../Skeleton/Skeleton'
 import { errorMessage, successMessage } from '../Messages/Messages'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 
 const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, setLoading, hideComponent }) => {
     const [subDomainPages, setSubDomainPages] = useState([]);
@@ -288,6 +291,32 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
                                                 <div className={`bg-[#f5f5f5] relative rounded-xl p-5 mt-4 mx-2 cursor-pointer ${disbaledOptionHandler(page[0]) === true ? 'opacity-50' : ''}`}>
                                                     <h4 className="text-sm font-semibold w-[calc(100%-38px)]">{capitalizeEveryWord(page[1])}</h4>
                                                     <p className='text-xs font-normal pt-2'>{page[0]}</p>
+                                                    {/* {
+                                                        disbaledOptionHandler(page[0]) === true ?
+                                                            <Tippy className="chart-animation" content="You can only train on up to 5 pages at a time." interactive={true} interactiveBorder={20} animation={'fade slide-down'} placement={"bottom"}>
+                                                                <div className="absolute right-[12px] top-[12px]">
+                                                                    <label className="switch">
+                                                                        <input
+                                                                        disabled
+                                                                            type="checkbox"
+                                                                        // checked={selectedSubPagesList.includes(page[0])}
+                                                                        // onChange={e => handleSubPagesChange(e, page[0])}
+                                                                        />
+                                                                        <span className="slider round"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </Tippy> :
+                                                            <div className="absolute right-[12px] top-[12px]">
+                                                                <label className="switch">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={selectedSubPagesList.includes(page[0])}
+                                                                        onChange={e => handleSubPagesChange(e, page[0])}
+                                                                    />
+                                                                    <span className="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                    } */}
                                                     <div className="absolute right-[12px] top-[12px]">
                                                         <label className="switch">
                                                             <input
