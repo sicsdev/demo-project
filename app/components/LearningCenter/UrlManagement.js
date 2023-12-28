@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import TextField from '../Common/Input/TextField'
 import Button from '../Common/Button/Button'
 import SkeletonLoader from '../Skeleton/Skeleton'
-import { errorMessage } from '../Messages/Messages'
+import { errorMessage, successMessage } from '../Messages/Messages'
 
 const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, setLoading, hideComponent }) => {
     const [subDomainPages, setSubDomainPages] = useState([]);
@@ -123,6 +123,7 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
             }
             const response = await addSubPagesKnowledge(payload);
             if (response.status === 201 || response.status === 200) {
+                successMessage('Website pages added successfully!');
                 setCreateOptions(null);
                 setBasicFormData({});
             } else {
@@ -143,10 +144,16 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
         return false;
     }
 
+    function capitalizeEveryWord(str) {
+        return str
+            .toLowerCase()
+            .replace(/\b\w/g, (char) => char.toUpperCase());
+    }
+
     return (
         <>
             <div onClick={() => hideComponent()} className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
-            <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+            <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-[90vh] md:h-full m-auto max-h-[100%] bg-white`}>
                 <div className={`w-full sm:w-[700px] relative flex flex-col px-4 sm:px-8 h-full`}>
 
                     {/* START:: Top Section */}
@@ -253,7 +260,7 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
                                     value={basicFormData.url}
                                     disabled={true}
                                 /> */}
-                                    <span className="rounded-2xl py-[2px] px-[10px] text-[12px]"
+                                    <span className="rounded-2xl py-[2px] px-[10px] text-[12px] cursor-pointer"
                                         style={{ border: "1px solid #000" }}
                                     >{basicFormData.url}</span>
                                 </div>
@@ -278,10 +285,10 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
                                         :
                                         subDomainPages.length > 0 && subDomainPages.map((page, key) =>
                                             <div className="w-[100%] sm:w-1/2" key={key}>
-                                                <div className={`bg-[#f5f5f5] relative rounded-xl p-6 mt-4 mx-2 ${disbaledOptionHandler(page[0]) === true ? 'opacity-50' : ''}`}>
-                                                    <h4 className="text-sm font-semibold">{page[1]}</h4>
+                                                <div className={`bg-[#f5f5f5] relative rounded-xl p-5 mt-4 mx-2 cursor-pointer ${disbaledOptionHandler(page[0]) === true ? 'opacity-50' : ''}`}>
+                                                    <h4 className="text-sm font-semibold w-[calc(100%-38px)]">{capitalizeEveryWord(page[1])}</h4>
                                                     <p className='text-xs font-normal pt-2'>{page[0]}</p>
-                                                    <div className="absolute right-[10px] top-[10px]">
+                                                    <div className="absolute right-[12px] top-[12px]">
                                                         <label className="switch">
                                                             <input
                                                                 type="checkbox"
@@ -298,7 +305,7 @@ const UrlManagement = ({ setCreateOptions, basicFormData, setBasicFormData, hand
 
                             </div>
 
-                            <div className='flex items-center justify-end gap-2 mt-4'>
+                            <div className='flex items-center justify-end gap-2 my-4 pb-2'>
                                 <Button
                                     type={"button"}
                                     className="inline-block focus:outline-none focus:ring-4 text-xs px-6 py-2 font-bold rounded bg-#fff text-[#707B89] leading-normal disabled:shadow-none  transition duration-150 ease-in-out border border-solid border-[#8a939e] disabled:bg-input_color disabled:text-white"
