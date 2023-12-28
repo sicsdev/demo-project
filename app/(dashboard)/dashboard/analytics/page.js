@@ -854,6 +854,7 @@ const Logs = () => {
   const handleRemoveCustomerIdFilter = () => {
     const mockEvent = { target: { value: "all", name: "customer_id" } };
     filterDataHandler(mockEvent)
+    setIdOfOpenConversation('')
   }
 
   return (
