@@ -817,6 +817,7 @@ const Logs = () => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
+        console.log(findBot, 'findBot')
         return checkContents(findBot.usedIn)
       }
     }

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon, EnvelopeIcon, DocumentIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon, EnvelopeIcon, DocumentIcon, ArrowLeftIcon, ArrowRightIcon, UserIcon, GlobeAltIcon, CalendarIcon, ChatBubbleLeftRightIcon, DeviceTabletIcon, PhoneArrowDownLeftIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 import ProductComponent from './ProductComponent/ProductComponent';
+import Link from 'next/link';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
@@ -68,7 +69,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             getBotAllData().then(res => {
                 const filterBot = res?.results?.find((x) => x.id === selectedBot)
                 if (filterBot) { setBotUnique(filterBot) }
-                console.log(filterBot, 'filterBot')
             })
         }
     }, [botUnique, selectedBot, selectedBotObject])
@@ -86,8 +86,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
             setConversationDetails(convoDetails.data)
+            console.log(convoDetails.data, ' 01923921')
         }
-    } 
+    }
 
     function handleResize() {
         window && setIsSmallScreen(window.innerWidth < 600);
@@ -321,12 +322,31 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         return text;
     }
 
+    function summarizeUserAgent(userAgent) {
+        if (!userAgent) { return '' }
+        const osMatch = userAgent.match(/\(([^)]+)\)/);
+        const os = osMatch ? osMatch[1].split(';')[0].trim() : 'Unknown OS';
+
+        const browserVersionMatch = userAgent.match(/(Version)\/(\d+\.\d+(\.\d+)?)/);
+        const browserVersion = browserVersionMatch ? browserVersionMatch[2] : 'Unknown Version';
+
+        const deviceMatch = userAgent.match(/(iPhone|iPad)/);
+        const device = deviceMatch ? deviceMatch[0] : 'Unknown Device';
+
+        const platformType = userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
+
+        return `${device} - ${os} - ${platformType}`;
+    }
+
+
     return (
         <>
             {botUnique?.id &&
                 <div className='pb-5'>
                     <div className='flex justify-content-center'>
-                        <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
+                        <small className='m-auto flex gap-2' >
+                            <CalendarIcon className="h-4 w-4" />
+                            {conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
                     </div>
 
 
@@ -369,7 +389,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                             <div className="chatbot_widget_logs" id="chatbot_widget_logs">
                                 <div className="containerChatBot_entire !bg-transparent !block">
                                     <div className={``}>
-                                        {conversationDetails.type == 'email' ?
+                                        {/* {conversationDetails.type == 'email' ?
                                             <div>
                                                 <div className="emailheader_ChatBotWidget">
                                                     <div className=' flex gap-2 items-center'>
@@ -378,6 +398,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     <div className=' flex gap-2 items-center mx-1'>
                                                         <ArrowRightIcon className='h-3 w-3'></ArrowRightIcon><small> {extractSubjectBasedInFirstLine()}</small>
                                                     </div>
+
                                                 </div>
 
                                             </div>
@@ -405,7 +426,52 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
+                                        } */}
+                                        <div className="emailheader_ChatBotWidget relative">
+
+                                            <div className='absolute flex items-center gap-1 text-xs top-3 right-4 text-primary cursor-pointer'>
+                                                <Link href='/dashboard/analytics/customer-details' className='flex items-center gap-1'> View more <ArrowRightIcon className='w-3 h-3'></ArrowRightIcon></Link>
+                                            </div>
+
+                                            {/* <div className='flex items-center gap-2 text-xs text-primary'>
+                                                <UserCircleIcon className='w-6 h-6'> </UserCircleIcon> User data
+                                            </div> */}
+
+                                            <div className="infoContainer text-xs" >
+
+                                                {conversationDetails?.customer_name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <UserIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails.customer_name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name}</span>
+                                                    </div>
+                                                }
+
+                                                {conversationDetails?.customer_email || conversationDetails?.metadata?.email &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <EnvelopeIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails?.customer_email || conversationDetails?.metadata?.email}</span>
+                                                    </div>
+                                                }
+
+                                                {conversationDetails?.customer_phone || conversationDetails?.metadata?.phone &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <PhoneArrowDownLeftIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails?.customer_phone || conversationDetails?.metadata?.phone || 'Unknown'}</span>
+                                                    </div>
+                                                }
+                                                {/* 
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <GlobeAltIcon className="h-4 w-4 text-primary" />
+                                                    <span>{conversationDetails.customer_ip}</span>
+                                                </div>
+
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <DeviceTabletIcon className="h-4 w-4 text-primary" />
+                                                    <span>{summarizeUserAgent(conversationDetails.customer_user_agent)}</span>
+                                                </div> */}
+
+                                            </div>
+                                        </div>
 
                                         <div ref={chatLogsRef} id='chatcontentRef' className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
@@ -723,7 +789,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                     return (
                                                                                         <>
-                                                                                            <div key={obj}>
+                                                                                            <div id='' key={obj}>
                                                                                                 <label className="tempo-widget-custom-form-label text-black">
                                                                                                     {capitalizeFirstLetter(elementData.name)}
                                                                                                 </label>
@@ -917,7 +983,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                     </div>
 
-                </div>
+                </div >
 
             }
         </>
