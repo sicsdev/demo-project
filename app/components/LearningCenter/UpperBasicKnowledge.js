@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SideModal from '../SideModal/SideModal'
-import { DocumentTextIcon, LinkIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+import { DocumentTextIcon, GlobeAmericasIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
@@ -574,7 +574,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     className="flex items-center"
                                 >
                                     <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
-                                        <LinkIcon className="h-full w-full text-white" />
+                                        <GlobeAmericasIcon className="h-full w-full text-white" />
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-sm font-bold">
