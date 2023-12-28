@@ -114,7 +114,7 @@ const ServicePlatform = () => {
                     )}
                   </p>
                 </div>
-                <div className="mt-[20px] lg:mt-[40px] flex gap-5 lg:block flex-col items-start">
+                <div className="mt-[20px] lg:mt-[40px] flex gap-5  items-start">
                   {loading ? (
                     <SkeletonLoader count={1} height={35} width={180} />
                   ) : (

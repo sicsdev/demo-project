@@ -9,8 +9,11 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
+import SelectOption from '../Common/Input/SelectOption'
 
-const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader }) => {
+const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader, selectedOptionValue, setSelectedOptionValue }) => {
+  
+
 
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
@@ -176,17 +179,17 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             }
             getQuestionsData()
             setLoading(false)
-            
+
             setCreateModal(false)
             setCreateOptions(null)
             setCreatePdfModal(false)
             setFormData({});
             if (mode === "new") {
                 setTimeout(() => {
-                    if(value.type === "PRODUCT"){
+                    if (value.type === "PRODUCT") {
                         setCreateMode("product")
                     }
-                    if(value.type === "SNIPPET"){
+                    if (value.type === "SNIPPET") {
                         setCreateMode("snippet")
                     }
                     setCreateOptions('snippet')
@@ -238,6 +241,70 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     }
 
 
+
+    const DateValues = ["Filter by date", "Today", "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "Last 3 Months", "This Year", "Last Year"]
+
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleSelectChange = (event) => {
+        setSelectedOption(event.target.value);
+        const dates = getDatesForOption(event.target.value);
+        setSelectedOptionValue(dates)
+    };
+
+    const getDatesForOption = (option) => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let startDate, endDate;
+        if (option === "Filter by date") {
+            return null
+        }
+        switch (option) {
+            case 'Today':
+                startDate = endDate = today;
+                break;
+            case 'Yesterday':
+                startDate = endDate = new Date(today.setDate(today.getDate() - 1));
+                break;
+            case 'Last 7 Days':
+                startDate = new Date(today.setDate(today.getDate() - 7));
+                endDate = today;
+                break;
+            case 'Last 30 Days':
+                startDate = new Date(today.setDate(today.getDate() - 30));
+                endDate = today;
+                break;
+            case 'This Month':
+                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                endDate = today;
+                break;
+            case 'Last Month':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+                break;
+            case 'Last 3 Months':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+                endDate = today;
+                break;
+            case 'This Year':
+                startDate = new Date(today.getFullYear(), 0, 1);
+                endDate = today;
+                break;
+            case 'Last Year':
+                startDate = new Date(today.getFullYear() - 1, 0, 1);
+                endDate = new Date(today.getFullYear() - 1, 11, 31);
+                break;
+            default:
+                // Default to today if no option is matched
+                startDate = endDate = today;
+                break;
+        }
+
+        return {
+            created__gte: startDate.toISOString().split('T')[0],
+            created__lte: endDate.toISOString().split('T')[0]
+        };
+    };
     return (
         <>
 
@@ -347,7 +414,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         className="w-full sm:w-auto sm:flex !contents items-center justify-start sm:justify-start flex-wrap"
                         style={{ rowGap: "4px" }}
                     >
-                       
+
 
                         {botValue?.length > 1 &&
                             botValue?.map((element, key) => (
@@ -366,8 +433,20 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 </div>
             </div>
 
-            <div className='flex items-center justify-end'>
-
+            <div className='flex flex-col sm:flex-row items-center justify-end'>
+                <div className="w-full sm:w-[15%]  mx-auto sm:mx-0">
+                    <SelectOption
+                        onChange={(e) => handleSelectChange(e)}
+                        value={selectedOption || ""}
+                        name="filtering"
+                        values={DateValues.map((e) => { return { name: e, value: e } })}
+                        title={""}
+                        id={"filtering"}
+                        className="!py-1.5  "
+                        error={""}
+                        showOption={false}
+                    />
+                </div>
                 <div className='sm:flex md:flex lg:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 sm:text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -380,7 +459,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search"
+                                <input type="search" id="search" className="border  border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search"
                                     value={search}
                                     onChange={handleChange} />
                             </div>

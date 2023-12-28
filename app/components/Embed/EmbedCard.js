@@ -8,9 +8,11 @@ import {
   QuestionMarkCircleIcon,
   WrenchScrewdriverIcon,
   PencilIcon,
-  CodeBracketIcon,
   BanknotesIcon,
   ChartBarIcon,
+} from "@heroicons/react/24/solid";
+import {
+  CodeBracketSquareIcon
 } from "@heroicons/react/24/outline";
 
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -27,26 +29,47 @@ import LineChart from "../Dashboard/Chart/LineChart";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
+import { modifyBot } from "@/app/API/pages/Bot";
 
 export const EmbedCard = ({
   element,
   copied,
   setCopied,
   key,
+  index,
   skeleton,
-  setSkeleton
+  setSkeleton,
+  detailsData,
+  setDetailsData
 }) => {
+  const inputRefs = useRef([]);
+
+  useEffect(() => {
+    inputRefs.current = inputRefs.current.slice(0, detailsData.length);
+  }, [detailsData]);
+
+  const focusInput = (index) => {
+    if (inputRefs.current[index]) {
+      setTimeout(() => {
+        setToggle(null)
+      }, 100);
+      inputRefs.current[index].focus();
+    }
+  }
   const [code, setCode] = useState("");
+   const [disabledStatus, setDisabledStatus] = useState(detailsData.map(() => false));
+   const [toggle, setToggle] = useState(null)
   const [embedCode, setEmbedCode] = useState("")
   const [mode, setMode] = useState('chat')
   const [showCode, setShowCode] = useState(element.usedIn.length === 0 ? element.id : null)
   const [dropdown, setDropdown] = useState(null);
-  const [toggle, setToggle] = useState(null)
+
+  const [activate, setActivate] = useState(false)
   useEffect(() => {
     setCode(element.code);
     addEmbedFlagToCode()
   }, [copied]);
-
+ 
   function addEmbedFlagToCode() {
     // const updatedCode = code.includes("embed: true")
     //   ? code.replace("  embed: true\n", "")
@@ -90,31 +113,59 @@ export const EmbedCard = ({
   function hasUsage(array) {
     return array.some(item => item.usage > 0);
   }
+  console.log("detailsData", detailsData)
+  console.log("detailsData", index)
+  const handleInput = (e, index) => {
+    const { value } = e.target;
+    const newData = [...detailsData];
+
+    // Update the specific item in the new array
+    newData[index] = {
+      ...newData[index],
+      title: value
+    };
+
+    // Update the state with the new array
+    setDetailsData(newData);
+  };
+  const updateNameOFBot = async (index) => {
+    const response = await modifyBot(detailsData[index].id, { chat_title: detailsData[index].title })
+    setActivate(false)
+  }
   return (
-    <>
-      <div className={`${showCode === null && ("h-[200px]")} mt-4 shadow-md bg-white border-2 border-white hover:border-primary rounded-lg group overflow-hidden ${hasUsage(element.usage) !== true && 'flex flex-col justify-between'}`} >
+    <div className="p-2 sm:pt-0 sm:px-5" key={index}>
+      <div className={`${showCode === null && ("h-[220px]")} mt-4 shadow-md bg-white border-2 border-white hover:border-primary rounded-lg group overflow-hidden ${hasUsage(element.usage) !== true && 'flex flex-col justify-between'}`} >
         <div className='flex justify-between items-center pt-4 px-4'>
-          <p className='font-[600] text-sm text-heading mb-0'>{element.title}</p>
-          <div className="relative" onClick={(e) => { setToggle(prev => prev ? null : element.id) }}>
-            <EllipsisHorizontalIcon className="h-6 w-6 text-heading hover:bg-[#151d230a] hover:rounded-md" />
+          <input ref={(el) => (inputRefs.current[index] = el)} className={` block  px-2 py-2 bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none font-semibold text-heading focus:!border-0`} name="title" id="title" value={detailsData[index].title} onChange={(e) => {
+            handleInput(e, index)
+          }}  disabled={activate === false} onBlur={(e) => { 
+            setToggle(null)
+            updateNameOFBot(index) }} />
+          <div className="relative" onClick={(e) => { 
+            setActivate(true)
+            setToggle(prev => prev ? null : element.id) }}>
+            <EllipsisHorizontalIcon className="h-6 w-6 text-heading hover:bg-[#F6F6F6] hover:rounded-md" />
             {toggle === element.id && (
               <div className="z-10  w-48 bg-white rounded-lg shadow absolute right-0">
                 <ul className="p-[5px] space-y-1 text-sm">
                   <li>
-                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]">
-                      <PencilIcon className="h-4 w-4" />
-                      <p>Rename</p>
+                    <div className="flex items-center font-semibold justify-start gap-2 p-2 text-[#6d7480] hover:bg-[#F6F6F6] hover:text-primary rounded-[6px]" onClick={(e) => {
+                      setToggle(null)
+                      focusInput(index)
+                    }}>
+                      <PencilIcon className="h-4 w-4 " />
+                      <p className="text-[13px]">Rename</p>
                     </div>
                   </li>
                   <li>
-                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
+                    <div className="flex items-center font-semibold justify-start gap-2 p-2 text-[#6d7480]  hover:bg-[#F6F6F6] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
                       {showCode === element.id ?
-                        <ChartBarIcon className="h-4 w-4" />
+                        <ChartBarIcon className="h-4 w-4 " />
                         :
-                        <CodeBracketIcon className="h-4 w-4" />
+                        <CodeBracketSquareIcon className="h-4 w-4 " />
                       }
 
-                      <p>{showCode === element.id ? "Show Usage" : "Show html"} </p>
+                      <p className="text-[13px]">{showCode === element.id ? "Show Usage" : "Show html"} </p>
                     </div>
                   </li>
                 </ul>
@@ -310,5 +361,5 @@ export const EmbedCard = ({
           </div>
         )}
       </div>
-    </>);
+    </div>);
 };
