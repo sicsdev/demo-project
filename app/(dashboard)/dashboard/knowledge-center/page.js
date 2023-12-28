@@ -290,67 +290,61 @@ const Page = () => {
         },
 
 
-        // {
-        //     name: "",
-        //     center: true,
-        //     cell: (row, index) => (
-        //         <>
-        //             {row.id === isMouseOver && (
-        //                 <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-        //                     setWorkflowView(row)
-        //                     searchMatched({ question: row.question }, false)
-        //                     getWorkFlowReccomodation(row.question)
-        //                     setShow(true)
-        //                     setAnswer('')
-        //                     setQuestionData([])
-        //                     setSearchKnowledge('')
-        //                     setKnowledgeId(null)
-        //                 }}>
-        //                     {
-        //                         row?.accepted === false && (
-        //                             <>
+{
+    name: "",
+    center: true,
+    cell: (row, index) => (
+        <>
+            <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                setWorkflowView(row)
+                searchMatched({ question: row.question }, false)
+                getWorkFlowReccomodation(row.question)
+                setShow(true)
+                setAnswer('')
+                setQuestionData([])
+                setSearchKnowledge('')
+                setKnowledgeId(null)
+            }}>
+                {
+                    row?.accepted === false && (
+                        <>
+                            <div>
+                                <button type="button">
+                                    <PlusCircleIcon className="h-6 w-6 text-success " />
+                                </button>
+                            </div>
+                            <>
+                                {deleteLoader === row.id ?
+                                    <ColorRing
+                                        height="30"
+                                        width="30"
+                                        color="#4fa94d"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperClass="text-center"
+                                        visible={true}
+                                    /> :
+                                    <div>
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                deleteButtonHandler(row.id);
+                                            }}
+                                        >
+                                            <XCircleIcon className="h-6 w-6 text-danger " />
+                                        </button>
+                                    </div>
+                                }
+                            </>
+                        </>
+                    )
+                }
+            </div>
+        </>
+    ),
+},
 
-
-        //                                 <div>
-        //                                     <button type="button">
-        //                                         <PlusCircleIcon className="h-6 w-6 text-success " />
-        //                                     </button>
-        //                                 </div>
-        //                                 <>
-        //                                     {deleteLoader === row.id ?
-        //                                         <ColorRing
-        //                                             height="30"
-        //                                             width="30"
-        //                                             color="#4fa94d"
-        //                                             ariaLabel="tail-spin-loading"
-        //                                             radius="1"
-        //                                             wrapperClass="text-center"
-        //                                             visible={true}
-        //                                         /> :
-        //                                         <div>
-        //                                             <button
-        //                                                 type="button"
-        //                                                 onClick={(e) => {
-        //                                                     e.stopPropagation();
-        //                                                     deleteButtonHandler(row.id);
-        //                                                 }}
-        //                                             >
-        //                                                 <XCircleIcon className="h-6 w-6 text-danger " />
-        //                                             </button>
-        //                                         </div>
-        //                                     }
-
-
-
-        //                                 </>
-        //                             </>
-        //                         )}
-
-        //                 </div>
-        //             )}
-        //         </>
-        //     ),
-        // },
 
 
 
