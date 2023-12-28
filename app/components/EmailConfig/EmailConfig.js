@@ -9,8 +9,17 @@ import Card from "../Common/Card/Card";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getPermissionHelper } from "../helper/returnPermissions";
-import { CogIcon, EnvelopeOpenIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBot }) => {
+import {
+  CogIcon,
+  EnvelopeOpenIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
+const EmailConfig = ({
+  basicFormData,
+  setBasicFormData,
+  error = null,
+  selectedBot,
+}) => {
   const [errors, setErrors] = useState([]);
   const userState = useSelector((state) => state.user.data);
 
@@ -35,9 +44,14 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
   const handleInputValues = (e) => {
     const { name, value } = e.target;
     setErrors([]);
-    if (name === 'agent_title' || name === 'email_signOff') {
+    if (name === "agent_title" || name === "email_signOff") {
       if (tileAgentName.length === 0) {
-        setErrors([{ field: "tileAgentName", message: "Please enter one or more agent names first." }])
+        setErrors([
+          {
+            field: "tileAgentName",
+            message: "Please enter one or more agent names first.",
+          },
+        ]);
       } else {
         setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
         setBasicFormData((prev) => {
@@ -47,7 +61,6 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
           };
         });
       }
-
     } else {
       setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
       setBasicFormData((prev) => {
@@ -131,8 +144,9 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
       return {
         ...prev_state,
         agent_name: [...updatedChips],
-        agent_title: updatedChips.length > 0 ? basicFormData.agent_title : '',
-        email_signOff: updatedChips.length > 0 ? basicFormData.email_signOff : ''
+        agent_title: updatedChips.length > 0 ? basicFormData.agent_title : "",
+        email_signOff:
+          updatedChips.length > 0 ? basicFormData.email_signOff : "",
       };
     });
   };
@@ -147,25 +161,30 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
     }
   };
   return (
-    <div className="container my-3">
-      <div className="grid grid-cols-1 my-3">
-
-        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
-          <div className='flex items-center gap-2'>
-<h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
-Agent Names Configuration        </h2>          </div>
+    <div
+      className="container my-3 px-5 rounded-lg"
+      style={{
+        border: "1px solid #d5dbe7",
+      }}
+    >
+      <div className="sm:my-3">
+        <div className="bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3">
+          <div className="flex items-center gap-2">
+            <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-2 ">
+              Agent Names Configuration{" "}
+            </h2>{" "}
+          </div>
         </div>
-
 
         <div className="my-2">
           <TextField
             onChange={handleInputValues}
             value={formValues.agent_title}
             name="agent_title"
-            className="py-3 mt-1 !rounded-none"
+            className="py-3 mt-1 "
             title={
               <div className="flex items-center gap-2 w-[150px]">
-                <span>Agent Job Title</span>{" "}
+                {/* <span>Agent Job Title</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-106px] sm:left-auto lg:left-auto md:left-auto ">
@@ -175,25 +194,24 @@ Agent Names Configuration        </h2>          </div>
                       Representative"
                     </span>
                   </Card>
-                </div>
+                </div> */}
               </div>
             }
             placeholder={"Agent job title"}
             type={"text"}
             id={"agent_title"}
             error={returnErrorMessage("agent_title")}
-            disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
-
+            disabled={
+              !getPermissionHelper("EDIT EMAIL SETTINGS", userState?.role)
+            }
           />
         </div>
         <div className="my-2">
           <div className={`inline`}>
-            <label
-              className="new_input_label block text-sm text-heading font-medium"
-            >
+            <label className="new_input_label block text-sm text-heading font-medium">
               <span className="flex items-center gap-2 w-[150px]">
                 Agent Name(s)
-                <div className="group w-[2px] relative">
+                {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-109px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
@@ -206,11 +224,16 @@ Agent Names Configuration        </h2>          </div>
                       Jack Davidson, Jack D., Jack D, and Jack Davidson-Specter.
                     </span>
                   </Card>
-                </div>
+                </div> */}
               </span>
             </label>
-            <div className={`flex flex-wrap justify-start items-center h-auto w-auto ${returnErrorMessage("tileAgentName") ? "border-red" : "border-[#C7C6C7]"}   rounded-md mt-2 ${tileAgentName.length > 0 && ('px-1')}`}>
-
+            <div
+              className={`flex flex-wrap justify-start items-center h-auto w-auto ${
+                returnErrorMessage("tileAgentName")
+                  ? "border-red"
+                  : "border-[#C7C6C7]"
+              }   rounded-md mt-2 ${tileAgentName.length > 0 && "px-1"}`}
+            >
               <input
                 value={formValues.agent_name}
                 onKeyDown={handleKeyDown}
@@ -218,14 +241,20 @@ Agent Names Configuration        </h2>          </div>
                 onChange={handleAgentNameValue}
                 type={"text"}
                 placeholder={"Enter names separate by commas"}
-                className={`new_input !rounded-none block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
+                className={`new_input  block border-[0.2px]  px-3 bg-white  rounded-lg shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
                 id={"agent_name"}
                 name={"agent_name"}
-                disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
-
+                disabled={
+                  !getPermissionHelper("EDIT EMAIL SETTINGS", userState?.role)
+                }
               />
 
-              <div style={{ rowGap: "5px" }} className={` ${tileAgentName?.length > 0 ? 'py-1' : ''} flex flex-wrap items-center justify-start gap-1 my-2`}>
+              <div
+                style={{ rowGap: "5px" }}
+                className={` ${
+                  tileAgentName?.length > 0 ? "py-1" : ""
+                } flex flex-wrap items-center justify-start gap-1 my-2`}
+              >
                 {tileAgentName.length > 0 &&
                   tileAgentName.map((element, key) => (
                     <div
@@ -237,17 +266,27 @@ Agent Names Configuration        </h2>          </div>
                       <XMarkIcon
                         className=" h-4 w-4 cursor-pointer "
                         onClick={(e) => {
-                          if (!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)) { return }
+                          if (
+                            !getPermissionHelper(
+                              "EDIT EMAIL SETTINGS",
+                              userState?.role
+                            )
+                          ) {
+                            return;
+                          }
                           RemoveFromAgentNameArr(element);
                         }}
                       />
                     </div>
                   ))}
               </div>
-
             </div>
 
-            {returnErrorMessage("tileAgentName") && (<small className="text-danger text-xs">{returnErrorMessage("tileAgentName")}</small>)}
+            {returnErrorMessage("tileAgentName") && (
+              <small className="text-danger text-xs">
+                {returnErrorMessage("tileAgentName")}
+              </small>
+            )}
           </div>
         </div>
       </div>

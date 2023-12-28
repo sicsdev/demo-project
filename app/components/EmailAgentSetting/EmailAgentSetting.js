@@ -99,17 +99,21 @@ const EmailAgentSetting = ({
   };
 
   return (
-    <div className="my-5"
-    
+    <div
+      className="container my-3 sm:my-8 px-5 rounded-lg"
+      style={{
+        border: "1px solid #d5dbe7",
+      }}
     >
-      <div className="">
-        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
-          <div className='flex items-center gap-2'>
-          <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
-Email Settings       </h2>             </div>
+      <div className=" sm:my-3">
+        <div className="bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3">
+          <div className="flex items-center gap-2">
+            <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-2 ">
+              Email Settings{" "}
+            </h2>{" "}
+          </div>
         </div>
-        
-  
+
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
@@ -120,7 +124,7 @@ Email Settings       </h2>             </div>
             title={
               <div className="flex items-center gap-2 mb-3">
                 <span>Support Email Username</span>{" "}
-                <div className="group w-[2px] relative">
+                {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
                     {" "}
@@ -129,11 +133,11 @@ Email Settings       </h2>             </div>
                       Team@name.gettempo.ai
                     </span>
                   </Card>
-                </div>
+                </div> */}
               </div>
             }
             id={"email_prefix"}
-            className="py-3 w-full !rounded-none"
+            className="py-3 w-full "
           />
         </div>
 
@@ -207,7 +211,7 @@ Email Settings       </h2>             </div>
             title={
               <div className="flex items-center gap-2 w-[150px] mb-3">
                 <span>Email Introduction</span>{" "}
-                <div className="group w-[2px] relative">
+                {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-125px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
@@ -216,11 +220,11 @@ Email Settings       </h2>             </div>
                       emails. You can choose between a variety of greetings.
                     </span>
                   </Card>
-                </div>
+                </div> */}
               </div>
             }
             id={"email_greeting"}
-            className="py-3 !rounded-none"
+            className="py-3"
           />{" "}
         </div>
 
@@ -234,7 +238,7 @@ Email Settings       </h2>             </div>
             title={
               <div className="flex items-center gap-2 w-[150px]  mb-3">
                 <span>Email Sign-Off</span>{" "}
-                <div className="group w-[2px] relative">
+                {/* <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-108px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
@@ -244,11 +248,11 @@ Email Settings       </h2>             </div>
                       of sign-offs.
                     </span>
                   </Card>
-                </div>
+                </div> */}
               </div>
             }
             id={"email_farewell"}
-            className="py-3 !rounded-none"
+            className="py-3 "
           />{" "}
         </div>
 
