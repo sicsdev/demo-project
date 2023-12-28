@@ -400,6 +400,8 @@ body .searchWrapper {
 }
 body .custom-multselect .searchWrapper {
   width: 100%;
+ display: flex;
+ gap: 1rem; 
 }
 
 body .searchWrapper-live .searchWrapper {
@@ -2225,6 +2227,9 @@ input:-webkit-autofill:active {
 input#domainName {
   border: 1px solid #d5dbe7 !important;
 }
+.myDataTable{
+  max-height: 120vh !important;
+}
 
 .myDataTable .rdt_Table.rdt_TableHead {
   border: none !important;
@@ -2238,6 +2243,8 @@ input#domainName {
   border: 1px solid ;
   border-bottom: 0;
   border-color: #dbe1e8;
+  height: 5rem !important;
+
 }
 .myDataTable .rdt_Table .rdt_TableRow:last-child {
   border-bottom: 1px solid ;
