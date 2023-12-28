@@ -87,7 +87,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             console.log('convo details', convoDetails.data)
             setConversationDetails(convoDetails.data)
         }
-    }
+    } 
 
     function handleResize() {
         window && setIsSmallScreen(window.innerWidth < 600);
