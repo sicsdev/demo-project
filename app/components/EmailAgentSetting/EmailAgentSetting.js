@@ -8,16 +8,23 @@ import Card from "../Common/Card/Card";
 import FileField from "../Common/Input/FileField";
 import { getAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
 import Button from "../Common/Button/Button";
-import { ChevronLeftIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+} from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { getPermissionHelper } from "../helper/returnPermissions";
-import { email_sign_off_data, email_introduction_data } from "../EmailConfig/data";
+import {
+  email_sign_off_data,
+  email_introduction_data,
+} from "../EmailConfig/data";
 
 const EmailAgentSetting = ({
   basicFormData,
   setBasicFormData,
   form = true,
-  selectedBot
+  selectedBot,
 }) => {
   const userState = useSelector((state) => state.user.data);
 
@@ -37,13 +44,13 @@ const EmailAgentSetting = ({
     phone_numbers: basicFormData?.phone_numbers ?? null,
     selectedFile: basicFormData?.selectedFile ?? "",
     email_greeting: basicFormData?.email_greeting ?? "",
-    email_farewell: basicFormData?.email_farewell ?? ""
+    email_farewell: basicFormData?.email_farewell ?? "",
   });
 
   const handleInputValues = (e) => {
     const { value } = e.target;
 
-    console.log(e.target.value, e.target.name)
+    console.log(e.target.value, e.target.name);
     if (value !== " ") {
       // setErrors([])
       setFormValues({ ...formValues, [e.target.name]: value });
@@ -92,14 +99,19 @@ const EmailAgentSetting = ({
   };
 
   return (
-    <div className="my-5">
+    <div className="my-5"
+    
+    >
       <div className="">
-        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
+        {/* <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
           <div className='flex items-center gap-2'>
             <EnvelopeIcon className='h-5 w-5'></EnvelopeIcon> Email Settings
           </div>
           <small className='flex items-center text-xs'>Configure Your Email Preferences for your {selectedBot} bot. </small>
-        </div>
+        </div> */}
+        <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+          Email Settings{" "}
+        </h2>
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
@@ -187,13 +199,6 @@ const EmailAgentSetting = ({
           />
         </div> */}
 
-
-
-
-
-
-
-
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
@@ -209,8 +214,8 @@ const EmailAgentSetting = ({
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-125px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
-                      How you want Deflection AI to address customers in your emails.
-                      You can choose between a variety of greetings.
+                      How you want Deflection AI to address customers in your
+                      emails. You can choose between a variety of greetings.
                     </span>
                   </Card>
                 </div>
@@ -236,9 +241,9 @@ const EmailAgentSetting = ({
                   <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-108px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
-                      How you want Deflection AI to end conversations to customers in
-                      your emails. You can choose between a variety of
-                      sign-offs.
+                      How you want Deflection AI to end conversations to
+                      customers in your emails. You can choose between a variety
+                      of sign-offs.
                     </span>
                   </Card>
                 </div>
@@ -248,14 +253,6 @@ const EmailAgentSetting = ({
             className="py-3"
           />{" "}
         </div>
-
-
-
-
-
-
-
-
 
         {formValues.email_prefix && formValues.custom_email && (
           <p className="text-sm my-2 text-primary">

@@ -150,14 +150,15 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBo
     <div className="container my-3">
       <div className="grid grid-cols-1 my-3">
 
-        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
+        {/* <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
           <div className='flex items-center gap-2'>
             <UserCircleIcon className='h-5 w-5'></UserCircleIcon> Agent Names Configuration
           </div>
           <small className='flex items-center text-xs'>Define AI Agent Identities for your {selectedBot} bot. </small>
-        </div>
+        </div> */}
 
-
+<h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+Agent Names Configuration        </h2>
         <div className="my-2">
           <TextField
             onChange={handleInputValues}
