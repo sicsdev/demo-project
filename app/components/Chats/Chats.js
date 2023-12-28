@@ -68,6 +68,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             getBotAllData().then(res => {
                 const filterBot = res?.results?.find((x) => x.id === selectedBot)
                 if (filterBot) { setBotUnique(filterBot) }
+                console.log(filterBot, 'filterBot')
             })
         }
     }, [botUnique, selectedBot, selectedBotObject])
@@ -84,7 +85,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
-            console.log('convo details', convoDetails.data)
             setConversationDetails(convoDetails.data)
         }
     } 
@@ -187,7 +187,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                     <>
                         <div className='flex mb-2'>
                             <img className="profile-photo_ChatBot_back"
-                                src={`${botUnique?.enterprise?.logo ||
+                                src={`${botUnique?.logo ||
                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                             <div className="answer_text_div">
                                 <div key={index} className='flex items-center justify-between gap-1'>
@@ -385,18 +385,18 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                             <div className="" id="widget_headerContainer">
                                                 <div className="header_ChatBotWidget">
                                                     <div className="profile_photo_container">
-                                                        <img width="45px" src={`${botUnique?.enterprise?.logo ||
+                                                        <img width="45px" src={`${botUnique?.logo ||
                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} />
                                                     </div>
                                                     <div className="header_ChatBotWidget-middlebox">
                                                         <div>
                                                             <div>
-                                                                <b>{botUnique?.enterprise?.name}</b>
+                                                                <b>{botUnique?.chat_title}</b>
                                                             </div>
                                                             <div className="subtitle_div">
                                                                 <span className="subtitle_ChatBotWidget">
                                                                     <span className="ai_icon">AI</span>{" "}
-                                                                    {botUnique?.enterprise?.description || "Powered by Deflection AI"}
+                                                                    {botUnique?.description || "Powered by Deflection AI"}
                                                                 </span>
                                                             </div>
 
@@ -411,10 +411,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                             <div className="answer_with_thumbs_logs">
                                                 <img className="profile-photo_ChatBot_back"
-                                                    src={`${botUnique?.enterprise?.logo ||
+                                                    src={`${botUnique?.logo ||
                                                         `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                 <div className="answer_text_div"></div>
-                                                <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
+                                                <div className={`answer_text_with_thumbs !text-sm !font-[400]`}
+                                                    style={{
+                                                        backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color,
+                                                        opacity: (messages?.length == 1 ? "1" : "0.8")
+                                                    }}>
                                                     {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
                                                 </div>
                                             </div>
@@ -432,7 +436,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     <>
                                                                         <div className="answer_with_thumbs">
                                                                             <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                src={`${botUnique?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                             <div className="answer_text_div"></div>
                                                                             <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
@@ -448,7 +452,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                         <div className="answer_with_thumbs">
 
                                                                             <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                src={`${botUnique?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                             <div className="answer_text_div"></div>
                                                                             <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
@@ -464,7 +468,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     <>
                                                                         <div className="answer_with_thumbs">
                                                                             <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                src={`${botUnique?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                             <div className="answer_text_div"></div>
                                                                             <ProductComponent product={element?.actions[0]} />
@@ -696,7 +700,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     <>
                                                                         <div className="answer_with_thumbs">
                                                                             <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                src={`${botUnique?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                             <div className="answer_text_div"></div>
                                                                             <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
@@ -709,7 +713,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                         <div className="answer_with_thumbs">
 
                                                                             <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                src={`${botUnique?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
 
                                                                             <div className="tempo-widget-custom-form">
