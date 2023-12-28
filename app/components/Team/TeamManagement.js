@@ -125,29 +125,23 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     //   reorder: true,
     //   width: isMobile ? '220px' : '300px',
     // },
-{
-  name: "Name",
-  id: "Name",
-  selector: (row) => row?.name,
-  cell: (row) =>
-    <div className="flex gap-3 items-center">
-      {row.enterprise && row.enterprise[0]?.logo ? (
-        <div><img src={row.enterprise[0]?.logo} alt="Enterprise Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }}></img></div>) : 
-        // The following div is likely rendering the blue circle you want to remove.
-        // Comment out or delete this part of the code to remove the blue circle.
-        /*
-        <div className="bg-soft-blue p-3 rounded-full text-white">YS</div>
-        */
-      }
-      <div>
-        <p className="whitespace-normal text-xs font-semibold">{row?.name}</p>
-        <p className="whitespace-normal text-xs">{row?.email}</p>
-      </div>
-    </div>,
-  reorder: true,
-  width: isMobile ? "100px" : "300px",
-  hide: "sm",
-},
+    {
+      name: "Name",
+      id: "Name",
+      selector: (row) => row?.name,
+      cell: (row) =>
+        <div className="flex gap-3 items-center">
+          {row.enterprise && row.enterprise[0]?.logo ? (
+           // <div><img src={row.enterprise[0]?.logo} alt="Enterprise Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }}></img></div>) : <><div className="bg-soft-blue p-3 rounded-full text-white">YS</div></>}
+          // <div>
+            <p className="whitespace-normal text-xs font-semibold">{row?.name}</p>
+            <p className="whitespace-normal text-xs">{row?.email}</p>
+          </div>
+        </div>,
+      reorder: true,
+      width: isMobile ? "100px" : "300px",
+      hide: "sm",
+    },
     // {
     //   name: "Contact",
     //   id: "Contact",
