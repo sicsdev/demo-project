@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon, EnvelopeIcon, DocumentIcon, ArrowLeftIcon, ArrowRightIcon, UserIcon, GlobeAltIcon, CalendarIcon, ChatBubbleLeftRightIcon, DeviceTabletIcon, PhoneArrowDownLeftIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, CheckCircleIcon, EnvelopeIcon, ArrowRightIcon, CalendarIcon, PhoneArrowDownLeftIcon, UserIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -19,8 +19,9 @@ import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 import ProductComponent from './ProductComponent/ProductComponent';
 import Link from 'next/link';
+import { getAllCustomerConversationsById } from '@/app/API/pages/CustomerDetails';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -34,6 +35,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
+    const [numberOfTicketsForThisCustomer, setNumberOfTicketsForThisCustomer] = useState(0)
 
     // Loaders
     const [disputeLoader, setDisputeLoader] = useState(false);
@@ -85,8 +87,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
-            setConversationDetails(convoDetails.data)
-            console.log(convoDetails.data, ' 01923921')
+            if (convoDetails.data) {
+                console.log(convoDetails.data, '129391239123')
+                getNumberOfTickets(convoDetails.data.customer?.id)
+                setConversationDetails(convoDetails.data)
+            }
         }
     }
 
@@ -322,22 +327,32 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         return text;
     }
 
-    function summarizeUserAgent(userAgent) {
-        if (!userAgent) { return '' }
-        const osMatch = userAgent.match(/\(([^)]+)\)/);
-        const os = osMatch ? osMatch[1].split(';')[0].trim() : 'Unknown OS';
 
-        const browserVersionMatch = userAgent.match(/(Version)\/(\d+\.\d+(\.\d+)?)/);
-        const browserVersion = browserVersionMatch ? browserVersionMatch[2] : 'Unknown Version';
-
-        const deviceMatch = userAgent.match(/(iPhone|iPad)/);
-        const device = deviceMatch ? deviceMatch[0] : 'Unknown Device';
-
-        const platformType = userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
-
-        return `${device} - ${os} - ${platformType}`;
+    function filterChatsByCustomerId() {
+        if (numberOfTicketsForThisCustomer <= 1) { return }
+        const mockEvent = { target: { value: "bd87578b-c800-40c4-94d8-82e49a582413", name: "customer_id" } };
+        filterDataHandler(mockEvent)
+        setShowChat(false)
+        router.push('/dashboard/analytics')
     }
 
+    async function getNumberOfTickets(customer_id) {
+        let numberOfTickets = await getAllCustomerConversationsById(customer_id)
+        let number = numberOfTickets?.data?.length || 0
+        setNumberOfTicketsForThisCustomer(number)
+    }
+
+    const getTicketsInfo = () => {
+        if (numberOfTicketsForThisCustomer > 1) {
+            return (
+                <>
+                    {numberOfTicketsForThisCustomer} Tickets <ArrowRightIcon className="w-3 h-3" />
+                </>
+            );
+        } else {
+            return `${numberOfTicketsForThisCustomer} Ticket`;
+        }
+    }
 
     return (
         <>
@@ -428,47 +443,45 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                             </div>
                                         } */}
                                         <div className="emailheader_ChatBotWidget relative">
+                                            {conversationDetails?.customer?.id &&
+                                                <div className={`absolute flex items-center gap-1 text-xs top-3 right-4 text-primary
+                                                ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
+                                                    {/* <Link
+                                                        href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
+                                                        className='flex items-center gap-1'>
+                                                        View more
+                                                        <ArrowRightIcon className='w-3 h-3' />
+                                                    </Link> */}
+                                                    <div className='flex items-center gap-1' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
 
-                                            <div className='absolute flex items-center gap-1 text-xs top-3 right-4 text-primary cursor-pointer'>
-                                                <Link href='/dashboard/analytics/customer-details' className='flex items-center gap-1'> View more <ArrowRightIcon className='w-3 h-3'></ArrowRightIcon></Link>
-                                            </div>
+                                                        {getTicketsInfo()}
 
-                                            {/* <div className='flex items-center gap-2 text-xs text-primary'>
-                                                <UserCircleIcon className='w-6 h-6'> </UserCircleIcon> User data
-                                            </div> */}
+                                                    </div>
+                                                </div>
+                                            }
+
 
                                             <div className="infoContainer text-xs" >
 
-                                                {conversationDetails?.customer_name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name &&
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <UserIcon className="h-4 w-4 text-primary" />
-                                                        <span>{conversationDetails.customer_name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name}</span>
-                                                    </div>
-                                                }
 
-                                                {conversationDetails?.customer_email || conversationDetails?.metadata?.email &&
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <EnvelopeIcon className="h-4 w-4 text-primary" />
-                                                        <span>{conversationDetails?.customer_email || conversationDetails?.metadata?.email}</span>
-                                                    </div>
-                                                }
-
-                                                {conversationDetails?.customer_phone || conversationDetails?.metadata?.phone &&
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <PhoneArrowDownLeftIcon className="h-4 w-4 text-primary" />
-                                                        <span>{conversationDetails?.customer_phone || conversationDetails?.metadata?.phone || 'Unknown'}</span>
-                                                    </div>
-                                                }
-                                                {/* 
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <GlobeAltIcon className="h-4 w-4 text-primary" />
-                                                    <span>{conversationDetails.customer_ip}</span>
+                                                    <UserIcon className="h-4 w-4 text-primary" />
+                                                    <span>{conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name || 'Unknown'}</span>
                                                 </div>
 
+
+
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <DeviceTabletIcon className="h-4 w-4 text-primary" />
-                                                    <span>{summarizeUserAgent(conversationDetails.customer_user_agent)}</span>
-                                                </div> */}
+                                                    <EnvelopeIcon className="h-4 w-4 text-primary" />
+                                                    <span>{conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email || 'Unknown'}</span>
+                                                </div>
+
+
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <PhoneArrowDownLeftIcon className="h-4 w-4 text-primary" />
+                                                    <span>{conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone || 'Unknown'}</span>
+                                                </div>
+
 
                                             </div>
                                         </div>
