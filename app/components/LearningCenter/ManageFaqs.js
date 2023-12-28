@@ -330,7 +330,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: <p className="font-[600]">Last usage 24hrs.</p>,
+            name: <p className="font-[600]">Last Usage 24hrs.</p>,
             
             selector: (row, index) => row.knowledgefaq_usage_last_24_hours,
             sortable: false,
@@ -414,6 +414,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         displayValue="name"
                         closeOnSelect={true}
                         showArrow={false}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
+
                     /></div>,
         }
     ];
@@ -486,6 +488,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         displayValue="name"
                         closeOnSelect={true}
                         showArrow={false}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
+
                     /></div>,
         }
     ]
@@ -556,7 +560,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className='!h-[69vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
+                        className='!h-[117vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
                         noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}
@@ -711,6 +715,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                         displayValue="name"
                                         closeOnSelect={true}
                                         showArrow={false}
+                        customCloseIcon={<p className='text-[21px] rotate-45'>+</p>}
+
                                     /></div>
                                 {/* <button
                                     onClick={(e) => updateFaq()}

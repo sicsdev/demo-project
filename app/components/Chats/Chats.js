@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon, EnvelopeIcon, DocumentIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, CheckCircleIcon, EnvelopeIcon, ArrowRightIcon, CalendarIcon, PhoneArrowDownLeftIcon, UserIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -18,8 +18,10 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 import ProductComponent from './ProductComponent/ProductComponent';
+import Link from 'next/link';
+import { getAllCustomerConversationsById } from '@/app/API/pages/CustomerDetails';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -33,7 +35,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
-
+    const [numberOfTicketsForThisCustomer, setNumberOfTicketsForThisCustomer] = useState(0)
+    const [loadingData, setLoadingData] = useState(true)
     // Loaders
     const [disputeLoader, setDisputeLoader] = useState(false);
     const [loadingRedirect, setLoadingRedirect] = useState(false)
@@ -47,11 +50,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         getDetails()
         handleResize()
 
-        // Scroll chat content to end.
-        if (chatLogsRef.current) {
-            const element = chatLogsRef.current;
-            element.scrollTop = element.scrollHeight;
-        }
 
         // responsive
         window.addEventListener('resize', handleResize);
@@ -68,7 +66,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             getBotAllData().then(res => {
                 const filterBot = res?.results?.find((x) => x.id === selectedBot)
                 if (filterBot) { setBotUnique(filterBot) }
-                console.log(filterBot, 'filterBot')
             })
         }
     }, [botUnique, selectedBot, selectedBotObject])
@@ -85,9 +82,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
-            setConversationDetails(convoDetails.data)
+            if (convoDetails.data) {
+                getNumberOfTickets(convoDetails.data.customer?.id)
+                setConversationDetails(convoDetails.data)
+                setLoadingData(false)
+
+            }
+            setLoadingData(false)
         }
-    } 
+    }
 
     function handleResize() {
         window && setIsSmallScreen(window.innerWidth < 600);
@@ -288,7 +291,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
     const getValueBasedInNextMessage = (elementData, key) => {
-        console.log(elementData, key)
         let nextMessage = messages[key + 1]
 
         let parsed = {}
@@ -321,12 +323,58 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         return text;
     }
 
+
+    function filterChatsByCustomerId(customer_id) {
+        if (numberOfTicketsForThisCustomer <= 1) { return }
+        const mockEvent = { target: { value: customer_id, name: "customer_id" } };
+        filterDataHandler(mockEvent)
+        setShowChat(false)
+        router.push('/dashboard/analytics')
+    }
+
+    async function getNumberOfTickets(customer_id) {
+        let numberOfTickets = await getAllCustomerConversationsById(customer_id)
+        let number = numberOfTickets?.data?.length || 0
+        setNumberOfTicketsForThisCustomer(number)
+    }
+
+    const getTicketsInfo = () => {
+        if (numberOfTicketsForThisCustomer > 1) {
+            return (
+                <div className='flex items-center gap-1 text-primary'>
+                    {numberOfTicketsForThisCustomer} Tickets <ArrowRightIcon className="w-3 h-3" />
+                </div>
+            );
+        } else {
+            return (
+                <div className='flex items-center gap-1 text-black opacity-70'>
+                    {numberOfTicketsForThisCustomer} Ticket
+                </div>
+            )
+        }
+    }
+
+    const formatPhoneNumber = () => {
+        let number = conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone
+        if (!number) { return 'Unknown' }
+
+        const match = number.match(/^\+(\d)(\d{3})(\d{3})(\d{4})$/);
+
+        if (match) {
+            return `+${match[1]} ${match[2]} ${match[3]} ${match[4]}`;
+        } else {
+            return number;
+        }
+    }
+
     return (
         <>
-            {botUnique?.id &&
+            {botUnique?.id && !loadingData &&
                 <div className='pb-5'>
                     <div className='flex justify-content-center'>
-                        <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
+                        <small className='m-auto flex gap-2' >
+                            <CalendarIcon className="h-4 w-4" />
+                            {conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
                     </div>
 
 
@@ -369,7 +417,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                             <div className="chatbot_widget_logs" id="chatbot_widget_logs">
                                 <div className="containerChatBot_entire !bg-transparent !block">
                                     <div className={``}>
-                                        {conversationDetails.type == 'email' ?
+                                        {/* {conversationDetails.type == 'email' ?
                                             <div>
                                                 <div className="emailheader_ChatBotWidget">
                                                     <div className=' flex gap-2 items-center'>
@@ -378,6 +426,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     <div className=' flex gap-2 items-center mx-1'>
                                                         <ArrowRightIcon className='h-3 w-3'></ArrowRightIcon><small> {extractSubjectBasedInFirstLine()}</small>
                                                     </div>
+
                                                 </div>
 
                                             </div>
@@ -405,7 +454,70 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
+                                        } */}
+                                        <div className="emailheader_ChatBotWidget relative">
+                                            {conversationDetails?.customer?.id &&
+                                                <div className={`absolute flex items-center gap-1 text-xs top-4 right-6 text-primary
+                                                ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
+                                                    {/* <Link
+                                                        href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
+                                                        className='flex items-center gap-1'>
+                                                        View more
+                                                        <ArrowRightIcon className='w-3 h-3' />
+                                                    </Link> */}
+                                                    {numberOfTicketsForThisCustomer > 0 &&
+                                                        <div className=' text-xs' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
+                                                            {getTicketsInfo()}
+                                                        </div>}
+                                                </div>
+                                            }
+
+
+                                            <div className="infoContainer text-xs" >
+
+                                                {
+                                                    !(conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name)
+                                                    && !(conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email)
+                                                    && !(conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone)
+                                                    &&
+                                                    <>
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <UserIcon className="h-4 w-4 text-primary" />
+                                                            <span>User unknown</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <GlobeAltIcon className="h-4 w-4 text-primary" />
+                                                            <span>{conversationDetails.customer?.ip}</span>
+                                                        </div>
+                                                    </>
+                                                }
+
+                                                {(conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name) &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <UserIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name || 'Unknown'}</span>
+                                                    </div>
+                                                }
+
+
+                                                {(conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email) &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <EnvelopeIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email || 'Unknown'}</span>
+                                                    </div>
+                                                }
+
+
+                                                {(conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone) &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <DevicePhoneMobileIcon className="h-4 w-4 text-primary" />
+                                                        <span>{formatPhoneNumber()}</span>
+                                                    </div>
+                                                }
+
+
+                                            </div>
+                                        </div>
 
                                         <div ref={chatLogsRef} id='chatcontentRef' className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
@@ -723,7 +835,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                     return (
                                                                                         <>
-                                                                                            <div key={obj}>
+                                                                                            <div id='' key={obj}>
                                                                                                 <label className="tempo-widget-custom-form-label text-black">
                                                                                                     {capitalizeFirstLetter(elementData.name)}
                                                                                                 </label>
@@ -917,7 +1029,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                     </div>
 
-                </div>
+                </div >
 
             }
         </>
