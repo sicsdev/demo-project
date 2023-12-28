@@ -442,7 +442,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         values={DateValues.map((e) => { return { name: e, value: e } })}
                         title={""}
                         id={"filtering"}
-                        className="!py-1.5  "
+                        className="!py-1.5  !m-0"
                         error={""}
                         showOption={false}
                     />
