@@ -36,7 +36,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
     const [numberOfTicketsForThisCustomer, setNumberOfTicketsForThisCustomer] = useState(0)
-
+    const [loadingData, setLoadingData] = useState(true)
     // Loaders
     const [disputeLoader, setDisputeLoader] = useState(false);
     const [loadingRedirect, setLoadingRedirect] = useState(false)
@@ -88,10 +88,12 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
             if (convoDetails.data) {
-                console.log(convoDetails.data, '129391239123')
                 getNumberOfTickets(convoDetails.data.customer?.id)
                 setConversationDetails(convoDetails.data)
+                setLoadingData(false)
+
             }
+            setLoadingData(false)
         }
     }
 
@@ -294,7 +296,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
     const getValueBasedInNextMessage = (elementData, key) => {
-        console.log(elementData, key)
         let nextMessage = messages[key + 1]
 
         let parsed = {}
@@ -328,9 +329,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     }
 
 
-    function filterChatsByCustomerId() {
+    function filterChatsByCustomerId(customer_id) {
         if (numberOfTicketsForThisCustomer <= 1) { return }
-        const mockEvent = { target: { value: "bd87578b-c800-40c4-94d8-82e49a582413", name: "customer_id" } };
+        const mockEvent = { target: { value: customer_id, name: "customer_id" } };
         filterDataHandler(mockEvent)
         setShowChat(false)
         router.push('/dashboard/analytics')
@@ -373,7 +374,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     return (
         <>
-            {botUnique?.id &&
+            {botUnique?.id && !loadingData &&
                 <div className='pb-5'>
                     <div className='flex justify-content-center'>
                         <small className='m-auto flex gap-2' >
@@ -461,7 +462,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                         } */}
                                         <div className="emailheader_ChatBotWidget relative">
                                             {conversationDetails?.customer?.id &&
-                                                <div className={`absolute flex items-center gap-1 text-xs top-3 right-4 text-primary
+                                                <div className={`absolute flex items-center gap-1 text-xs top-4 right-4 text-primary
                                                 ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
                                                     {/* <Link
                                                         href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
@@ -469,11 +470,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         View more
                                                         <ArrowRightIcon className='w-3 h-3' />
                                                     </Link> */}
-                                                    <div className='' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
-
-                                                        {getTicketsInfo()}
-
-                                                    </div>
+                                                    {numberOfTicketsForThisCustomer > 0 &&
+                                                        <div className=' text-xs' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
+                                                            {getTicketsInfo()}
+                                                        </div>}
                                                 </div>
                                             }
 
@@ -484,30 +484,41 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     !(conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name)
                                                     && !(conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email)
                                                     && !(conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone)
-                                                    && (numberOfTicketsForThisCustomer > 1)
                                                     &&
+                                                    <>
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <UserIcon className="h-4 w-4 text-primary" />
+                                                            <span>User unknown</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <GlobeAltIcon className="h-4 w-4 text-primary" />
+                                                            <span>{conversationDetails.customer?.ip}</span>
+                                                        </div>
+                                                    </>
+                                                }
+
+                                                {(conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name) &&
                                                     <div className="flex items-center gap-2 mb-1">
-                                                        <GlobeAltIcon className="h-4 w-4 text-primary" />
-                                                        <span>{conversationDetails.customer?.ip || 'Unknown'}</span>
+                                                        <UserIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name || 'Unknown'}</span>
                                                     </div>
                                                 }
 
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <UserIcon className="h-4 w-4 text-primary" />
-                                                    <span>{conversationDetails.customer_name || conversationDetails.customer?.name || conversationDetails?.metadata?.name || conversationDetails?.metadata?.patient_name || 'Unknown'}</span>
-                                                </div>
+
+                                                {(conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email) &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <EnvelopeIcon className="h-4 w-4 text-primary" />
+                                                        <span>{conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email || 'Unknown'}</span>
+                                                    </div>
+                                                }
 
 
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <EnvelopeIcon className="h-4 w-4 text-primary" />
-                                                    <span>{conversationDetails?.customer_email || conversationDetails.customer?.email || conversationDetails?.metadata?.email || 'Unknown'}</span>
-                                                </div>
-
-
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <DevicePhoneMobileIcon className="h-4 w-4 text-primary" />
-                                                    <span>{formatPhoneNumber()}</span>
-                                                </div>
+                                                {(conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone) &&
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <DevicePhoneMobileIcon className="h-4 w-4 text-primary" />
+                                                        <span>{formatPhoneNumber()}</span>
+                                                    </div>
+                                                }
 
 
                                             </div>
