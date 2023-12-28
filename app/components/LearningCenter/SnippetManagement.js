@@ -150,10 +150,9 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const handleMouseLeave = () => {
         setShowError(false);
     };
-    console.log("basicFormData1", basicFormData)
+    
 
     useEffect(() => {
-        console.log("basicFormData2", basicFormData)
         const textarea = document.querySelector(".resizable-textarea");
         textarea?.setAttribute("rows", "1"); // Set the 'rows' attribute
         const rows = Math.min(

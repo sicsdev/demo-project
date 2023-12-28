@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import SelectOption from '../Common/Input/SelectOption'
 
 const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader, selectedOptionValue, setSelectedOptionValue }) => {
-  
+
 
 
     const [showSourceFilter, setShowSourceFilter] = useState(false)
@@ -639,6 +639,28 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     </div>
                                 </div>
                             </li>
+
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div
+                                    onClick={() => {
+                                        handleCreateOptions('url');
+                                        setCreateMode('snippet');
+                                    }}
+                                    className="flex items-center"
+                                >
+                                    <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
+                                        <LinkIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>Website</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">
+                                            A website or help center you’d like to train Deflection on.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </SideModal >
@@ -655,7 +677,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             {
                 createOptions === 'url' && (
                     <UrlManagement
-                        hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
+                        hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} setLoading={setLoading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
                 )
             }
             {
