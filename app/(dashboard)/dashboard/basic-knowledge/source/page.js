@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import '@/app/components/Workflows/WorkflowBuilder\/customStyles.css'
 import { useSearchParams } from 'next/navigation'
+import { ToastContainer } from 'react-toastify'
 
 const Source = () => {
     const [selectedOptionValue, setSelectedOptionValue] = useState(null);
@@ -152,6 +153,7 @@ const Source = () => {
                     </>
                 )}
             </>
+            <ToastContainer />
         </>
     )
 }
