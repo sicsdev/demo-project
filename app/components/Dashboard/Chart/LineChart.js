@@ -158,7 +158,7 @@ const LineChart = ({ chartData }) => {
   const data = {
     labels: labels,
     datasets: [{
-      label: 'usage',
+      label: 'chats',
       data: dataPoints,
       // data: [0, 2, 5, 0, 0, 5, 0],
       fill: true,
