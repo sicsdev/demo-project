@@ -88,7 +88,7 @@ const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('DD MM
             return ''; // Return an empty string to not display a title
           },
           label: function (context) {
-            const label = context.dataset.label || '';
+            const label = "chats" || '';
             const value = context.parsed.y;
             const date = context.label;
             return `${value} ${label} on ${date}`; // Format the label text
