@@ -345,12 +345,29 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const getTicketsInfo = () => {
         if (numberOfTicketsForThisCustomer > 1) {
             return (
-                <>
+                <div className='flex items-center gap-1 text-primary'>
                     {numberOfTicketsForThisCustomer} Tickets <ArrowRightIcon className="w-3 h-3" />
-                </>
+                </div>
             );
         } else {
-            return `${numberOfTicketsForThisCustomer} Ticket`;
+            return (
+                <div className='flex items-center gap-1 text-black opacity-70'>
+                    {numberOfTicketsForThisCustomer} Ticket
+                </div>
+            )
+        }
+    }
+
+    const formatPhoneNumber = () => {
+        let number = conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone
+        if (!number) { return 'Unknown' }
+
+        const match = number.match(/^\+(\d)(\d{3})(\d{3})(\d{4})$/);
+
+        if (match) {
+            return `+${match[1]} ${match[2]} ${match[3]} ${match[4]}`;
+        } else {
+            return number;
         }
     }
 
@@ -452,7 +469,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         View more
                                                         <ArrowRightIcon className='w-3 h-3' />
                                                     </Link> */}
-                                                    <div className='flex items-center gap-1' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
+                                                    <div className='' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
 
                                                         {getTicketsInfo()}
 
@@ -478,8 +495,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <PhoneArrowDownLeftIcon className="h-4 w-4 text-primary" />
-                                                    <span>{conversationDetails?.customer_phone || conversationDetails.customer?.phone || conversationDetails?.metadata?.phone || 'Unknown'}</span>
+                                                    <DevicePhoneMobileIcon className="h-4 w-4 text-primary" />
+                                                    <span>{formatPhoneNumber()}</span>
                                                 </div>
 
 
