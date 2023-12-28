@@ -548,7 +548,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 />
             )}
 
-            <div className="knowledgebase_table w-full px-2 pt-2">
+            <div className="knowledgebase_table  px-2 pt-2 w-[98%]">
                 <div className=' hidden sm:block md:block lg:block'>
                     <DataTable
                         title={''}

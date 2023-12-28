@@ -432,7 +432,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 </div>
             </div>
 
-            <div className='flex flex-col sm:flex-row items-center justify-end'>
+            <div className='flex flex-col sm:flex-row items-center justify-end w-[98%]'>
                 <div className="w-full sm:w-[15%] mt-2  mx-auto sm:m-0">
                     <SelectOption
                         onChange={(e) => handleSelectChange(e)}
