@@ -171,7 +171,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.external = basicFormData.external + 1;
                 setBasicFormData(updatedFormData);
-
             } else if (value.type === 'PRODUCT') {
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.product = basicFormData.product + 1;
@@ -370,7 +369,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 </div>
             </div>
 
-            <div className='flex flex-col sm:flex-row items-center justify-end'>
+            <div className='flex flex-col sm:flex-row items-center justify-end w-[98%]'>
                
                 <div className='sm:flex md:flex lg:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>

@@ -14,6 +14,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
+import Select from 'react-select';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 import { useSearchParams } from 'next/navigation';
 import { DocumentTextIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
@@ -286,7 +287,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     // Table info
     const columns = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
@@ -297,15 +298,17 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Content Source",
+            name: <p className="font-[600]">Content Source</p>,
             selector: (row) => row?.knowledge?.source,
             sortable: false,
             reorder: false,
-            minWidth: "200px",
+            minWidth: "100px",
+            maxWidth: "250px",
+            className:"flex justify-center",
             hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
+                <div className="flex justify-start w-full items-center gap-2 ml-[7px]" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -325,23 +328,29 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Last usage 24hrs.",
+            name: <p className="font-[600]">Last usage 24hrs.</p>,
+            
             selector: (row, index) => row.knowledgefaq_usage_last_24_hours,
             sortable: false,
             reorder: false,
-            minWidth: "200px",
+            id:"lastUsage",
+            minWidth: "100px",
+            maxWidth: "250px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.knowledgefaq_usage_last_24_hours}</p>
+                <p className='whitespace-normal p-2 ml-[35px]' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.knowledgefaq_usage_last_24_hours}</p>
             ),
         },
         {
-            name: "Bots",
+            name: <p className="font-[600] !ml-[1rem]">Bots</p>,
             selector: (row) => row.bots,
             sortable: false,
             reorder: false,
+            minWidth: "200px",
+            maxWidth: "600px",
+            id:"bots",
             cell: (row, index) =>
-                <div className="py-2">
+                <div className="py-2 searchWrap">
                     <Multiselect
                         className=''
                         options={bots ?? []}
@@ -357,15 +366,19 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         placeholder={questions?.selectedBot && questions?.selectedBot[index]?.length === questions?.bots?.length ? '' : "Select Bots"}
                         displayValue="name"
                         closeOnSelect={true}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
                         showArrow={false}
-                    /></div>,
+                    />
+     
+                    
+                    </div>,
         },
     ];
 
     // Table info mobile
     const columns1 = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
@@ -376,7 +389,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Bots",
+            name: <p className="font-[600]">Bots</p>,
             selector: (row) => row.bots,
             sortable: false,
             minWidth: "70px",
@@ -384,7 +397,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             cell: (row, index) =>
                 <div className="py-2">
                     <Multiselect
-                        className=''
+                        className='datatableMulti'
                         options={bots ?? []}
                         selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
                         onSelect={(selectedList, selectedItem) => {
@@ -407,7 +420,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
     const productColumnsInfo = [
         {
-            name: "Product",
+          
+            name: <p className="font-[600]">Product</p>,
+
             selector: (row, index) => row.image,
             sortable: false,
             reorder: false,
@@ -418,7 +433,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Title",
+          
+            name: <p className="font-[600]">Title</p>,
+
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
@@ -429,7 +446,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Description",
+            
+            name: <p className="font-[600]">Description</p>,
+            
             selector: (row, index) => row.description,
             sortable: false,
             reorder: false,
@@ -440,7 +459,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Bots",
+ 
+            name: <p className="font-[600]">Bots</p>,
+
             selector: (row) => row.bots,
             sortable: false,
             minWidth: "70px",
@@ -525,7 +546,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 />
             )}
 
-            <div className="knowledgebase_table w-full px-2 pt-2">
+            <div className="knowledgebase_table  px-2 pt-2 w-[98%]">
                 <div className=' hidden sm:block md:block lg:block'>
                     <DataTable
                         title={''}
@@ -533,7 +554,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className='!h-[69vh]'
+                        className='!h-[69vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
                         noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}
@@ -557,7 +578,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         title={''}
                         fixedHeader
                         highlightOnHover
-                        className='custome_table'
+                        className='custome_table !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         pointerOnHover
                         pagination
                         columns={currentTab == 'products' ? productColumnsInfo : columns1}
