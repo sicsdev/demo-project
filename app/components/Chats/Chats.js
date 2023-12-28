@@ -50,11 +50,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         getDetails()
         handleResize()
 
-        // Scroll chat content to end.
-        if (chatLogsRef.current) {
-            const element = chatLogsRef.current;
-            element.scrollTop = element.scrollHeight;
-        }
 
         // responsive
         window.addEventListener('resize', handleResize);
@@ -462,7 +457,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                         } */}
                                         <div className="emailheader_ChatBotWidget relative">
                                             {conversationDetails?.customer?.id &&
-                                                <div className={`absolute flex items-center gap-1 text-xs top-4 right-4 text-primary
+                                                <div className={`absolute flex items-center gap-1 text-xs top-4 right-6 text-primary
                                                 ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
                                                     {/* <Link
                                                         href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
