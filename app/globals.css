@@ -427,7 +427,7 @@ body .chip {
   margin-bottom: 4px;
   font-weight: 700;
   margin-right: 0;
-  background-color: #0057ff;
+  background-color: #80808024;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
@@ -435,6 +435,8 @@ body .chip {
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
+  border-radius: 4px;
+  color: #000;
 }
 body .custom-multselect .searchWrappery .chip {
   font-size: 10px;
@@ -442,7 +444,7 @@ body .custom-multselect .searchWrappery .chip {
   margin-bottom: 4px;
   font-weight: 700;
   margin-right: 0;
-  background-color: #0057ff;
+  background-color: #80808024;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
@@ -455,13 +457,14 @@ body .custom-multselect .searchWrapper .chip {
   font-size: 10px;
   line-height: 16px;
   margin-bottom: 4px;
-  font-weight: 700;
+  font-weight: 400;
   margin-right: 0;
-  background-color: #0057ff;
+  /* background: #80808024  !important; */
+  background-color: #80808024;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  width: 13%;
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;

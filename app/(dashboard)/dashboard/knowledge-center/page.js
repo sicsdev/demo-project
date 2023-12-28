@@ -266,7 +266,7 @@ const Page = () => {
             )
         },
         {
-            name: <p className="font-[600]">Count</p>,
+            name: <p className="font-[600] m">Count</p>,
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
