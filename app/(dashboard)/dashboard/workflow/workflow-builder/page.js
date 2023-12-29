@@ -146,7 +146,7 @@ const Page = () => {
                             <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                                 {skeletonloading ?
                                     <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                                    :
+                                    : 
                                     <span
                                         className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
