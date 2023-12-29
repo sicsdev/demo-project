@@ -91,8 +91,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
+            console.log("convoDetails", convoDetails)
             if (convoDetails.data) {
-                getNumberOfTickets(convoDetails.data.customer?.id)
+                // getNumberOfTickets(convoDetails.data.customer?.id)
+                setNumberOfTicketsForThisCustomer(convoDetails.data.customer?.conversation_count)
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)
                 setConversationDetails(convoDetails.data)
                 setLoadingData(false)
@@ -308,7 +310,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         try {
             parsed = JSON.parse(nextMessage.content)
         } catch {
-            console.log('')
+            // console.log('')
         }
 
         let field = parsed[elementData.name]
@@ -347,11 +349,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         setIsShowWorkflowLogsUI(!isShowWorkflowLogsUI);
     }
 
-    async function getNumberOfTickets(customer_id) {
-        let numberOfTickets = await getAllCustomerConversationsById(customer_id)
-        let number = numberOfTickets?.data?.length || 0
-        setNumberOfTicketsForThisCustomer(number)
-    }
+    // async function getNumberOfTickets(customer_id) {
+    //     let numberOfTickets = await getAllCustomerConversationsById(customer_id)
+    //     let number = numberOfTickets?.data?.length || 0
+    //     setNumberOfTicketsForThisCustomer(number)
+    // }
 
     async function getWorkflowUasgeByCustomerID(customer_id) {
         let queryParam = `customer_id=${customer_id}`;
