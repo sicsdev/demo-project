@@ -38,7 +38,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     const getAllNegativeFaqs = async () => {
         await getFaqNegative().then(results => {
             setAllNegativeFAQS(results);
-            let faqFinder = results.find(faq => faq?.faq?.id == item.information.id)
+            let faqFinder = results?.find(faq => faq?.faq?.id == item.information.id)
             if (faqFinder) {
                 setRated(true); setFAQObject(faqFinder)
             } else {
