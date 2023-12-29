@@ -46,7 +46,7 @@ const WorkflowUsageTable = ({ loading, data }) => {
                                         </div>
                                     </div>
 
-                                    <div className='flex items-center w-[100%] pr-0 pl-[8px] sm:pl-[16px] sm:pr-[16px]'>
+                                    <div className='flex items-center w-[100%] pr-[5px] pl-[8px] sm:pl-[16px] sm:pr-[16px]'>
                                         <div className='w-full text-[#000] break-all' >
                                             <WorkflowUsageCard currentExpanded={currentExpanded} log={item}></WorkflowUsageCard>
                                         </div>
