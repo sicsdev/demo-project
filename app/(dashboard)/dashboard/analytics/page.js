@@ -44,6 +44,7 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [chatDateTime, setChatDateTime] = useState('');
+  const [isShowWorkflowLogsUI, setIsShowWorkflowLogsUI] = useState(false);
   const params = useSearchParams()
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
@@ -1340,6 +1341,7 @@ const Logs = () => {
                               manageMessages[indexVal - 1].id
                             );
                           }
+                          setIsShowWorkflowLogsUI(false)
                         }}
                       >
                         <ArrowLeftIcon className="h-4 w-4 text-heading" />
@@ -1359,6 +1361,7 @@ const Logs = () => {
                         } else {
                           handleNextLog()
                         }
+                        setIsShowWorkflowLogsUI(false)
                       }}
                     >
                       <ArrowRightIcon className="h-4 w-4 text-heading" />
@@ -1375,6 +1378,8 @@ const Logs = () => {
                     filterDataHandler={filterDataHandler}
                     setShowChat={setShowChat}
                     setChatDateTime={setChatDateTime}
+                    isShowWorkflowLogsUI={isShowWorkflowLogsUI}
+                    setIsShowWorkflowLogsUI={setIsShowWorkflowLogsUI}
                   />
                 </>
 

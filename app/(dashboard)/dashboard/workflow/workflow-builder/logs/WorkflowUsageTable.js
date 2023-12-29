@@ -46,13 +46,13 @@ const WorkflowUsageTable = ({ loading, data }) => {
                                         </div>
                                     </div>
 
-                                    <div className='flex items-center w-[100%] px-[16px]'>
+                                    <div className='flex items-center w-[100%] pr-0 pl-[8px] sm:pl-[16px] sm:pr-[16px]'>
                                         <div className='w-full text-[#000] break-all' >
                                             <WorkflowUsageCard currentExpanded={currentExpanded} log={item}></WorkflowUsageCard>
                                         </div>
                                     </div>
 
-                                    <div className='flex items-center px-[16px]'>
+                                    <div className='flex items-center px-[0px] sm:px-[16px]'>
                                         <div className='w-full text-sm flex gap-2 items-center justify-center text-[#000]'>
                                             <ChartBarIcon className='w-4 h-4 opacity-60'></ChartBarIcon>
                                             <b>{item.workflow.successful_automation_usage_last_24_hours_count}</b>

@@ -24,7 +24,7 @@ import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
 import WorkflowUsageLogs from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageLogs';
 import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageTable';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime,isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -43,7 +43,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         count: 0,
         results: []
     })
-    const [isShowWorkflowLogsUI, setIsShowWorkflowLogsUI] = useState(false);
+    // const [isShowWorkflowLogsUI, setIsShowWorkflowLogsUI] = useState(false);
 
     const [loadingData, setLoadingData] = useState(true)
     // Loaders
