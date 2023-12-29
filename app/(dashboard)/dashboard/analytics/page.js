@@ -419,12 +419,12 @@ const Logs = () => {
     page1 = "main"
   ) => {
     setPerPage(page_size);
-    if (page1 === "main") {
-      setLoading(true);
-      setSearchLoading(true)
-    } else {
-      setSearchLoading(true)
-    }
+    // if (page1 === "main") {
+    //   setLoading(true);
+    //   setSearchLoading(true)
+    // } else {
+    //   setSearchLoading(true)
+    // }
 
     const response = await getPaginateBotConversation(
       id,
@@ -1255,12 +1255,12 @@ const Logs = () => {
               progressPending={searchLoading}
               progressComponent={
                 <div className="w-full mt-3 relative">
-                  <SkeletonLoader
+                  {/* <SkeletonLoader
                     count={9}
                     height={30}
                     width="100%"
                     className={"mt-2"}
-                  />
+                  /> */}
                 </div>
               }
               paginationDefaultPage={pageVal}

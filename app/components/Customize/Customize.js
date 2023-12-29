@@ -916,8 +916,7 @@ const Customize = ({
                       >
                         What is the price of the product?
                       </div>
-                      {preferences.chat_suggestions &&
-                        preferences.chat_suggestions_show && (
+
                           <div className="tempoWidget-suggestedQuestions-div_logs">
                             {preferences.chat_suggestions.map((el) => (
                               <div className="tempoWidget-suggestedQuestions-option">
@@ -925,7 +924,6 @@ const Customize = ({
                               </div>
                             ))}
                           </div>
-                        )}
                     </div>
 
                     <div class="chatbotwidget_footer">

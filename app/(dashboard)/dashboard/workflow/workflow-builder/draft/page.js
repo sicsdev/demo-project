@@ -14,7 +14,6 @@ import { useRouter } from 'next/navigation';
 import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { fetchWorkflows } from '@/app/components/store/slices/workflowSlice';
 import { useDispatch } from 'react-redux';
-import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 import TopBar from '@/app/components/Common/Card/TopBar';
 

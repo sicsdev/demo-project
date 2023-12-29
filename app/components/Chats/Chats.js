@@ -808,8 +808,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                 {element.actions.options[indx]}
                                                                                                 {`     `}
                                                                                                 <small>
-                                                                                                    {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
-                                                                                                    {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
+                                                                                                    {indx == 'WORKFLOW' && element.workflows[0]?.score != null && `${Math.round((element.workflows[0].score * 100))}%`}
+                                                                                                    {indx == 'INFORMATION' && element.knowledge[0]?.score != null && `${Math.round((element.knowledge[0].score * 100) + getAddition(key))}%`}
                                                                                                 </small>
                                                                                             </button>
                                                                                         </>

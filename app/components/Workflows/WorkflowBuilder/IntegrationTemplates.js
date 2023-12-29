@@ -1,9 +1,23 @@
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
+import { getPermissionHelper } from '../../helper/returnPermissions';
+import { useSelector } from 'react-redux';
  
 const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userState }) => {
     const excludedIntegrations = ["Healthie", "GitHub", "Linear", "DataDog", "CircleCI", "Jira", "Asana", "Monday", "Twilio", "Intercom"];
+    // const userState = useSelector(state => state.user.data)
+
+    const handleOpenConfigIntegration = (element, item) => {
+
+        let isAuthorized = getPermissionHelper("ADD AND CONFIGURE INTEGRATION", userState?.role)
+        if (isAuthorized && element.title.toLowerCase() !== "custom") {
+            performIntegrationTask(item)
+        }
+
+
+        // 
+    }
     return (
         <div>
             {integrationTiles.map((element, key) => (
@@ -18,11 +32,7 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userSt
                                 < div
                                     className={`${item.grayscale && ("pointer-events-none")} ${item.checked && ("bg-[#ECF6FE] border-primary_hover")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                                     key={key}
-                                    onClick={() => {
-                                        if (element.title.toLowerCase() !== "custom") {
-                                            performIntegrationTask(item);
-                                        }
-                                    }}
+                                    onClick={() => { handleOpenConfigIntegration(element, item) }}
                                 >
                                     <div className="flex justify-start gap-1 items-center relative">
                                         <div className='flex justify-start gap-2 items-center'>

@@ -45,7 +45,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         manageData()
         setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
     }, [workflowData, filters])
-    
+
     useEffect(() => {
         if (botsState && botsState.botData && botsState.botData.data) {
             getAllBots()
@@ -200,10 +200,9 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
 
     return (
-        <div>
+        <div className='w-[96%] m-auto'>
             <div className='mt-4'>
-
-                <div className='flex w-full justify-start items-center gap-1 my-2 w-full'>
+                <div className='flex w-full justify-start items-center gap-1 my-2 '>
                     <div className="w-full flex items-center sm:mt-0 justify-start">
                         {loading ?
                             <SkeletonLoader count={1} height={35} width={200} />
@@ -281,6 +280,8 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                                 </>
                             )
                         }
+
+
                     </div>
 
                 </div>

@@ -2300,3 +2300,51 @@ input#domainName {
 border: 1px solid #2563Eb;
 background-color: white;
 }
+
+
+
+
+/* @media screen and (min-width:992px) and (max-width:1199px){
+  .myDataTable p.whitespace-normal.p-2.ml-\[35px\] {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+}
+.myDataTable .rdt_Table .rdt_TableRow { 
+  width: 83%;
+  }
+  .myDataTable .searchWrap .searchWrapper {  
+    display: block; 
+    background: transparent;
+}}
+
+@media screen and (min-width:800px) and (max-width:991px){
+  .myDataTable p.whitespace-normal.p-2.ml-\[35px\] {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+}
+.myDataTable .rdt_TableCol { 
+  min-width: 180px;
+}
+.myDataTable .rdt_TableCell { 
+min-width: none; 
+min-width: auto;padding:0;
+}
+.myDataTable .searchWrap .searchWrapper { 
+display: block; background:transparent;
+}
+.myDataTable .rdt_Table .rdt_TableRow { 
+width: 65%;
+}
+} */
+
+
+@media screen and (min-width:640px) and (max-width:1199px){
+.myDataTable{
+  overflow-x: scroll !important;
+}
+.myDataTable .rdt_TableCell{
+  position: relative; right: 20px;
+}
+}
