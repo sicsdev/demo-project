@@ -32,7 +32,7 @@ const Page = () => {
     const [showLogs, setShowLogs] = useState(false)
     const router = useRouter()
     const dispatch = useDispatch()
-    const [tab, setTab] = useState(0)
+    const [tab, setTab] = useState(null)
     const state = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
     const [workflowLoading, setWorkLoading] = useState(false)
@@ -42,9 +42,9 @@ const Page = () => {
     const [initialized, setInitialized] = useState(false)
 
     useEffect(() => {
-        setTimeout(() => {
-            setSkeetonLoading(false);
-        }, 300);
+        // setTimeout(() => {
+        //     setSkeetonLoading(false);
+        // }, 300);
     }, [])
 
     // logs function check logs has data or not
@@ -73,6 +73,7 @@ const Page = () => {
             setShowActive(true)
             setTab(0)
         }
+        setSkeetonLoading(false)
     }
 
     const allWorkflowTemplates = async () => {
@@ -94,7 +95,7 @@ const Page = () => {
             policy_description: "",
             policy_exceptions: ""
         }
-        const findDuplicate = workflowState?.data?.results?.find((x) => x.name === "Default_name")
+        const findDuplicate = workflowState?.data?.results?.find((x) => x.name === "Default_template_name")
         if (findDuplicate) {
             router.push('/dashboard/workflow/workflow-builder/get-started?flow=' + findDuplicate.id)
             setWorkLoading(false)
