@@ -26,6 +26,7 @@ const Customize = ({
   buttonLoading,
   DisablingButton,
   SubmitForm,
+  Submission
 }) => {
   const userState = useSelector((state) => state.user.data)
   const [botDetails, setBotDetails] = useState({});
@@ -50,7 +51,7 @@ const Customize = ({
 
   const [showManageHideUrls, setShowManageHideUrls] = useState(false);
   const [availableIntegrations, setAvailableIntegrations] = useState([]);
-  
+
   const [preferences, setPreferences] = useState({
     id: "",
     enterprise: {},
@@ -153,6 +154,10 @@ const Customize = ({
         primary_text_color: color.text_color,
       };
     });
+    Submission({
+      ...basicFormData, primary_color: color.code,
+      primary_text_color: color.text_color,
+    })
   };
 
   const handleSecondaryColorChange = (color) => {
@@ -168,6 +173,11 @@ const Customize = ({
         secondary_text_color: color.text_color,
       };
     });
+    Submission({
+      ...basicFormData,
+      secondary_color: color.code,
+      secondary_text_color: color.text_color,
+    })
   };
 
   const handleInputChange = (e) => {
@@ -176,6 +186,10 @@ const Customize = ({
     setBasicFormData((prev) => {
       return { ...prev, [name]: value };
     });
+    Submission({
+      ...basicFormData,
+      [name]: value
+    })
   };
   const handleCheckBoxChange = (e) => {
     const { name } = e.target;
@@ -186,6 +200,7 @@ const Customize = ({
     setBasicFormData((prev) => {
       return { ...prev, [name]: preferences.active === false ? true : false };
     });
+    Submission({ ...basicFormData, [name]: preferences.active === false ? true : false })
   };
   const handleCheckBoxChange1 = (e) => {
     const { name } = e.target;
@@ -199,6 +214,8 @@ const Customize = ({
         [name]: preferences.chat_suggestions_show === false ? true : false,
       };
     });
+
+    Submission({ ...basicFormData, [name]: preferences.chat_suggestions_show === false ? true : false, })
   };
 
   // Logo & thumbnail upload + base64 conversion
@@ -230,7 +247,7 @@ const Customize = ({
           return { ...prev, logo: result, logo_file_name: file.name };
         });
       })
-
+    Submission({ ...basicFormData, logo: result, logo_file_name: file.name })
       .catch((err) => {
         console.log(err);
       });
@@ -254,6 +271,7 @@ const Customize = ({
             origins_blocked: res?.data?.origins_blocked,
           };
         });
+
       }
     });
   };
@@ -272,6 +290,7 @@ const Customize = ({
             origins_blocked: res?.data?.origins_blocked,
           };
         });
+
       }
     }),
   ];
@@ -306,12 +325,14 @@ const Customize = ({
                 chat_suggestions: [...prev, makeCapital(trimmedName)],
               };
             });
+            Submission({ ...basicFormData, chat_suggestions: [...prev, makeCapital(trimmedName)], })
             return [...prev, makeCapital(trimmedName)];
           });
         }
       });
     } else {
       setFormValues({ ...formValues, agent_name: value });
+      Submission({ ...formValues, agent_name: value })
     }
   };
 
@@ -335,6 +356,8 @@ const Customize = ({
                 chat_suggestions: [...prev, makeCapital(trimmedName)],
               };
             });
+
+            Submission({ ...basicFormData, chat_suggestions: [...prev, makeCapital(trimmedName)], })
             return [...prev, makeCapital(trimmedName)];
           });
         }
@@ -361,6 +384,7 @@ const Customize = ({
         chat_suggestions: [...updatedChips],
       };
     });
+    Submission({ ...basicFormData, chat_suggestions: [...updatedChips], })
   };
   const makeCapital = (str) => {
     if (str.includes(" ")) {
@@ -710,43 +734,41 @@ const Customize = ({
                       Default Prompts
                     </span>
                   </div>
-                  <div className="flex justify-start w-1/2">
-                    <div
-                      className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length > 0 && "p-2"
-                        }`}
-                    >
-                      <div className="flex flex-wrap items-center justify-start gap-1">
-                        {tileAgentName.length > 0 &&
-                          tileAgentName.map((element, key) => (
-                            <div
-                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
-                              key={key}
-                            >
-                              {element}
-                              <XMarkIcon
-                                className=" h-4 w-4 cursor-pointer "
-                                onClick={(e) => {
-                                  RemoveFromAgentNameArr(element);
-                                }}
-                              />
-                            </div>
-                          ))}
-                      </div>
-                      <input
-                        value={formValues.agent_name}
-                        onKeyDown={handleKeyDown}
-                        required
-                        onChange={handleAgentNameValue}
-                        type={"text"}
-                        placeholder={"Enter prompts separated by commas"}
-                        className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none`}
-                        id={"chat_suggestions"}
-                        name={"chat_suggestions"}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                  <div className="flex flex-col justify-start w-1/2">
 
-                      />
+
+                    <input
+                      value={formValues.agent_name}
+                      onKeyDown={handleKeyDown}
+                      required
+                      onChange={handleAgentNameValue}
+                      type={"text"}
+                      placeholder={"Enter prompts separated by commas"}
+                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      id={"chat_suggestions"}
+                      name={"chat_suggestions"}
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
+                    />
+                    <div className="flex mt-2 flex-wrap items-center justify-start gap-1">
+                      {tileAgentName.length > 0 &&
+                        tileAgentName.map((element, key) => (
+                          <div
+                            className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                            key={key}
+                          >
+                            {element}
+                            <XMarkIcon
+                              className=" h-4 w-4 cursor-pointer "
+                              onClick={(e) => {
+                                RemoveFromAgentNameArr(element);
+                              }}
+                            />
+                          </div>
+                        ))}
                     </div>
                   </div>
+
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
@@ -968,29 +990,7 @@ const Customize = ({
               </div>
             </div>
 
-            <div className="sm:flex md:flex lg:flex justify-end items-center gap-4">
-
-              <div className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0">
-                <div className="flex justify-end items-center px-6 py-4">
-                  {buttonLoading ? (
-                    <LoaderButton
-                      className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`}
-                    />
-                  ) : (
-                    <>
-                      <Button
-                        type={"button"}
-                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                        disabled={DisablingButton() || !(getPermissionHelper('EDIT BOT SETTINGS', userState?.role))}
-                        onClick={(e) => SubmitForm()}
-                      >
-                        Save
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
+         
           </>
         )}
       </div>

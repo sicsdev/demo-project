@@ -29,6 +29,7 @@ import TextEditor from "@/app/components/URL/Richtext";
 import AnswersEditor from "./AnswersEditor";
 import { useSearchParams } from "next/navigation";
 import FaqHistoryTab from "@/app/components/LearningCenter/FaqHistoryTab";
+import SelectOption from "@/app/components/Common/Input/SelectOption";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -94,6 +95,8 @@ const Page = () => {
     const firstRender = useRef(true);
     const [tab, setTab] = useState(1)
     const [loadingChangeAnswer, setLoadingChangeAnswer] = useState(false)
+    const [isMouseOver, setIsMouseOver] = useState(null);
+
 
     const checkValue = (str) => {
         if (str.length < 2) {
@@ -232,21 +235,23 @@ const Page = () => {
                 // maxHeight: '100%', // override the row height
                 // paddingTop: "10px",
                 // paddingBottom: "10px",
-                height: "auto"
+                height: "auto",
+
+
             },
         }
     };
 
     const columns = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             id: "question",
             selector: 'question',
             sortable: false,
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "60%" }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -261,86 +266,93 @@ const Page = () => {
             )
         },
         {
-            name: "Count",
+            name: <p className="font-[600] m">Count</p>,
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
             width: "100px",
             center: true,
             hide: "sm",
+            style:{paddingRight:"25px"}
         },
         {
-            name: "Created",
+            name: <p className="font-[600] ">Created</p>,
             id: "created",
             selector: 'question',
             sortable: false,
             minWidth: "150px",
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal'> {formatISODate(row.created)}</p >
+                <>
+
+                    <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
+                </>
+
             )
         },
+
+
         {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-                    setWorkflowView(row)
-                    searchMatched({ question: row.question }, false)
-                    getWorkFlowReccomodation(row.question)
-                    setShow(true)
-                    setAnswer('')
-                    setQuestionData([])
-                    setSearchKnowledge('')
-                    setKnowledgeId(null)
-                }}>
-                    {
-                        row?.accepted === false && (
-                            <>
-
-
-                                <div>
-                                    <button type="button">
-                                        <PlusCircleIcon className="h-6 w-6 text-success " />
-                                    </button>
-                                </div>
+                <>
+                    <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                        setWorkflowView(row)
+                        searchMatched({ question: row.question }, false)
+                        getWorkFlowReccomodation(row.question)
+                        setShow(true)
+                        setAnswer('')
+                        setQuestionData([])
+                        setSearchKnowledge('')
+                        setKnowledgeId(null)
+                    }}>
+                        {
+                            row?.accepted === false && (
                                 <>
-                                    {deleteLoader === row.id ?
-                                        <ColorRing
-                                            height="30"
-                                            width="30"
-                                            color="#4fa94d"
-                                            ariaLabel="tail-spin-loading"
-                                            radius="1"
-                                            wrapperClass="text-center"
-                                            visible={true}
-                                        /> :
-                                        <div>
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    deleteButtonHandler(row.id);
-                                                }}
-                                            >
-                                                <XCircleIcon className="h-6 w-6 text-danger " />
-                                            </button>
-                                        </div>
-                                    }
-
-
-
+                                    <div>
+                                        <button type="button">
+                                            <PlusCircleIcon className="h-6 w-6 text-success " />
+                                        </button>
+                                    </div>
+                                    <>
+                                        {deleteLoader === row.id ?
+                                            <ColorRing
+                                                height="30"
+                                                width="30"
+                                                color="#4fa94d"
+                                                ariaLabel="tail-spin-loading"
+                                                radius="1"
+                                                wrapperClass="text-center"
+                                                visible={true}
+                                            /> :
+                                            <div>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        deleteButtonHandler(row.id);
+                                                    }}
+                                                >
+                                                    <XCircleIcon className="h-6 w-6 text-danger " />
+                                                </button>
+                                            </div>
+                                        }
+                                    </>
                                 </>
-                            </>
-                        )}
-
-                </div>
+                            )
+                        }
+                    </div>
+                </>
             ),
         },
 
 
 
+
     ];
+
+
 
     function formatISODate(isoDate) {
         // Crear un objeto de fecha a partir de la fecha en formato ISO
@@ -394,6 +406,17 @@ const Page = () => {
             }
         }
     };
+
+    const getReccomodationByTime = async (filterDate) => {
+        setLoading(true)
+        const query = `&page=${pageVal}&page_size=${perPage}&created__gte=${filterDate?.created__gte}&created__lte=${filterDate?.created__lte}`
+        const response = await GetAllRecommendations(query)
+        debugger
+        if (response) {
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+            setLoading(false)
+        }
+    }
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true)
         setPageVal(page)
@@ -727,7 +750,82 @@ const Page = () => {
     }
 
 
+    const handlemouseOver = (id) => {
+        console.log("mouse", id)
+        setIsMouseOver(id)
+    }
 
+    const handlemouseLeave = (id) => {
+        // setIsMouseOver(null);
+    }
+
+
+    const DateValues = ["Filter by date", "Today", "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "Last 3 Months", "This Year", "Last Year"]
+
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleSelectChange = (event) => {
+        setSelectedOption(event.target.value);
+        const dates = getDatesForOption(event.target.value);
+        if (dates) {
+            getReccomodationByTime(dates)
+        }
+    };
+
+    const getDatesForOption = (option) => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let startDate, endDate;
+        if (option === "Filter by date") {
+            return null
+        }
+        switch (option) {
+            case 'Today':
+                startDate = endDate = today;
+                break;
+            case 'Yesterday':
+                startDate = endDate = new Date(today.setDate(today.getDate() - 1));
+                break;
+            case 'Last 7 Days':
+                startDate = new Date(today.setDate(today.getDate() - 7));
+                endDate = today;
+                break;
+            case 'Last 30 Days':
+                startDate = new Date(today.setDate(today.getDate() - 30));
+                endDate = today;
+                break;
+            case 'This Month':
+                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                endDate = today;
+                break;
+            case 'Last Month':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+                break;
+            case 'Last 3 Months':
+                startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+                endDate = today;
+                break;
+            case 'This Year':
+                startDate = new Date(today.getFullYear(), 0, 1);
+                endDate = today;
+                break;
+            case 'Last Year':
+                startDate = new Date(today.getFullYear() - 1, 0, 1);
+                endDate = new Date(today.getFullYear() - 1, 11, 31);
+                break;
+            default:
+                // Default to today if no option is matched
+                startDate = endDate = today;
+                break;
+        }
+
+        return {
+            created__gte: startDate.toISOString().split('T')[0],
+            created__lte: endDate.toISOString().split('T')[0]
+        };
+
+    };
 
     return (
         <>
@@ -790,28 +888,42 @@ const Page = () => {
                 {tab == 1 &&
                     <>
                         <div className='flex w-full m-auto justify-center'>
-                            <p className="text-sm p-2 font-semibold m-auto opacity-80" style={{ fontFamily: 'sans-serif' }}>
+                            <p className="text-sm p-2 m-auto opacity-80  text-[#333333]" style={{ fontFamily: 'sans-serif' }}>
                                 Questions your customers have asked that Deflection AI does not know how to answer
                             </p>
                         </div>
 
-                        <div className="w-full sm:relative sm:mt-[20px]">
-
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2]'>
+                        <div className="flex justify-end gap-4 items-center sm:mt-[20px] !w-[97.5%]">
+                            <div className="w-full sm:w-[16%]">
+                                <SelectOption
+                                    onChange={(e) => handleSelectChange(e)}
+                                    value={selectedOption || ""}
+                                    name="filtering"
+                                    values={DateValues.map((e) => { return { name: e, value: e } })}
+                                    title={""}
+                                    id={"filtering"}
+                                    className="!py-1.5  !m-0"
+                                    error={""}
+                                    showOption={false}
+                                />
+                            </div>
+                            <div className='flex justify-end gap-4 items-center '>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
-                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+
+                                        <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pr-[25px]" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                        <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
                                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                             </svg>
                                         </div>
-
-                                        <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                                     </div>
                                 }
                             </div>
-
+                        </div>
+                        <div className=" sm:mt-[20px]">
                             <DataTable
                                 title={''}
                                 fixedHeader
@@ -819,6 +931,8 @@ const Page = () => {
                                 pointerOnHover
                                 pagination
                                 columns={columns}
+                                // onRowMouseEnter={(e) => handlemouseOver(e.id)}
+                                // onRowMouseLeave={(e) => handlemouseLeave(e.id)}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
                                 progressPending={loading}
@@ -845,7 +959,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[75vh] !h-[65vh]'
+                                className='sm:!h-[117vh] !h-[65vh] !w-[95%] !m-[auto] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}

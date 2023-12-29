@@ -313,3 +313,13 @@ export const partialUpdateWorkflowTemplate = async (id, body) => {
     }
 };
 
+
+export const getWorkflowLogsByCustomerID = async (queryParams) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/?${queryParams}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

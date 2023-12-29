@@ -10,23 +10,23 @@ import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
 import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, getFaqQuestionById, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, addNegativeBulkCreate, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
-import { makeCapital } from '../helper/capitalName';
-import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
-import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 import { useSearchParams } from 'next/navigation';
-
+import { DocumentTextIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import StatusIndicator from '../StatusIndicator/Status';
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
 
     const params = useSearchParams()
+    const [typingTimeout, setTypingTimeout] = useState(null)
 
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [newData, setNewData] = useState(null)
     const [showAdd, setShowAdd] = useState(true);
     const [nLoading, setNLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -34,7 +34,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [negativeQuestions, setNagetiveQuestions] = useState([])
     const [negative, setNagetive] = useState(false)
     const [updateLoader, setUpdateLoader] = useState(false);
-
+    const [driveLoad, setDriveLoad] = useState(false);
 
     // Local states for the sidebar for product edition.
     const [createMode, setCreateMode] = useState('snippet')
@@ -83,7 +83,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             // Handle error
         }
     };
-
+    const getIndex = (elementId) => {
+        const findIndex = questions?.data?.results.findIndex(x => x.id === elementId)
+        return findIndex
+    }
     const onSelectData = (selectedList, selectedItem, index) => {
         let updatedSelectedList = [...questions.selectedBot];
         updatedSelectedList[index] = selectedList;
@@ -93,15 +96,38 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             selectedBot: updatedSelectedList
         }));
     }
-
+    useEffect(() => {
+        if (newData) {
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+            const newTypingTimeout = setTimeout(() => {
+                updateFaq();
+            }, 3000);
+            setTypingTimeout(newTypingTimeout); // Assuming setTypingTimeout is the setter for typingTimeout state
+        }
+    }, [selected?.answer, newData, selected?.selectBots?.length]);
     const updateFaq = async () => {
         setUpdateLoader(true)
-        const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
+        let newPayload = {
+            answer: selected?.answer,
+            "bots": selected?.selectBots.map((ele) => {
+                return {
+                    "bot": ele.value, "active": true
+                }
+            })
+        }
+        const response = await patchKnowledgeQuestion(newPayload, selected?.id)
         if (response.status === 200 || response.status === 201) {
             // dispatch(fetchFaqQuestions('page=1&page_size=10'));
-            getQuestionsData()
+            // getQuestionsData()
             setUpdateLoader(false)
-            setSelected(null)
+            setDriveLoad(true)
+            setTimeout(() => {
+                setDriveLoad(false)
+            }, 3000);
+            setNewData(null)
+            // setSelected(null)
         } else {
             setUpdateLoader(false)
         }
@@ -185,6 +211,16 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 answer: content
             }
         })
+        setNewData((prev) => {
+            if (prev) {
+                return {
+                    ...prev,
+                    answer: content
+                }
+            } else {
+                return { answer: content }
+            }
+        })
     }
 
 
@@ -253,26 +289,28 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     // Table info
     const columns = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
             minWidth: "200px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.question}</p>
             ),
         },
         {
-            name: "Content Source",
+            name: <p className="font-[600]">Content Source</p>,
             selector: (row) => row?.knowledge?.source,
             sortable: false,
             reorder: false,
-            minWidth: "200px",
+            minWidth: "100px",
+            maxWidth: "250px",
+            className:"flex justify-center",
             hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected(row) }}>
+                <div className="flex justify-start w-full items-center gap-2 ml-[7px]" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -292,23 +330,29 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Last usage 24hrs.",
+            name: <p className="font-[600]">Last Usage 24hrs.</p>,
+            
             selector: (row, index) => row.knowledgefaq_usage_last_24_hours,
             sortable: false,
             reorder: false,
-            minWidth: "200px",
+            id:"lastUsage",
+            minWidth: "100px",
+            maxWidth: "250px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.knowledgefaq_usage_last_24_hours}</p>
+                <p className='whitespace-normal p-2 ml-[35px]' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.knowledgefaq_usage_last_24_hours}</p>
             ),
         },
         {
-            name: "Bots",
+            name: <p className="font-[600] !ml-[1rem]">Bots</p>,
             selector: (row) => row.bots,
             sortable: false,
             reorder: false,
+            minWidth: "200px",
+            maxWidth: "600px",
+            id:"bots",
             cell: (row, index) =>
-                <div className="py-2">
+                <div className="py-2 searchWrap">
                     <Multiselect
                         className=''
                         options={bots ?? []}
@@ -324,26 +368,30 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         placeholder={questions?.selectedBot && questions?.selectedBot[index]?.length === questions?.bots?.length ? '' : "Select Bots"}
                         displayValue="name"
                         closeOnSelect={true}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
                         showArrow={false}
-                    /></div>,
+                    />
+     
+                    
+                    </div>,
         },
     ];
 
     // Table info mobile
     const columns1 = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
             minWidth: "100px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.question}</p>
             ),
         },
         {
-            name: "Bots",
+            name: <p className="font-[600]">Bots</p>,
             selector: (row) => row.bots,
             sortable: false,
             minWidth: "70px",
@@ -351,7 +399,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             cell: (row, index) =>
                 <div className="py-2">
                     <Multiselect
-                        className=''
+                        className='datatableMulti'
                         options={bots ?? []}
                         selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
                         onSelect={(selectedList, selectedItem) => {
@@ -366,6 +414,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         displayValue="name"
                         closeOnSelect={true}
                         showArrow={false}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
+
                     /></div>,
         }
     ];
@@ -374,7 +424,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
     const productColumnsInfo = [
         {
-            name: "Product",
+          
+            name: <p className="font-[600]">Product</p>,
+
             selector: (row, index) => row.image,
             sortable: false,
             reorder: false,
@@ -385,7 +437,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Title",
+          
+            name: <p className="font-[600]">Title</p>,
+
             selector: (row, index) => row.question,
             sortable: false,
             reorder: false,
@@ -396,7 +450,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Description",
+            
+            name: <p className="font-[600]">Description</p>,
+            
             selector: (row, index) => row.description,
             sortable: false,
             reorder: false,
@@ -407,7 +463,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             ),
         },
         {
-            name: "Bots",
+ 
+            name: <p className="font-[600]">Bots</p>,
+
             selector: (row) => row.bots,
             sortable: false,
             minWidth: "70px",
@@ -430,6 +488,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         displayValue="name"
                         closeOnSelect={true}
                         showArrow={false}
+                        customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
+
                     /></div>,
         }
     ]
@@ -442,24 +502,24 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         <div className='flex items-center gap-1'>
                             {
                                 selected?.knowledge?.source === 'snippet' ?
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
-                                    </svg>
+                                    <>
+                                        <span className="text-sm text-primary font-semibold">Type: </span>
+                                        <DocumentTextIcon className='h-4 w-4 text-heading' />
+
+                                    </>
                                     : selected?.knowledge?.source === 'file' ?
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"></path>
                                         </svg>
                                         :
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path>
-                                        </svg>
+                                        <ChartBarIcon className='h-4 w-4 text-primary' />
                             }
-                            <span className="text-sm font-semibold">{selected?.knowledge?.source}</span>
+                            <span className="text-sm text-heading font-semibold">{selected?.knowledge?.source}</span>
                         </div>
                         <h2
-                            className={`text-black-color text-sm !font-semibold opacity-90`}
+                            className={`text-heading text-sm !font-semibold opacity-90`}
                         >
-                            Usage: {selected.knowledgefaq_usage_last_24_hours}
+                            <span className="text-sm text-primary font-semibold"> Usage:</span> {selected.knowledgefaq_usage_last_24_hours}
                         </h2>
                     </div>
 
@@ -492,7 +552,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 />
             )}
 
-            <div className="knowledgebase_table w-full px-2 pt-2">
+            <div className="knowledgebase_table  px-2 pt-2 w-[98%]">
                 <div className=' hidden sm:block md:block lg:block'>
                     <DataTable
                         title={''}
@@ -500,15 +560,15 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className='!h-[69vh]'
+                        className='!h-[117vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
-                        noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
+                        noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}
                         progressPending={questions?.isLoading}
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected({ selectBots: rowData?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...rowData }) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
@@ -524,7 +584,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         title={''}
                         fixedHeader
                         highlightOnHover
-                        className='custome_table'
+                        className='custome_table !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         pointerOnHover
                         pagination
                         columns={currentTab == 'products' ? productColumnsInfo : columns1}
@@ -534,7 +594,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected({ selectBots: rowData?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...rowData }) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
@@ -563,7 +623,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         setDeleteWorkflowModal={setDeleteWorkflowModal}
                         deleteWorkflowModal={deleteWorkflowModal}
                         showSubHeadings={true}
-                        subHeadings={faqKnowledgeSubheading()}
+                        subHeadings={""}
                     >
 
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
@@ -619,8 +679,46 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                             </div> */}
 
                                 <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
+                                <div className="py-2">
+                                    <Multiselect
+                                        id='custom-multiselect'
+                                        className='custom-multselect'
+                                        options={bots}
+                                        selectedValues={selected?.selectBots ? selected?.selectBots : []}
+                                        onSelect={(selectedList, selectedItem) => {
+                                            setSelected((prev) => {
+                                                return { ...prev, selectBots: selectedList }
+                                            })
+                                            setNewData((prev) => {
+                                                if (prev) {
+                                                    return { ...prev, selectBots: selectedList }
+                                                }
+                                                return { selectBots: selectedList }
+                                            })
 
-                                <button
+                                            onSelectData(selectedList, selectedItem, getIndex(selected.id));
+                                        }}
+                                        onRemove={(selectedList, selectedItem) => {
+                                            setSelected((prev) => {
+                                                return { ...prev, selectBots: selectedList }
+                                            })
+                                            setNewData((prev) => {
+                                                if (prev) {
+                                                    return { ...prev, selectBots: selectedList }
+                                                }
+                                                return { selectBots: selectedList }
+                                            })
+                                            onSelectData(selectedList, selectedItem, getIndex(selected.id));
+                                        }}
+                                        placeholder={"Select Bots"}
+
+                                        displayValue="name"
+                                        closeOnSelect={true}
+                                        showArrow={false}
+                        customCloseIcon={<p className='text-[21px] rotate-45'>+</p>}
+
+                                    /></div>
+                                {/* <button
                                     onClick={(e) => updateFaq()}
                                     type="button"
                                     className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
@@ -630,8 +728,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                             <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
                                         </svg>
                                         <span>Loading...</span> </> : "Save"}
-                                </button>
-                            </>)}
+                                </button> */}
+                                <StatusIndicator driveLoad={driveLoad} loading={updateLoader} />
+
+                            </>
+                        )}
                         {tab === 1 && (
                             <NegativeSearchTermsTab
                                 negative={negative}
@@ -653,7 +754,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
                     </SideModal>
                 )}
-            </div>
+            </div >
         </>
     )
 }

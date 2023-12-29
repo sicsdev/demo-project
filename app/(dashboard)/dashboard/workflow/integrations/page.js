@@ -25,7 +25,7 @@ import axios from "axios";
 import SideModal from "@/app/components/SideModal/SideModal";
 import { addNewDomain } from "@/app/API/pages/EnterpriseService";
 import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
-
+ 
 const Page = () => {
   const state = useSelector((state) => state.integration);
   const userState = useSelector((state) => state.user.data);
@@ -57,7 +57,7 @@ const Page = () => {
     }
     return false;
   };
-
+ 
   const getDataAttributes = (integration_data, item) => {
     const findIntegration = integration_data.find((x) => x.name === item);
     if (findIntegration) {
@@ -65,18 +65,18 @@ const Page = () => {
     }
     return null;
   };
-
-
-
+ 
+ 
+ 
   const tempoPortalLastLogin = sessionStorage.getItem("tempoportallastlogin");
   let newPopular = tempoPortalLastLogin ? tempoPortalLastLogin.split("@")[1] : ''
-
-
+ 
+ 
   const dupRemove = (inputArray) => {
     return [...new Set(inputArray)];
   }
-
-
+ 
+ 
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
@@ -86,7 +86,7 @@ const Page = () => {
       if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
       }
-
+ 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
         let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
         const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
@@ -108,7 +108,7 @@ const Page = () => {
           http_auth_scheme: item.http_auth_scheme,
           http_base: item.http_base,
         }))
-
+ 
         const transformedData = dataTemplates.reduce((result, item) => {
           const categoryIndex = result.findIndex(
             (category) => category.key === item.type
@@ -147,7 +147,7 @@ const Page = () => {
           if (b.key === "POPULAR") return 1;
           return 0;
         });
-
+ 
         if (custom_integrations && custom_integrations.length > 0) {
           const updateArrayCustom = custom_integrations.map((item) => ({
             name: item.name,
@@ -207,8 +207,8 @@ const Page = () => {
               tiles: updateArray
             }, ...sortedData]);
         } else {
-
-
+ 
+ 
           setIntegrationsTiles([{
             key: "POPULAR",
             title: "Popular",
@@ -235,20 +235,20 @@ const Page = () => {
           }, ...sortedData]);
         }
       }
-
+ 
       setDataLoader(false);
     } catch (error) {
       setDataLoader(false);
     }
   };
-
+ 
   useEffect(() => {
     if (state?.data) {
       fetchIntegrations();
     }
   }, [state]);
-
-
+ 
+ 
   const performIntegrationTask = (item, name) => {
     setIntegrationFormData(item);
     setFormData(item.data);
@@ -262,11 +262,11 @@ const Page = () => {
         break;
       default:
         setIntegrationform(true);
-
+ 
         break;
     }
   };
-
+ 
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -280,8 +280,8 @@ const Page = () => {
       document.removeEventListener('keydown', handleEscapeKeyPress);
     };
   }, []);
-
-
+ 
+ 
   const handleInput = (e) => {
     const inputValue = e.target.value.toLowerCase();
     const filteredData = fixData
@@ -294,12 +294,12 @@ const Page = () => {
           : null;
       })
       .filter(item => item !== null); // More explicit than .filter(Boolean)
-
+ 
     setIntegrationsTiles(filteredData);
-
-
+ 
+ 
   };
-
+ 
   return (
     <>
       <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
@@ -331,7 +331,7 @@ const Page = () => {
               </div>
             ))}
           </div>
-
+ 
         </div>
       ) : (
         <div className="mt-4">
@@ -355,7 +355,7 @@ const Page = () => {
                 </div>
               </div>
             </div>
-
+ 
             {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
               <div>
                 <div className=' gap-2 w-full '>
@@ -367,7 +367,7 @@ const Page = () => {
                 </div>
               </div>
             }
-
+ 
           </div>
           <div>
             {integrationData.length > 0 ? (
@@ -392,7 +392,7 @@ const Page = () => {
                             if (element.title.toLowerCase() !== "custom") {
                               performIntegrationTask(item);
                             }
-
+ 
                           }}
                         >
                           <div className="flex justify-start gap-1 items-center">
@@ -427,7 +427,7 @@ const Page = () => {
               {formData && (
                 <div>
                   <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
-
+ 
                     setFormData({})
                     setIntegrationform(false)
                   }
@@ -449,9 +449,9 @@ const Page = () => {
           )}
         </div>
       )}
-
+ 
       {integrationModal ? (
-
+ 
         <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
           <div className="my-2">
             <ConfigureIntegration
@@ -515,5 +515,5 @@ const Page = () => {
     </>
   );
 };
-
+ 
 export default Page;

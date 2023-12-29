@@ -487,12 +487,12 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             <div className="relative">
                                 <input
                                     placeholder="Search"
-                                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pr-[25px]"
                                     type="text"
                                     value={filterText}
                                     onChange={handleFilterChange}
                                 />
-                                <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
+                                <img className="w-5 top-[10px] right-[24px] absolute" src="/search.png" />
                             </div>
                         </div>
                     </div>

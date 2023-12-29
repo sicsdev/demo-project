@@ -189,10 +189,7 @@ export default function RootLayout({ children }) {
           rel="icon"
           href="https://deflection.ai/logo-simple-negative.png"
         />
-        {/* <link
-          rel="stylesheet"
-          href="https://widget-dev.deflection.ai/v1/assets/css/responsive.css"
-        /> */}
+
         <link
           rel="stylesheet"
           href="https://widget-dev.deflection.ai/v1/assets/css/optionsbuttons.css"
@@ -216,7 +213,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
           ChatBot.Widget({
-            id: "af9497fc-c837-495e-a7f7-cd034bbf8df7",
+            id: "07edd680-e6fa-4ca3-ac1e-fcc10b4c6f71",
             embed: true
           });
         `,

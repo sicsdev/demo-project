@@ -6,27 +6,27 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import SkeletonLoader from "../Skeleton/Skeleton";
+import SkeletonLoader from "../../Skeleton/Skeleton";
 import { el } from "@faker-js/faker";
 
-const ServicePlatform = () => {
+const ServiceIp = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
   const tabsData = [
     {
       id: "1",
-      title: "Chat Automation",
-      scroll:"chat-automation",
+      title: "Contact Center",
+      scroll: "contact-center",
       logo: <ChatBubbleLeftIcon className="h-[84px] w-10 text-gray-500" />,
       content_video: "/ChatAutomation.png",
-      h3: "Enhance your service capabilities",
-      p: "Leverage Tempo's chatbot and email automations to integrate seamlessly with your existing systems, offering real-time data synchronization and streamlined customer interactions.",
+      h3: "Boost Your Contact Center's Efficiency",
+      p: "Utilize Tempo's chatbot and email automation features to integrate flawlessly with your current systems. Achieve real-time data synchronization and enhance customer interactions with streamlined, efficient processes.",
       className: "bg-[#f6f9ff]",
       buttonColor: "bg-[#1d74f5]",
       textColor: "text-[#1d74f5]",
@@ -34,13 +34,13 @@ const ServicePlatform = () => {
     },
     {
       id: "2",
-      title: "Phone Automation",
+      title: "Voice Support",
       logo: <EnvelopeIcon className="h-[84px] w-10 text-gray-500" />,
-      scroll:"phone-automation",
+      scroll: "voice-support",
       content_video:
         "/solutions_/Phone/Instant%20voice%20responses.png",
-      h3: "Revolutionize voice interactions",
-      p: "Utilize Tempo's smart IVR features to offer superior automated voice support, connecting fluidly with your backend APIs for a comprehensive and efficient customer service experience.",
+      h3: "Transform Your Contact Center's Voice Support",
+      p: "Implement Tempo's advanced IVR (Interactive Voice Response) capabilities to elevate automated voice interactions. Seamlessly connect with your backend APIs for a more comprehensive and efficient customer service experience, enhancing every aspect of voice-based customer engagement.",
       className: "bg-[#fcf7fc]",
       link: "/solutions/phone",
       buttonColor: "bg-[#4ebe8c]",
@@ -48,13 +48,13 @@ const ServicePlatform = () => {
     },
     {
       id: "3",
-      title: "Learning Center",
-      scroll:"learning-center",
+      title: "Smart Automation",
+      scroll: "smart-automation",
 
       logo: <AcademicCapIcon className="h-[84px] w-10 text-gray-500" />,
       content_video: "/LearningCenter.png",
-      h3: "Automate with intelligence",
-      p: "Deploy Learning Center to utilize AI-driven recommendations, automating customer interactions and linking workflows and knowledge bases for a more efficient service experience.",
+      h3: "Enhance Your Contact Center with Smart Automation",
+      p: "Leverage the Learning Center to integrate AI-driven insights into your customer service operations. Automate interactions efficiently using AI recommendations, and link your workflows and knowledge bases for a streamlined, more effective customer service experience.",
       className: "bg-[#fff8f8]",
       link: "/features/learning-center",
       buttonColor: "bg-[#f5455c]",
@@ -63,14 +63,12 @@ const ServicePlatform = () => {
     {
       id: "4",
       title: "Workflow Builder",
-
-      scroll:"workflow-builder",
-
+      scroll: "workflow-builder",
       logo: <ShareIcon className="h-[84px] w-10 text-gray-500" />,
       content_video:
         "/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
-      h3: "Streamline your business processes",
-      p: "Employ Workflow Builder to create and implement custom automated workflows, enhancing operational efficiency and reducing manual effort in your business activities.",
+      h3: "Optimize Contact Center Operations",
+      p: "Harness the capabilities of Workflow Builder to design and implement tailor-made automated workflows in your contact center. This approach not only boosts operational efficiency but also significantly reduces manual effort, streamlining your contact center's business processes for better performance and customer engagement.",
       className: "bg-[#fcf7fc]",
       link: "/integrations",
       buttonColor: "bg-[#9f22c7]",
@@ -83,7 +81,7 @@ const ServicePlatform = () => {
       <div className="">
         {tabsData.map((element, key) => (
           <div
-            className={`${element.className} max-h-none lg:max-h-[596px] min-h-auto lg:min-h-[596px] mb-12 ml-[-16px] mr-[-16px] p-8 px-4 lg:mb-24 lg:pt-32 lg:pb-32 lg:pl-36 flex static top-0 bottom-0 left-0 right-0 overflow-hidden`}
+            className={`${element.className} max-h-none lg:max-h-[596px] min-h-auto lg:min-h-[596px] sm:mb-12 ml-[-16px] mr-[-16px] p-8 px-4 lg:mb-24 lg:pt-32 lg:pb-32 lg:pl-36 flex static top-0 bottom-0 left-0 right-0 overflow-hidden`}
             key={key}
             id={element.scroll}
           >
@@ -114,7 +112,7 @@ const ServicePlatform = () => {
                     )}
                   </p>
                 </div>
-                <div className="mt-[20px] lg:mt-[40px] flex gap-5  items-start">
+                <div className="mt-[20px] lg:mt-[40px] flex gap-5 lg:block flex-col items-start">
                   {loading ? (
                     <SkeletonLoader count={1} height={35} width={180} />
                   ) : (
@@ -125,16 +123,7 @@ const ServicePlatform = () => {
                       Get started
                     </Link>
                   )}
-                  {loading ? (
-                    <SkeletonLoader count={1} height={35} width={180} />
-                  ) : (
-                    <Link
-                      href={"/get-trial"}
-                      className={`text-sm ${element.textColor} text-center m-auto lg:ml-[24px] cursor-pointer`}
-                    >
-                      <strong>Start for free</strong>
-                    </Link>
-                  )}
+
                 </div>
               </div>
               <div className="relative lg:w-1/2 mt-[20px] lg:mt-[0px] max-w-none w-full">
@@ -158,4 +147,4 @@ const ServicePlatform = () => {
   );
 };
 
-export default ServicePlatform;
+export default ServiceIp;

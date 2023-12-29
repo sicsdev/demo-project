@@ -398,6 +398,11 @@ body .searchWrapper {
   background-position: right;
   width: 150px;
 }
+body .custom-multselect .searchWrapper {
+  width: 100%;
+ display: flex;
+ gap: 1rem; 
+}
 
 body .searchWrapper-live .searchWrapper {
   background-color: #ffffff;
@@ -424,7 +429,7 @@ body .chip {
   margin-bottom: 4px;
   font-weight: 700;
   margin-right: 0;
-  background-color: #0057ff;
+  background-color: #80808024;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
@@ -432,7 +437,41 @@ body .chip {
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
+  border-radius: 4px;
+  color: #000;
 }
+body .custom-multselect .searchWrappery .chip {
+  font-size: 10px;
+  line-height: 16px;
+  margin-bottom: 4px;
+  font-weight: 700;
+  margin-right: 0;
+  background-color: #80808024;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  padding: 7px 7px;
+  text-wrap: wrap;
+  white-space: normal;
+}
+body .custom-multselect .searchWrapper .chip {
+  font-size: 10px;
+  line-height: 16px;
+  margin-bottom: 4px;
+  font-weight: 400;
+  margin-right: 0;
+  /* background: #80808024  !important; */
+  background-color: #80808024;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  width: 13%;
+  padding: 7px 7px;
+  text-wrap: wrap;
+  white-space: normal;
+}
+
 
 body .highlightOption {
   background-color: #0057ff;
@@ -1474,6 +1513,9 @@ div[data-column-id="used"] {
   display: flex;
   justify-content: center;
 }
+div[data-column-id="question"] {
+  min-width:70%;
+}
 
 div[data-column-id="term"] {
   width: 67px;
@@ -2181,4 +2223,80 @@ input:-webkit-autofill:active {
 
 .chart-animation {
   animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
+}
+input#domainName {
+  border: 1px solid #d5dbe7 !important;
+}
+.myDataTable{
+  max-height: 120vh !important;
+}
+
+.myDataTable .rdt_Table.rdt_TableHead {
+  border: none !important;
+}
+
+.myDataTable .rdt_Table.rdt_TableHeadRow {
+  border: none !important;
+}
+
+.myDataTable .rdt_Table .rdt_TableRow {
+  border: 1px solid ;
+  border-bottom: 0;
+  border-color: #dbe1e8;
+  height: 5rem !important;
+
+}
+.myDataTable .rdt_Table .rdt_TableRow:last-child {
+  border-bottom: 1px solid ;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-color: #dbe1e8;
+
+}
+.myDataTable .rdt_Table .rdt_TableRow:first-child {
+  
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-color: #dbe1e8;
+}
+
+
+.myDataTable .rdt_Table .rdt_thead {
+  border-bottom: none;
+}
+.myDataTable .rdt_TableHeadRow:first-child {
+  border: none;
+}
+
+.searchWrap .searchWrapper{
+  border: none;
+  width: 120%;
+  display: flex;
+  gap: 10px;
+
+}
+
+.myDataTable .chip{
+  font-weight: 400;
+  width: 69%;
+  border-radius: 5px;
+  background: #80808024  !important;
+  color: #000;
+  width: 92%;
+
+}
+
+.myDataTable span.chip.false.false {
+  position: relative;
+}
+
+
+.myDataTable .closeIcon{
+/* display: none; */
+
+}
+
+.myDataTable .rdt_Table .rdt_TableRow:hover{
+border: 1px solid #2563Eb;
+background-color: white;
 }

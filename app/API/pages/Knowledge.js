@@ -248,3 +248,22 @@ export const rollBackToVersion = async (faqHistoryId) => {
     }
 };
 
+export const getDomainSubPages = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/enterprise/get-sub-pages/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const addSubPagesKnowledge = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/enterprise/load-subpages-to-knowledge/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

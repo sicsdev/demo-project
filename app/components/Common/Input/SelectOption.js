@@ -1,5 +1,5 @@
 import React from "react";
-import { makeCapital } from "../../helper/capitalName";
+import { formatTitle, makeCapital } from "../../helper/capitalName";
 
 const SelectOption = ({
     labelClassName,
@@ -48,7 +48,7 @@ const SelectOption = ({
                     {values?.map((element, key) => (
                         <>
                             <option key={key} value={element.value} name={element.name}>
-                                {makeCapital(element.name)}
+                                {formatTitle(element.name)}
                             </option>
                         </>
 

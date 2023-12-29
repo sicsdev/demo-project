@@ -10,8 +10,10 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import '@/app/components/Workflows/WorkflowBuilder\/customStyles.css'
 import { useSearchParams } from 'next/navigation'
+import { ToastContainer } from 'react-toastify'
 
 const Source = () => {
+    const [selectedOptionValue, setSelectedOptionValue] = useState(null);
     const [basicFormData, setBasicFormData] = useState({})
     const [bots, setBots] = useState([])
     const [typingTimeout, setTypingTimeout] = useState(null)
@@ -46,7 +48,7 @@ const Source = () => {
 
     useEffect(() => {
         getDataWithFilters()
-    }, [filters, currentTab])
+    }, [filters, currentTab, selectedOptionValue])
 
 
 
@@ -59,10 +61,10 @@ const Source = () => {
             }
         })
         let filterQueryParam = ``;
-        if(filters.currentBot) {
+        if (filters.currentBot) {
             filterQueryParam = `&bot__id=${filters.currentBot}`;
         }
-        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours${filterQueryParam}`)
+        const response = await getFaqQuestions(`${queryParam}&ordering=-knowledgefaq_usage_last_24_hours${filterQueryParam}`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
@@ -103,6 +105,9 @@ const Source = () => {
 
     const getDataWithFilters = (type) => {
         let query = `page=1&page_size=10${currentTab ? `&knowledge__source=${currentTab}` : ''}${filters?.currentBot ? `&bot__id=${filters.currentBot}` : ''}`
+        if (selectedOptionValue) {
+            query = query + `&created__gte=${selectedOptionValue.created__gte}&created__lte=${selectedOptionValue.created__lte}`
+        }
         getQuestionsData(query)
     }
 
@@ -143,11 +148,12 @@ const Source = () => {
                 {basicFormData?.data && (
                     <>
 
-                        <UpperBasicKnowledge setContentLoader={setContentLoader} setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
-                        <ManageFaqs  currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
+                        <UpperBasicKnowledge setContentLoader={setContentLoader} setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} selectedOptionValue={selectedOptionValue} setSelectedOptionValue={setSelectedOptionValue} />
+                        <ManageFaqs currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                     </>
                 )}
             </>
+            <ToastContainer />
         </>
     )
 }

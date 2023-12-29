@@ -98,7 +98,7 @@ textarea {
 #chatbot_widget_logs .emailheader_ChatBotWidget {
   border-top-left-radius: 2vh;
   border-top-right-radius: 2vh;
-  margin-left: 1vh;
+  /* margin-left: 1vh; */
   flex-direction: column;
   color: rgb(0, 0, 0);
   align-items: center;
@@ -1313,4 +1313,141 @@ textarea {
   #chatbot_widget_logs .chat_content_logs {
     max-height: 40vh;
   }
+}
+
+
+/***************** CUSTOM FORM *********************/
+
+#chatbot_widget_logs .tempo-widget-custom-form {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: var(--elementsBorderRadius);
+  border-top: var(--primary-color) 2px solid;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 10px;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 10px;
+  margin-top: 10px;
+  margin-right: 12px;
+}
+
+#chatbot_widget .tempo-widget-custom-form-input,
+#chatbot_widget .tempo-widget-custom-form-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-input:focus,
+#chatbot_widget_logs .tempo-widget-custom-form-select:focus,
+#chatbot_widget_logs .tempo-widget-custom-form-multiselect:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 1px var(--primary-color);
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-multiselect {
+  height: auto;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-button {
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid var(--primary-color);
+  border-radius: var(--elementsBorderRadius);
+  cursor: pointer;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-button-selected {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: #007bff;
+}
+
+
+#chatbot_widget_logs .tempo-widget-custom-form-button-container {
+  text-align: center;
+  margin-top: 25px;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-submitbutton {
+  width: 100%;
+  background-color: grey;
+  border: none;
+  padding: 10px;
+  border-radius: var(--elementsBorderRadius);
+  color: var(--primary-text-color);
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  cursor: initial;
+}
+
+
+#chatbot_widget_logs .tempo-widget-custom-form-button-container {
+  display: flex;
+  justify-content: end;
+}
+
+#chatbot_widget_logs .tempo-widget-custom-form-buttons {
+  margin-bottom: 15px;
+}
+
+
+#chatbot_widget_logs .custom-file-input-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#chatbot_widget_logs .custom-file-input-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el input[type="file"] oculto */
+#chatbot_widget_logs .custom-file-input-container input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#chatbot_widget_logs .chatBotWidgetModal form input,
+#chatbot_widget_logs .chatBotWidgetModal form textarea {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 94%;
 }

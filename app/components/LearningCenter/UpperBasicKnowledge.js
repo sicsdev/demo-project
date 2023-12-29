@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SideModal from '../SideModal/SideModal'
-import { DocumentTextIcon, LinkIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+import { DocumentTextIcon, GlobeAmericasIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
@@ -9,8 +9,11 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
+import SelectOption from '../Common/Input/SelectOption'
 
-const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader }) => {
+const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader, selectedOptionValue, setSelectedOptionValue }) => {
+
+
 
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
@@ -168,7 +171,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.external = basicFormData.external + 1;
                 setBasicFormData(updatedFormData);
-
             } else if (value.type === 'PRODUCT') {
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.product = basicFormData.product + 1;
@@ -176,17 +178,17 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             }
             getQuestionsData()
             setLoading(false)
-            
+
             setCreateModal(false)
             setCreateOptions(null)
             setCreatePdfModal(false)
             setFormData({});
             if (mode === "new") {
                 setTimeout(() => {
-                    if(value.type === "PRODUCT"){
+                    if (value.type === "PRODUCT") {
                         setCreateMode("product")
                     }
-                    if(value.type === "SNIPPET"){
+                    if (value.type === "SNIPPET") {
                         setCreateMode("snippet")
                     }
                     setCreateOptions('snippet')
@@ -236,6 +238,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             currentBot: e.target.value
         })
     }
+
 
 
     return (
@@ -347,7 +350,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         className="w-full sm:w-auto sm:flex !contents items-center justify-start sm:justify-start flex-wrap"
                         style={{ rowGap: "4px" }}
                     >
-                       
+
 
                         {botValue?.length > 1 &&
                             botValue?.map((element, key) => (
@@ -366,8 +369,8 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 </div>
             </div>
 
-            <div className='flex items-center justify-end'>
-
+            <div className='flex flex-col sm:flex-row items-center justify-end w-[98%]'>
+               
                 <div className='sm:flex md:flex lg:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 sm:text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -375,12 +378,12 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                             <SkeletonLoader count={1} height={35} width={200} />
                             :
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
                                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search"
+                                <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pr-[25px]" placeholder="Search"
                                     value={search}
                                     onChange={handleChange} />
                             </div>
@@ -560,6 +563,28 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     </div>
                                 </div>
                             </li>
+
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div
+                                    onClick={() => {
+                                        handleCreateOptions('url');
+                                        setCreateMode('snippet');
+                                    }}
+                                    className="flex items-center"
+                                >
+                                    <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
+                                        <GlobeAmericasIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>Website</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">
+                                            A website or help center you’d like to train Deflection on.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </SideModal >
@@ -576,7 +601,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             {
                 createOptions === 'url' && (
                     <UrlManagement
-                        hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
+                        hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} setLoading={setLoading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
                 )
             }
             {

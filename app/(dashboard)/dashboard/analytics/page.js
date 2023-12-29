@@ -5,10 +5,12 @@ import DataTable from "react-data-table-component";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  CalendarIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftIcon,
 
   QueueListIcon,
+  XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -41,6 +43,8 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [chatDateTime, setChatDateTime] = useState('');
+  const [isShowWorkflowLogsUI, setIsShowWorkflowLogsUI] = useState(false);
   const params = useSearchParams()
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
@@ -74,7 +78,7 @@ const Logs = () => {
   const columns = [
     {
       name: (
-        <p className=" whitespace-break-spaces text-xs">
+        <p className=" whitespace-break-spaces text-xs font-[600]">
           {isMobile ? "Messages" : "Number of Messages"}
         </p>
       ),
@@ -86,7 +90,7 @@ const Logs = () => {
       minWidth: "50px",
     },
     {
-      name: <p className=" whitespace-break-spaces text-xs">Created</p>,
+      name: <p className=" whitespace-break-spaces text-xs font-[600]">Created</p>,
       selector: (row) => row.created,
       sortable: true,
       cell: (row) => formatDateFunc(row.created),
@@ -94,7 +98,7 @@ const Logs = () => {
     },
     {
       name: (
-        <p className=" whitespace-break-spaces text-xs">Workflow Triggered</p>
+        <p className=" whitespace-break-spaces text-xs font-[600]">Workflow Triggered</p>
       ),
       selector: (row) => (
         <p className=" whitespace-normal">{row.is_workflow ? "Yes" : "No"}</p>
@@ -105,7 +109,7 @@ const Logs = () => {
     },
     {
       name: (
-        <p className=" whitespace-break-spaces text-xs">Escalated to Human</p>
+        <p className=" whitespace-break-spaces text-xs font-[600]">Escalated to Human</p>
       ),
       selector: (row) => (
         <p className=" whitespace-normal">{row.human_handoff ? "Yes" : "No"}</p>
@@ -155,6 +159,7 @@ const Logs = () => {
     conversations: "all",
     viewed: "all",
     for_review: "all",
+    customer_id: "all"
   });
   const [additionalData, setAdditionalData] = useState({
     conversations: 0,
@@ -168,13 +173,26 @@ const Logs = () => {
     }
 
   })
+  function combineArrays(main, usage, usedIn) {
+    // Combine the arrays
+    const combinedArray = main.map((item, index) => {
+      return {
+        ...item, // Spread the properties of the main array item
+        usage: main.length !== usage.length ? [] : usage[index], // Add usage array's corresponding item
+        usedIn: main.length !== usedIn.length ? [] : usedIn[index] // Add usedIn array's corresponding item
+      };
+    });
+
+    return combinedArray;
+  }
   const getAllBots = async () => {
     let allBots = await getBotAllData()
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
     const widgetCode = state.botData.data.widgets;
-
+    const usage = state.botData.data.usage || [];
+    const usedIn = state.botData.data.usedIn || [];
     const mergedArray = widgetCode.map((item, index) => {
       const title = getTitle[index];
       return {
@@ -184,7 +202,8 @@ const Logs = () => {
     });
 
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
-    setBotValue(mergedArray);
+    let combineData = combineArrays(mergedArray, usage, usedIn)
+    setBotValue(combineData);
     // getAdditionalData(mergedArray)
 
     const selectedWorkflowParam = params.get('selectedWorkflow')
@@ -345,7 +364,6 @@ const Logs = () => {
   const filterDataHandler = (e) => {
     const { value, name } = e?.target;
 
-    console.log(value, name, '192392139123921932193')
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
@@ -401,12 +419,12 @@ const Logs = () => {
     page1 = "main"
   ) => {
     setPerPage(page_size);
-    if (page1 === "main") {
-      setLoading(true);
-      setSearchLoading(true)
-    } else {
-      setSearchLoading(true)
-    }
+    // if (page1 === "main") {
+    //   setLoading(true);
+    //   setSearchLoading(true)
+    // } else {
+    //   setSearchLoading(true)
+    // }
 
     const response = await getPaginateBotConversation(
       id,
@@ -770,7 +788,78 @@ const Logs = () => {
     setIdOfOpenConversation(newPage[newPage.length - 1].id)
 
   }
+  function checkContents(arr) {
+    const hasEmail = arr.includes("email");
+    const hasPhone = arr.includes("phone");
+    if (hasEmail && hasPhone) {
+      return [{ name: "Select", value: "all" },
+      { name: "Email", value: "email" },
+      { name: "Chat", value: "chat" },
+      { name: "Phone", value: "phone" }]
+    } else if (hasEmail) {
+      return [{ name: "Select", value: "all" },
+      { name: "Email", value: "email" }, { name: "Chat", value: "chat" },]
+    } else if (hasPhone) {
+      return [{ name: "Select", value: "all" },
+      { name: "Phone", value: "phone" }, { name: "Chat", value: "chat" },]
+    } else {
+      return [{ name: "Select", value: "all" }, { name: "Chat", value: "chat" },];
+    }
+  }
+  function checkContentsName(arr) {
+    const hasEmail = arr.includes("email");
+    const hasPhone = arr.includes("phone");
+    if (hasEmail) {
+      return "Email"
+    } else if (hasPhone) {
+      return "Phone"
+    } else {
+      return "Chat"
+    }
+  }
 
+  const getEmailPhoneData = (userState) => {
+    if (selectedBot !== "Select" && botValue.length !== 0) {
+      const findBot = botValue.find((x) => x.value === selectedBot)
+      if (findBot) {
+        // console.log(findBot, 'findBot')
+        return checkContents(findBot.usedIn)
+      }
+    }
+    if (userState && userState?.email?.split("@")[1] === 'joinnextmed.com') {
+      return [
+        { name: "Select", value: "all" },
+        { name: "Chat", value: "chat" },
+        { name: "Email", value: "email" },
+        { name: "Phone", value: "phone" }
+      ]
+    }
+    else {
+      return [
+        { name: "Select", value: "all" },
+        { name: "Chat", value: "chat" },
+        { name: "Email", value: "email" },
+      ]
+
+
+    }
+
+  }
+  const getNameOfChat = () => {
+    if (selectedBot !== "Select" && botValue.length !== 0) {
+      const findBot = botValue.find((x) => x.value === selectedBot)
+      if (findBot) {
+        return checkContentsName(findBot.usedIn)
+      }
+    }
+    return "Chat"
+  }
+
+  const handleRemoveCustomerIdFilter = () => {
+    const mockEvent = { target: { value: "all", name: "customer_id" } };
+    filterDataHandler(mockEvent)
+    setIdOfOpenConversation('')
+  }
 
   return (
     <>
@@ -795,12 +884,12 @@ const Logs = () => {
               <div>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative w-full sm:w-[unset]">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 mr-[1rem] pr-[25px] bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 " placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
               </div>
 
@@ -867,7 +956,7 @@ const Logs = () => {
           <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[180px] sm:h-[171px]">
               <h1 className="text-[11px] sm:text-sm text-heading font-semibold break-all">Conversations</h1>
-              <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
+              <p className="text-2xl text-heading font-bold my-2">{parseInt(additionalData.conversations).toLocaleString()}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
                 <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
@@ -1019,7 +1108,6 @@ const Logs = () => {
                 </div>
               </div>
 
-
               <div className="block sm:flex justify-center gap-5">
 
                 <div className="mb-4 w-full">
@@ -1027,16 +1115,7 @@ const Logs = () => {
                     onChange={(e) => filterDataHandler(e)}
                     value={selectedFilters.type || ""}
                     name="type"
-                    values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
-                      { name: "Select", value: "all" },
-                      { name: "Chat", value: "chat" },
-                      { name: "Email", value: "email" },
-                      { name: "Phone", value: "phone" }
-                    ] : [
-                      { name: "Select", value: "all" },
-                      { name: "Chat", value: "chat" },
-                      { name: "Email", value: "email" },
-                    ]}
+                    values={getEmailPhoneData(userState)}
                     title={
                       <h3 className="text-sm my-4 font-semibold">Channel</h3>
                     }
@@ -1143,6 +1222,19 @@ const Logs = () => {
             </>
           )}
 
+
+          {selectedFilters?.customer_id !== 'all' && selectedFilters?.customer_id &&
+            <div className='flex justify-center my-5'>
+              <small className='border border-gray p-1 rounded-md px-3'>
+                <div className='flex gap-2 items-center'>
+                  Showing all tickets for chosen customer
+                  <XMarkIcon className='w-4 h-4 cursor-pointer text-primary' onClick={handleRemoveCustomerIdFilter}></XMarkIcon>
+                </div>
+              </small>
+            </div>
+          }
+
+
           <>
             {/* {selectedBot !== 'Select' && ( */}
             <DataTable
@@ -1150,7 +1242,7 @@ const Logs = () => {
               fixedHeader
               highlightOnHover
               pointerOnHover
-              className="centered-table !h-[60vh]"
+              className="centered-table !h-[60vh] !overflow-x-hidden !overflow-y-hidden myDataTable"
               defaultSortFieldId="year"
               onRowClicked={(rowData) => {
                 // router.push(rowData.url);
@@ -1163,12 +1255,12 @@ const Logs = () => {
               progressPending={searchLoading}
               progressComponent={
                 <div className="w-full mt-3 relative">
-                  <SkeletonLoader
+                  {/* <SkeletonLoader
                     count={9}
                     height={30}
                     width="100%"
                     className={"mt-2"}
-                  />
+                  /> */}
                 </div>
               }
               paginationDefaultPage={pageVal}
@@ -1210,7 +1302,7 @@ const Logs = () => {
               <>
                 {/* <Card> */}
                 <div className="hidden sm:flex justify-center">
-                  <h1 className="text-heading text-sm font-semibold">Chat</h1>
+                  <h1 className="text-heading text-sm font-semibold">{getNameOfChat()}</h1>
 
                 </div>
 
@@ -1224,6 +1316,15 @@ const Logs = () => {
                       <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
                     </div>
                   </div>
+                  {chatDateTime &&
+                    <div className='flex justify-content-center'>
+                      <small className='m-auto flex items-center sm:items-start gap-2' >
+                        <CalendarIcon className="h-4 w-4" />
+                        <span className="mt-[2px] sm:mt-0">{chatDateTime}</span>
+                      </small>
+                    </div>
+                  }
+
                   <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ? null : (
                       <p
@@ -1240,6 +1341,7 @@ const Logs = () => {
                               manageMessages[indexVal - 1].id
                             );
                           }
+                          setIsShowWorkflowLogsUI(false)
                         }}
                       >
                         <ArrowLeftIcon className="h-4 w-4 text-heading" />
@@ -1259,6 +1361,7 @@ const Logs = () => {
                         } else {
                           handleNextLog()
                         }
+                        setIsShowWorkflowLogsUI(false)
                       }}
                     >
                       <ArrowRightIcon className="h-4 w-4 text-heading" />
@@ -1272,6 +1375,11 @@ const Logs = () => {
                     selectedBot={selectedBot}
                     selectedBotObject={selectedBotObject}
                     setExternalQuestionFromLogs={setExternalQuestionFromLogs}
+                    filterDataHandler={filterDataHandler}
+                    setShowChat={setShowChat}
+                    setChatDateTime={setChatDateTime}
+                    isShowWorkflowLogsUI={isShowWorkflowLogsUI}
+                    setIsShowWorkflowLogsUI={setIsShowWorkflowLogsUI}
                   />
                 </>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useRef} from 'react'
 import { ArrowRightIcon, CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { elements } from 'chart.js';
 
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
-
+    const divRef = useRef();
     // Helpers
     const dispatch = useDispatch();
     const router = useRouter();
@@ -67,6 +67,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [profileComplete, setProfileComplete] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
+const [showWidget, setShowWidget] = useState(false);
 
     const SideBarRoutes = [
         {
@@ -157,6 +158,35 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         }
 
     }, []);
+
+    useEffect(() => {
+        if (showWidget) {
+           
+          window.scrollTo({ top: 500, behavior: 'smooth' });
+        }
+      }, [showWidget]);
+
+
+    // outside click event for bottom text  
+      const handleClickOutside = (event) => {
+        
+        if (divRef.current && !divRef.current.contains(event.target)) {
+          setShowWidget(false);
+        console.log("outside");
+        }
+      };
+    
+      useEffect(() => {
+        // Attach the click event listener to the document
+        document.addEventListener('click', handleClickOutside);
+    
+        // Cleanup the event listener when the component is unmounted
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+      }, []);
+
+
 
     // Control loader after load data from redux
     useEffect(() => {
@@ -671,21 +701,22 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         <ChatBots setSkeleton={setLoadingData} skeleton={loadingData} />
 
 
-                        <Modal title={`How to pass user's data to your widget`}
+                        {/* <Modal title={`How to pass user's data to your widget`}
                             show={metaDataInfoModal}
                             setShow={setMetaDataInfoModal}
                             showCancel={true}
                             className={"pt-5 lg:w-1/2 m-auto"} >
-                            <MetaDataInfo></MetaDataInfo>
-                        </Modal >
-                        <div className='w-100 flex justify-center mt-5'>
-                            <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
-                                <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
+                           
+                        </Modal > */}
+                        <div className='w-100 flex justify-center mt-5 align-middle'>
+                            <button onClick={() => setShowWidget(!showWidget)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center border-[0px]'} style={{ fontSize: '10px' }}>
+                                <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4 m-[auto] '></InformationCircleIcon>
 
-                                Learn how to pass user's data to your widget
+                              <p className='mt-[3px]' ref={divRef}>  Learn how to pass user's data to your widget</p>
                             </button>
                         </div>
-
+                      {showWidget === true && <div ><MetaDataInfo /></div>  }
+                        
                     </>
                 )
 

@@ -61,8 +61,7 @@ const hoverShadowPlugin = {
 // You need to register this plugin with Chart.js
 ChartJS.register(hoverShadowPlugin);
 const LineChart = ({ chartData }) => {
-  const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('ddd YY')
-  )
+const labels = chartData.map(ele => moment(ele.date, 'DD/MM/YYYY').format('MMM DD'));
   const dataPoints = chartData.map(ele => ele.usage) // Example data points
   const options = {
     responsive: true,
@@ -88,7 +87,7 @@ const LineChart = ({ chartData }) => {
             return ''; // Return an empty string to not display a title
           },
           label: function (context) {
-            const label = context.dataset.label || '';
+            const label = "chats" || '';
             const value = context.parsed.y;
             const date = context.label;
             return `${value} ${label} on ${date}`; // Format the label text
@@ -154,12 +153,12 @@ const LineChart = ({ chartData }) => {
     gradient.addColorStop(0, "#fff");
     return gradient;
   }
-
+console.log("dataPoints",dataPoints)
   const data = {
-    labels: labels,
+    labels: labels.reverse(),
     datasets: [{
-      label: 'usage',
-      data: dataPoints,
+      label: 'chats',
+      data: dataPoints.reverse(),
       // data: [0, 2, 5, 0, 0, 5, 0],
       fill: true,
       // backgroundColor: 'rgb(222,236,249, 0.3)',

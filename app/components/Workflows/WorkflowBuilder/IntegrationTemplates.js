@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { getPermissionHelper } from '../../helper/returnPermissions';
 import { useSelector } from 'react-redux';
-
+ 
 const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userState }) => {
     const excludedIntegrations = ["Healthie", "GitHub", "Linear", "DataDog", "CircleCI", "Jira", "Asana", "Monday", "Twilio", "Intercom"];
     // const userState = useSelector(state => state.user.data)
@@ -28,7 +28,7 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userSt
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto items-center my-2">
                         {element.tiles?.map((item, key) => (
                             excludedIntegrations?.includes(item.name) && userState && userState?.email?.split("@")[1] !== 'joinnextmed.com' ? ("") : (
-
+ 
                                 < div
                                     className={`${item.grayscale && ("pointer-events-none")} ${item.checked && ("bg-[#ECF6FE] border-primary_hover")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                                     key={key}
@@ -51,7 +51,7 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userSt
                                         {item.checked && (<CheckCircleIcon className="absolute right-[0px] h-5 w-5 text-primary font-semibold " />)}
                                     </div>
                                 </div>
-
+ 
                             )
                         ))}
                     </div>
@@ -61,5 +61,5 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userSt
         </div >
     )
 }
-
+ 
 export default IntegrationTemplates
