@@ -150,7 +150,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
   return (
-    <div className="border border-gray rounded-md p-3">
+    <div className="border border-gray rounded-md p-3 w-[97%] m-auto">
       <Editor
         editorState={editorState}
         toolbarClassName="toolbarClassName"

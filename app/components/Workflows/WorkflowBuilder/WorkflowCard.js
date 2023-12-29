@@ -88,7 +88,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
             //     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
             // }}
             key={key}
-            className={`relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-[#8d8d8d] ${isAuthorizedUser && 'cursor-pointer'}`}
+            className={`relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-primary ${isAuthorizedUser && 'cursor-pointer'}`}
 
         >
 

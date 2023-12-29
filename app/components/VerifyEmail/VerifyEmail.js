@@ -448,7 +448,7 @@ const CheckEmail = ({
                     >
                       {verifyLoader === true
                         ? "Verifying..."
-                        : "Update Verification"}
+                        : "Update"}
                     </Button>
                   </div>
                   </div>
