@@ -99,7 +99,7 @@ const CheckEmail = ({
   };
 
   return (
-    <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
+    <div className="bg-white w-full m-auto  rounded-lg border-[#F0F0F1] mt-5">
       <></>
       {loader === true ? (
         <>
@@ -392,9 +392,9 @@ const CheckEmail = ({
         </>
       ) : (
         <>
-          <div className=" p-4 bg-lowgray">
+          <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
             <h1 className="text-sm font-semibold flex items-center gap-2">
-              <GlobeAltIcon className="h-5 w-5"></GlobeAltIcon>
+              <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
               {user?.enterprise?.domain}{" "}
             </h1>
           </div>
@@ -402,7 +402,7 @@ const CheckEmail = ({
           <hr className="text-[#F0F0F1]" />
           <div className=" p-4">
             <div className="">
-              <div className="my-2">
+              <div className="my-2 sm:my-0">
                 {user && user?.enterprise?.domain === "" && (
                   <SelectOption
                     onChange={(e) => handleInputChange(e)}
@@ -424,12 +424,12 @@ const CheckEmail = ({
                     labelClass={"new_input_label mb-3"}
                   />
                 )}
-                <div className="pt-2 lg:relative">
-                  <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-0 ">
+                <div className="pt-2 sm:pt-0 lg:relative">
+                  <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-0 ">
                     DNS Verification
                   </h2>
                   <div
-                    className=" mt-4  p-3 sm:p-[1.75rem] rounded-none my-4"
+                    className=" mt-4  p-3 sm:p-[1.75rem] rounded-lg my-4"
                     style={{
                       border: "1px solid #d5dbe7",
                     }}
@@ -478,12 +478,12 @@ const CheckEmail = ({
             </div>
             {user && user?.enterprise?.domain !== "" && (
               <>
-                <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+                <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-4 ">
                   {/* <CheckBadgeIcon className="h-5 w-5 text-primary font-bold"></CheckBadgeIcon> */}
                   Verification Process
                 </h2>
                 <div
-                  className=" mt-4  p-3 sm:p-[1.75rem] rounded-none my-4"
+                  className=" mt-4  p-3 sm:p-[1.75rem] rounded-lg my-4"
                   style={{
                     border: "1px solid #d5dbe7",
                   }}
@@ -520,11 +520,11 @@ const CheckEmail = ({
                     </p>
                   </div>
                 </div>
-                <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+                <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-4 ">
                   DNS Server Records
                 </h2>
                 <div
-                  className=" p-4 sm:p-[1.75rem] my-6 hidden sm:block "
+                  className=" p-4 sm:p-[1.75rem] my-4 hidden sm:block rounded-lg "
                   style={{
                     border: "1px solid #d5dbe7",
                   }}

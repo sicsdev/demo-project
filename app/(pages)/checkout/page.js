@@ -255,7 +255,7 @@ const Checkout = () => {
               width='140px'
               className="opacity-100 mt-0.5"
               alt="logo.png"
-              src="/logo-b.png"
+              src="/checkout-logo.png"
             />
           </Link>
         </div>
