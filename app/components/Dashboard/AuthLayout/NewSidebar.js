@@ -184,7 +184,7 @@ const NewSidebar = ({ children }) => {
         {
             // href: "",
             href: workflowLinkHandler('/dashboard/workflow/integrations'),
-            name: "Workflow Builder",
+            name: "Actions Library",
             icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
