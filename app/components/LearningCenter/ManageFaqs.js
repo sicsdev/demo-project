@@ -111,7 +111,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         setUpdateLoader(true)
         let newPayload = {
             answer: selected?.answer,
-            "bots": selected?.selectBots.map((ele) => {
+            "bots": selected?.selectBots?.map((ele) => {
                 return {
                     "bot": ele.value, "active": true
                 }

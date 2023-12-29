@@ -1,6 +1,6 @@
 import { getKnowledgeData, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge'
 import { deleteNegativeWorkflow, getNegativeWorkflows, rateWorkflowNegative, updateWorkFlowStatus } from '@/app/API/pages/Workflow'
-import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -32,7 +32,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
     const [rating, setRating] = useState(item.is_negative)
     const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
-
+    const [loadingDelete, setLoadingDelete] = useState(false)
 
     // Handlers
 
@@ -114,10 +114,10 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
 
     const handleDeleteWorkflow = async () => {
-        setLoading(true)
+        setLoadingDelete(true)
         let newDescription = item?.information?.description[0].replace(descriptionLine, '')
         await updateWorkFlowStatus({ description: [newDescription] }, item.information?.id)
-        setLoading(false)
+        setLoadingDelete(false)
         setDeleted(true)
     }
 
@@ -212,17 +212,25 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                                         </div>
                                         {/* ))} */}
                                         <div className='flex justify-between mt-1'>
-                                            <a href={`/dashboard/workflow/workflow-builder/get-started?flow=${item.information.id}`} target='_blank'>
+                                            <div className='flex gap-2'>
 
+                                                <a href={`/dashboard/workflow/workflow-builder/get-started?flow=${item.information.id}`} target='_blank'>
+                                                    <button
+                                                        type="button"
+                                                        // onClick={handleDeleteWorkflow}
+                                                        className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                    >
+                                                        Go to <ArrowRightIcon className='h-3 w-3'></ArrowRightIcon>
+                                                    </button>
+                                                </a>
                                                 <button
                                                     type="button"
-                                                    // onClick={handleDeleteWorkflow}
-                                                    className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                    onClick={handleDeleteWorkflow}
+                                                    className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                                 >
-                                                    {loading ? "Edit.." : "Edit"}
+                                                    {loadingDelete ? "Deleting.." : "Delete"}
                                                 </button>
-                                            </a>
-
+                                            </div>
                                             <button
                                                 type="button"
                                                 // onClick={handlePatchWorkflow}
