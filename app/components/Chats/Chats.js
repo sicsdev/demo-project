@@ -121,7 +121,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             day: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
-            second: 'numeric',
             hour12: true,
             timeZoneName: 'short',
         };
@@ -455,9 +454,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                 </div>
                                             </div>
                                         } */}
-                                        <div className="emailheader_ChatBotWidget relative">
+                                        <div className="emailheader_ChatBotWidget relative flex justify-between !flex-row-reverse">
                                             {conversationDetails?.customer?.id &&
-                                                <div className={`absolute flex items-center gap-1 text-xs top-4 right-6 text-primary
+                                                <div className={`flex flex-col items-center gap-1 text-xs top-4 right-6 text-primary
                                                 ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
                                                     {/* <Link
                                                         href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
@@ -469,6 +468,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <div className=' text-xs' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
                                                             {getTicketsInfo()}
                                                         </div>}
+                                                        <p>2</p>
                                                 </div>
                                             }
 
