@@ -24,13 +24,13 @@ const page = () => {
     const [selectedBot, setSelectedBot] = useState('Select');
     const dispatch = useDispatch();
     const [scheduleData, setScheduleData] = useState({
-        Monday: [{ start: "00:00", end: "23:59" }],
-        Tuesday: [{ start: "00:00", end: "23:59" }],
-        Wednesday: [{ start: "00:00", end: "23:59" }],
-        Thursday: [{ start: "00:00", end: "23:59" }],
-        Friday: [{ start: "00:00", end: "23:59" }],
-        Saturday: [{ start: "00:00", end: "23:59" }],
-        Sunday: [{ start: "00:00", end: "23:59" }]
+        Monday: [{ start: "00:00", end: "23:45" }],
+        Tuesday: [{ start: "00:00", end: "23:45" }],
+        Wednesday: [{ start: "00:00", end: "23:45" }],
+        Thursday: [{ start: "00:00", end: "23:45" }],
+        Friday: [{ start: "00:00", end: "23:45" }],
+        Saturday: [{ start: "00:00", end: "23:45" }],
+        Sunday: [{ start: "00:00", end: "23:45" }]
     })
 
     useEffect(() => {
