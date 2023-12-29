@@ -329,7 +329,7 @@ const page = () => {
                 </div>
               </div>
             ) : (
-              <div className="w-full   border-[#F0F0F1] ">
+              <div className="w-full   border-[#F0F0F1]">
                 <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
                   <h1 className="text-sm font-semibold flex items-center gap-2">
                     <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
@@ -346,9 +346,9 @@ const page = () => {
                       {botValue?.length > 1 ? "Select Bot" : "Edit Settings"}
                     </p>
                   </div>
-                  <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
+                  <div className="w-full sm:w-3/4  inline-block sm:flex items-center mt-3 email-scroll overflow-x-scroll sm:overflow-x-visible sm:mt-0 justify-between sm:justify-end gap-4">
                     <div
-                      className="w-full sm:w-auto flex items-center overflow-x-scroll sm:overflow-x-hidden  schedule justify-end sm:justify-start sm:flex-wrap"
+                      className="w-[684px] sm:w-auto block sm:flex items-center   sm:overflow-x-hidden  schedule justify-end sm:justify-start sm:flex-wrap"
                       style={{ rowGap: "4px" }}
                     >
                       {botValue?.length > 1 &&
@@ -356,7 +356,7 @@ const page = () => {
                           <button
                             onClick={() => selectBotHandler(element)}
                             key={key}
-                            className={`flex items-center gap-2 justify-center font-semibold ${
+                            className={`inline-block sm:flex items-center gap-2 justify-center font-semibold ${
                               element.value === selectedBot
                                 ? "text-white bg-primary"
                                 : "bg-white text-[#151D23]"
