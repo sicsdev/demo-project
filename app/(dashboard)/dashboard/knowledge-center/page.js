@@ -251,7 +251,7 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "60%" }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "85%" }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -902,7 +902,7 @@ const Page = () => {
                                     values={DateValues.map((e) => { return { name: e, value: e } })}
                                     title={""}
                                     id={"filtering"}
-                                    className="!py-1.5  !m-0"
+                                    className="!py-1.5  !m-0 focus:!py-1.5  focus:!m-0 focus:shadow-none"
                                     error={""}
                                     showOption={false}
                                 />

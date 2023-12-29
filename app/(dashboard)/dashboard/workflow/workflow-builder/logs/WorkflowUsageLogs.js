@@ -242,7 +242,7 @@ const WorkflowUsageLogs = () => {
 
 
             {/* *********** FILTERS ************/}
-            <div className='flex justify-end mx-5 w-[96.5%]'>
+            <div className='flex jsm:justify-end justify-left mx-5 w-[96.5%]'>
                 <div className="flex justify-end items-center gap-2 mb-[15px]">
 
                     <div className="w-100 mt-4">

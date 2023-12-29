@@ -76,7 +76,7 @@ const GlobalTemplates = () => {
                 {userState?.email?.endsWith('@deflection.ai') || userState?.email?.endsWith('@joinnextmed.com') &&
                     <Button
                         type={"button"}
-                        className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        className="flex rounded border border-primary bg-primary px-6 pb-2 h-[1.9rem]  items-center sm:h-[1.9rem] w-[10rem] sm:w-[10rem] pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                         onClick={(e) => createNewTemplate()}
                     >
                         Create Template
