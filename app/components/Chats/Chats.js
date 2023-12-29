@@ -752,12 +752,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                         {element.actions.options[indx]}
                                                                                         {`     `}
                                                                                         <small>
-                                                                                            {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
-                                                                                            {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
+                                                                                            {indx == 'WORKFLOW' && element.workflows[0]?.score != null && `${Math.round((element.workflows[0].score * 100))}%`}
+                                                                                            {indx == 'INFORMATION' && element.knowledge[0]?.score != null && `${Math.round((element.knowledge[0].score * 100) + getAddition(key))}%`}
                                                                                         </small>
                                                                                     </button>
                                                                                 </>
                                                                             )}
+
                                                                         </div>
                                                                         <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                             <div className='w-100' style={{ width: '100%' }}>
