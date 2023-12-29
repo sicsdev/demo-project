@@ -91,10 +91,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
-            console.log("convoDetails", convoDetails)
             if (convoDetails.data) {
-                // getNumberOfTickets(convoDetails.data.customer?.id)
                 setNumberOfTicketsForThisCustomer(convoDetails.data.customer?.conversation_count)
+                setTotalWorkflowUsageRecordsCustomer({ ...totalWorkflowUsageRecordsCustomer, count: convoDetails.data.customer?.workflow_log_count })
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)
                 setConversationDetails(convoDetails.data)
                 setLoadingData(false)
@@ -108,10 +107,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     function handleResize() {
         window && setIsSmallScreen(window.innerWidth < 600);
-    }
-
-    const createFlag = async (value) => {
-        const response = await addBotConversationMessagesReaction(value.id, { reaction: "DISLIKE" })
     }
 
     const getKnowledge = async () => {
@@ -349,12 +344,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         setIsShowWorkflowLogsUI(!isShowWorkflowLogsUI);
     }
 
-    // async function getNumberOfTickets(customer_id) {
-    //     let numberOfTickets = await getAllCustomerConversationsById(customer_id)
-    //     let number = numberOfTickets?.data?.length || 0
-    //     setNumberOfTicketsForThisCustomer(number)
-    // }
-
     async function getWorkflowUasgeByCustomerID(customer_id) {
         let queryParam = `customer_id=${customer_id}`;
         let totalRecords = await getWorkflowLogsByCustomerID(queryParam)
@@ -584,8 +573,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <div className="answer_text_div"></div>
                                                         <div className={`answer_text_with_thumbs !text-sm !font-[400]`}
                                                             style={{
-                                                                backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color,
-                                                                opacity: (messages?.length == 1 ? "1" : "0.8")
+                                                                backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color
                                                             }}>
                                                             {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
                                                         </div>
@@ -595,7 +583,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <>
                                                             {element.sender === 'bot' &&
                                                                 (
-                                                                    <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
+                                                                    <div id={key} key={key} className='mb-2'>
 
 
                                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
@@ -643,7 +631,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 </div>
                                                                             </>
                                                                         }
-
 
 
 
@@ -718,8 +705,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
 
-                                                                        {/* THIS CODE IS PROVISIONAL SINCE WE HAVE A BACKEND BUG THAT SEND MESSAGES WITH TYPE "ACTION" WHEN IT SHOULD BE MESSAGE. 
-                                                                THIS BELOW CODE WILL PATCH THIS, UNTIL ITS FIXED. */}
+
 
                                                                         {
                                                                             element.content !== 'OPTIONS' && element.content !== 'PRODUCTS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
@@ -728,6 +714,23 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
                                                                                 {divideAnswer(element)}
+
+                                                                                {
+                                                                                    element.type_details == "HUMAN-HANDOFF" &&
+                                                                                    <div className="attention_required_answer_contacts">
+                                                                                        <button className="tempoWidget-EmailContactButton">
+                                                                                            <img src="https://widget-dev.deflection.ai/v1/assets/img/handoff/email.png" className="tempo-widget-csat-contact-icon" alt="rate3" width="20px" />
+                                                                                            Email Us
+                                                                                        </button>
+
+                                                                                        <button className="tempoWidget-PhoneContactButton">
+                                                                                            <img src="https://widget-dev.deflection.ai/v1/assets/img/handoff/phone.png" className="tempo-widget-csat-contact-icon" alt="rate3" width="20px" />
+                                                                                            Call Us
+                                                                                        </button>
+                                                                                    </div>
+
+                                                                                }
+
 
                                                                                 <div key={'a' + key} id={'a' + key} className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
                                                                                     <div className='w-100' style={{ width: '100%' }}>
@@ -958,6 +961,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                     </div>
                                                                                 </div>
 
+
                                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                                     <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                                         <div className='w-100' style={{ width: '100%' }}>
@@ -1012,7 +1016,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                             {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                                 (
-                                                                    <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                                    <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
 
                                                                         {
                                                                             (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&

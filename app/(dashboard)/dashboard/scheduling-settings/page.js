@@ -24,13 +24,13 @@ const page = () => {
     const [selectedBot, setSelectedBot] = useState('Select');
     const dispatch = useDispatch();
     const [scheduleData, setScheduleData] = useState({
-        Monday: [{ start: "00:00", end: "23:59" }],
-        Tuesday: [{ start: "00:00", end: "23:59" }],
-        Wednesday: [{ start: "00:00", end: "23:59" }],
-        Thursday: [{ start: "00:00", end: "23:59" }],
-        Friday: [{ start: "00:00", end: "23:59" }],
-        Saturday: [{ start: "00:00", end: "23:59" }],
-        Sunday: [{ start: "00:00", end: "23:59" }]
+        Monday: [{ start: "00:00", end: "23:45" }],
+        Tuesday: [{ start: "00:00", end: "23:45" }],
+        Wednesday: [{ start: "00:00", end: "23:45" }],
+        Thursday: [{ start: "00:00", end: "23:45" }],
+        Friday: [{ start: "00:00", end: "23:45" }],
+        Saturday: [{ start: "00:00", end: "23:45" }],
+        Sunday: [{ start: "00:00", end: "23:45" }]
     })
 
     useEffect(() => {
@@ -160,7 +160,7 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar loader={pageSubLoading} title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
+            <div className="bg-white w-full   border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
 
                 {pageSubLoading ?
                     <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>

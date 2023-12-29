@@ -1,5 +1,5 @@
 import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative, deleteFaqQuestions } from '@/app/API/pages/Knowledge'
-import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -20,6 +20,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     const [faqObject, setFAQObject] = useState({})
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
     const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
+    const [loadingDelete, setLoadingDelete] = useState(false)
 
     const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -151,7 +152,11 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             cancelButtonText: 'Cancel'
         });
 
-        if (result.isConfirmed) { await deleteFaqQuestions(item.information.id); setDeleted(true) }
+        if (result.isConfirmed) {
+            setLoadingDelete(true)
+            await deleteFaqQuestions(item.information.id); setDeleted(true)
+            setLoadingDelete(false)
+        }
     }
 
 
@@ -260,15 +265,25 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                                     </div>
                                     <div className='flex justify-between mx-2'>
 
-                                        <a href={`/dashboard/basic-knowledge/source?openKnowledgeId=${item.information.id}`} target='_blank'>
+                                        <div className='flex gap-2'>
+                                            <a href={`/dashboard/basic-knowledge/source?openKnowledgeId=${item.information.id}`} target='_blank'>
+                                                <button
+                                                    type="button"
+                                                    // onClick={handleDeleteFaq}
+                                                    className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                >
+                                                    Go to <ArrowRightIcon className='w-3 h-3'></ArrowRightIcon>
+                                                </button>
+                                            </a>
+
                                             <button
                                                 type="button"
-                                                // onClick={handleDeleteFaq}
-                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                onClick={handleDeleteFaq}
+                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                             >
-                                                {loading ? "Edit.." : "Edit"}
+                                                {loadingDelete ? "Deleting.." : "Delete"}
                                             </button>
-                                        </a>
+                                        </div>
 
                                         <button
                                             type="button"
@@ -307,6 +322,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             {/* //bg-gradiant-red-button */}
             {showingNegativeOptions &&
                 <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
+
                     <button
                         type="button"
                         className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
@@ -316,6 +332,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                     >
                         {rating == -0.1 ? "Reduced" : "Reduce"}
                     </button>
+
                     <button
                         type="button"
                         className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
@@ -324,7 +341,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                         data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                     >
                         {rating == -1 ? "Blocked" : "Block"}
-
                     </button>
 
                     <button
