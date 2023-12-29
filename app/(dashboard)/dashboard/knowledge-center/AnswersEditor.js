@@ -98,7 +98,7 @@ const AnswersEditor = ({
             setExternalContentForTextEditor('')
         }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
 
-            <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+            <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between w-[97%]"}>
                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
                     <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
@@ -205,7 +205,7 @@ const AnswersEditor = ({
                                     {subQuestions.length > 0 && showRecommendedQuestions && (
                                         <>
                                             <div className={`my-4 rounded-md p-3 px-2`}>
-                                                <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
+                                                <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'visible' }}>
                                                     <h1 className="text-xs font-semibold">{defaultTitle} Answers:</h1>
                                                     {subQuestions?.map((element, key) =>
                                                         <li className='p-4 text-justify bg-[#96b2ed2e] text-heading my-2 cursor-pointer mr-3 rounded-lg' key={key}>
@@ -424,7 +424,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                             {workFlowData.reccomodation.length > 0 && showRecommendedWorkflows && (
                                 <>
                                     <div className={` my-4 rounded-md `}>
-                                        <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
+                                        <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'visible' }}>
                                             <h1 className="text-xs font-semibold">Recommended Workflows:</h1>
                                             {workFlowData.reccomodation?.map((element, key) =>
                                                 <li className='p-4 text-justify bg-[#96b2ed2e] text-heading my-2 cursor-pointer mr-3 flex items center justify-between' key={key}>
