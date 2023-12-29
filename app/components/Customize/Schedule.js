@@ -347,7 +347,7 @@ const Schedule = ({
                   >
                     <div className="    grid grid-cols-2 sm:grid-cols-[40%,10%,10%] gap-[10px] sm:gap-3  col-span-1">
                       <div className="">
-                        <p className="text-xs sm:text-[12px]">{day}</p>
+                        <p className="text-xs sm:text-[12px] lowercase">{day}</p>
                       </div>
                       <div className="flex items-center justify-start gap-4 ">
                         <label className="switch">

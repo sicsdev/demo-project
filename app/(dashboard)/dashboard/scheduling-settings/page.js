@@ -160,7 +160,7 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar loader={pageSubLoading} title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
+            <div className="bg-white w-full   border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
 
                 {pageSubLoading ?
                     <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
