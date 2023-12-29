@@ -24,7 +24,7 @@ import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
 import WorkflowUsageLogs from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageLogs';
 import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageTable';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -96,7 +96,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)
                 setConversationDetails(convoDetails.data)
                 setLoadingData(false)
-
+                if(convoDetails.data?.created) {
+                    setChatDateTime(formatDateTime(convoDetails.data.created));
+                }  
             }
             setLoadingData(false)
         }
@@ -408,11 +410,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         <>
             {botUnique?.id && !loadingData &&
                 <div className='pb-5'>
-                    <div className='flex justify-content-center'>
+                    {/* <div className='flex justify-content-center'>
                         <small className='m-auto flex gap-2' >
                             <CalendarIcon className="h-4 w-4" />
                             {conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
-                    </div>
+                    </div> */}
 
 
                     <div className='mt-5'>

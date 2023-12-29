@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  CalendarIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftIcon,
 
@@ -42,6 +43,7 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [chatDateTime, setChatDateTime] = useState('');
   const params = useSearchParams()
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
@@ -795,12 +797,12 @@ const Logs = () => {
       { name: "Phone", value: "phone" }]
     } else if (hasEmail) {
       return [{ name: "Select", value: "all" },
-      { name: "Email", value: "email" },{ name: "Chat", value: "chat" },]
+      { name: "Email", value: "email" }, { name: "Chat", value: "chat" },]
     } else if (hasPhone) {
       return [{ name: "Select", value: "all" },
       { name: "Phone", value: "phone" }, { name: "Chat", value: "chat" },]
     } else {
-      return [{ name: "Select", value: "all" },  { name: "Chat", value: "chat" },];
+      return [{ name: "Select", value: "all" }, { name: "Chat", value: "chat" },];
     }
   }
   function checkContentsName(arr) {
@@ -1313,6 +1315,15 @@ const Logs = () => {
                       <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
                     </div>
                   </div>
+                  {chatDateTime &&
+                    <div className='flex justify-content-center'>
+                      <small className='m-auto flex items-center sm:items-start gap-2' >
+                        <CalendarIcon className="h-4 w-4" />
+                        {chatDateTime}
+                      </small>
+                    </div>
+                  }
+
                   <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ? null : (
                       <p
@@ -1363,6 +1374,7 @@ const Logs = () => {
                     setExternalQuestionFromLogs={setExternalQuestionFromLogs}
                     filterDataHandler={filterDataHandler}
                     setShowChat={setShowChat}
+                    setChatDateTime={setChatDateTime}
                   />
                 </>
 
