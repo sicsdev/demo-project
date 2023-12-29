@@ -347,7 +347,7 @@ const Schedule = ({
                   >
                     <div className="    grid grid-cols-2 sm:grid-cols-[40%,10%,10%] gap-[10px] sm:gap-3  col-span-1">
                       <div className="">
-                        <p className="text-xs sm:text-[12px] lowercase">{day}</p>
+                        <p className="text-xs sm:text-[12px] ">{day}</p>
                       </div>
                       <div className="flex items-center justify-start gap-4 ">
                         <label className="switch">
@@ -413,7 +413,7 @@ const Schedule = ({
                                   />
                                 </div>
                               </div>
-                              <span className=" text-xs sm:text-[12px] text-center uppercase flex justify-center items-center">
+                              <span className="  lowercase text-xs sm:text-[12px] text-center  flex justify-center items-center">
                                 To
                               </span>
 
