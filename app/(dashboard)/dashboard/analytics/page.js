@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  CalendarIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftIcon,
 
@@ -42,6 +43,8 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [chatDateTime, setChatDateTime] = useState('');
+  const [isShowWorkflowLogsUI, setIsShowWorkflowLogsUI] = useState(false);
   const params = useSearchParams()
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
@@ -416,12 +419,12 @@ const Logs = () => {
     page1 = "main"
   ) => {
     setPerPage(page_size);
-    if (page1 === "main") {
-      setLoading(true);
-      setSearchLoading(true)
-    } else {
-      setSearchLoading(true)
-    }
+    // if (page1 === "main") {
+    //   setLoading(true);
+    //   setSearchLoading(true)
+    // } else {
+    //   setSearchLoading(true)
+    // }
 
     const response = await getPaginateBotConversation(
       id,
@@ -795,12 +798,12 @@ const Logs = () => {
       { name: "Phone", value: "phone" }]
     } else if (hasEmail) {
       return [{ name: "Select", value: "all" },
-      { name: "Email", value: "email" },{ name: "Chat", value: "chat" },]
+      { name: "Email", value: "email" }, { name: "Chat", value: "chat" },]
     } else if (hasPhone) {
       return [{ name: "Select", value: "all" },
       { name: "Phone", value: "phone" }, { name: "Chat", value: "chat" },]
     } else {
-      return [{ name: "Select", value: "all" },  { name: "Chat", value: "chat" },];
+      return [{ name: "Select", value: "all" }, { name: "Chat", value: "chat" },];
     }
   }
   function checkContentsName(arr) {
@@ -819,7 +822,7 @@ const Logs = () => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
-        console.log(findBot, 'findBot')
+        // console.log(findBot, 'findBot')
         return checkContents(findBot.usedIn)
       }
     }
@@ -1252,12 +1255,12 @@ const Logs = () => {
               progressPending={searchLoading}
               progressComponent={
                 <div className="w-full mt-3 relative">
-                  <SkeletonLoader
+                  {/* <SkeletonLoader
                     count={9}
                     height={30}
                     width="100%"
                     className={"mt-2"}
-                  />
+                  /> */}
                 </div>
               }
               paginationDefaultPage={pageVal}
@@ -1313,6 +1316,15 @@ const Logs = () => {
                       <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
                     </div>
                   </div>
+                  {chatDateTime &&
+                    <div className='flex justify-content-center'>
+                      <small className='m-auto flex items-center sm:items-start gap-2' >
+                        <CalendarIcon className="h-4 w-4" />
+                        <span className="mt-[2px] sm:mt-0">{chatDateTime}</span>
+                      </small>
+                    </div>
+                  }
+
                   <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ? null : (
                       <p
@@ -1329,6 +1341,7 @@ const Logs = () => {
                               manageMessages[indexVal - 1].id
                             );
                           }
+                          setIsShowWorkflowLogsUI(false)
                         }}
                       >
                         <ArrowLeftIcon className="h-4 w-4 text-heading" />
@@ -1348,6 +1361,7 @@ const Logs = () => {
                         } else {
                           handleNextLog()
                         }
+                        setIsShowWorkflowLogsUI(false)
                       }}
                     >
                       <ArrowRightIcon className="h-4 w-4 text-heading" />
@@ -1363,6 +1377,9 @@ const Logs = () => {
                     setExternalQuestionFromLogs={setExternalQuestionFromLogs}
                     filterDataHandler={filterDataHandler}
                     setShowChat={setShowChat}
+                    setChatDateTime={setChatDateTime}
+                    isShowWorkflowLogsUI={isShowWorkflowLogsUI}
+                    setIsShowWorkflowLogsUI={setIsShowWorkflowLogsUI}
                   />
                 </>
 

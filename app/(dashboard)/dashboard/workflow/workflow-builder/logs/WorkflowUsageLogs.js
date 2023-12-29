@@ -242,7 +242,7 @@ const WorkflowUsageLogs = () => {
 
 
             {/* *********** FILTERS ************/}
-            <div className='flex justify-end mx-5'>
+            <div className='flex jsm:justify-end justify-left mx-5 w-[96.5%]'>
                 <div className="flex justify-end items-center gap-2 mb-[15px]">
 
                     <div className="w-100 mt-4">
@@ -307,11 +307,12 @@ const WorkflowUsageLogs = () => {
                     <SkeletonLoader count={5} height={80} width="80vw" className={"mt-1 mx-5"} />
                 </div>
                 :
-                <div className="table-container">
+                <div className="table-container w-[96%] m-auto">
                     <DataTable
                         title={''}
                         fixedHeader
                         highlightOnHover
+                        className='!h-[117vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         pointerOnHover
                         pagination
                         columns={getTableColumns()}

@@ -64,7 +64,7 @@ const Source = () => {
         if (filters.currentBot) {
             filterQueryParam = `&bot__id=${filters.currentBot}`;
         }
-        const response = await getFaqQuestions(`${queryParam}&ordering=-knowledgefaq_usage_last_24_hours${filterQueryParam}`)
+        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours${filterQueryParam}`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
@@ -143,11 +143,9 @@ const Source = () => {
     return (
         <>
             <TopBar loader={contentLoader} title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
-
             <>
                 {basicFormData?.data && (
                     <>
-
                         <UpperBasicKnowledge setContentLoader={setContentLoader} setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} selectedOptionValue={selectedOptionValue} setSelectedOptionValue={setSelectedOptionValue} />
                         <ManageFaqs currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                     </>

@@ -98,7 +98,7 @@ textarea {
 #chatbot_widget_logs .emailheader_ChatBotWidget {
   border-top-left-radius: 2vh;
   border-top-right-radius: 2vh;
-  margin-left: 1vh;
+  /* margin-left: 1vh; */
   flex-direction: column;
   color: rgb(0, 0, 0);
   align-items: center;
@@ -277,7 +277,7 @@ textarea {
 }
 
 #chatbot_widget_logs .answer_text_div {
-  animation: fade-in-classic 2s;
+  /* animation: fade-in-classic 2s; */
 
 }
 

@@ -111,7 +111,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         setUpdateLoader(true)
         let newPayload = {
             answer: selected?.answer,
-            "bots": selected?.selectBots.map((ele) => {
+            "bots": selected?.selectBots?.map((ele) => {
                 return {
                     "bot": ele.value, "active": true
                 }
@@ -282,6 +282,12 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         }
     }
 
+const openBotModal=()=>{
+    setShowBots(true);
+}
+
+
+
 
     // ************ TABLES FORMAT AND COLUMNS GUIDE ************
 
@@ -353,7 +359,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             id:"bots",
             cell: (row, index) =>
                 <div className="py-2 searchWrap">
-                    <Multiselect
+ <Multiselect
                         className=''
                         options={bots ?? []}
                         selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
@@ -371,6 +377,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         customCloseIcon={<p className='text-[19px] rotate-45'>+</p>}
                         showArrow={false}
                     />
+                
+                  
+                        
      
                     
                     </div>,

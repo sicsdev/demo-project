@@ -40,7 +40,13 @@ export const getPermissionHelper = (type, role) => {
 
         case 'MANAGE TEAM':
             if (role !== 'ADMINISTRATOR') return false;
-            
+
+        case 'CREATE WORKFLOW BASED IN TEMPLATE':
+            if (role !== 'ADMINISTRATOR') return false;
+
+        case 'ADD AND CONFIGURE INTEGRATION':
+            if (role !== 'ADMINISTRATOR') return false;
+
         default:
             return true
     }

@@ -1514,7 +1514,7 @@ div[data-column-id="used"] {
   justify-content: center;
 }
 div[data-column-id="question"] {
-  min-width:70%;
+  min-width:55%;
 }
 
 div[data-column-id="term"] {
@@ -2331,3 +2331,51 @@ background-color: white;
   background: red;     width: 2px !important; height: 5px;
 }
 
+
+
+
+
+/* @media screen and (min-width:992px) and (max-width:1199px){
+  .myDataTable p.whitespace-normal.p-2.ml-\[35px\] {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+}
+.myDataTable .rdt_Table .rdt_TableRow { 
+  width: 83%;
+  }
+  .myDataTable .searchWrap .searchWrapper {  
+    display: block; 
+    background: transparent;
+}}
+
+@media screen and (min-width:800px) and (max-width:991px){
+  .myDataTable p.whitespace-normal.p-2.ml-\[35px\] {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+}
+.myDataTable .rdt_TableCol { 
+  min-width: 180px;
+}
+.myDataTable .rdt_TableCell { 
+min-width: none; 
+min-width: auto;padding:0;
+}
+.myDataTable .searchWrap .searchWrapper { 
+display: block; background:transparent;
+}
+.myDataTable .rdt_Table .rdt_TableRow { 
+width: 65%;
+}
+} */
+
+
+@media screen and (min-width:640px) and (max-width:1199px){
+.myDataTable{
+  overflow-x: scroll !important;
+}
+.myDataTable .rdt_TableCell{
+  position: relative; right: 20px;
+}
+}

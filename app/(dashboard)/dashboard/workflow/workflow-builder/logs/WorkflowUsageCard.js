@@ -39,9 +39,9 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
                         <h1 className={`text-md font-bold text-gray-700 flex items-center mb-2 ${log.automation_usages.length > 0 && currentExpanded == log.id && 'text-primary'}`}>
                             {log.workflow.name}
                         </h1>
-                        <div className='md:flex'>
-                            <div className='flex items-center'>
-                                {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' || log.automation_usages[0].response_log.response_status == '422'  ?
+                        <div className='md:flex items-center'>
+                            <div className='flex items-center break-keep'>
+                                {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' || log.automation_usages[0].response_log.response_status == '422' ?
                                     <>
                                         <XCircleIcon className='w-4 h-4'></XCircleIcon>
                                         <span className='mx-2 text-danger'><b>{log.automation_usages[0].response_log.response_status}</b></span>
@@ -55,7 +55,6 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
                                 }
                             </div>
 
-                            {/* <small className='text-black opacity-50'>{log.workflow?.automations[0]?.automation?.description}</small> */}
                             <ClockIcon className="w-4 h-4 mx-2 opacity-60 hidden md:block" />
                             <span className="text-xs text-black" style={{ opacity: '0.6' }}>
                                 {formatDateTime(log.created)}
