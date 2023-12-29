@@ -64,7 +64,7 @@ const Source = () => {
         if (filters.currentBot) {
             filterQueryParam = `&bot__id=${filters.currentBot}`;
         }
-        const response = await getFaqQuestions(`${queryParam}&ordering=-knowledgefaq_usage_last_24_hours${filterQueryParam}`)
+        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours${filterQueryParam}`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
