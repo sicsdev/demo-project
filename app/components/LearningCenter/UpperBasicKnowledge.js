@@ -357,7 +357,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                 <button
                                     onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
                                     key={key}
-                                    className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                    className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} hover:border-primary flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                 >
                                     {" "}
                                     {element?.name}
