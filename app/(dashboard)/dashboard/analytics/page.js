@@ -1320,7 +1320,7 @@ const Logs = () => {
                     <div className='flex justify-content-center'>
                       <small className='m-auto flex items-center sm:items-start gap-2' >
                         <CalendarIcon className="h-4 w-4" />
-                        {chatDateTime}
+                        <span className="mt-[2px] sm:mt-0">{chatDateTime}</span>
                       </small>
                     </div>
                   }
