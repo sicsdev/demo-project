@@ -24,7 +24,7 @@ import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
 import WorkflowUsageLogs from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageLogs';
 import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageTable';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime,isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime, isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -96,9 +96,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)
                 setConversationDetails(convoDetails.data)
                 setLoadingData(false)
-                if(convoDetails.data?.created) {
+                if (convoDetails.data?.created) {
                     setChatDateTime(formatDateTime(convoDetails.data.created));
-                }  
+                }
             }
             setLoadingData(false)
         }
@@ -494,32 +494,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                 </div>
                                             </div>
                                         } */}
-                                        <div className="emailheader_ChatBotWidget relative flex justify-between !flex-row-reverse">
-                                            {conversationDetails?.customer?.id &&
-                                                <div className={`flex flex-col items-start gap-1 text-xs top-4 right-6 text-primary
-                                                ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
-                                                    {/* <Link
-                                                        href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
-                                                        className='flex items-center gap-1'>
-                                                        View more
-                                                        <ArrowRightIcon className='w-3 h-3' />
-                                                    </Link> */}
-
-                                                    {
-                                                        numberOfTicketsForThisCustomer > 0 &&
-                                                        <div className=' text-xs' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
-                                                            {getTicketsInfo()}
-                                                        </div>
-                                                    }
-                                                    {
-                                                        totalWorkflowUsageRecordsCustomer.count > 0 &&
-                                                        <div className='text-xs' onClick={() => toggleWorkflowLogsUI()}>
-                                                            {getCountWorkflowUsageInfo()}
-                                                        </div>
-                                                    }
-                                                </div>
-                                            }
-
+                                        <div className="emailheader_ChatBotWidget relative flex justify-between !flex-row">
 
                                             <div className="infoContainer text-xs" >
 
@@ -565,6 +540,32 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
                                             </div>
+
+                                            {conversationDetails?.customer?.id &&
+                                                <div className={`flex flex-col items-start gap-1 text-xs top-4 right-6 text-primary
+                                                ${numberOfTicketsForThisCustomer > 1 ? 'cursor-pointer' : ''}`}>
+                                                    {/* <Link
+                                                        href={`/dashboard/analytics/customer-details?customerId=${conversationDetails?.customer?.id}`}
+                                                        className='flex items-center gap-1'>
+                                                        View more
+                                                        <ArrowRightIcon className='w-3 h-3' />
+                                                    </Link> */}
+
+                                                    {
+                                                        numberOfTicketsForThisCustomer > 0 &&
+                                                        <div className=' text-xs' onClick={() => filterChatsByCustomerId(conversationDetails?.customer?.id)}>
+                                                            {getTicketsInfo()}
+                                                        </div>
+                                                    }
+                                                    {
+                                                        totalWorkflowUsageRecordsCustomer.count > 0 &&
+                                                        <div className='text-xs' onClick={() => toggleWorkflowLogsUI()}>
+                                                            {getCountWorkflowUsageInfo()}
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+
                                         </div>
 
                                         <div ref={chatLogsRef} id='chatcontentRef' className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
