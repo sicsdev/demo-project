@@ -177,6 +177,10 @@ export default function RootLayout({ children }) {
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://widget-dev.deflection.ai/v1/assets/css/app.css"
+        />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
