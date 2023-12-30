@@ -476,7 +476,7 @@ const PhoneHandle = () => {
 
                         <div>
                         {basicField?.checked === true && (
-                            <div className='px-6 py-5 w-full sm:w-[60%]   justify-between items-center border-b border-[#F0F0F1]'>
+                            <div className='px-6 py-5 w-full sm:w-[63%]   justify-between items-center border-b border-[#F0F0F1]'>
                                 <div className=''>
                                     {pageLoading ?
                                         <SkeletonLoader count={1} height={20} width={"20%"} /> :
