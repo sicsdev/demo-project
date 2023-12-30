@@ -37,13 +37,10 @@ const validateEmail = (email) => {
 };
 
 const validateUrl = (url) => {
-  console.log("Validating URL:", url); // This will print the URL being validated
   try {
     new URL(url);
-    console.log("true"); 
     return true;
   } catch (e) {
-    console.log(e); 
     return false;
   }
 };
