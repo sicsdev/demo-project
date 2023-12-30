@@ -287,7 +287,7 @@ const PhoneHandle = () => {
             setGreetingAudioLoading(true)
             payload = {
                 audio: field.audio,
-                greeting:""
+                greeting: ""
             }
         }
 
@@ -410,6 +410,24 @@ const PhoneHandle = () => {
             setPageLoading(false)
         }
     }
+    const gettheValues = (value) => {
+        let data = [
+            { "name": "1", "value": 1 },
+            { "name": "2", "value": 2 },
+            { "name": "3", "value": 3 },
+            { "name": "4", "value": 4 },
+            { "name": "5", "value": 5 },
+            { "name": "6", "value": 6 },
+            { "name": "7", "value": 7 },
+            { "name": "8", "value": 8 },
+            { "name": "9", "value": 9 }
+        ].filter((x) => x.value.toString() !== value.toString())
+        return data
+    }
+    const gettheValuesBot = (value) => {
+        let data = botValue.filter((x) => x.name !== value)
+        return data
+    }
     // console.log("basicFormData", basicFormData)
     return (
         <>
@@ -455,22 +473,22 @@ const PhoneHandle = () => {
 
                             </div>
                         </div>
+                        {basicField?.checked === true && (
+                            <div className='px-6 py-5 sm:grid-cols-3 justify-between items-center border-b border-[#F0F0F1]'>
+                                <div className=''>
+                                    {pageLoading ?
+                                        <SkeletonLoader count={1} height={20} width={"20%"} /> :
+                                        <h3 className='text-sm font-semibold text-heading flex items-center gap-4'>
+                                            <HandRaisedIcon className='w-4 h-4' ></HandRaisedIcon>
+                                            <b>Greeting message</b>
+                                        </h3>}
+                                    {pageLoading ?
+                                        <div className='my-3'>
+                                            <SkeletonLoader count={1} height={60} width={"50%"} />
+                                        </div>
+                                        :
+                                        <>
 
-                        <div className='px-6 py-5 sm:grid-cols-3 justify-between items-center border-b border-[#F0F0F1]'>
-                            <div className=''>
-                                {pageLoading ?
-                                    <SkeletonLoader count={1} height={20} width={"20%"} /> :
-                                    <h3 className='text-sm font-semibold text-heading flex items-center gap-4'>
-                                        <HandRaisedIcon className='w-4 h-4' ></HandRaisedIcon>
-                                        <b>Greeting message</b>
-                                    </h3>}
-                                {pageLoading ?
-                                    <div className='my-3'>
-                                        <SkeletonLoader count={1} height={60} width={"50%"} />
-                                    </div>
-                                    :
-                                    <>
-                                     
                                             <>
                                                 {basicField?.audioName ? (
                                                     <>
@@ -499,7 +517,7 @@ const PhoneHandle = () => {
                                                                         handleButtonClick()
                                                                     }
                                                                     setBasicField((prev) => {
-                                                                        return { ...prev, audio: "",audioName:"" }
+                                                                        return { ...prev, audio: "", audioName: "" }
                                                                     })
                                                                     setModal(true)
                                                                     setAudioModal(false)
@@ -523,65 +541,65 @@ const PhoneHandle = () => {
                                                             }} className={'border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]'} name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} ref={inputRef} />
                                                         </div>
                                                         <>
-                                                        <div className="mt-2 inline-flex rounded-md w-full sm:w-auto" role="group">
-                                                            <button onClick={() => {
-                                                                setModal(false)
-                                                                setAudioModal(true)
-                                                                document.getElementById("dropzone-file").click()
-                                                            }} type="button"
-                                                                className={`px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium  border border-border rounded-md hover:bg-primary hover:text-white ${audioModal ? "bg-primary text-white" : "bg-white text-heading "}`}>
-                                                                Switch to Audio
-                                                            </button>
+                                                            <div className="mt-2 inline-flex rounded-md w-full sm:w-auto" role="group">
+                                                                <button onClick={() => {
+                                                                    setModal(false)
+                                                                    setAudioModal(true)
+                                                                    document.getElementById("dropzone-file").click()
+                                                                }} type="button"
+                                                                    className={`px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium  border border-border rounded-md hover:bg-primary hover:text-white ${audioModal ? "bg-primary text-white" : "bg-white text-heading "}`}>
+                                                                    Switch to Audio
+                                                                </button>
 
-                                                        </div>
-                                                        <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
+                                                            </div>
+                                                            <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
 
-                                                    </>
+                                                        </>
                                                         <StatusIndicator loading={greetingLoading} driveLoad={driveLoad} />
                                                     </div>
-                                                   
+
                                                 </>}
                                             </>
 
-                                       
-
-                                        <div className='hidden w-full sm:w-[50%] rounded-xl p-1 mt-3'>
-                                            <div className='block mt-1'>
-                                                <div className='w-full '>
-                                                    <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                                                        <div className='flex items-center gap-2'><span>Upload file</span>  </div>
-                                                    </label>
-
-                                                    <div className="flex items-center justify-center w-full">
-                                                        <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                                </svg>
-                                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                                <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
 
 
-                                                            </div>
-
-                                                            <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
-
-
+                                            <div className='hidden w-full sm:w-[50%] rounded-xl p-1 mt-3'>
+                                                <div className='block mt-1'>
+                                                    <div className='w-full '>
+                                                        <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                                                            <div className='flex items-center gap-2'><span>Upload file</span>  </div>
                                                         </label>
+
+                                                        <div className="flex items-center justify-center w-full">
+                                                            <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                                    <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                                    </svg>
+                                                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                                                    <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
+
+
+                                                                </div>
+
+                                                                <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
+
+
+                                                            </label>
+                                                        </div>
+
                                                     </div>
 
+                                                    <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
                                                 </div>
-
-                                                <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
                                             </div>
-                                        </div>
 
 
-                                    </>}
+                                        </>}
+                                </div>
                             </div>
-                        </div>
 
-
+                        )}
 
                         {basicFormData.length > 0 && basicField?.checked === true && (
                             <>
@@ -637,18 +655,7 @@ const PhoneHandle = () => {
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.options ?? ''}
                                                                 name="options"
-                                                                values={[
-                                                                    { "name": "0", "value": 0 },
-                                                                    { "name": "1", "value": 1 },
-                                                                    { "name": "2", "value": 2 },
-                                                                    { "name": "3", "value": 3 },
-                                                                    { "name": "4", "value": 4 },
-                                                                    { "name": "5", "value": 5 },
-                                                                    { "name": "6", "value": 6 },
-                                                                    { "name": "7", "value": 7 },
-                                                                    { "name": "8", "value": 8 },
-                                                                    { "name": "9", "value": 9 }
-                                                                ]}
+                                                                values={gettheValues(key === 0 ? "" : basicFormData[key - 1].options)}
                                                                 id={"options"}
                                                                 className="py-2]"
                                                                 error={""}
@@ -661,7 +668,7 @@ const PhoneHandle = () => {
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.bots ?? ''}
                                                                 name="bots"
-                                                                values={botValue}
+                                                                values={gettheValuesBot(key === 0 ? "" : basicFormData[key - 1].bots)}
                                                                 id={"bots"}
                                                                 className="py-2 "
                                                                 title={
