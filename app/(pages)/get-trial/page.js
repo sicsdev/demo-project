@@ -36,14 +36,10 @@ const validateEmail = (email) => {
   return regex.test(email);
 };
 
-const validateUrl = (url) => {
-  try {
-    new URL(url);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
+  const validateUrl = (url) => {
+    var regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    return regex.test(url);
+  };
 
   const DisablingButton = () => {
 
