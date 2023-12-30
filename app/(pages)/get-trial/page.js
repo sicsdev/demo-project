@@ -69,7 +69,7 @@ const validateUrl = (url) => {
       ? !validateEmail(formData["email"])
       : true;
 
-    const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
+    const isUrlValid = !validateUrl(formData["url"])
 
     const isFaqValid = !validateUrl(formData["faq_url"])
 
