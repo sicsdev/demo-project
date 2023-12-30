@@ -685,7 +685,7 @@ input:checked+.slider:before {
 }
 
 input:checked+.slider {
-  background-color: #2196f3;
+  background-color: #2563eb;
 }
 
 input:focus+.slider {
@@ -2300,6 +2300,37 @@ input#domainName {
 border: 1px solid #2563Eb;
 background-color: white;
 }
+/* Scrollbar Styling */
+
+
+
+/* width */
+.email-scroll::-webkit-scrollbar {
+  width: 2px !important; height: 5px;
+  
+}
+
+/* Track */
+.email-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;  
+  border-radius: 5px;
+
+}
+ 
+/* Handle */
+.email-scroll::-webkit-scrollbar-thumb {
+  background: red;     width: 2px !important; height: 5px;
+  border-radius: 5px;
+
+}
+
+/* Handle on hover */
+.email-scroll::-webkit-scrollbar-thumb:hover {
+  border-radius: 5px;
+
+  background: red;     width: 2px !important; height: 5px;
+}
+
 
 
 

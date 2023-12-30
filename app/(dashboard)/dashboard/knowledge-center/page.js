@@ -407,16 +407,25 @@ const Page = () => {
         }
     };
 
-    const getReccomodationByTime = async (filterDate) => {
-        setLoading(true)
-        const query = `&page=${pageVal}&page_size=${perPage}&created__gte=${filterDate?.created__gte}&created__lte=${filterDate?.created__lte}`
-        const response = await GetAllRecommendations(query)
-        debugger
-        if (response) {
-            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
-            setLoading(false)
+    const getRecommendationsByTime = async (filterDate, event) => {
+        // Prevent default behavior if event is passed
+        if (event) event.preventDefault();
+     
+        setLoading(true);
+     
+        const query = `&page=${pageVal}&page_size=${perPage}&created__gte=${filterDate?.created__gte}&created__lte=${filterDate?.created__lte}`;
+     
+        try {
+            const response = await GetAllRecommendations(query);
+            if (response) {
+                dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }));
+            }
+        } catch (error) {
+            console.error("Error fetching recommendations:", error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };    
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true)
         setPageVal(page)
@@ -769,7 +778,7 @@ const Page = () => {
         setSelectedOption(event.target.value);
         const dates = getDatesForOption(event.target.value);
         if (dates) {
-            getReccomodationByTime(dates)
+            getRecommendationsByTime(dates)
         }
     };
 

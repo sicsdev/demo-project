@@ -4,30 +4,47 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { use } from "react";
 import { useState } from "react";
 import "./schedule.css";
 import { useSearchParams } from "next/navigation";
 import Button from "../Common/Button/Button";
 import { MinusIcon } from "@heroicons/react/24/outline";
+import {
+  CloudArrowUpIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 
-import { DocumentIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import {
+  DocumentIcon,
+  ChartBarIcon,
+  CheckCircleIcon,
+  ArrowPathIcon,
+} from "@heroicons/react/24/outline";
 import StatusIndicator from "../StatusIndicator/Status";
-const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setDriveLoad, loading, setLoading }) => {
+const Schedule = ({
+  basicFormData,
+  setBasicFormData,
+  Submission,
+  driveLoad,
+  setDriveLoad,
+  loading,
+  setLoading,
+}) => {
   const searchParams = useSearchParams();
-
 
   const [custom, setCustom] = useState(true);
   const [errors, setErrors] = useState([]);
   const [schedule, setSchedules] = useState(basicFormData);
-
+  const [openClose, setOpenClose] = useState(false);
   const handleHourInputStart = (event) => {
     const { value, id, name } = event.target;
     const updatedSchedule = { ...schedule };
     updatedSchedule[name][id].start = value;
     setSchedules(updatedSchedule);
-    debugger
-    Submission(updatedSchedule)
+    debugger;
+    Submission(updatedSchedule);
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -41,8 +58,8 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
     const updatedSchedule = { ...schedule };
     updatedSchedule[name][id].end = value;
     setSchedules(updatedSchedule);
-    debugger
-    Submission( updatedSchedule )
+    debugger;
+    Submission(updatedSchedule);
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -53,10 +70,10 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
 
   const sendObjects = (obj) => {
     if (obj?.updatedSchedule) {
-      delete obj.updatedSchedule
+      delete obj.updatedSchedule;
     }
-    return obj
-  }
+    return obj;
+  };
 
   const handleDeleteHour = (day, index) => {
     const dayArray = [...schedule[day]];
@@ -65,8 +82,8 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
       ...prevState,
       [day]: dayArray,
     }));
-    debugger
-    Submission({ ...schedule, [day]: dayArray })
+    debugger;
+    Submission({ ...schedule, [day]: dayArray });
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -88,11 +105,17 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
         [day]: dayArray,
       };
     });
-    debugger
-    Submission({ ...schedule, [day]: dayArray })
+    debugger;
+    Submission({ ...schedule, [day]: dayArray });
   };
-  const handleCheckbox = (day) => {
-    let dayArray = []
+  const handleCheckbox = (e, day) => {
+    console.log("evednt", e);
+    if (e.target.checked == true) {
+      setOpenClose(true);
+    } else {
+      setOpenClose(false);
+    }
+    let dayArray = [];
     if (schedule[day].length === 0) {
       dayArray = [...schedule[day]];
       dayArray.push({ start: "00:00", end: "23:59" });
@@ -107,9 +130,132 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
         [day]: dayArray,
       };
     });
-    Submission({ ...schedule, [day]: dayArray })
+    Submission({ ...schedule, [day]: dayArray });
   };
 
+  console.log("ass", schedule);
+  const time = [
+    "00:00",
+    "00:15",
+    "00:30",
+    "00:45",
+    "01:00",
+    "01:15",
+    "01:30",
+    "01:45",
+    "02:00",
+    "02:15",
+    "02:30",
+    "02:45",
+    "03:00",
+    "03:15",
+    "03:30",
+    "03:45",
+    "04:00",
+    "04:15",
+    "04:30",
+    "04:45",
+    "05:00",
+    "05:15",
+    "05:30",
+    "05:45",
+    "06:00",
+    "06:15",
+    "06:30",
+    "06:45",
+    "07:00",
+    "07:15",
+    "07:30",
+    "07:45",
+    "08:00",
+    "08:15",
+    "08:30",
+    "08:45",
+    "09:00",
+    "09:15",
+    "09:30",
+    "09:45",
+    "10:00",
+    "10:15",
+    "10:30",
+    "10:45",
+    "11:00",
+    "11:15",
+    "11:30",
+    "11:45",
+    "12:00",
+    "12:15",
+    "12:30",
+    "12:45",
+    "13:00",
+    "13:15",
+    "13:30",
+    "13:45",
+    "14:00",
+    "14:15",
+    "14:30",
+    "14:45",
+    "15:00",
+    "15:15",
+    "15:30",
+    "15:45",
+    "16:00",
+    "16:15",
+    "16:30",
+    "16:45",
+    "17:00",
+    "17:15",
+    "17:30",
+    "17:45",
+    "18:00",
+    "18:15",
+    "18:30",
+    "18:45",
+    "19:00",
+    "19:15",
+    "19:30",
+    "19:45",
+    "20:00",
+    "20:15",
+    "20:30",
+    "20:45",
+    "21:00",
+    "21:15",
+    "21:30",
+    "21:45",
+    "22:00",
+    "22:15",
+    "22:30",
+    "22:45",
+    "23:00",
+    "23:15",
+    "23:30",
+    "23:45",
+  ];
+  const [timeValue, setTimeValue] = useState(time[0]);
+
+  const handleUpClick = (value, id, name) => {
+    const currentIndex = time.indexOf(value);
+    const nextIndex = (currentIndex + 1) % time.length;
+    handleHourInputStart({ target: { value: time[nextIndex], id, name } });
+  };
+
+  const handleDownClick = (value, id, name) => {
+    const currentIndex = time.indexOf(value);
+    const prevIndex = (currentIndex - 1 + time.length) % time.length;
+    handleHourInputStart({ target: { value: time[prevIndex], id, name } });
+  };
+  const handleUpClickEnd = (value, id, name) => {
+    const currentIndex = time.indexOf(value);
+    const nextIndex = (currentIndex + 1) % time.length;
+    handleHourInputEnd({ target: { value: time[nextIndex], id, name } });
+  };
+
+  const handleDownClickEnd = (value, id, name) => {
+    const currentIndex = time.indexOf(value);
+    const prevIndex = (currentIndex - 1 + time.length) % time.length;
+    handleHourInputEnd({ target: { value: time[prevIndex], id, name } });
+  };
   return (
     <div className="">
       {/* EXISTING SCHEDULE OPTION */}
@@ -140,7 +286,7 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
             </small>
             <div class="grid grid-cols-2 gap-2 py-3">
               <div className="flex justify-start items-center bg-gray-200 p-2">
-                SUN
+                Sun
               </div>
               <div className="flex justify-start items-center bg-gray-100 p-2">
                 Unavailable
@@ -185,6 +331,7 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
           </div>
         </div>
       )}
+  
 
       {/* CUSTOM SCHEDULE OPTION */}
       {custom && (
@@ -196,18 +343,28 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
                 <>
                   <div
                     key={day}
-                    className="flex m-2 my-2 items-center justify-around gap-3"
+                    className="grid grid-cols-2 m-2 my-2 items-center  justify-between sm:justify-between gap-[0px] sm:gap-3"
                   >
-                    <div className="    w-[50px] flex items-center gap-3 col-span-1">
-                      <input
-                        type="checkbox"
-                        className={`w-3 h-3`}
-                        checked={schedule[day].length > 0}
-                        onClick={() => handleCheckbox(day)}
-                      />
-                      <small className="text-xs sm:text-[12px]">
-                        {day.substr(0, 3).toUpperCase()}
-                      </small>
+                    <div className="    grid grid-cols-2 sm:grid-cols-[40%,10%,10%] gap-[10px] sm:gap-3  col-span-1">
+                      <div className="">
+                        <p className="text-xs sm:text-[12px] ">{day}</p>
+                      </div>
+                      <div className="flex items-center justify-start gap-4 ">
+                        <label className="switch">
+                          <input
+                            type="checkbox"
+                            name="billingEnabled"
+                            checked={schedule[day].length > 0}
+                            onClick={(e) => handleCheckbox(e, day)}
+                          />
+                          <span className="slider round h-[21px] w-[40px]"></span>
+                        </label>
+                      </div>
+                      <div className="hidden sm:block">
+                        <p className=" text-xs sm:text-[12px]">
+                          {schedule[day].length > 0 ? "Open" : "Closed"}
+                        </p>
+                      </div>
                     </div>
 
                     <div className="lg:flex flex items-center gap-3">
@@ -217,81 +374,104 @@ const Schedule = ({ basicFormData, setBasicFormData, Submission, driveLoad, setD
                             <div
                               key={index}
                               style={{ gridTemplateColumns: "repeat(3, auto)" }}
-                              className={`grid grid-cols-3 gap-1 sm:gap-3 ${index !== 0 ? "pt-2" : ""
-                                }`}
+                              className={`grid grid-cols-3 gap-[0px] sm:gap-3 h-[40px]  ${
+                                index !== 0 ? "pt-2" : ""
+                              }`}
                             >
                               <div className="relative">
                                 <input
                                   id={index}
-                                  onChange={handleHourInputStart}
+                                  // onChange={handleHourInputStart}
                                   value={schedule[day][index].start}
                                   type="time"
                                   name={day}
-                                  className="text-center flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                  readOnly
+                                  className="text-center flex items-center justify-center new_input !p-0 !pr-[0.85rem] !m-0 h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 />
+
+
+                                <div className="absolute right-0 top-[7px]">
+                                  <ChevronUpIcon
+                                    className="h-[10px] w-6 text-gray-500 cursor-pointer"
+                                    onClick={(e) =>
+                                      handleUpClick(
+                                        schedule[day][index].start,
+                                        index,
+                                        day
+                                      )
+                                    }
+                                  />
+
+                                  <ChevronDownIcon
+                                    className="h-[10px] w-6 text-gray-500 cursor-pointer"
+                                    onClick={(e) =>
+                                      handleDownClick(
+                                        schedule[day][index].start,
+                                        index,
+                                        day
+                                      )
+                                    }
+                                  />
+                                </div>
                               </div>
+                              <span className="  lowercase text-xs sm:text-[12px] text-center  flex justify-center items-center">
+                                To
+                              </span>
+
                               <div className="relative">
                                 <input
                                   id={index}
-                                  onChange={handleHourInputEnd}
+                                  // onChange={handleHourInputEnd}
                                   value={schedule[day][index].end}
                                   type="time"
+                                  disabled
                                   name={day}
-                                  className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                  className="text-center !pr-[0.85rem]  flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 />
+                                <div className="absolute right-0 top-[7px]">
+                                  <ChevronUpIcon className="h-[10px] w-6 text-gray-500 cursor-pointer" 
+                                   onClick={(e) =>
+                                    handleUpClickEnd(
+                                      schedule[day][index].end,
+                                      index,
+                                      day
+                                    )
+                                  }
+                                  />
+
+                                  <ChevronDownIcon className="h-[10px] w-6 text-gray-500 cursor-pointer"
+                                     onClick={(e) =>
+                                      handleDownClickEnd(
+                                        schedule[day][index].end,
+                                        index,
+                                        day
+                                      )
+                                    }
+                                  />
+                                </div>
                               </div>
-                              <div className="flex items-center">
+                              {/* <div className="flex items-center">
                                 <MinusIcon
                                   className="w-4 cursor-pointer hover:text-red"
                                   onClick={() => handleDeleteHour(day, index)}
                                 />
-
-
-                              </div>
+                              </div> */}
                             </div>
                           ))
                         ) : (
                           <div
                             key={"index"}
                             style={{ gridTemplateColumns: "repeat(3, auto)" }}
-                            className="grid grid-cols-3 gap-1 sm:gap-3 cursor-pointer"
-                          >
-                            <div className="relative">
-                              <input
-                                id={"index"}
-                                type="time"
-                                className="text-center flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] !text-[9px] sm:!text-[10px] border-[0.2px] focus:!text-[9px] sm:focus:!text-[10px] px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
-                                disabled
-                              />
-                            </div>
-                            <div className="relative">
-                              <input
-                                id={"idnex"}
-                                disabled
-                                type="time"
-                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2 disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
-                              />
-                            </div>
-                            <div className="flex items-center">
-                              <MinusIcon className="w-4 cursor-pointer hover:text-red opacity-0" />
-                            </div>
-                          </div>
+                            className="grid grid-cols-3 gap-1 sm:gap-3 cursor-pointer h-[40px]"
+                          ></div>
                         )}
                       </div>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <PlusIcon
-                        className="w-4 cursor-pointer hover:text-sky"
-                        onClick={() => handleAddHour(day)}
-                      />
-                      {/* <ClipboardDocumentIcon className="w-4" /> */}
                     </div>
                   </div>
                 </>
               ))}
             </div>
-            <StatusIndicator driveLoad={driveLoad} loading={loading}/>
+            <StatusIndicator driveLoad={driveLoad} loading={loading} />
             {errors?.map((e) => (
               <div className="text-center my-2">
                 <small className="text-red">{e}</small>

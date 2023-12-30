@@ -30,15 +30,21 @@ const Trial = () => {
   const [errors, setErrors] = useState([]);
   const [pop, setPop] = useState(false);
 
-  const validateEmail = (email) => {
-    var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
-  };
+const validateEmail = (email) => {
+  // This regular expression is more comprehensive and covers most RFC 5322 cases.
+  var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return regex.test(email);
+};
 
-  const validateUrl = (url) => {
-    var regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
-    return regex.test(url);
-  };
+const validateUrl = (url) => {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(url);
+};
 
   const DisablingButton = () => {
 
@@ -51,7 +57,7 @@ const Trial = () => {
       "url"
     ];
 
-    const formValues = requiredKeys.some(
+    const formValues = !requiredKeys.some(
       (key) => !formData[key] || formData[key].trim() === ""
     );
 
@@ -60,16 +66,22 @@ const Trial = () => {
     // );
 
     const isEmailValid = formData["email"]
-      ? !validateEmail(formData["email"])
-      : true;
+      ? validateEmail(formData["email"])
+      : false;
 
-    const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
+    const isUrlValid = validateUrl(formData["url"])
 
-    const isFaqValid = !validateUrl(formData["faq_url"])
+    const isFaqValid = validateUrl(formData["faq_url"])
 
+    console.log('Form Values Empty:', formValues);
+    console.log('Email Valid:', isEmailValid);
+    console.log('URL Valid:', isUrlValid);
+    console.log('FAQ Valid:', isFaqValid);
+    console.log('Checkbox Checked:', formData.checked);
+    console.log('Pop Error:', pop);
+    console.log('Loading:', loading);
 
-
-    return isFaqValid || formValues || isEmailValid || isUrlValid;
+    return !(isFaqValid || formValues || isEmailValid || isUrlValid);
 
   };
 

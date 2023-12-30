@@ -84,7 +84,7 @@ const GlobalTemplateCard = ({ item, loading, key }) => {
             <div
                 onClick={handleRedirect}
                 key={key}
-                className={`relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-[#8d8d8d] cursor-pointer`}
+                className={`relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:!border-primary cursor-pointer`}
             >
 
                 <div className='relative h-full'>
