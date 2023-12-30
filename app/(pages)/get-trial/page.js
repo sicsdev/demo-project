@@ -72,7 +72,13 @@ const validateUrl = (url) => {
 
     const isFaqValid = !validateUrl(formData["faq_url"])
 
-
+    console.log('Form Values Empty:', formValues);
+    console.log('Email Valid:', !isEmailValid);
+    console.log('URL Valid:', !isUrlValid);
+    console.log('FAQ Valid:', isFaqValid);
+    console.log('Checkbox Checked:', formData.checked);
+    console.log('Pop Error:', pop);
+    console.log('Loading:', loading);
 
     return isFaqValid || formValues || isEmailValid || isUrlValid;
 
