@@ -351,7 +351,7 @@ const AnswersEditor = ({
 
 
                             <div className="flex justify-between items-center gap-2">
-                                {!showRecommendedAnswers && (
+                                {!showRecommendedQuestions && (
                                     <button
                                         onClick={(e) => SubmitTheForm()}
                                         type="button"
