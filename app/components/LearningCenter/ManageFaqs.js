@@ -635,7 +635,7 @@ const openBotModal=()=>{
                         subHeadings={""}
                     >
 
-                        <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                        <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between w-[98.5%]"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
                                 <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
@@ -688,7 +688,7 @@ const openBotModal=()=>{
                             </div> */}
 
                                 <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
-                                <div className="py-2">
+                                <div className="py-2 w-[97%] m-auto">
                                     <Multiselect
                                         id='custom-multiselect'
                                         className='custom-multselect'

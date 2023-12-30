@@ -277,7 +277,7 @@ textarea {
 }
 
 #chatbot_widget_logs .answer_text_div {
-  animation: fade-in-classic 2s;
+  /* animation: fade-in-classic 2s; */
 
 }
 

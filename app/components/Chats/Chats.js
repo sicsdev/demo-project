@@ -573,8 +573,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <div className="answer_text_div"></div>
                                                         <div className={`answer_text_with_thumbs !text-sm !font-[400]`}
                                                             style={{
-                                                                backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color,
-                                                                opacity: (messages?.length == 1 ? "1" : "0.8")
+                                                                backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color
                                                             }}>
                                                             {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
                                                         </div>
@@ -584,7 +583,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <>
                                                             {element.sender === 'bot' &&
                                                                 (
-                                                                    <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
+                                                                    <div id={key} key={key} className='mb-2'>
 
 
                                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
@@ -1017,7 +1016,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                             {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                                 (
-                                                                    <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                                    <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
 
                                                                         {
                                                                             (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
