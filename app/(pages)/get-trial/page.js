@@ -68,16 +68,16 @@ const validateUrl = (url) => {
     // );
 
     const isEmailValid = formData["email"]
-      ? !validateEmail(formData["email"])
-      : true;
+      ? validateEmail(formData["email"])
+      : false;
 
-    const isUrlValid = !validateUrl(formData["url"])
+    const isUrlValid = validateUrl(formData["url"])
 
-    const isFaqValid = !validateUrl(formData["faq_url"])
+    const isFaqValid = validateUrl(formData["faq_url"])
 
     console.log('Form Values Empty:', formValues);
-    console.log('Email Valid:', !isEmailValid);
-    console.log('URL Valid:', !isUrlValid);
+    console.log('Email Valid:', isEmailValid);
+    console.log('URL Valid:', isUrlValid);
     console.log('FAQ Valid:', isFaqValid);
     console.log('Checkbox Checked:', formData.checked);
     console.log('Pop Error:', pop);
