@@ -251,7 +251,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
                             }}
                             // pagination
                             className='dat-class'
-                            noDataComponent={<><p className="text-center text-xs p-3">Start adding negative search terms.</p></>}
+                            noDataComponent={<><p className="text-center text-xs p-3"></p></>}
                             paginationPerPage={7}
                             columns={columns}
                             data={negativeQuestions}

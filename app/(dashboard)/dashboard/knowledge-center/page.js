@@ -912,7 +912,7 @@ const Page = () => {
                                     values={DateValues.map((e) => { return { name: e, value: e } })}
                                     title={""}
                                     id={"filtering"}
-                                    className="!py-1.5  !m-0 focus:!py-1.5  focus:!m-0 focus:shadow-none"
+                                    className="!py-[4px] !px-[8px] !rounded-md !m-0 focus:!py-1.5  focus:!m-0 focus:shadow-none"
                                     error={""}
                                     showOption={false}
                                 />

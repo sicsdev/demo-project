@@ -131,8 +131,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       selector: (row) => row?.name,
       cell: (row) =>
         <div className="flex gap-3 items-center">
-          {row.enterprise && row.enterprise[0]?.logo ? (
-            <div><img src={row.enterprise[0]?.logo} alt="Enterprise Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }}></img></div>) : <><div className="bg-soft-blue p-3 rounded-full text-white">YS</div></>}
+          {row.enterprise && row.enterprise[0]?.logo && (
+            <div><img src={row.enterprise[0]?.logo} alt="Enterprise Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }}></img></div>)}
            <div>
             <p className="whitespace-normal text-xs font-semibold">{row?.name}</p>
             <p className="whitespace-normal text-xs">{row?.email}</p>
@@ -209,7 +209,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           pointerOnHover
           defaultSortFieldId="number_of_messages"
           pagination
-          className="h-[500px]"
+          className="h-auto"
           columns={columns2}
           noDataComponent={
             <>
