@@ -970,7 +970,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className={`${state?.data?.results?.length <=5 ? "h-[400px] overflow-y-scroll":"h-auto"}  !w-[95%] !m-[auto]   myDataTable`}
+                                className={`${state?.data?.results?.length <=5 ? "h-[300px] sm:h-[400px] overflow-y-scroll":"h-auto"}  !w-[95%] !m-[auto]   myDataTable`}
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}
