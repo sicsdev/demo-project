@@ -57,7 +57,7 @@ const validateUrl = (url) => {
       "url"
     ];
 
-    const formValues = requiredKeys.some(
+    const formValues = !requiredKeys.some(
       (key) => !formData[key] || formData[key].trim() === ""
     );
 
