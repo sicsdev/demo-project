@@ -81,7 +81,7 @@ const validateUrl = (url) => {
     console.log('Pop Error:', pop);
     console.log('Loading:', loading);
 
-    return isFaqValid || formValues || isEmailValid || isUrlValid;
+    return !(isFaqValid || formValues || isEmailValid || isUrlValid);
 
   };
 
