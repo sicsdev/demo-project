@@ -321,31 +321,34 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             }
             {/* //bg-gradiant-red-button */}
             {showingNegativeOptions &&
-                <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
+                <div className='flex justify-between mb-4 mt-2 mr-12 mx-4'>
+
+                    <div className='flex gap-2'>
+                        <button
+                            type="button"
+                            className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            onClick={() => handleRateNegative('reduce')}
+                            data-tooltip-id={'tooltip'}
+                            data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
+                        >
+                            {rating == -0.1 ? "Reduced" : "Reduce"}
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            onClick={() => handleRateNegative('block')}
+                            data-tooltip-id={'tooltip'}
+                            data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
+                        >
+                            {rating == -1 ? "Blocked" : "Block"}
+                        </button>
+
+                    </div>
 
                     <button
                         type="button"
-                        className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
-                        onClick={() => handleRateNegative('reduce')}
-                        data-tooltip-id={'tooltip'}
-                        data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
-                    >
-                        {rating == -0.1 ? "Reduced" : "Reduce"}
-                    </button>
-
-                    <button
-                        type="button"
-                        className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
-                        onClick={() => handleRateNegative('block')}
-                        data-tooltip-id={'tooltip'}
-                        data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
-                    >
-                        {rating == -1 ? "Blocked" : "Block"}
-                    </button>
-
-                    <button
-                        type="button"
-                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-2`}
                         onClick={() => handleForceHandOff()}
                         data-tooltip-id={'tooltip'}
                         data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}

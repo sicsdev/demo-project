@@ -56,6 +56,7 @@ const Page = () => {
     const [perPage, setPerPage] = useState(10);
     const [pageVal, setPageVal] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [loadingContentPage, setLoadingContentPage] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
     const [tabLoader, setTabLoader] = useState(true);
@@ -96,7 +97,23 @@ const Page = () => {
     const [tab, setTab] = useState(1)
     const [loadingChangeAnswer, setLoadingChangeAnswer] = useState(false)
     const [isMouseOver, setIsMouseOver] = useState(null);
+    const [currentFilters, setCurrentFilters] = useState({
+        page: 1,
+        page_size: 10,
+        created__gte: null,
+        created__lte: null,
+        search: '',
+        ordering: '-number_of_messages',
+    })
 
+    function buildQueryString(filters) {
+        const queryString = Object.entries(filters)
+          .filter(([key, value]) => value !== null && value !== undefined && value !== '')
+          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+          .join('&');
+      
+        return `?${queryString}`;
+      }
 
     const checkValue = (str) => {
         if (str.length < 2) {
@@ -189,7 +206,7 @@ const Page = () => {
         try {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
-                const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}`
+                const query = buildQueryString(currentFilters)
                 const response = await GetAllRecommendations(query)
                 if (response) {
                     dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
@@ -207,6 +224,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
+            setLoadingContentPage(false);
         }, 500);
     }, [])
 
@@ -273,7 +291,7 @@ const Page = () => {
             width: "100px",
             center: true,
             hide: "sm",
-            style:{paddingRight:"25px"}
+            style: { paddingRight: "25px" }
         },
         {
             name: <p className="font-[600] ">Created</p>,
@@ -375,15 +393,18 @@ const Page = () => {
 
 
     const handleRecomodationValue = async (page) => {
-        setLoading(true)
+        setLoadingContentPage(true)
         setPageVal(page)
-        const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}`
+
+        setCurrentFilters({ ...currentFilters, page: page })
+
+        const query = buildQueryString({ ...currentFilters, page: page })
         const response = await GetAllRecommendations(query)
         if (response) {
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
-            setLoading(false)
+            setLoadingContentPage(false)
         } else {
-            setLoading(false)
+            setLoadingContentPage(false)
         }
     }
 
@@ -392,51 +413,64 @@ const Page = () => {
             firstRender.current = false;
             return;
         }
-        if (column && column?.name === 'Count') {
-            setLoading(true)
-            const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
+        if (column && column?.selector === 'number_of_messages') {
+            setLoadingContentPage(true)
+            const queryParam = sortDirection === 'asc' ? 'number_of_messages' : '-number_of_messages';
             setRecommendationOrderBy(queryParam);
+            
+            setCurrentFilters({ ...currentFilters, ordering: queryParam })
 
-            const query = `&page=${pageVal}&page_size=${perPage}${queryParam}`
+            let query = buildQueryString({...currentFilters, ordering: queryParam })
+
             const response = await GetAllRecommendations(query)
 
             if (response) {
                 dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
-                setLoading(false)
+                setLoadingContentPage(false)
             }
         }
     };
 
-    const getRecommendationsByTime = async (filterDate, event) => {
-        // Prevent default behavior if event is passed
-        if (event) event.preventDefault();
-     
-        setLoading(true);
-     
-        const query = `&page=${pageVal}&page_size=${perPage}&created__gte=${filterDate?.created__gte}&created__lte=${filterDate?.created__lte}`;
-     
-        try {
-            const response = await GetAllRecommendations(query);
-            if (response) {
-                dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }));
-            }
-        } catch (error) {
-            console.error("Error fetching recommendations:", error);
-        } finally {
-            setLoading(false);
+    const getReccomodationByTime = async (filterDate) => {
+        setLoadingContentPage(true)
+        let response = null
+        if (filterDate) {
+            const query = buildQueryString({
+                ...currentFilters,
+                created__gte: filterDate?.created__gte,
+                created__lte: filterDate?.created__lte
+            }) 
+            console.log("🚀 ~ file: page.js:440 ~ getReccomodationByTime ~ query:", query)
+
+            response = await GetAllRecommendations(query)
+        } else {
+            const query = `&page=${pageVal}&page_size=${perPage}${recommendationOrderBy}`
+            response = await GetAllRecommendations(query)
         }
-    };    
+
+        if (response) {
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+            setLoadingContentPage(false)
+        }
+    }
     const handlePerRowsChange = async (newPerPage, page) => {
-        setLoading(true)
+        setLoadingContentPage(true)
         setPageVal(page)
-        const query = `&page=${page}&page_size=10${recommendationOrderBy}`
+
+        setCurrentFilters({ ...currentFilters,page: page, page_size: newPerPage })
+
+        const query = buildQueryString({
+            ...currentFilters,
+            page: page,
+            page_size: newPerPage
+        })
         const response = await GetAllRecommendations(query)
         setPerPage(newPerPage)
         if (response) {
-            setLoading(false)
+            setLoadingContentPage(false)
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
         } else {
-            setLoading(false)
+            setLoadingContentPage(false)
         }
     }
 
@@ -458,16 +492,21 @@ const Page = () => {
     };
 
     const performSearch = async (text) => {
-        setLoading(true)
-        const queryParam = `&search=` + text;
+        setLoadingContentPage(true)
 
-        const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}${queryParam}`
+        setCurrentFilters({ ...currentFilters, search: text })
+
+        const query = buildQueryString({
+            ...currentFilters,
+            search: text
+        })
+
         const response = await GetAllRecommendations(query)
         if (response) {
-            setLoading(false)
+            setLoadingContentPage(false)
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
         } else {
-            setLoading(false)
+            setLoadingContentPage(false)
         }
     };
     const searchQuestionFaq = async (value) => {
@@ -775,15 +814,31 @@ const Page = () => {
     const [selectedOption, setSelectedOption] = useState('');
 
     const handleSelectChange = (event) => {
-        setSelectedOption(event.target.value);
-        const dates = getDatesForOption(event.target.value);
-        if (dates) {
-            getRecommendationsByTime(dates)
+        const value = event.target.value
+        if (value === "Filter by date") {
+            // dispatch(fetchWorkflows)
+            const query = buildQueryString(currentFilters)
+            
+            setSelectedOption("");
+            getReccomodationByTime(query)
+        } else {
+            setSelectedOption(value);
+            const dates = getDatesForOption(value);
+            if (dates) {
+                setCurrentFilters({
+                    ...currentFilters,
+                    created__gte: dates.created__gte,
+                    created__lte: dates.created__lte
+                })
+                getReccomodationByTime(dates)
+            }
         }
+
     };
 
     const getDatesForOption = (option) => {
         const now = new Date();
+        const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         let startDate, endDate;
         if (option === "Filter by date") {
@@ -798,15 +853,15 @@ const Page = () => {
                 break;
             case 'Last 7 Days':
                 startDate = new Date(today.setDate(today.getDate() - 7));
-                endDate = today;
+                endDate = currentDate;
                 break;
             case 'Last 30 Days':
                 startDate = new Date(today.setDate(today.getDate() - 30));
-                endDate = today;
+                endDate = currentDate;
                 break;
             case 'This Month':
                 startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-                endDate = today;
+                endDate = currentDate;
                 break;
             case 'Last Month':
                 startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
@@ -814,11 +869,11 @@ const Page = () => {
                 break;
             case 'Last 3 Months':
                 startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
-                endDate = today;
+                endDate = currentDate;
                 break;
             case 'This Year':
                 startDate = new Date(today.getFullYear(), 0, 1);
-                endDate = today;
+                endDate = currentDate;
                 break;
             case 'Last Year':
                 startDate = new Date(today.getFullYear() - 1, 0, 1);
@@ -826,7 +881,7 @@ const Page = () => {
                 break;
             default:
                 // Default to today if no option is matched
-                startDate = endDate = today;
+                startDate = endDate = currentDate;
                 break;
         }
 
@@ -836,14 +891,26 @@ const Page = () => {
         };
 
     };
-    
+
+    const formatArrayData = (data) => {
+        return data.map((item) => {
+            if(item?.number_of_messages == 0){
+                return {
+                    ...item,
+                    number_of_messages: "-"
+                }
+            }else{
+                return item
+            }
+        })
+    }
 
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar loader={loading} title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
 
-                <div className={false ? " my-2 mb-5        " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2 mb-5"}>
+                <div className={false ? "my-2 mb-5" : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2 mb-5"}>
 
                     <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
@@ -864,7 +931,7 @@ const Page = () => {
                         </li>
 
                         {/* <li className={`  ${filterhead === "External" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { */}
-                        <li className={`  ${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        <li className={`${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
 
                             setTab(2)
                         }}>
@@ -945,8 +1012,8 @@ const Page = () => {
                                 // onRowMouseEnter={(e) => handlemouseOver(e.id)}
                                 // onRowMouseLeave={(e) => handlemouseLeave(e.id)}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
-                                data={state?.data?.results}
-                                progressPending={loading}
+                                data={formatArrayData(state?.data?.results || [])}
+                                progressPending={loadingContentPage}
                                 progressComponent={
                                     <div className="w-full mt-3 relative">
                                         <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
