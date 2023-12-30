@@ -546,6 +546,7 @@ const Page = () => {
     }
     const getWorkFlowReccomodation = async (question) => {
         const response = await searchReccomodationWorkflow('search=' + question)
+        debugger
         setWorkFlowData((prev) => {
             return {
                 ...prev,
