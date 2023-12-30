@@ -356,7 +356,7 @@ const Page = () => {
               </div>
             </div>
  
-            {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
+            {/* {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
               <div>
                 <div className=' gap-2 w-full '>
                   <div className='mr-[18px]'>
@@ -366,7 +366,7 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-            }
+            } */}
  
           </div>
           <div>
@@ -386,7 +386,7 @@ const Page = () => {
                       {element.tiles?.map((item, key) => (
                         <div
                           className={`${item.grayscale && "pointer-events-none"
-                            } border border-border  rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover  p-2`}
+                            } border border-border  rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover  p-3`}
                           key={key}
                           onClick={() => {
                             if (element.title.toLowerCase() !== "custom") {

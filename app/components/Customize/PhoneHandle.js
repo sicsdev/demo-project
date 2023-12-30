@@ -433,8 +433,8 @@ const PhoneHandle = () => {
         <>
             <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
                 {showPhoneView ?
-                    <div className='w-full sm:w-[80%]'>
-                        <div className='block w-full sm:w-[60%] sm:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
+                    <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[80%]'>
+                        <div className='block w-full xs:w-full sm:w-full md:w-full lg:w-[60%]  sm:block md:block lg:block xl:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
                             {
                                 pageLoading ?
                                     <div>
@@ -442,7 +442,7 @@ const PhoneHandle = () => {
                                         <SkeletonLoader count={1} height={10} width={"60%"} />
                                     </div> :
                                     <div>
-                                        <h3 className='text-sm font-semibold text-heading flex gap-4 mt-2'>
+                                        <h3 className='text-sm font-semibold text-heading  flex  gap-4 mt-2'>
                                             <PhoneArrowDownLeftIcon className='w-4 h-4'></PhoneArrowDownLeftIcon>
                                             <b> Phone Number</b>
                                         </h3>
@@ -461,7 +461,7 @@ const PhoneHandle = () => {
                                         </>
                                         :
                                         <>
-                                            <div className='flex items-center justify-start sm:justify-end gap-4 mt-2'>
+                                            <div className='flex items-center justify-start  gap-4 mt-2'>
                                                 <label className="switch">
                                                     <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicField?.checked === true} />
                                                     <span className="slider round h-[21px] w-[40px]"></span>
@@ -476,7 +476,7 @@ const PhoneHandle = () => {
 
                         <div>
                         {basicField?.checked === true && (
-                            <div className='px-6 py-5 w-full sm:w-[63%]   justify-between items-center border-b border-[#F0F0F1]'>
+                            <div className='px-6 py-5 w-full xs:w-full sm:w-full md:w-full lg:w-[63%]   justify-between items-center border-b border-[#F0F0F1]'>
                                 <div className=''>
                                     {pageLoading ?
                                         <SkeletonLoader count={1} height={20} width={"20%"} /> :
@@ -650,8 +650,8 @@ const PhoneHandle = () => {
                                             </div> :
                                             <div className='px-6 py-4'>
                                                 {basicFormData.map((element, key) =>
-                                                    <div key={key} className='block w-full sm:w-[65%] sm:flex justify-between items-center gap-3'>
-                                                        <div className='w-full sm:w-[20%]'>
+                                                    <div key={key} className='block w-full xs:w-full sm:w-full md:w-full lg:w-[65%] sm:flex justify-between items-center gap-3'>
+                                                        <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[20%]'>
                                                             <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
@@ -665,7 +665,7 @@ const PhoneHandle = () => {
                                                             />
 
                                                         </div>
-                                                        <div className='w-full sm:w-[50%]'>
+                                                        <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[50%]'>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.bots ?? ''}
@@ -679,7 +679,7 @@ const PhoneHandle = () => {
                                                                 optionDisabled={[]}
                                                             />
                                                         </div>
-                                                        <div className='w-full sm:w-[20%]'>
+                                                        <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[50%]'>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.voice ?? ''}
@@ -692,7 +692,7 @@ const PhoneHandle = () => {
                                                                 error={""}
                                                                 optionDisabled={[]}
                                                             /></div>
-                                                        <div className='w-full  sm:w-[50%]'>
+                                                        <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[50%]'>
                                                             <TextField
                                                                 value={element?.sales ?? ''}
                                                                 name="sales"
@@ -704,7 +704,7 @@ const PhoneHandle = () => {
                                                                 id={"sales"}
                                                             />
                                                         </div>
-                                                        <div className='w-[20%]' >
+                                                        <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[20%]' >
                                                             <label className={`opacity-0 new_input_label block text-sm text-heading `}>
                                                                 <h3 className='font-bold my-2 text-sm text-heading'>Greeting</h3>
                                                             </label>

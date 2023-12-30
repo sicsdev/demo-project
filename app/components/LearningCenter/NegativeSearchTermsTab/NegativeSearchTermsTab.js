@@ -220,7 +220,7 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
                         }}
                         // pagination
                         className='data-table-class negative-term-search-table'
-                        noDataComponent={<><p className="text-center text-xs p-3">Start adding negative search terms.</p></>}
+                        noDataComponent={<><p className="text-center text-xs p-3"></p></>}
                         paginationPerPage={7}
                         columns={columns}
                         data={negativesData}
