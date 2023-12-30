@@ -433,8 +433,8 @@ const PhoneHandle = () => {
         <>
             <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
                 {showPhoneView ?
-                    <div>
-                        <div className='block  sm:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
+                    <div className='w-full sm:w-[80%]'>
+                        <div className='block w-full sm:w-[60%] sm:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
                             {
                                 pageLoading ?
                                     <div>
@@ -473,8 +473,10 @@ const PhoneHandle = () => {
 
                             </div>
                         </div>
+
+                        <div>
                         {basicField?.checked === true && (
-                            <div className='px-6 py-5 sm:grid-cols-3 justify-between items-center border-b border-[#F0F0F1]'>
+                            <div className='px-6 py-5 w-full sm:w-[63%]   justify-between items-center border-b border-[#F0F0F1]'>
                                 <div className=''>
                                     {pageLoading ?
                                         <SkeletonLoader count={1} height={20} width={"20%"} /> :
@@ -493,7 +495,7 @@ const PhoneHandle = () => {
                                                 {basicField?.audioName ? (
                                                     <>
 
-                                                        <div className='w-full sm:w-[50%] flex border border-gray rounded-xl p-1 mt-2 shadow-sm mt-3'>
+                                                        <div className='w-full flex border border-gray rounded-xl p-1 mt-2 shadow-sm mt-3'>
                                                             <AudioPlayer
                                                                 customVolumeControls={[]}
                                                                 customAdditionalControls={[]}
@@ -532,7 +534,7 @@ const PhoneHandle = () => {
                                                         </>
                                                     </>
                                                 ) : <>
-                                                    <div className='w-full sm:w-[50%] rounded-xl p-1 mt-3'>
+                                                    <div className='w-full rounded-xl p-1 mt-3'>
                                                         <p className='text-xs my-2 font-semibold'>Convert text to speech</p>
                                                         <div className='w-full '>
                                                             <textarea onClick={(e) => {
@@ -563,7 +565,7 @@ const PhoneHandle = () => {
 
 
 
-                                            <div className='hidden w-full sm:w-[50%] rounded-xl p-1 mt-3'>
+                                            <div className='hidden w-full rounded-xl p-1 mt-3'>
                                                 <div className='block mt-1'>
                                                     <div className='w-full '>
                                                         <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
@@ -622,7 +624,7 @@ const PhoneHandle = () => {
 
                                         </div>
                                     </div>
-                                    <div className='w-full sm:w-[70%] rounded-xl p-1 mt-3'>
+                                    <div className='w-full rounded-xl p-1 mt-3'>
                                         {pageLoading ?
                                             <div className='grid  px-6 py-4 grid-cols-1 sm:grid-cols-5 gap-2'>
                                                 <div>
@@ -648,8 +650,8 @@ const PhoneHandle = () => {
                                             </div> :
                                             <div className='px-6 py-4'>
                                                 {basicFormData.map((element, key) =>
-                                                    <div key={key} className='block sm:flex md:flex lg:flex justify-between items-center gap-3'>
-                                                        <div className='w-full sm:w-[100px] md:w-[100px] lg:w-[100px]'>
+                                                    <div key={key} className='block w-full sm:w-[65%] sm:flex justify-between items-center gap-3'>
+                                                        <div className='w-full sm:w-[20%]'>
                                                             <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
@@ -663,7 +665,7 @@ const PhoneHandle = () => {
                                                             />
 
                                                         </div>
-                                                        <div className='w-full sm:w-[30%] md:w-[30%] lg:w-[30%]'>
+                                                        <div className='w-full sm:w-[50%]'>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.bots ?? ''}
@@ -677,7 +679,7 @@ const PhoneHandle = () => {
                                                                 optionDisabled={[]}
                                                             />
                                                         </div>
-                                                        <div className='w-full sm:w-[30%] md:w-[30%] lg:w-[30%]'>
+                                                        <div className='w-full sm:w-[20%]'>
                                                             <SelectOption
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 value={element?.voice ?? ''}
@@ -690,7 +692,7 @@ const PhoneHandle = () => {
                                                                 error={""}
                                                                 optionDisabled={[]}
                                                             /></div>
-                                                        <div className='w-full sm:w-[30%] md:w-[30%] lg:w-[30%]'>
+                                                        <div className='w-full  sm:w-[50%]'>
                                                             <TextField
                                                                 value={element?.sales ?? ''}
                                                                 name="sales"
@@ -702,7 +704,7 @@ const PhoneHandle = () => {
                                                                 id={"sales"}
                                                             />
                                                         </div>
-                                                        <div className='w-full sm:w-[30%] md:w-[30%] lg:w-[30%] relative' >
+                                                        <div className='w-[20%]' >
                                                             <label className={`opacity-0 new_input_label block text-sm text-heading `}>
                                                                 <h3 className='font-bold my-2 text-sm text-heading'>Greeting</h3>
                                                             </label>
@@ -739,7 +741,9 @@ const PhoneHandle = () => {
                                 </div>
                             </>
                         )}
-                    </div> :
+                    </div> 
+                    </div>
+                    :
                     <div className='p-5'>
                         <Phone basicFormData={formData} setBasicFormData={setFormData} />
                         <Button
@@ -756,6 +760,7 @@ const PhoneHandle = () => {
                                 <span>Loading...</span> </> : "Submit"}
                         </Button>
                     </div>
+                  
                 }
             </div>
 
@@ -763,7 +768,7 @@ const PhoneHandle = () => {
 
             {
                 showIndexModal &&
-                <Modal title={'Greeting '} show={showIndexModal} setShow={setShowIndexModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                <Modal title={'Greeting '} show={showIndexModal} setShow={setShowIndexModal} showCancel={true} className={"w-[100%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
                     <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
 
 
