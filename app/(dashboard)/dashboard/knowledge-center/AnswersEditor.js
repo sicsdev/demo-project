@@ -212,6 +212,9 @@ const AnswersEditor = ({
                                                             <p className="text-xs font-semibold">{element.data.question}</p>
                                                             <p className="text-xs  mt-2">{element.data.answer}</p>
                                                             <div className='mt-6'>
+                                                        <div className="flex justify-between items-center gap-2">
+                                                                    </div>
+
                                                                     <div onClick={() => {
                                                                         if (!updateLoader1) {
                                                                             SubmitTheAnswerForm(element.data.answer)
