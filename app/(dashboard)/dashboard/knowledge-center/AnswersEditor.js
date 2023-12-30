@@ -212,7 +212,16 @@ const AnswersEditor = ({
                                                             <p className="text-xs font-semibold">{element.data.question}</p>
                                                             <p className="text-xs  mt-2">{element.data.answer}</p>
                                                             <div className='mt-6'>
-                                                        <div className="flex justify-between items-center gap-2">
+                                                                <div className="flex justify-between items-center gap-2">
+
+                                                                    <div onClick={() => {
+                                                                        navigator.clipboard.writeText(element.data.answer);
+                                                                        setCopying(key)
+                                                                        setTimeout(() => {
+                                                                            setCopying(null)
+                                                                        }, 1500);
+                                                                    }} className={`text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:text-white ${copying == key ? "text-white bg-success" : "text-sky hover:bg-sky"}`}>
+
                                                                     </div>
 
                                                                     <div onClick={() => {
