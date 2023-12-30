@@ -221,7 +221,7 @@ console.log("workFlowData.reccomodation",workFlowData.reccomodation)
                                                                             setCopying(null)
                                                                         }, 1500);
                                                                     }} className={`text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:text-white ${copying == key ? "text-white bg-success" : "text-sky hover:bg-sky"}`}>
-
+                                                                   <small> copy</small>
                                                                     </div>
 
                                                                     <div onClick={() => {
@@ -352,7 +352,7 @@ console.log("workFlowData.reccomodation",workFlowData.reccomodation)
 
 
                             <div className="flex justify-between items-center gap-2">
-                                {!showRecommendedQuestions && (
+                                {!showRecommendedQuestions &&!subQuestionLoading&& (
                                     <button
                                         onClick={(e) => SubmitTheForm()}
                                         type="button"
