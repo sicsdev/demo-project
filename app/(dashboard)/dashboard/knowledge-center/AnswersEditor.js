@@ -222,13 +222,6 @@ const AnswersEditor = ({
                                                                         }, 1500);
                                                                     }} className={`text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:text-white ${copying == key ? "text-white bg-success" : "text-sky hover:bg-sky"}`}>
 
-                                                                        <button
-                                                                            type={"button"}
-                                                                            className="border-none p-0 m-0 flex gap-1 items-center text-sm"
-
-                                                                        >
-                                                                            <small className=''>{copying == key ? 'Copied!' : "Copy"}</small>
-                                                                        </button>
                                                                     </div>
                                                                     <div onClick={() => {
                                                                         if (!updateLoader1) {
