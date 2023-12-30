@@ -620,19 +620,19 @@ const Page = () => {
         }
 
     }
-    const submitWorkflowTrigger = async () => {
+    const submitWorkflowTrigger = async (workFlowData1) => {
         setWorkFlowData((prev) => {
             return {
                 ...prev,
                 submit_loader: true
             }
         })
-        if (workFlowData.target === "workflow") {
-            let descriptions = workFlowData.answer.split('\n')
+        if (workFlowData1.target === "workflow") {
+            let descriptions = workFlowData1.answer.split('\n')
             let Payload = {
                 description: descriptions.filter((x) => x !== ''),
             }
-            const response = await updateWorkFlowStatus(Payload, workFlowData.workflowValue.id)
+            const response = await updateWorkFlowStatus(Payload, workFlowData1.workflowValue.id)
             if (response.status === 200 || response.status === 201) {
                 const excludeRecord = await excludeRecommendationRecord(workflowView.id);
                 if (excludeRecord?.status === 204) {
@@ -663,7 +663,7 @@ const Page = () => {
                     })
                 }
             }
-        } else if (workFlowData.target === "human_handoff") {
+        } else if (workFlowData1.target === "human_handoff") {
             let payload = {
                 search: workflowView?.question,
                 recommendation: workflowView.id

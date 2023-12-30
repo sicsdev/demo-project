@@ -254,7 +254,9 @@ const PhoneHandle = () => {
         if (field.type === "text") {
             setGreetingLoading(true)
             payload = {
-                greeting: field.greeting
+                greeting: field.greeting,
+                audio: "",
+                audioName: ""
             }
         } else if (field.type === "phone") {
             setGreetingPhoneLoading(true)
@@ -284,7 +286,8 @@ const PhoneHandle = () => {
         } else {
             setGreetingAudioLoading(true)
             payload = {
-                audio: field.audio
+                audio: field.audio,
+                greeting:""
             }
         }
 
@@ -372,6 +375,7 @@ const PhoneHandle = () => {
                     type: "audio"
                 })
             };
+            setAudioModal(false)
         }
     };
 
@@ -466,123 +470,115 @@ const PhoneHandle = () => {
                                     </div>
                                     :
                                     <>
-                                        {basicField?.audioName ? (
+                                     
                                             <>
-                                                <div className='w-full sm:w-[50%] flex border border-gray rounded-xl p-1 mt-2 shadow-sm mt-3'>
-                                                    <AudioPlayer
-                                                        customVolumeControls={[]}
-                                                        customAdditionalControls={[]}
-                                                        src={basicField.audio}
-                                                        showSkipControls={false}
-                                                        showJumpControls={false}
-                                                    />
-                                                </div>
-                                            </>
-                                        ) : <>
+                                                {basicField?.audioName ? (
+                                                    <>
 
-                                            <div className='w-full sm:w-[50%] rounded-xl p-1 mt-3'>
-                                                <p className='text-xs mt-2 font-semibold'>Convert text to speech</p>
-                                                <div className='w-full '>
-                                                    <textarea onClick={(e) => {
-                                                        setAudioModal(false)
-                                                        setModal(true)
-                                                    }} className={'border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]'} name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} ref={inputRef} />
-                                                </div>
-
-                                                <StatusIndicator loading={greetingLoading} driveLoad={driveLoad} />
-                                            </div>
-
-                                        </>}
-                                    </>}
-                            </div>
-                            {pageLoading ? <SkeletonLoader count={1} height={20} width={"20%"} /> :
-                                <p className='text-sm text-primary my-4 cursor-pointer' onClick={(e) => setShowBtns(true)}>Upload Audio Instead</p>
-                            }
-                            {showBtns && (
-                                <div className="inline-flex rounded-md w-full sm:w-auto" role="group">
-                                    <button onClick={() => {
-                                        setAudioModal(true)
-                                        setModal(false)
-                                        setIndex(null
-                                        )
-                                    }} type="button"
-                                        className={`px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium  border border-border rounded-l-md hover:bg-primary hover:text-white ${audioModal ? "bg-primary text-white" : "bg-white text-heading "}`}>
-                                        Replace Audio
-                                    </button>
-                                    <button type="button" onClick={() => {
-                                        if (!basicField?.audio) {
-                                            handleButtonClick()
-                                        }
-                                        setModal(true)
-                                        setAudioModal(false)
-                                        setIndex(null)
-                                    }
-                                    } className={`px-4 py-2 text-[10px] w-[50%] m-auto sm:w-auto sm:text-xs md:text-xs font-medium  border border-border rounded-l-none rounded-md hover:bg-primary hover:text-white ${modal ? "bg-primary text-white" : "bg-white text-heading "}`}>
-                                        Switch to Text to Speech
-                                    </button>
-                                </div>
-                            )}
-
-                            {modal === true && basicField?.audio && (
-                                <>
-                                    <div className='w-full sm:w-[50%] rounded-xl p-1 mt-3'>
-                                        <p className='text-xs mt-2 font-semibold'>Convert text to speech</p>
-                                        <div className='block'>
-                                            <div className='w-full '>
-                                                <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} />
-                                            </div>
-
-                                            <StatusIndicator loading={greetingLoading} driveLoad={driveLoad} />
-                                        </div>
-                                    </div>
-                                    <hr className='mt-6 text-border' />
-                                </>
-                            )}
-                            {audioModal === true && (
-                                <div className='w-full sm:w-[50%] rounded-xl p-1 mt-3'>
-                                    <div className='block mt-1'>
-                                        <div className='w-full '>
-                                            <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                                                <div className='flex items-center gap-2'><span>Upload file</span>  </div>
-                                            </label>
-
-                                            <div className="flex items-center justify-center w-full">
-                                                <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                        <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                        </svg>
-                                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
-
-                                                        {basicField?.audioName && (
-                                                            <div className='px-6'>
-                                                                <AudioPlayer
-                                                                    style={{
-                                                                        width: "300px"
-                                                                    }}
-                                                                    customVolumeControls={[]}
-                                                                    customAdditionalControls={[]}
-                                                                    src={basicField.audio}
-                                                                    showSkipControls={false}
-                                                                    showJumpControls={false} />
+                                                        <div className='w-full sm:w-[50%] flex border border-gray rounded-xl p-1 mt-2 shadow-sm mt-3'>
+                                                            <AudioPlayer
+                                                                customVolumeControls={[]}
+                                                                customAdditionalControls={[]}
+                                                                src={basicField.audio}
+                                                                showSkipControls={false}
+                                                                showJumpControls={false}
+                                                            />
+                                                        </div>
+                                                        <>
+                                                            <div className="mt-2 inline-flex rounded-md w-full sm:w-auto" role="group">
+                                                                <button onClick={() => {
+                                                                    setModal(false)
+                                                                    setAudioModal(true)
+                                                                    document.getElementById("dropzone-file").click()
+                                                                }} type="button"
+                                                                    className={`px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium  border border-border rounded-l-md hover:bg-primary hover:text-white ${audioModal ? "bg-primary text-white" : "bg-white text-heading "}`}>
+                                                                    Replace Audio
+                                                                </button>
+                                                                <button type="button" onClick={() => {
+                                                                    if (!basicField?.audio) {
+                                                                        handleButtonClick()
+                                                                    }
+                                                                    setBasicField((prev) => {
+                                                                        return { ...prev, audio: "",audioName:"" }
+                                                                    })
+                                                                    setModal(true)
+                                                                    setAudioModal(false)
+                                                                    setIndex(null)
+                                                                }
+                                                                } className={`px-4 py-2 text-[10px] w-[50%] m-auto sm:w-auto sm:text-xs md:text-xs font-medium  border border-border rounded-l-none rounded-md hover:bg-primary hover:text-white ${modal ? "bg-primary text-white" : "bg-white text-heading "}`}>
+                                                                    Switch to Text to Speech
+                                                                </button>
                                                             </div>
-                                                        )}
+                                                            <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
+
+                                                        </>
+                                                    </>
+                                                ) : <>
+                                                    <div className='w-full sm:w-[50%] rounded-xl p-1 mt-3'>
+                                                        <p className='text-xs my-2 font-semibold'>Convert text to speech</p>
+                                                        <div className='w-full '>
+                                                            <textarea onClick={(e) => {
+                                                                setAudioModal(false)
+                                                                setModal(true)
+                                                            }} className={'border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]'} name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} ref={inputRef} />
+                                                        </div>
+                                                        <>
+                                                        <div className="mt-2 inline-flex rounded-md w-full sm:w-auto" role="group">
+                                                            <button onClick={() => {
+                                                                setModal(false)
+                                                                setAudioModal(true)
+                                                                document.getElementById("dropzone-file").click()
+                                                            }} type="button"
+                                                                className={`px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium  border border-border rounded-md hover:bg-primary hover:text-white ${audioModal ? "bg-primary text-white" : "bg-white text-heading "}`}>
+                                                                Switch to Audio
+                                                            </button>
+
+                                                        </div>
+                                                        <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
+
+                                                    </>
+                                                        <StatusIndicator loading={greetingLoading} driveLoad={driveLoad} />
+                                                    </div>
+                                                   
+                                                </>}
+                                            </>
+
+                                       
+
+                                        <div className='hidden w-full sm:w-[50%] rounded-xl p-1 mt-3'>
+                                            <div className='block mt-1'>
+                                                <div className='w-full '>
+                                                    <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                                                        <div className='flex items-center gap-2'><span>Upload file</span>  </div>
+                                                    </label>
+
+                                                    <div className="flex items-center justify-center w-full">
+                                                        <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                                </svg>
+                                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                                                <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
+
+
+                                                            </div>
+
+                                                            <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
+
+
+                                                        </label>
                                                     </div>
 
-                                                    <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
+                                                </div>
 
-
-                                                </label>
+                                                <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
                                             </div>
-
                                         </div>
 
-                                        <StatusIndicator loading={greetingAudioLoading} driveLoad={driveLoad2} />
-                                    </div>
-                                </div>
 
-                            )}
+                                    </>}
+                            </div>
                         </div>
 
 
@@ -731,7 +727,7 @@ const PhoneHandle = () => {
                                                 )}
                                             </div>
                                         }
-                                        <StatusIndicator loading={greetingPhoneLoading} driveLoad={driveLoad1}/>
+                                        <StatusIndicator loading={greetingPhoneLoading} driveLoad={driveLoad1} />
                                     </div>
                                 </div>
                             </>
