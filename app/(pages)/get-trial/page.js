@@ -30,15 +30,20 @@ const Trial = () => {
   const [errors, setErrors] = useState([]);
   const [pop, setPop] = useState(false);
 
-  const validateEmail = (email) => {
-    var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
-  };
+const validateEmail = (email) => {
+  // This regular expression is more comprehensive and covers most RFC 5322 cases.
+  var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return regex.test(email);
+};
 
-  const validateUrl = (url) => {
-    var regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
-    return regex.test(url);
-  };
+const validateUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
   const DisablingButton = () => {
 
