@@ -583,7 +583,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <>
                                                             {element.sender === 'bot' &&
                                                                 (
-                                                                    <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
+                                                                    <div id={key} key={key} className='mb-2'>
 
                                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
                                                                         {
@@ -649,7 +649,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                 <div key={'a' + key} id={'a' + key} className='mx-2 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                                     <div className='w-100' style={{ width: '100%' }}>
-                                                                                        
+
 
                                                                                         <small className='flex gap-3 items-center'>
 
@@ -1035,7 +1035,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                             {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                                 (
                                                                     <>
-                                                                        <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                                        <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
 
                                                                             {
                                                                                 (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
@@ -1086,9 +1086,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 <small
                                                                                     onClick={() => handleModifyPrompt(element.id)}
                                                                                     className=' text-[#828290] px-1 border border-gray rounded-md cursor-pointer focus:shadow-[0_8px_9px_-4px_#0000ff8a]' style={{ backgroundColor: 'rgb(251, 236, 93, 0.5)' }}>
-                                                                                        {
-                                                                                            idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
-                                                                                        }
+                                                                                    {
+                                                                                        idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
+                                                                                    }
                                                                                 </small>
                                                                             </small>
                                                                         </div>
