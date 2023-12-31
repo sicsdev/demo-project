@@ -177,7 +177,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             let payloadForDemoKnowledge = { main_webpage: urlFromEmail, }
             dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
 
-            router.push("/dashboard?triggerBot=true");
+            router.push("/dashboard");
           } else {
             setLoading(false);
           }
