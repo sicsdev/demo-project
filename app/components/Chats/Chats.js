@@ -92,6 +92,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
             if (convoDetails.data) {
+                console.log('convodetails,', convoDetails.data)
                 setNumberOfTicketsForThisCustomer(convoDetails.data.customer?.conversation_count)
                 setTotalWorkflowUsageRecordsCustomer({ ...totalWorkflowUsageRecordsCustomer, count: convoDetails.data.customer?.workflow_log_count })
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)

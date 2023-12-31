@@ -9,11 +9,6 @@ import { addHumanHandoffWorkflowData } from '@/app/API/pages/HumanHandoff'
 
 const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message }) => {
 
-    useEffect(() => {
-        getThisKnowledge()
-        getAllNegativeFaqs()
-    }, [])
-
 
     // Local states
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
@@ -34,8 +29,18 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
     const [rating, setRating] = useState(item.is_negative)
 
-    // Handlers
 
+    useEffect(() => {
+        getThisKnowledge()
+        getAllNegativeFaqs()
+    }, [])
+
+
+    useEffect(() => {
+        handlePatchFaq()
+    }, [info])
+
+    // Handlers
     const getAllNegativeFaqs = async () => {
         await getFaqNegative().then(results => {
             setAllNegativeFAQS(results);
@@ -285,14 +290,14 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                                             </button>
                                         </div>
 
-                                        <button
+                                        {/* <button
                                             type="button"
                                             onClick={handlePatchFaq}
                                             className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                             disabled={item?.information?.answer == info.answer}
                                         >
                                             {loading ? "Saving.." : "Save"}
-                                        </button>
+                                        </button> */}
 
                                     </div>
                                 </div>
