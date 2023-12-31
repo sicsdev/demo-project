@@ -1243,7 +1243,7 @@ const Logs = () => {
               fixedHeader
               highlightOnHover
               pointerOnHover
-              className="centered-table !h-[60vh] !overflow-x-hidden !overflow-y-hidden myDataTable"
+              className="centered-table !h-[60vh] !overflow-x-hidden !overflow-y myDataTable"
               defaultSortFieldId="year"
               onRowClicked={(rowData) => {
                 // router.push(rowData.url);
