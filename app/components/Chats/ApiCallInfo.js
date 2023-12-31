@@ -20,9 +20,10 @@ const ApiCallInfo = ({ calls }) => {
     const someCallFailed = calls.some(call => (call.response_status == 400 || call.response_status == 404 || call.response_status == 500))
     return (
         <>
-            <div className='position-relative' style={{ minWidth: '150px' }}>
+            <div className='position-relative' style={{ maxWidth: '250px' }}>
                 <div className='flex justify-end gap-2 my-2 cursor-pointer ' onClick={handleCloseDropdowns}>
                     <small
+                        style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '150px' }}
                         className={`${someCallFailed ? "bg-red text-white" : "bg-gray text-black"} p-1 rounded-md flex hover:bg-[#8d8d8d] hover:text-white flex items-center`}>
                         <InformationCircleIcon className='w-4 h-4'></InformationCircleIcon>
                         {showCalls ? 'Hide ' : 'Show '} API calls {`(${calls.length})`}
@@ -50,21 +51,18 @@ const ApiCallInfo = ({ calls }) => {
                                         <li>
                                             <span className='text-sky'><small style={{ fontSize: '10px' }}>{call.request_url}</small></span>
                                         </li>
-                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey" style={{ overflowWrap: 'break-word' }}>
                                             <strong className="text-gray-900">Status:{' '}</strong>
                                             <span className='text-green'>{call.response_status}</span>
                                         </li>
-                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey" style={{ overflowWrap: 'break-word' }}>
                                             <strong className="text-gray-900">Payload:{' '}</strong><br />
                                             <code className=''>{JSON.stringify(call.request_data, null, 2)}</code>
 
                                         </li>
-                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
-
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey" style={{ overflowWrap: 'break-word' }}>
                                             <strong className="text-gray-900">Response:{' '}</strong><br />
-                                            <code>
-                                                {call.response_text}
-                                            </code>
+                                            {call.response_text}
                                         </li>
                                     </ul>
                                 </>
