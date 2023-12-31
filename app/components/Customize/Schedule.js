@@ -331,7 +331,7 @@ const Schedule = ({
           </div>
         </div>
       )}
-  
+
 
       {/* CUSTOM SCHEDULE OPTION */}
       {custom && (
@@ -345,25 +345,28 @@ const Schedule = ({
                     key={day}
                     className="grid grid-cols-2 m-2 my-2 items-center  justify-between sm:justify-between gap-[0px] sm:gap-3"
                   >
-                    <div className="    grid grid-cols-2 sm:grid-cols-[40%,10%,10%] gap-[10px] sm:gap-3  col-span-1">
-                      <div className="">
+                    <div className="grid grid-cols-2 sm:grid-cols-[40%,10%,10%] gap-[10px] sm:gap-3  col-span-1">
+                      <div className="flex items-center">
                         <p className="text-xs sm:text-[12px] ">{day}</p>
                       </div>
-                      <div className="flex items-center justify-start gap-4 ">
-                        <label className="switch">
-                          <input
-                            type="checkbox"
-                            name="billingEnabled"
-                            checked={schedule[day].length > 0}
-                            onClick={(e) => handleCheckbox(e, day)}
-                          />
-                          <span className="slider round h-[21px] w-[40px]"></span>
-                        </label>
-                      </div>
-                      <div className="hidden sm:block">
-                        <p className=" text-xs sm:text-[12px]">
-                          {schedule[day].length > 0 ? "Open" : "Closed"}
-                        </p>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-start gap-4 ">
+                          <label className="switch">
+                            <input
+                              type="checkbox"
+                              name="billingEnabled"
+                              checked={schedule[day].length > 0}
+                              onClick={(e) => handleCheckbox(e, day)}
+                            />
+                            <span className="slider round h-[21px] w-[40px]"></span>
+                          </label>
+                        </div>
+                        <div className="hidden sm:block">
+                          <p className=" text-xs sm:text-[12px]">
+                            {schedule[day].length > 0 ? "Open" : "Closed"}
+                          </p>
+                        </div>
+
                       </div>
                     </div>
 
@@ -374,9 +377,8 @@ const Schedule = ({
                             <div
                               key={index}
                               style={{ gridTemplateColumns: "repeat(3, auto)" }}
-                              className={`grid grid-cols-3 gap-[0px] sm:gap-3 h-[40px]  ${
-                                index !== 0 ? "pt-2" : ""
-                              }`}
+                              className={`grid grid-cols-3 gap-[0px] sm:gap-3 h-[40px]  ${index !== 0 ? "pt-2" : ""
+                                }`}
                             >
                               <div className="relative">
                                 <input
@@ -429,18 +431,18 @@ const Schedule = ({
                                   className="text-center !pr-[0.85rem]  flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:!text-[10px] focus:!text-[9px] sm:focus:!text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 />
                                 <div className="absolute right-0 top-[7px]">
-                                  <ChevronUpIcon className="h-[10px] w-6 text-gray-500 cursor-pointer" 
-                                   onClick={(e) =>
-                                    handleUpClickEnd(
-                                      schedule[day][index].end,
-                                      index,
-                                      day
-                                    )
-                                  }
+                                  <ChevronUpIcon className="h-[10px] w-6 text-gray-500 cursor-pointer"
+                                    onClick={(e) =>
+                                      handleUpClickEnd(
+                                        schedule[day][index].end,
+                                        index,
+                                        day
+                                      )
+                                    }
                                   />
 
                                   <ChevronDownIcon className="h-[10px] w-6 text-gray-500 cursor-pointer"
-                                     onClick={(e) =>
+                                    onClick={(e) =>
                                       handleDownClickEnd(
                                         schedule[day][index].end,
                                         index,
@@ -472,9 +474,9 @@ const Schedule = ({
               ))}
             </div>
             <StatusIndicator driveLoad={driveLoad} loading={loading} />
-            {errors?.map((e) => (
-              <div className="text-center my-2">
-                <small className="text-red">{e}</small>
+            {errors?.map((element, index) => (
+              <div key={index} className="text-center my-2">
+                <small className="text-red">{element}</small>
               </div>
             ))}
           </div>

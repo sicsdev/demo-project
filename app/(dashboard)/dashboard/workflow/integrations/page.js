@@ -29,6 +29,7 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 const Page = () => {
   const state = useSelector((state) => state.integration);
   const userState = useSelector((state) => state.user.data);
+  const billingState = useSelector((state) => state.billing)
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([]);
   const [integrationTiles, setIntegrationsTiles] = useState([]);
@@ -311,7 +312,7 @@ const Page = () => {
           </div>
           <div className={` mt-6`}>
             {[...Array(5)].map((_, index) => (
-              <div>
+              <div key={index}>
                 <h3 className="text-sm font-semibold mt-3">
                   <SkeletonLoader count={1} height={20} width={100} />
                 </h3>
@@ -432,7 +433,7 @@ const Page = () => {
                     setIntegrationform(false)
                   }
                   }></div>
-                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white  ${billingState == "demo" ? "py-20" : ""}`}>
                     <CustomIntegration
                       help={help}
                       fetchData={fetchIntegrations}

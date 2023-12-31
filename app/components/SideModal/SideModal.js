@@ -2,9 +2,25 @@ import { EllipsisHorizontalIcon, XCircleIcon, XMarkIcon } from "@heroicons/react
 import React, { useEffect, useRef, useState } from "react";
 import DeleteWorkflow from "../KnowledgeBase/DeleteKnowledgeBaseFlow";
 import Modal from "../Common/Modal/Modal";
+import { useSelector } from "react-redux";
 
-const SideModal = ({ deleteWorkflowModal,
-  setDeleteWorkflowModal, setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles, showSubHeadings = false, subHeadings = `` }) => {
+const SideModal = ({
+  deleteWorkflowModal,
+  setDeleteWorkflowModal,
+  setShow,
+  children,
+  heading,
+  data,
+  deleteRecord,
+  titleStyles,
+  border = true,
+  deleteButton = false,
+  showSubHeadings = false,
+  width = 'md:w-[800px]',
+  subHeadings = ``
+}) => {
+
+  const billingState = useSelector((state) => state.billing)
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -32,16 +48,16 @@ const SideModal = ({ deleteWorkflowModal,
         className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full ${width} p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
       >
         <div
-          className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border border-lowgray"
-            } dark:bg-gray-800 `}
+          className={`flex flex-row gap-2 items-center py-12 ${border && "border-b border-border border-lowgray"
+            } dark:bg-gray-800 ${billingState == "demo"? "py-12": "py-2"}`}
         >
           <div className="block md:flex flex-1 items-center justify-start gap-3 mx-2">
             <h2 className={`max-w-[100%] md:max-w-[75%] text-black-color text-sm !font-semibold opacity-90 ${titleStyles && titleStyles}`} style={{ fontFamily: '' }}>{heading}</h2>
-            
+
 
           </div>
           <div className="flex hover:cursor-pointer items-center justify-center gap-2">
-          {showSubHeadings && (
+            {showSubHeadings && (
               subHeadings
             )}
             {deleteButton && (
@@ -122,11 +138,11 @@ export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord, deleteWo
 
         )}
         {
-              deleteWorkflowModal &&
-              <Modal title={`Are you sure you want to delete?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-                <DeleteWorkflow setShow={setDeleteWorkflowModal} deleteID={deleteRecord} data={data}  />
-              </Modal>
-            }
+          deleteWorkflowModal &&
+          <Modal title={`Are you sure you want to delete?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+            <DeleteWorkflow setShow={setDeleteWorkflowModal} deleteID={deleteRecord} data={data} />
+          </Modal>
+        }
       </div>
     </>
   );

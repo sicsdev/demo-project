@@ -135,6 +135,7 @@ const Logs = () => {
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector((state) => state.workflow);
   const userState = useSelector((state) => state.user.data);
+  const billingState = useSelector((state) => state.billing)
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
@@ -1297,7 +1298,7 @@ const Logs = () => {
               {" "}
             </div>
             <div
-              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white ${billingState == "demo"? "py-20": "" }`}
             >
               <>
                 {/* <Card> */}

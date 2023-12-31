@@ -13,7 +13,8 @@ import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
-const page = () => {
+
+const Page = () => {
     const [driveLoad, setDriveLoad] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
     const [pageSubLoading, setSubLoading] = useState(true);
@@ -253,4 +254,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
