@@ -61,6 +61,16 @@ export const addNegativeBulkCreate = async (body) => {
     }
 };
 
+export const getAssociatePrompt = async (query) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/prompts?${query}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
 
 export const postModifier = async (body) => {
     // Modifier types: zero-shot, modifier, appender
@@ -78,6 +88,16 @@ export const patchModifier = async (id, body) => {
     let config = returnConfig()
     try {
         const response = await axios.patch(`${API_URL}/api/v1/main/prompts/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+export const deleteModifier = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/prompts/${id}/`, config);
         return response;
     } catch (error) {
         return error
