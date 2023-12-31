@@ -440,7 +440,6 @@ const Page = () => {
                 created__gte: filterDate?.created__gte,
                 created__lte: filterDate?.created__lte
             }) 
-            console.log("🚀 ~ file: page.js:440 ~ getReccomodationByTime ~ query:", query)
 
             response = await GetAllRecommendations(query)
         } else {
