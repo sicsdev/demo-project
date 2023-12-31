@@ -24,7 +24,6 @@ import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-bu
 import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime, isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
-console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -172,7 +171,6 @@ console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
 
 
     const divideAnswer = (element, key) => {
-        console.log("🚀 ~ file: Chats.js:175 ~ divideAnswer ~ element:", element)
 
         function formatLinks(text) {
             const linkRegex = /\[([^\]:]+):([^\]]+)\]/g;
@@ -674,7 +672,9 @@ console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
                                                                                                         allMessages={messages}
                                                                                                         indexOfMessage={key}
                                                                                                         item={item}
-                                                                                                        allKnowledge={allKnowledge}>
+                                                                                                        allKnowledge={allKnowledge}
+                                                                                                        idOfOpenConversation={idOfOpenConversation}
+                                                                                                    >
                                                                                                     </EditKnowledge>
                                                                                                 ))
 
@@ -860,6 +860,7 @@ console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
                                                                                                 allKnowledge={allKnowledge}
                                                                                                 setDropdownOpenId={setDropdownOpenId}
                                                                                                 dropdownOpenId={dropdownOpenId}
+                                                                                                idOfOpenConversation={idOfOpenConversation}
                                                                                             >
                                                                                             </EditKnowledge>
                                                                                         )}
@@ -1005,6 +1006,7 @@ console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
                                                                                                     allKnowledge={allKnowledge}
                                                                                                     setDropdownOpenId={setDropdownOpenId}
                                                                                                     dropdownOpenId={dropdownOpenId}
+                                                                                                    idOfOpenConversation={idOfOpenConversation}
                                                                                                 >
                                                                                                 </EditKnowledge>
                                                                                             )}
@@ -1083,7 +1085,9 @@ console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
                                                                                 <small
                                                                                     onClick={() => handleModifyPrompt(element.id)}
                                                                                     className=' text-[#828290] px-1 border border-gray rounded-md cursor-pointer focus:shadow-[0_8px_9px_-4px_#0000ff8a]' style={{ backgroundColor: 'rgb(251, 236, 93, 0.5)' }}>
-                                                                                    Edit Prompt
+                                                                                        {
+                                                                                            idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
+                                                                                        }
                                                                                 </small>
                                                                             </small>
                                                                         </div>
