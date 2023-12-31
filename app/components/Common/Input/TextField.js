@@ -18,6 +18,7 @@ const TextField = ({
   onBlur,
   paddingleft,
   tooltipInfo,
+  disabled,
   maxLength,
   ...rest
 }) => {
@@ -55,6 +56,7 @@ const TextField = ({
         name={id}
         {...rest}
         onBlur={onBlur}
+        disabled={disabled}
         maxLength={maxLength || ''}
       />
       {error && <small className="text-danger text-xs">{error}</small>}

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 
 import { addBotConversationMessagesReaction, disputeCharge, getBotAllData } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
@@ -18,13 +19,12 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 import ProductComponent from './ProductComponent/ProductComponent';
-import Link from 'next/link';
-import { getAllCustomerConversationsById } from '@/app/API/pages/CustomerDetails';
-import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
-import WorkflowUsageLogs from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageLogs';
+import ModifiersComponent from './Modifiers/ModifiersComponent';
 import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageTable';
+import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime, isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
+console.log("🚀 ~ file: Chats.js:27 ~ Chat ~ messages:", messages)
 
     // Helpers
     const CDN_URL = "https://widget-dev.deflection.ai";
@@ -53,6 +53,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     // Dropdown of sources
     const [dropdownOpenId, setDropdownOpenId] = useState('')
 
+    // Dropdown of modifiers
+    const [idToModify, setIdToModify] = useState('')
 
     useEffect(() => {
         getKnowledge()
@@ -122,6 +124,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    const handleModifyPrompt = (id) => {
+        if (idToModify == id) { setIdToModify('') } else { setIdToModify(id) }
+    }
+
     function formatDateTime(dateTimeString) {
         const date = new Date(dateTimeString);
         const options = {
@@ -165,7 +171,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     };
 
 
-    const divideAnswer = (element) => {
+    const divideAnswer = (element, key) => {
+        console.log("🚀 ~ file: Chats.js:175 ~ divideAnswer ~ element:", element)
 
         function formatLinks(text) {
             const linkRegex = /\[([^\]:]+):([^\]]+)\]/g;
@@ -205,18 +212,12 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                     <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(part)}>
                                         <div dangerouslySetInnerHTML={{ __html: formatLinks(part) }} />
                                     </div>
-                                    {/* <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
-                                        <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth="2" stroke="grey" className="w-[13px] h-[13px] opacity-80">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-                                            </svg>
-                                        </button>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>
                     </>
                 ))}
+
             </div>
         );
     }
@@ -286,7 +287,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
     const getAddition = (key) => {
-        // If last message of user (we found it using the key in message array) ends with "?" we will add 5% to this probability.
+        // If last message of user (we find it using the key in message array) ends with "?" we will add 5% to this probability.
         let userMessage = messages[key - 1]
         let lastChar;
         let content = userMessage?.content
@@ -583,8 +584,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <>
                                                             {element.sender === 'bot' &&
                                                                 (
-                                                                    <div id={key} key={key} className='mb-2'>
-
+                                                                    <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
 
                                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
                                                                         {
@@ -644,18 +644,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                             <>
 
 
-                                                                                {divideAnswer(element)}
+                                                                                {divideAnswer(element, key)}
 
-                                                                                <div key={'a' + key} id={'a' + key} className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
+
+
+                                                                                <div key={'a' + key} id={'a' + key} className='mx-2 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                                     <div className='w-100' style={{ width: '100%' }}>
+                                                                                        
+
                                                                                         <small className='flex gap-3 items-center'>
+
                                                                                             <b>Sources</b>
                                                                                             <small
                                                                                                 onClick={() => handleAddSource(key)}
                                                                                                 className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
                                                                                                 Add Source
                                                                                             </small>
+
                                                                                         </small>
+
+
                                                                                         {
                                                                                             element?.knowledge?.length ?
                                                                                                 element?.knowledge?.map(item => (
@@ -707,10 +715,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
 
-                                                                        {
-                                                                            element.content !== 'OPTIONS' && element.content !== 'PRODUCTS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
-                                                                            element.knowledge.length == 0 && element.workflows.length == 0 && element.action == null && element.type == 'action' &&
-                                                                            <>
+                                                                        {/* {
+                                                                    element.content !== 'OPTIONS' && element.content !== 'PRODUCTS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
+                                                                    element.knowledge.length == 0 && element.workflows.length == 0 && element.action == null && element.type == 'action' &&
+                                                                    <>
 
 
                                                                                 {divideAnswer(element)}
@@ -771,9 +779,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 </div>
                                                                                 {<div>
 
-                                                                                </div>}
-                                                                            </>
-                                                                        }
+                                                                        </div>}
+                                                                    </>
+                                                                } */}
 
                                                                         {
                                                                             element.content === 'HUMAN-HANDOFF' &&
@@ -811,13 +819,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                 {element.actions.options[indx]}
                                                                                                 {`     `}
                                                                                                 <small>
-                                                                                                    {indx == 'WORKFLOW' && element.workflows[0]?.score != null && `${Math.round((element.workflows[0].score * 100))}%`}
-                                                                                                    {indx == 'INFORMATION' && element.knowledge[0]?.score != null && `${Math.round((element.knowledge[0].score * 100) + getAddition(key))}%`}
+                                                                                                    {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
+                                                                                                    {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
                                                                                                 </small>
                                                                                             </button>
                                                                                         </>
                                                                                     )}
                                                                                 </div>
+
+
                                                                                 <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                                     <div className='w-100' style={{ width: '100%' }}>
                                                                                         <small className='flex gap-3 items-center'>
@@ -1006,7 +1016,12 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                     </div>
                                                                                 </div>
+
+
+
+
                                                                             </>
+
                                                                         }
 
                                                                     </div>
@@ -1016,54 +1031,71 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                             {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                                 (
-                                                                    <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
+                                                                    <>
+                                                                        <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
 
-                                                                        {
-                                                                            (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
-                                                                            <>
-                                                                                User selected: {
-                                                                                    messages[key - 1]?.actions?.options ?
-                                                                                        (messages[key - 1].actions.options[element.content] || 'WORKFLOW') :
-                                                                                        'WORKFLOW'
-                                                                                }
-                                                                            </>
-                                                                        }
+                                                                            {
+                                                                                (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
+                                                                                <>
+                                                                                    User selected: {
+                                                                                        messages[key - 1]?.actions?.options ?
+                                                                                            (messages[key - 1].actions.options[element.content] || 'WORKFLOW') :
+                                                                                            'WORKFLOW'
+                                                                                    }
+                                                                                </>
+                                                                            }
 
-                                                                        {
-                                                                            (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
-                                                                            <>
-                                                                                User selected: {
-                                                                                    messages[key - 1]?.actions?.options ?
-                                                                                        (messages[key - 1].actions.options[element.content] || 'INFORMATION') :
-                                                                                        'INFORMATION'
-                                                                                }
-                                                                            </>
-                                                                        }
+                                                                            {
+                                                                                (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
+                                                                                <>
+                                                                                    User selected: {
+                                                                                        messages[key - 1]?.actions?.options ?
+                                                                                            (messages[key - 1].actions.options[element.content] || 'INFORMATION') :
+                                                                                            'INFORMATION'
+                                                                                    }
+                                                                                </>
+                                                                            }
 
-                                                                        {
-                                                                            element.content == 'HUMAN-HANDOFF' &&
-                                                                            <>
-                                                                                {element.human_handoff_type && element.human_handoff_type == 'email' ?
-                                                                                    `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.`
-                                                                                    :
-                                                                                    'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
-                                                                                }
-                                                                            </>
-                                                                        }
+                                                                            {
+                                                                                element.content == 'HUMAN-HANDOFF' &&
+                                                                                <>
+                                                                                    {element.human_handoff_type && element.human_handoff_type == 'email' ?
+                                                                                        `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.`
+                                                                                        :
+                                                                                        'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
+                                                                                    }
+                                                                                </>
+                                                                            }
 
-                                                                        {
-                                                                            element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
-                                                                            <>
-                                                                                {conversationDetails?.type == 'email' && key == 0 ? removeFirstParagraph(element.content) : element.content}
-                                                                            </>
-                                                                        }
+                                                                            {
+                                                                                element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
+                                                                                <>
+                                                                                    {conversationDetails?.type == 'email' && key == 0 ? removeFirstParagraph(element.content) : element.content}
 
-                                                                        {/* <div className="title-element-left" style={{ display: "none" }}>14:11</div> */}
-                                                                    </div>
+
+                                                                                </>
+                                                                            }
+
+                                                                        </div>
+
+                                                                        <div className='flex justify-end w-100 mr-2 mb-2' style={{ color: '#828282', alignSelf: 'flex-end' }}>
+                                                                            <small className='flex gap-3 items-center'>
+                                                                                <small
+                                                                                    onClick={() => handleModifyPrompt(element.id)}
+                                                                                    className=' text-[#828290] px-1 border border-gray rounded-md cursor-pointer focus:shadow-[0_8px_9px_-4px_#0000ff8a]' style={{ backgroundColor: 'rgb(251, 236, 93, 0.5)' }}>
+                                                                                    Edit Prompt
+                                                                                </small>
+                                                                            </small>
+                                                                        </div>
+
+                                                                        {element.id == idToModify && <ModifiersComponent message={element}></ModifiersComponent>}
+                                                                    </>
                                                                 )}
 
                                                         </>
                                                     )}
+
+
                                                 </>
                                             }
 

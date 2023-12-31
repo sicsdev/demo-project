@@ -17,7 +17,8 @@ import Swal from 'sweetalert2';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 import { useSearchParams } from 'next/navigation';
 import { DocumentTextIcon, ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
-import StatusIndicator from '../StatusIndicator/Status';
+import StatusIndicator from '../StatusIndicator/Status';import PromptModifiersTab from './PromptModifiersTab/PromptModifiersTab';
+
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
 
     const params = useSearchParams()
@@ -665,6 +666,21 @@ const openBotModal=()=>{
 
                                 </li>
 
+                                <li className={`  ${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                                    getNagetiveQuestions(selected.id)
+                                    setTab(2)
+                                }}>
+
+                                    <span
+                                        className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                        aria-current="page"
+                                    >
+                                        Prompt Modifiers
+                                    </span>
+
+                                </li>
+
                             </ul>
                         </div>
                         {tab === 0 && (
@@ -756,8 +772,26 @@ const openBotModal=()=>{
                                 getNagetiveQuestions={getNagetiveQuestions}
                                 setNagetiveQuestions={setNagetiveQuestions}
                             >
-
                             </NegativeSearchTermsTab>
+
+                        )}
+
+
+                        {tab === 2 && (
+                            <PromptModifiersTab
+                                negative={negative}
+                                showAdd={showAdd}
+                                negativeQuestions={negativeQuestions}
+                                setSelected={setSelected}
+                                addNewNagetiveFaq={addNewNagetiveFaq}
+                                selected={selected}
+                                nLoading={nLoading}
+                                setIsEdit={setIsEdit}
+                                deleteNegativeFaq={deleteNegativeFaq}
+                                getNagetiveQuestions={getNagetiveQuestions}
+                                setNagetiveQuestions={setNagetiveQuestions}
+                            >
+                            </PromptModifiersTab>
 
                         )}
 

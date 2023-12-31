@@ -1,11 +1,14 @@
 import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative, deleteFaqQuestions } from '@/app/API/pages/Knowledge'
-import { ArrowRightIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, InformationCircleIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { Tooltip } from 'react-tooltip'
 import { addHumanHandoffWorkflowData } from '@/app/API/pages/HumanHandoff'
+import { postPromptAppender } from '@/app/API/pages/NagetiveFaq'
+import TextField from '../Common/Input/TextField'
+import Card from '../Common/Card/Card'
 
 const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message }) => {
 
@@ -21,7 +24,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
     const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
     const [loadingDelete, setLoadingDelete] = useState(false)
-
+    const [modifierMode, setModifierMode] = useState(false)
     const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [thisKnowledge, setThisKnowledge] = useState({})
@@ -195,12 +198,11 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     }
 
 
-
     return (
         <>
             {thisKnowledge && !deleted &&
 
-                <div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
+                < div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
                     <div className={`mt-1 border p-2 rounded-md border-gray shadow-xs w-full`}>
 
                         <div className="relative">
@@ -315,40 +317,39 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
 
 
-                </div>
+                </div >
 
 
             }
             {/* //bg-gradiant-red-button */}
-            {showingNegativeOptions &&
-                <div className='flex justify-between mb-4 mt-2 mr-12 mx-4'>
-
+            {
+                showingNegativeOptions && (modifierMode == false) &&
+                < div className='flex gap-4 justify-between mx-5 mb-4 mt-2  mr-10'>
                     <div className='flex gap-2'>
                         <button
                             type="button"
-                            className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                             onClick={() => handleRateNegative('reduce')}
                             data-tooltip-id={'tooltip'}
                             data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                         >
                             {rating == -0.1 ? "Reduced" : "Reduce"}
                         </button>
-
                         <button
                             type="button"
-                            className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                             onClick={() => handleRateNegative('block')}
                             data-tooltip-id={'tooltip'}
                             data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                         >
                             {rating == -1 ? "Blocked" : "Block"}
-                        </button>
 
+                        </button>
                     </div>
 
                     <button
                         type="button"
-                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-2`}
+                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-4`}
                         onClick={() => handleForceHandOff()}
                         data-tooltip-id={'tooltip'}
                         data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
@@ -358,7 +359,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
                     <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
 
-                </div>
+                </div >
             }
 
             {/* {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>} */}
