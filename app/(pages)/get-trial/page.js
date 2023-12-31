@@ -188,7 +188,7 @@ const validateUrl = (url) => {
         }
         dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
         dispatch(editBillingType("demo"));
-        router.push("/dashboard?triggerBot=true");
+        router.push("/dashboard");
         setLoading(false);
       } else {
         setLoading(false);
