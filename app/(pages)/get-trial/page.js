@@ -46,46 +46,36 @@ const validateUrl = (url) => {
   return !!pattern.test(url);
 };
 
-  const DisablingButton = () => {
+const DisablingButton = () => {
+  const requiredKeys = [
+    "first_name",
+    "last_name",
+    "email",
+    "company_name",
+    "phone",
+    "url",
+    "faq_url",
+  ];
 
-    const requiredKeys = [
-      "first_name",
-      "last_name",
-      "email",
-      "company_name",
-      "phone",
-      "url",
-      "faq_url",
-      "link-checkbox"
-    ];
+  const formValues = requiredKeys.every(
+    (key) => formData[key] && formData[key].trim() !== ""
+  );
 
-    const formValues = !requiredKeys.some(
-      (key) => !formData[key] || formData[key].trim() === ""
-    );
+  const isEmailValid = formData["email"] ? validateEmail(formData["email"]) : false;
+  const isUrlValid = validateUrl(formData["url"]);
+  const isFaqValid = validateUrl(formData["faq_url"]);
 
-    // const arr_values = ["urls"].every(
-    //   (key) => !formData[key] || formData[key].length === 0
-    // );
+  console.log('Form Values Empty:', !formValues);
+  console.log('Email Valid:', isEmailValid);
+  console.log('URL Valid:', isUrlValid);
+  console.log('FAQ Valid:', isFaqValid);
+  console.log('Checkbox Checked:', formData.checked);
+  console.log('Pop Error:', pop);
+  console.log('Loading:', loading);
 
-    const isEmailValid = formData["email"]
-      ? validateEmail(formData["email"])
-      : false;
+  return !(isFaqValid && formValues && isEmailValid && isUrlValid && formData.checked && !pop && !loading);
+};
 
-    const isUrlValid = validateUrl(formData["url"])
-
-    const isFaqValid = validateUrl(formData["faq_url"])
-
-    console.log('Form Values Empty:', formValues);
-    console.log('Email Valid:', isEmailValid);
-    console.log('URL Valid:', isUrlValid);
-    console.log('FAQ Valid:', isFaqValid);
-    console.log('Checkbox Checked:', formData.checked);
-    console.log('Pop Error:', pop);
-    console.log('Loading:', loading);
-
-    return !(isFaqValid || formValues || isEmailValid || isUrlValid);
-
-  };
 
   function addHttpsToUrl(url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
