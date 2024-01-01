@@ -25,7 +25,8 @@ import axios from "axios";
 import SideModal from "@/app/components/SideModal/SideModal";
 import { addNewDomain } from "@/app/API/pages/EnterpriseService";
 import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
- 
+import NewCustomIntegrations from "@/app/components/Integration/NewCustomIntegration";
+
 const Page = () => {
   const state = useSelector((state) => state.integration);
   const userState = useSelector((state) => state.user.data);
@@ -58,7 +59,7 @@ const Page = () => {
     }
     return false;
   };
- 
+
   const getDataAttributes = (integration_data, item) => {
     const findIntegration = integration_data.find((x) => x.name === item);
     if (findIntegration) {
@@ -66,18 +67,18 @@ const Page = () => {
     }
     return null;
   };
- 
- 
- 
+
+
+
   const tempoPortalLastLogin = sessionStorage.getItem("tempoportallastlogin");
   let newPopular = tempoPortalLastLogin ? tempoPortalLastLogin.split("@")[1] : ''
- 
- 
+
+
   const dupRemove = (inputArray) => {
     return [...new Set(inputArray)];
   }
- 
- 
+
+
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
@@ -87,7 +88,7 @@ const Page = () => {
       if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
       }
- 
+
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
         let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
         const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
@@ -109,7 +110,7 @@ const Page = () => {
           http_auth_scheme: item.http_auth_scheme,
           http_base: item.http_base,
         }))
- 
+
         const transformedData = dataTemplates.reduce((result, item) => {
           const categoryIndex = result.findIndex(
             (category) => category.key === item.type
@@ -148,7 +149,7 @@ const Page = () => {
           if (b.key === "POPULAR") return 1;
           return 0;
         });
- 
+
         if (custom_integrations && custom_integrations.length > 0) {
           const updateArrayCustom = custom_integrations.map((item) => ({
             name: item.name,
@@ -208,8 +209,8 @@ const Page = () => {
               tiles: updateArray
             }, ...sortedData]);
         } else {
- 
- 
+
+
           setIntegrationsTiles([{
             key: "POPULAR",
             title: "Popular",
@@ -236,20 +237,20 @@ const Page = () => {
           }, ...sortedData]);
         }
       }
- 
+
       setDataLoader(false);
     } catch (error) {
       setDataLoader(false);
     }
   };
- 
+
   useEffect(() => {
     if (state?.data) {
       fetchIntegrations();
     }
   }, [state]);
- 
- 
+
+
   const performIntegrationTask = (item, name) => {
     setIntegrationFormData(item);
     setFormData(item.data);
@@ -263,11 +264,11 @@ const Page = () => {
         break;
       default:
         setIntegrationform(true);
- 
+
         break;
     }
   };
- 
+
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -281,8 +282,8 @@ const Page = () => {
       document.removeEventListener('keydown', handleEscapeKeyPress);
     };
   }, []);
- 
- 
+
+
   const handleInput = (e) => {
     const inputValue = e.target.value.toLowerCase();
     const filteredData = fixData
@@ -295,12 +296,12 @@ const Page = () => {
           : null;
       })
       .filter(item => item !== null); // More explicit than .filter(Boolean)
- 
+
     setIntegrationsTiles(filteredData);
- 
- 
+
+
   };
- 
+
   return (
     <>
       <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
@@ -332,7 +333,7 @@ const Page = () => {
               </div>
             ))}
           </div>
- 
+
         </div>
       ) : (
         <div className="mt-4">
@@ -356,7 +357,7 @@ const Page = () => {
                 </div>
               </div>
             </div>
- 
+
             {/* {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
               <div>
                 <div className=' gap-2 w-full '>
@@ -368,7 +369,7 @@ const Page = () => {
                 </div>
               </div>
             } */}
- 
+
           </div>
           <div>
             {integrationData.length > 0 ? (
@@ -393,7 +394,7 @@ const Page = () => {
                             if (element.title.toLowerCase() !== "custom") {
                               performIntegrationTask(item);
                             }
- 
+
                           }}
                         >
                           <div className="flex justify-start gap-1 items-center">
@@ -428,13 +429,13 @@ const Page = () => {
               {formData && (
                 <div>
                   <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
- 
+
                     setFormData({})
                     setIntegrationform(false)
                   }
                   }></div>
-                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white  ${billingState == "demo" ? "py-20" : ""}`}>
-                    <CustomIntegration
+                  <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 p-5 sm:overflow-auto overflow-y-scroll sm:w-[50%] w-[100%] fixed sm:top-10 top-1 h-[auto] m-auto max-h-[100%] bg-white rounded-md sm:right-[0] md:right-[300px] lg:right-[300px] right-0`}>
+                    <NewCustomIntegrations
                       help={help}
                       fetchData={fetchIntegrations}
                       formData={formData}
@@ -450,9 +451,9 @@ const Page = () => {
           )}
         </div>
       )}
- 
+
       {integrationModal ? (
- 
+
         <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
           <div className="my-2">
             <ConfigureIntegration
@@ -468,53 +469,97 @@ const Page = () => {
         ""
       )}
       {suggestModal && (
+
         <Modal
+
           title={
-            <h3 className="text-base !font-bold">Suggest Resource</h3>
+
+            <h3 className="text-sm text-left !font-bold">Suggest Resource</h3>
+
           }
+
           className={"sm:w-[30%] w-[100%]"}
+
           show={suggestModal}
+
           setShow={setSuggestModal}
+
           showCancel={true}
+
           customHideButton={false}
+
           showTopCancleButton={false}
+
           hr={false}
+
         >
-          <h3 className="text-xs my-2 text-heading font-normal">
+
+          <h3 className="text-xs mb-2 text-heading font-normal">
+
             What resource would you like to connect to?
+
           </h3>
+
           <textarea
+
             id="message"
+
             rows="4"
+
             style={{ resize: "none" }}
+
             className=" block border-[0.2px]  px-2 py-1 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
+
             placeholder="Write your thoughts here..."
+
           ></textarea>
-          <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+
+          <div className={`flex  py-2 rounded-b mt-5 justify-end gap-5`}>
+
             {" "}
+
             <Button
-              className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+
+              className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-semibold leading-normal text-primary_hover border-2 border-primary_hover "
+
               onClick={() => {
+
                 setSuggestModal((prev) => !prev);
+
               }}
+
             >
+
               Cancel
+
             </Button>
+
             <Button
+
               type={"button"}
-              className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+
+              className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-semibold leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+
               onClick={() => {
+
                 setSuggestModal((prev) => !prev);
+
               }}
+
             >
+
               Submit
+
             </Button>
+
           </div>
+
         </Modal>
+
       )}
       <ToastContainer />
     </>
   );
 };
- 
+
 export default Page;

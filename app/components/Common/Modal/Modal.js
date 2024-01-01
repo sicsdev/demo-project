@@ -28,12 +28,12 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
         <div>
             {show ? (
                 <>
-                    <Card className={` justify-center ${alignment}   flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none p-2`}
+                    <Card className={` justify-center ${alignment}   flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none p-3`}
                     >
-                        <div style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} className={`relative max-h-[80vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
-                            <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        <div style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} className={`relative max-h-[60vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
+                            <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none p-3">
                                 {/*header*/}
-                                <div className={`flex items-center justify-center relative ${hr === true && ("py-3 border-b border-solid border-[#8a939e] border-slate-200")} py-3 px-3 rounded-t`}>
+                                <div className={`flex items-center justify-between relative ${hr === true && ("border-solid border-[#8a939e] border-slate-200")} rounded-t px-3 pt-3`}>
 
                                     {/* <span
                                         className={`flex justify-start cursor-pointer items-center  font-bold rounded-t-lg active `}
@@ -41,9 +41,13 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                                     >
                                         {title}
                                     </span> */}
+
                                     <h2 className="text-black-color text-md !font-semibold opacity-90 undefined">
-                                       {title}
+                                        {title}
                                     </h2>
+                                    <div className="cursor-pointer flex justify-end" onClick={(e) => setShow(false)}>
+                                        <XMarkIcon className="h-8 w-8 rounded-lg text-black p-2" />
+                                    </div>
                                     {
                                         showTopCancleButton === true && (
                                             customHideButton === true ?
@@ -62,10 +66,9 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
 
                                 </div>
                                 {/*body*/}
-                                <div className={`mt-1 relative ${hr === true ? ("p-6") : "px-3"} flex-auto`}>
+                                <div className={`mt-1 relative ${hr === true ? ("p-3") : "px-3"} flex-auto`}>
                                     {children}
                                 </div>
-                
                             </div>
                         </div>
                     </Card>
