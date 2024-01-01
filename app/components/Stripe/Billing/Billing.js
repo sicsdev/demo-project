@@ -90,7 +90,7 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
                 borderRadius: "1vh",
 
                 borderStyle: "solid",
-                fontWeight:"bold"
+                fontWeight: "bold"
               },
             },
           }}

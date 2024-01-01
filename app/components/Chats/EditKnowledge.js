@@ -9,12 +9,14 @@ import { addHumanHandoffWorkflowData, deleteHandoff } from '@/app/API/pages/Huma
 import { postPromptAppender } from '@/app/API/pages/NagetiveFaq'
 import TextField from '../Common/Input/TextField'
 import Card from '../Common/Card/Card'
+import UpdateFaqModal from '../SideModal/UpdateFaqModal'
 
 const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message }) => {
 
 
     // Local states
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
+    const [show, setShow] = useState(false)
     const [faqObject, setFAQObject] = useState({})
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
     const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
@@ -147,24 +149,31 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
         await getAllNegativeFaqs()
     }
 
+    const handlefaqdelete = async () => {
+        setLoadingDelete(true)
+        await deleteFaqQuestions(item.information.id); setDeleted(true)
+        setLoadingDelete(false)
+    }
+
 
     const handleDeleteFaq = async () => {
-        const result = await Swal.fire({
-            title: 'Are you sure?',
-            text: `Do you want to delete this FAQ? You won't be able to recover it and you'll have to create it again.`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it.',
-            cancelButtonText: 'Cancel'
-        });
+        setShow(true)
+        // const result = await Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: `Do you want to delete this FAQ? You won't be able to recover it and you'll have to create it again.`,
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#d33',
+        //     cancelButtonColor: '#3085d6',
+        //     confirmButtonText: 'Yes, delete it.',
+        //     cancelButtonText: 'Cancel'
+        // });
 
-        if (result.isConfirmed) {
-            setLoadingDelete(true)
-            await deleteFaqQuestions(item.information.id); setDeleted(true)
-            setLoadingDelete(false)
-        }
+        // if (result.isConfirmed) {
+        //     setLoadingDelete(true)
+        //     await deleteFaqQuestions(item.information.id); setDeleted(true)
+        //     setLoadingDelete(false)
+        // }
     }
 
 
@@ -240,7 +249,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
                             </div>
                             {dropdownOpenId == item.information.id &&
-
                                 <div id={indexOfMessage + item.information?.knowledge?.id + item.information.id} key={indexOfMessage + item.information?.knowledge?.id + item.information.id} className="my-2">
 
                                     <div className="flex flex-row flex-1">
@@ -305,7 +313,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                                 </div>
 
                             }
-
+                            {show ? <UpdateFaqModal handlefaqdelete={handlefaqdelete} setShow={setShow} title={'Are you sure?'} text={"Do you want to delete this FAQ? You won't be able to recover it and you'll have to create it again."} icon={'warning'} confirmButtonText={'Yes, delete it.'} cancelButtonText={'Cancel'} /> : " "}
                         </div>
 
                     </div>
