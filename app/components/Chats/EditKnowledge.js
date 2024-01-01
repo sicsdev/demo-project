@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { Tooltip } from 'react-tooltip'
-import { addHumanHandoffWorkflowData } from '@/app/API/pages/HumanHandoff'
+import { addHumanHandoffWorkflowData, deleteHandoff } from '@/app/API/pages/HumanHandoff'
 import { postPromptAppender } from '@/app/API/pages/NagetiveFaq'
 import TextField from '../Common/Input/TextField'
 import Card from '../Common/Card/Card'
@@ -329,7 +329,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             {/* //bg-gradiant-red-button */}
             {
                 showingNegativeOptions && (modifierMode == false) &&
-                < div className='flex gap-4 justify-between mx-5 mb-4 mt-2  mr-10'>
+                < div className='flex gap-4 justify-between mb-4 mt-2  mr-10'>
                     <div className='flex gap-2'>
                         <button
                             type="button"
@@ -350,17 +350,17 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                             {rating == -1 ? "Blocked" : "Block"}
 
                         </button>
+                        <button
+                            type="button"
+                            className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-4`}
+                            onClick={() => handleForceHandOff()}
+                            data-tooltip-id={'tooltip'}
+                            data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
+                        >
+                            {isHandoff ? "Human Escaled" : "Human Escal"}
+                        </button>
                     </div>
 
-                    <button
-                        type="button"
-                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-4`}
-                        onClick={() => handleForceHandOff()}
-                        data-tooltip-id={'tooltip'}
-                        data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
-                    >
-                        {isHandoff ? "Human Escaled" : "Human Escal"}
-                    </button>
 
                     <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
 

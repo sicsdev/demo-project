@@ -447,7 +447,7 @@ const [showWidget, setShowWidget] = useState(false);
                                                                 </>
                                                                 :
                                                                 <button
-                                                                    onClick={() => setOpenInputConfigDomain(true)}
+                                                                    onClick={() => {router.push("/dashboard/email-settings")}}
                                                                     className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
                                                                 >
                                                                     Configure

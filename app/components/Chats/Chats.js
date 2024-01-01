@@ -197,6 +197,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             contentParts.push(content.substring(startIndex, endIndex + 1));
             startIndex = endIndex + 1;
         }
+        console.log("🚀 ~ file: Chats.js:199 ~ divideAnswer ~ contentParts:", contentParts)
 
         return (
             <div style={{ marginRight: '25px' }}>
@@ -579,144 +580,145 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         </div>
                                                     </div>
 
-                                                    {messages.map((element, key) =>
-                                                        <>
-                                                            {element.sender === 'bot' &&
-                                                                (
-                                                                    <div id={key} key={key} className='mb-2'>
+                                                    {messages.map((element, key) => {
+                                                        console.log("🚀 ~ file: Chats.js:585 ~ {messages.map ~ element:", element)
+                                                        return (
+                                                            <>
+                                                                {element.sender === 'bot' &&
+                                                                    (
+                                                                        <div id={key} key={key} className='mb-2'>
 
-                                                                        <div className="title-element-right" style={{ display: "none" }}>14:11</div>
-                                                                        {
-                                                                            element.content === 'HUMAN-HANDOFF' &&
-                                                                            <>
-                                                                                <div className="answer_with_thumbs">
-                                                                                    <img className="profile-photo_ChatBot_back"
-                                                                                        src={`${botUnique?.logo ||
-                                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                                    <div className="answer_text_div"></div>
-                                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                                        I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
+                                                                            <div className="title-element-right" style={{ display: "none" }}>14:11</div>
+                                                                            {
+                                                                                element.content == 'HUMAN-HANDOFF' &&
+                                                                                <>
+                                                                                    <div className="answer_with_thumbs">
+                                                                                        <img className="profile-photo_ChatBot_back"
+                                                                                            src={`${botUnique?.logo ||
+                                                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                                        <div className="answer_text_div"></div>
+                                                                                        <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                            I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </>
-                                                                        }
+                                                                                </>
+                                                                            }
 
-                                                                        {
-                                                                            element.content === 'OPTIONS' &&
-                                                                            <>
-                                                                                <div className="answer_with_thumbs">
+                                                                            {
+                                                                                element.content === 'OPTIONS' &&
+                                                                                <>
+                                                                                    <div className="answer_with_thumbs">
 
-                                                                                    <img className="profile-photo_ChatBot_back"
-                                                                                        src={`${botUnique?.logo ||
-                                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                                    <div className="answer_text_div"></div>
-                                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                                        Could you please clarify how I can best help you?
+                                                                                        <img className="profile-photo_ChatBot_back"
+                                                                                            src={`${botUnique?.logo ||
+                                                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                                        <div className="answer_text_div"></div>
+                                                                                        <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                            Could you please clarify how I can best help you?
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </>
-                                                                        }
+                                                                                </>
+                                                                            }
 
 
-                                                                        {
-                                                                            element.content === 'PRODUCTS' &&
-                                                                            <>
-                                                                                <div className="answer_with_thumbs">
-                                                                                    <img className="profile-photo_ChatBot_back"
-                                                                                        src={`${botUnique?.logo ||
-                                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                                    <div className="answer_text_div"></div>
-                                                                                    <ProductComponent product={element?.actions[0]} />
-                                                                                </div>
-                                                                            </>
-                                                                        }
+                                                                            {
+                                                                                element.content === 'PRODUCTS' &&
+                                                                                <>
+                                                                                    <div className="answer_with_thumbs">
+                                                                                        <img className="profile-photo_ChatBot_back"
+                                                                                            src={`${botUnique?.logo ||
+                                                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                                        <div className="answer_text_div"></div>
+                                                                                        <ProductComponent product={element?.actions[0]} />
+                                                                                    </div>
+                                                                                </>
+                                                                            }
 
 
+                                                                            
+                                                                            {/*************  SOURCES & INFORMATION ******************/}
+                                                                            {
+                                                                                element.content !== 'OPTIONS'
+                                                                                && element.content !== 'HUMAN-HANDOFF'
+                                                                                && element.content !== 'FORM'
+                                                                                &&
+                                                                                <>
 
-                                                                        {/*************  SOURCES & INFORMATION ******************/}
-                                                                        {
-                                                                            element.content !== 'OPTIONS'
-                                                                            && element.content !== 'HUMAN-HANDOFF'
-                                                                            && element.content !== 'FORM'
-                                                                            && element.type !== 'action'
-                                                                            &&
-                                                                            <>
 
-
-                                                                                {divideAnswer(element, key)}
+                                                                                    {divideAnswer(element, key)}
 
 
 
-                                                                                <div key={'a' + key} id={'a' + key} className='mx-2 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                                    <div className='w-100' style={{ width: '100%' }}>
+                                                                                    <div key={'a' + key} id={'a' + key} className='mx-2 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                                        <div className='w-100' style={{ width: '100%' }}>
 
 
-                                                                                        <small className='flex gap-3 items-center'>
+                                                                                            <small className='flex gap-3 items-center'>
 
-                                                                                            <b>Sources</b>
-                                                                                            <small
-                                                                                                onClick={() => handleAddSource(key)}
-                                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                                Add Source
+                                                                                                <b>Sources</b>
+                                                                                                <small
+                                                                                                    onClick={() => handleAddSource(key)}
+                                                                                                    className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                                    Add Source
+                                                                                                </small>
+
                                                                                             </small>
 
-                                                                                        </small>
 
-
-                                                                                        {
-                                                                                            element?.knowledge?.length ?
-                                                                                                element?.knowledge?.map(item => (
-                                                                                                    <EditKnowledge
-                                                                                                        message={element}
-                                                                                                        setDropdownOpenId={setDropdownOpenId}
-                                                                                                        dropdownOpenId={dropdownOpenId}
-                                                                                                        allMessages={messages}
-                                                                                                        indexOfMessage={key}
-                                                                                                        item={item}
-                                                                                                        allKnowledge={allKnowledge}
-                                                                                                        idOfOpenConversation={idOfOpenConversation}
-                                                                                                    >
-                                                                                                    </EditKnowledge>
-                                                                                                ))
-
-                                                                                                :
-
-                                                                                                element?.workflows?.length ?
-                                                                                                    element?.workflows?.map(workflow => (
-                                                                                                        <EditWorkflow
+                                                                                            {
+                                                                                                element?.knowledge?.length ?
+                                                                                                    element?.knowledge?.map(item => (
+                                                                                                        <EditKnowledge
                                                                                                             message={element}
-                                                                                                            allMessages={messages}
-                                                                                                            indexOfMessage={key}
-                                                                                                            item={workflow}
                                                                                                             setDropdownOpenId={setDropdownOpenId}
                                                                                                             dropdownOpenId={dropdownOpenId}
+                                                                                                            allMessages={messages}
+                                                                                                            indexOfMessage={key}
+                                                                                                            item={item}
+                                                                                                            allKnowledge={allKnowledge}
+                                                                                                            idOfOpenConversation={idOfOpenConversation}
                                                                                                         >
-                                                                                                        </EditWorkflow>
+                                                                                                        </EditKnowledge>
                                                                                                     ))
 
                                                                                                     :
-                                                                                                    <div className='flex gap-4 items-center mt-2'>
-                                                                                                        <small>LLM</small>
-                                                                                                    </div>
 
-                                                                                        }
+                                                                                                    element?.workflows?.length ?
+                                                                                                        element?.workflows?.map(workflow => (
+                                                                                                            <EditWorkflow
+                                                                                                                message={element}
+                                                                                                                allMessages={messages}
+                                                                                                                indexOfMessage={key}
+                                                                                                                item={workflow}
+                                                                                                                setDropdownOpenId={setDropdownOpenId}
+                                                                                                                dropdownOpenId={dropdownOpenId}
+                                                                                                            >
+                                                                                                            </EditWorkflow>
+                                                                                                        ))
+
+                                                                                                        :
+                                                                                                        <div className='flex gap-4 items-center mt-2'>
+                                                                                                            <small>LLM</small>
+                                                                                                        </div>
+
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            {element?.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                                        </div>
+
                                                                                     </div>
-                                                                                    <div>
-                                                                                        {element?.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                                    </div>
+                                                                                    {<div>
 
-                                                                                </div>
-                                                                                {<div>
-
-                                                                                </div>}
-                                                                            </>
-                                                                        }
+                                                                                    </div>}
+                                                                                </>
+                                                                            }
 
 
 
 
 
-                                                                        {/* {
+                                                                            {/* {
                                                                     element.content !== 'OPTIONS' && element.content !== 'PRODUCTS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
                                                                     element.knowledge.length == 0 && element.workflows.length == 0 && element.action == null && element.type == 'action' &&
                                                                     <>
@@ -784,198 +786,52 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     </>
                                                                 } */}
 
-                                                                        {
-                                                                            element.content === 'HUMAN-HANDOFF' &&
-                                                                            <>
-                                                                                <div key={'b' + key} id={'b' + key} className="attention_required_answer">
-                                                                                    <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
-                                                                                    <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
-                                                                                </div>
-                                                                                <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
-                                                                                    <div>
-                                                                                        <small className='flex gap-3 items-center'>
-                                                                                            <b>Sources</b>
-                                                                                            <small
-                                                                                                onClick={() => handleAddSource(key)}
-                                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                                Add Source
-                                                                                            </small>
-                                                                                        </small>
-                                                                                        Custom
+                                                                            {
+                                                                                element.content === 'HUMAN-HANDOFF' &&
+                                                                                <>
+                                                                                    <div key={'b' + key} id={'b' + key} className="attention_required_answer">
+                                                                                        <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
+                                                                                        <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
                                                                                     </div>
-                                                                                    <div>
-                                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </>
-                                                                        }
-
-                                                                        {
-                                                                            element.content === 'OPTIONS' && element?.actions?.options &&
-                                                                            <>
-                                                                                <div key={'c' + key} id={'c' + key} className="tempo-widget-options-container">
-                                                                                    {Object.keys(element.actions.options).map((indx, index) =>
-                                                                                        <>
-                                                                                            <button className="tempo-widget-options-button" data-options-id="${optionsId}" name={indx}>
-                                                                                                {element.actions.options[indx]}
-                                                                                                {`     `}
-                                                                                                <small>
-                                                                                                    {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
-                                                                                                    {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
-                                                                                                </small>
-                                                                                            </button>
-                                                                                        </>
-                                                                                    )}
-                                                                                </div>
-
-
-                                                                                <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
-                                                                                    <div className='w-100' style={{ width: '100%' }}>
-                                                                                        <small className='flex gap-3 items-center'>
-                                                                                            <b>Sources</b>
-                                                                                            <small
-                                                                                                onClick={() => handleAddSource(key)}
-                                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                                Add Source
-                                                                                            </small>
-                                                                                        </small>
-
-                                                                                        {element?.workflows?.map(workflow => (
-                                                                                            <EditWorkflow
-                                                                                                message={element}
-                                                                                                allMessages={messages}
-                                                                                                indexOfMessage={key}
-                                                                                                item={workflow}
-                                                                                                setDropdownOpenId={setDropdownOpenId}
-                                                                                                dropdownOpenId={dropdownOpenId}
-                                                                                            >
-                                                                                            </EditWorkflow>
-                                                                                        ))}
-
-                                                                                        {element && element?.knowledge.length > 0 && (
-                                                                                            <EditKnowledge
-                                                                                                message={element}
-                                                                                                allMessages={messages}
-                                                                                                indexOfMessage={key}
-                                                                                                item={element?.knowledge[0]}
-                                                                                                allKnowledge={allKnowledge}
-                                                                                                setDropdownOpenId={setDropdownOpenId}
-                                                                                                dropdownOpenId={dropdownOpenId}
-                                                                                                idOfOpenConversation={idOfOpenConversation}
-                                                                                            >
-                                                                                            </EditKnowledge>
-                                                                                        )}
-
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </>
-                                                                        }
-
-
-
-
-                                                                        {
-                                                                            element.type == "action" && (!element.content || element.content == 'FORM') &&
-
-                                                                            <>
-                                                                                <div className="answer_with_thumbs">
-                                                                                    <img className="profile-photo_ChatBot_back"
-                                                                                        src={`${botUnique?.logo ||
-                                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                                    <div className="answer_text_div"></div>
-                                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                                        No problem, I can help you with that! Could you please provide the following information:
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div key={'d' + key} id={'d' + key} className="component_answer" style={{ width: '300px' }}></div>
-
-                                                                                <div className="answer_with_thumbs">
-
-                                                                                    <img className="profile-photo_ChatBot_back"
-                                                                                        src={`${botUnique?.logo ||
-                                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-
-                                                                                    <div className="tempo-widget-custom-form">
-                                                                                        {Object.keys(element.actions).map(obj => {
-                                                                                            const elementData = element.actions[obj];
-                                                                                            const elementId = `tempo-widget-custom-form-${obj}`;
-
-                                                                                            return (
-                                                                                                <>
-                                                                                                    <div id='' key={obj}>
-                                                                                                        <label className="tempo-widget-custom-form-label text-black">
-                                                                                                            {capitalizeFirstLetter(elementData.name)}
-                                                                                                        </label>
-
-                                                                                                        {elementData.type === "select" && (
-                                                                                                            <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                                                <button
-                                                                                                                    className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
-                                                                                                                    data-value="Yes"
-                                                                                                                    id={`custom-form-yes-button-${obj}`}
-                                                                                                                >
-                                                                                                                    Yes
-                                                                                                                </button>
-                                                                                                                <button
-                                                                                                                    className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
-                                                                                                                    data-value="No"
-                                                                                                                    id={`custom-form-no-button-${obj}`}
-                                                                                                                >
-                                                                                                                    No
-                                                                                                                </button>
-                                                                                                            </div>
-                                                                                                        )}
-
-                                                                                                        {elementData.type === "multiselect" && (
-                                                                                                            <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                                                {elementData.options.map(option => (
-                                                                                                                    <button
-                                                                                                                        key={`${obj}_${elementData.name}_${option}`}
-                                                                                                                        className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
-                                                                                                                        data-value={option}
-                                                                                                                        id={`${obj}_${elementData.name}_${option}`}
-                                                                                                                    >
-                                                                                                                        {option}
-                                                                                                                    </button>
-                                                                                                                ))}
-                                                                                                            </div>
-                                                                                                        )}
-
-                                                                                                        {elementData.type === "str" && (
-                                                                                                            <input
-                                                                                                                type="text"
-                                                                                                                id={elementId}
-                                                                                                                className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
-                                                                                                                placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
-                                                                                                                value={getValueBasedInNextMessage(elementData, key) || ''}
-                                                                                                                disabled
-                                                                                                            />
-                                                                                                        )}
-
-                                                                                                        {elementData.type === "date" && (
-                                                                                                            <input
-                                                                                                                type="date"
-                                                                                                                id={elementId}
-                                                                                                                className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
-                                                                                                                placeholder={elementData.default || ""}
-                                                                                                                name={elementData.name}
-                                                                                                                disabled
-                                                                                                            />
-                                                                                                        )}
-                                                                                                    </div>
-                                                                                                </>
-                                                                                            );
-                                                                                        })}
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                                     <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                                        <div>
+                                                                                            <small className='flex gap-3 items-center'>
+                                                                                                <b>Sources</b>
+                                                                                                <small
+                                                                                                    onClick={() => handleAddSource(key)}
+                                                                                                    className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                                    Add Source
+                                                                                                </small>
+                                                                                            </small>
+                                                                                            Custom
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </>
+                                                                            }
+
+                                                                            {
+                                                                                element.content === 'OPTIONS' && element?.actions?.options &&
+                                                                                <>
+                                                                                    <div key={'c' + key} id={'c' + key} className="tempo-widget-options-container">
+                                                                                        {Object.keys(element.actions.options).map((indx, index) =>
+                                                                                            <>
+                                                                                                <button className="tempo-widget-options-button" data-options-id="${optionsId}" name={indx}>
+                                                                                                    {element.actions.options[indx]}
+                                                                                                    {`     `}
+                                                                                                    <small>
+                                                                                                        {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
+                                                                                                        {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
+                                                                                                    </small>
+                                                                                                </button>
+                                                                                            </>
+                                                                                        )}
+                                                                                    </div>
+
+
+                                                                                    <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                                         <div className='w-100' style={{ width: '100%' }}>
                                                                                             <small className='flex gap-3 items-center'>
                                                                                                 <b>Sources</b>
@@ -1016,88 +872,242 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                         <div>
                                                                                             {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
                                                                                         </div>
-
                                                                                     </div>
-                                                                                </div>
-
-
-
-
-                                                                            </>
-
-                                                                        }
-
-                                                                    </div>
-                                                                )}
-
-
-
-                                                            {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
-                                                                (
-                                                                    <>
-                                                                        <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
-
-                                                                            {
-                                                                                (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
-                                                                                <>
-                                                                                    User selected: {
-                                                                                        messages[key - 1]?.actions?.options ?
-                                                                                            (messages[key - 1].actions.options[element.content] || 'WORKFLOW') :
-                                                                                            'WORKFLOW'
-                                                                                    }
                                                                                 </>
                                                                             }
 
-                                                                            {
-                                                                                (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
-                                                                                <>
-                                                                                    User selected: {
-                                                                                        messages[key - 1]?.actions?.options ?
-                                                                                            (messages[key - 1].actions.options[element.content] || 'INFORMATION') :
-                                                                                            'INFORMATION'
-                                                                                    }
-                                                                                </>
-                                                                            }
+
+
 
                                                                             {
-                                                                                element.content == 'HUMAN-HANDOFF' &&
+                                                                                element.type == "action" && (!element.content || element.content == 'FORM') &&
+
                                                                                 <>
-                                                                                    {element.human_handoff_type && element.human_handoff_type == 'email' ?
-                                                                                        `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.`
-                                                                                        :
-                                                                                        'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
-                                                                                    }
+                                                                                    <div className="answer_with_thumbs">
+                                                                                        <img className="profile-photo_ChatBot_back"
+                                                                                            src={`${botUnique?.logo ||
+                                                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                                        <div className="answer_text_div"></div>
+                                                                                        <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                            No problem, I can help you with that! Could you please provide the following information:
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div key={'d' + key} id={'d' + key} className="component_answer" style={{ width: '300px' }}></div>
+
+                                                                                    <div className="answer_with_thumbs">
+
+                                                                                        <img className="profile-photo_ChatBot_back"
+                                                                                            src={`${botUnique?.logo ||
+                                                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+
+                                                                                        <div className="tempo-widget-custom-form">
+                                                                                            {Object.keys(element.actions).map(obj => {
+                                                                                                const elementData = element.actions[obj];
+                                                                                                const elementId = `tempo-widget-custom-form-${obj}`;
+
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <div id='' key={obj}>
+                                                                                                            <label className="tempo-widget-custom-form-label text-black">
+                                                                                                                {capitalizeFirstLetter(elementData.name)}
+                                                                                                            </label>
+
+                                                                                                            {elementData.type === "select" && (
+                                                                                                                <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                                    <button
+                                                                                                                        className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
+                                                                                                                        data-value="Yes"
+                                                                                                                        id={`custom-form-yes-button-${obj}`}
+                                                                                                                    >
+                                                                                                                        Yes
+                                                                                                                    </button>
+                                                                                                                    <button
+                                                                                                                        className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
+                                                                                                                        data-value="No"
+                                                                                                                        id={`custom-form-no-button-${obj}`}
+                                                                                                                    >
+                                                                                                                        No
+                                                                                                                    </button>
+                                                                                                                </div>
+                                                                                                            )}
+
+                                                                                                            {elementData.type === "multiselect" && (
+                                                                                                                <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                                    {elementData.options.map(option => (
+                                                                                                                        <button
+                                                                                                                            key={`${obj}_${elementData.name}_${option}`}
+                                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
+                                                                                                                            data-value={option}
+                                                                                                                            id={`${obj}_${elementData.name}_${option}`}
+                                                                                                                        >
+                                                                                                                            {option}
+                                                                                                                        </button>
+                                                                                                                    ))}
+                                                                                                                </div>
+                                                                                                            )}
+
+                                                                                                            {elementData.type === "str" && (
+                                                                                                                <input
+                                                                                                                    type="text"
+                                                                                                                    id={elementId}
+                                                                                                                    className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
+                                                                                                                    placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
+                                                                                                                    value={getValueBasedInNextMessage(elementData, key) || ''}
+                                                                                                                    disabled
+                                                                                                                />
+                                                                                                            )}
+
+                                                                                                            {elementData.type === "date" && (
+                                                                                                                <input
+                                                                                                                    type="date"
+                                                                                                                    id={elementId}
+                                                                                                                    className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
+                                                                                                                    placeholder={elementData.default || ""}
+                                                                                                                    name={elementData.name}
+                                                                                                                    disabled
+                                                                                                                />
+                                                                                                            )}
+                                                                                                        </div>
+                                                                                                    </>
+                                                                                                );
+                                                                                            })}
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                                        <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                                            <div className='w-100' style={{ width: '100%' }}>
+                                                                                                <small className='flex gap-3 items-center'>
+                                                                                                    <b>Sources</b>
+                                                                                                    <small
+                                                                                                        onClick={() => handleAddSource(key)}
+                                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                                        Add Source
+                                                                                                    </small>
+                                                                                                </small>
+
+                                                                                                {element?.workflows?.map(workflow => (
+                                                                                                    <EditWorkflow
+                                                                                                        message={element}
+                                                                                                        allMessages={messages}
+                                                                                                        indexOfMessage={key}
+                                                                                                        item={workflow}
+                                                                                                        setDropdownOpenId={setDropdownOpenId}
+                                                                                                        dropdownOpenId={dropdownOpenId}
+                                                                                                    >
+                                                                                                    </EditWorkflow>
+                                                                                                ))}
+
+                                                                                                {element && element?.knowledge.length > 0 && (
+                                                                                                    <EditKnowledge
+                                                                                                        message={element}
+                                                                                                        allMessages={messages}
+                                                                                                        indexOfMessage={key}
+                                                                                                        item={element?.knowledge[0]}
+                                                                                                        allKnowledge={allKnowledge}
+                                                                                                        setDropdownOpenId={setDropdownOpenId}
+                                                                                                        dropdownOpenId={dropdownOpenId}
+                                                                                                        idOfOpenConversation={idOfOpenConversation}
+                                                                                                    >
+                                                                                                    </EditKnowledge>
+                                                                                                )}
+
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+
+
+
                                                                                 </>
-                                                                            }
 
-                                                                            {
-                                                                                element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
-                                                                                <>
-                                                                                    {conversationDetails?.type == 'email' && key == 0 ? removeFirstParagraph(element.content) : element.content}
-
-
-                                                                                </>
                                                                             }
 
                                                                         </div>
+                                                                    )}
 
-                                                                        <div className='flex justify-end w-100 mr-2 mb-2' style={{ color: '#828282', alignSelf: 'flex-end' }}>
-                                                                            <small className='flex gap-3 items-center'>
-                                                                                <small
-                                                                                    onClick={() => handleModifyPrompt(element.id)}
-                                                                                    className=' text-[#828290] px-1 border border-gray rounded-md cursor-pointer focus:shadow-[0_8px_9px_-4px_#0000ff8a]' style={{ backgroundColor: 'rgb(251, 236, 93, 0.5)' }}>
-                                                                                    {
-                                                                                        idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
-                                                                                    }
-                                                                                </small>
-                                                                            </small>
-                                                                        </div>
 
-                                                                        {element.id == idToModify && <ModifiersComponent message={element}></ModifiersComponent>}
-                                                                    </>
-                                                                )}
 
-                                                        </>
+                                                                {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
+                                                                    (
+                                                                        <>
+                                                                            <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color }}>
+
+                                                                                {
+                                                                                    (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
+                                                                                    <>
+                                                                                        User selected: {
+                                                                                            messages[key - 1]?.actions?.options ?
+                                                                                                (messages[key - 1].actions.options[element.content] || 'WORKFLOW') :
+                                                                                                'WORKFLOW'
+                                                                                        }
+                                                                                    </>
+                                                                                }
+
+                                                                                {
+                                                                                    (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
+                                                                                    <>
+                                                                                        User selected: {
+                                                                                            messages[key - 1]?.actions?.options ?
+                                                                                                (messages[key - 1].actions.options[element.content] || 'INFORMATION') :
+                                                                                                'INFORMATION'
+                                                                                        }
+                                                                                    </>
+                                                                                }
+
+                                                                                {
+                                                                                    element.content == 'HUMAN-HANDOFF' &&
+                                                                                    <>
+                                                                                        {element.human_handoff_type && element.human_handoff_type == 'email' ?
+                                                                                            `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.`
+                                                                                            :
+                                                                                            'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
+                                                                                        }
+                                                                                    </>
+                                                                                }
+
+                                                                                {
+                                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
+                                                                                    <>
+                                                                                        {conversationDetails?.type == 'email' && key == 0 ? removeFirstParagraph(element.content) : element.content}
+
+
+                                                                                    </>
+                                                                                }
+
+                                                                            </div>
+
+                                                                            {
+                                                                                (element.content != "HUMAN-HANDOFF" && !element.content?.includes("WORKFLOW")) && (
+                                                                                    <div className='flex justify-end w-100 mr-2 mb-2' style={{ color: '#828282', alignSelf: 'flex-end' }}>
+                                                                                        <small className='flex gap-3 items-center'>
+                                                                                            <small
+                                                                                                onClick={() => handleModifyPrompt(element.id)}
+                                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#eefd9e] focus:shadow-[0_8px_9px_-4px_#0000ff8a]' >
+                                                                                                {
+                                                                                                    idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
+                                                                                                }
+                                                                                            </small>
+                                                                                        </small>
+                                                                                    </div>
+                                                                                )
+                                                                            }
+
+                                                                            {element.id == idToModify && <ModifiersComponent message={element}></ModifiersComponent>}
+                                                                        </>
+                                                                    )}
+
+                                                            </>
+                                                        )
+
+                                                    }
+
                                                     )}
 
 

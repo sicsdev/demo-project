@@ -72,7 +72,7 @@ const ModifiersComponent = ({ message }) => {
 
     const handleDeleteModifier = async (id) => {
         const res = await deleteModifier(id)
-        if(res) {
+        if (res) {
             setPromptModifierValue('')
             setModifierMode('')
             getOneAssociatedPrompt()
@@ -123,7 +123,7 @@ const ModifiersComponent = ({ message }) => {
                     <button
                         type="button"
                         name="modifier"
-                        className={`${modifierMode == 'modifier' && 'text-white bg-sky'} text-sky border-sky flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                        className={`${modifierMode == 'modifier' ? 'text-white bg-[#3565a1]': 'text-[#3565a1] border-[#3565a1]'}  flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                         onClick={(e) => handleTabs(e)}
                     >
                         Replace
