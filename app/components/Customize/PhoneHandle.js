@@ -14,7 +14,7 @@ import Loading from '../Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import Modal from '../Common/Modal/Modal';
 import TextArea from '../Common/Input/TextArea';
-import { AdjustmentsHorizontalIcon, ChatBubbleOvalLeftIcon, HandRaisedIcon, HomeModernIcon, PhoneArrowDownLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChatBubbleOvalLeftIcon, HandRaisedIcon, HomeModernIcon, DevicePhoneMobileIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import SkeletonLoader from '../Skeleton/Skeleton';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -443,7 +443,7 @@ const PhoneHandle = () => {
                                     </div> :
                                     <div>
                                         <h3 className='text-sm font-semibold text-heading  flex  gap-4 mt-2'>
-                                            <PhoneArrowDownLeftIcon className='w-4 h-4'></PhoneArrowDownLeftIcon>
+                                            <DevicePhoneMobileIcon className='w-4 h-4'></DevicePhoneMobileIcon>
                                             <b> Phone Number</b>
                                         </h3>
                                         <p className='text-xs text-border font-normal mt-2'>Configure a custom IVR that callers can speak to</p>
@@ -481,7 +481,7 @@ const PhoneHandle = () => {
                                     {pageLoading ?
                                         <SkeletonLoader count={1} height={20} width={"20%"} /> :
                                         <h3 className='text-sm font-semibold text-heading flex items-center gap-4'>
-                                            <HandRaisedIcon className='w-4 h-4' ></HandRaisedIcon>
+                                            <HandRaisedIcon className='w-5 h-5' ></HandRaisedIcon>
                                             <b>Greeting message</b>
                                         </h3>}
                                     {pageLoading ?

@@ -86,7 +86,6 @@ const DisablingButton = () => {
 
   const SubmitTheForm = async () => {
     setLoading(true);
-
     let payloadForHubspot = {
       properties: {
         firstname: formData.first_name,
@@ -102,18 +101,18 @@ const DisablingButton = () => {
     };
 
 
-    // // Create contact in hubspot, and patch it after get contact id.
-    // let createContact = await createHubspotContact(payloadForHubspot);
+    // Create contact in hubspot, and patch it after get contact id.
+    let createContact = await createHubspotContact(payloadForHubspot);
 
-    // // If there is a conflict, it means contact already exist, so we patch it.
-    // if (createContact?.category == "CONFLICT") {
-    //   const regex = /Existing ID: (\d+)/;
-    //   const match = createContact.message.match(regex);
-    //   if (match) {
-    //     const id = match[1];
-    //     await updateHubspotContact(payloadForHubspot, id);
-    //   }
-    // }
+    // If there is a conflict, it means contact already exist, so we patch it.
+    if (createContact?.category == "CONFLICT") {
+      const regex = /Existing ID: (\d+)/;
+      const match = createContact.message.match(regex);
+      if (match) {
+        const id = match[1];
+        await updateHubspotContact(payloadForHubspot, id);
+      }
+    }
 
     let randomUUIDpassword = uuidv4()
 

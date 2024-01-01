@@ -19,6 +19,8 @@ import SideModal from "../SideModal/SideModal";
 import { getActiveIntegrations } from "@/app/API/pages/Integration";
 import { EyeIcon } from "@heroicons/react/24/solid";
 import { getPermissionHelper } from "../helper/returnPermissions";
+import { DebounceSubmitForm } from "../Debouncing/Deboucing";
+import StatusIndicator from "../StatusIndicator/Status";
 const Customize = ({
   form = false,
   basicFormData,
@@ -44,7 +46,7 @@ const Customize = ({
     if (form === false && basicFormData) {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
-      setBlockedUrls(basicFormData.origins_blocked ?? []);
+      setBlockedUrls([...basicFormData.origins_blocked, ""] ?? [""]);
     }
     getValuesEscalationPlatformSelect();
   }, [basicFormData]);
@@ -130,7 +132,7 @@ const Customize = ({
       setBotDetails(res[0].data);
       ;
       setPreferences(res[0].data);
-      setBlockedUrls(res[0].data.origins_blocked ?? []);
+      setBlockedUrls([...res[0].data.origins_blocked, [""]] ?? [""]);
       let data = res[0].data;
       setBasicFormData((prev) => {
         return {
@@ -276,24 +278,7 @@ const Customize = ({
     });
   };
 
-  const handleRemoveUrl = (e) => [
-    removeBlockedUrl(botDetails.id, { elements: [e.target.id] }).then((res) => {
-      if (res.data.origins_blocked) {
-        setPreferences({
-          ...preferences,
-          origins_blocked: res?.data?.origins_blocked,
-        });
-        setBlockedUrls(res.data.origins_blocked);
-        setBasicFormData((prev) => {
-          return {
-            ...prev,
-            origins_blocked: res?.data?.origins_blocked,
-          };
-        });
 
-      }
-    }),
-  ];
 
   const [tileAgentName, setTileAgentName] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -409,7 +394,72 @@ const Customize = ({
 
     textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [preferences.chat_default_message]);
+  const Session = (value) => {
+    DebounceSubmitForm(value, saveNewBlockedUrlDebounce, setTypingTimeout, typingTimeout)
+  }
+  const handleInputUrl = (event, index) => {
+    let userInput = event.target.value
+    let sanitizedInput = userInput.trim(); // Remove leading/trailing spaces
+    sanitizedInput = '/' + sanitizedInput.replace(/^\/+/, ''); // Ensure a single leading slash
+    let urls = [...blockedUrls]
+    urls[index] = sanitizedInput
+    setBlockedUrls(urls)
+    Session({ value: sanitizedInput, index })
+  }
+  const [typingTimeout, setTypingTimeout] = useState(null)
+  const [debounceLoading, setDebounceLoading] = useState(null)
+  const [driveLoading, setDriveLoading] = useState(false)
 
+  const saveNewBlockedUrlDebounce = (bot) => {
+    setDebounceLoading(bot.index)
+    addBlockedUrl(botDetails.id, { elements: [bot.value] }).then((res) => {
+      if (res.data.origins_blocked) {
+        setPreferences({
+          ...preferences,
+          origins_blocked: res.data.origins_blocked,
+        });
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            origins_blocked: res?.data?.origins_blocked,
+          };
+        });
+        setBlockedUrls(prev => {
+          return [
+            ...prev,
+            ""
+          ]
+        })
+        setDebounceLoading(null)
+        setDriveLoading(true)
+        setTimeout(() => {
+          setDriveLoading(false)
+        }, 2000);
+      }
+    });
+  };
+  const handleRemoveUrl = (e, index) => [
+    removeBlockedUrl(botDetails.id, { elements: [e.target.id] }).then((res) => {
+      if (res.data.origins_blocked) {
+        setPreferences({
+          ...preferences,
+          origins_blocked: res?.data?.origins_blocked,
+        });
+        setBlockedUrls(blockedUrls.filter((_, i) => i !== index));
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            origins_blocked: res?.data?.origins_blocked,
+          };
+        });
+        setDebounceLoading(null)
+        setDriveLoading(true)
+        setTimeout(() => {
+          setDriveLoading(false)
+        }, 2000);
+      }
+    }),
+  ];
   return (
     <>
       {/* Modal to manage hide urls */}
@@ -424,13 +474,13 @@ const Customize = ({
                 Block paths you don't want the widget to appear on.
               </h3>
             </div>
-            <div>
+            <div className="w-full sm:w-[70%]">
               {blockedUrls.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
+                  className="flex items-center  mt-3 gap-2 "
                 >
-                  <div className="flex justify-start w-1/2 items-center rounded border-gray">
+                  <div className="w-[120px]">
                     <span
                       className="new_input_label block text-sm text-heading
                     "
@@ -438,27 +488,58 @@ const Customize = ({
                       URL Containing:
                     </span>
                   </div>
-                  <TextField
-                    value={item}
+                  <input
+                    value={blockedUrls[index]}
                     name=""
-                    className="py-3 !pl-[23px]"
                     title={""}
+                    onChange={(e) => handleInputUrl(e, index)}
                     placeholder="/path"
-                    type={""}
+                    type={"text"}
                     id={""}
                     paddingleft={"pl-6"}
-                    disabled={true}
+                    className="w-[200px] block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                   />
-                  <XMarkIcon
-                    fill="red"
-                    className="w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                    onClick={(e) => handleRemoveUrl(e)}
-                    title="Delete URL"
-                    id={item}
-                  />
+                  {blockedUrls.length - 1 !== index ? (
+                    <button>
+                      <XMarkIcon
+                        fill="red"
+                        className="m-[10px] w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                        onClick={
+                          (e) => {
+                            setDebounceLoading(index)
+                            handleRemoveUrl(e, index)
+                          }
+                        }
+                        title="Delete URL"
+                        id={item}
+                      />
+                    </button>
+                  ) :
+                    <button></button>
+                  }
+                  {blockedUrls.length - 1 === index && (
+                    <button disabled={blockedUrls[index] === ""}>
+                      <PlusSmallIcon
+                        fill="green"
+                        className="w-[20px] h-[20px] mr-2 text-soft-green cursor-pointer rounded-full hover:text-black"
+                        title="Add URL"
+                        onClick={() => {
+                          setBlockedUrls(prev => {
+                            return [
+                              ...prev,
+                              "",
+                            ]
+                          })
+                        }}
+                      />
+                    </button>
+                  )}
+                  {index === debounceLoading && (
+                    <StatusIndicator loading={debounceLoading} driveLoad={driveLoading} />
+                  )}
                 </div>
               ))}
-              <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
+              {/* <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                 <div className="flex justify-start w-1/2 items-center rounded border-gray">
                   <span className="new_input_label block text-sm text-heading">
                     URL Containing:
@@ -484,13 +565,19 @@ const Customize = ({
                   id={"blockUrls"}
                   paddingleft={"pl-6"}
                 />
+                 <XMarkIcon
+                    fill="red"
+                    className="w-[20px] opacity-0 h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                    onClick={(e) => handleRemoveUrl(e)}
+                    title="Delete URL"
+                  />
                 <PlusSmallIcon
                   fill="green"
                   className="w-[20px] h-[20px] text-soft-green mr-2 rounded-full cursor-pointer"
                   title="Add URL"
                   onClick={saveNewBlockedUrl}
                 />
-              </div>
+              </div> */}
 
               <div
                 className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}
@@ -917,13 +1004,13 @@ const Customize = ({
                         What is the price of the product?
                       </div>
 
-                          <div className="tempoWidget-suggestedQuestions-div_logs">
-                            {preferences.chat_suggestions.map((el) => (
-                              <div className="tempoWidget-suggestedQuestions-option">
-                                {el}
-                              </div>
-                            ))}
+                      <div className="tempoWidget-suggestedQuestions-div_logs">
+                        {preferences.chat_suggestions.map((el) => (
+                          <div className="tempoWidget-suggestedQuestions-option">
+                            {el}
                           </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div class="chatbotwidget_footer">
@@ -988,7 +1075,7 @@ const Customize = ({
               </div>
             </div>
 
-         
+
           </>
         )}
       </div>
