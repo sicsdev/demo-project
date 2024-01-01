@@ -165,7 +165,7 @@ const Checkout = () => {
       if (blacklist.includes(checkoutForm?.email.split("@")[1])) {
         console.log("got it")
         setPop(true);
-      }
+      } 
       else {
         setPop(false);
       }
@@ -174,6 +174,7 @@ const Checkout = () => {
       let last_name = checkoutForm.name?.split(" ")[1] || null;
       let payload = { email: checkoutForm.email };
       if (checkoutForm.phone) payload.phone = '+1' + checkoutForm.phone;
+      if (checkoutForm.business_name) payload.company = '+1' + checkoutForm.business_name;
       if (first_name) payload.firstname = first_name;
       if (last_name) payload.lastname = last_name;
       if (gclid) payload.gclid = gclid;
@@ -181,7 +182,7 @@ const Checkout = () => {
       // if(lifecyclestage)payload.lifecyclestage= "subscriber";
       // if(is_demo)payload.is_demo = "false";
       // if(demo_status)payload.demo_status = "pending";
-
+      console.log("payload", payload)
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {
@@ -414,6 +415,7 @@ const Checkout = () => {
                     <input
                       style={{ paddingLeft: '27px' }}
                       onChange={handleFormValues}
+                    onBlur={handleBlur}
                       value={checkoutForm.phone}
                       className="w-1/2 new_input_phone block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400  disabled:bg-slate-50 disabled:text-slate-500 border-input_color border-danger invalid:border-danger invalid:text-danger"
                       placeholder=''
