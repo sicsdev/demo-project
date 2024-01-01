@@ -284,10 +284,7 @@ export default function RootLayout({ children }) {
           <div className="tempo_container">{children}</div>
         </NoSSRProviderWrapper>
 
-        {/* <!-- Google Tag Manager (noscript) --> */}
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        {/* <!-- End Google Tag Manager (noscript) --> */}
+
 
 
         <Script
