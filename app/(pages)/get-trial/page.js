@@ -94,7 +94,6 @@ const validateUrl = (url) => {
 
   const SubmitTheForm = async () => {
     setLoading(true);
-
     let payloadForHubspot = {
       properties: {
         firstname: formData.first_name,
@@ -110,18 +109,18 @@ const validateUrl = (url) => {
     };
 
 
-    // // Create contact in hubspot, and patch it after get contact id.
-    // let createContact = await createHubspotContact(payloadForHubspot);
+    // Create contact in hubspot, and patch it after get contact id.
+    let createContact = await createHubspotContact(payloadForHubspot);
 
-    // // If there is a conflict, it means contact already exist, so we patch it.
-    // if (createContact?.category == "CONFLICT") {
-    //   const regex = /Existing ID: (\d+)/;
-    //   const match = createContact.message.match(regex);
-    //   if (match) {
-    //     const id = match[1];
-    //     await updateHubspotContact(payloadForHubspot, id);
-    //   }
-    // }
+    // If there is a conflict, it means contact already exist, so we patch it.
+    if (createContact?.category == "CONFLICT") {
+      const regex = /Existing ID: (\d+)/;
+      const match = createContact.message.match(regex);
+      if (match) {
+        const id = match[1];
+        await updateHubspotContact(payloadForHubspot, id);
+      }
+    }
 
     let randomUUIDpassword = uuidv4()
 
@@ -235,7 +234,7 @@ const validateUrl = (url) => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton() || pop || loading || !formData.checked}
+          disabled={DisablingButton() || pop || !loading || !formData.checked}
           onClick={SubmitTheForm}
         >
           {loading ? "Loading" : "Submit"}
