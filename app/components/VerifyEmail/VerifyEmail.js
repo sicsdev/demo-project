@@ -424,6 +424,8 @@ const CheckEmail = ({
                     labelClass={"new_input_label mb-3"}
                   />
                 )}
+                {user && user?.enterprise?.domain.length  == 1 && (
+
                 <div className="pt-2 sm:pt-0 lg:relative">
                   <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-0 ">
                     DNS Verification
@@ -454,6 +456,33 @@ const CheckEmail = ({
                   </div>
                   </div>
 
+                </div>
+)}
+                <div className="pt-2">
+                  <TextField
+                    name="domainName"
+                    className="py-3 w-full mt-"
+                    value={basicFormData.domainName || ""}
+                    onChange={(e) => handleInputChange(e)}
+                    style={{ borderColor: isValid ? "initial" : "red" }}
+                    title={
+                      <div className="flex items-center gap-2">
+                        <span>Domain Name</span>
+                      </div>
+                    }
+                    placeholder={"Domain name"}
+                    type={"text"}
+                    id={"domainName"}
+                    disabled={
+                      user && user?.enterprise?.domain !== "" ? true : false
+                    }
+                  />
+
+                  {!isValid && (
+                    <p className="text-xs" style={{ color: "red" }}>
+                      Invalid domain format
+                    </p>
+                  )}
                 </div>
                 {user && user?.enterprise?.domain === "" && (
                   <div className="flex items-center justify-between">

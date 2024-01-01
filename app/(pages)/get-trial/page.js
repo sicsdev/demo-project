@@ -54,7 +54,9 @@ const validateUrl = (url) => {
       "email",
       "company_name",
       "phone",
-      "url"
+      "url",
+      "faq_url",
+      "link-checkbox"
     ];
 
     const formValues = !requiredKeys.some(
