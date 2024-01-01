@@ -62,7 +62,6 @@ export default function RootLayout({ children }) {
   // useEffect(() => {
   //   const storedToken = localStorage.getItem('Token');
   //   const storedTokenCookie = getCookie('Token');
-  //   console.log(storedTokenCookie)
   //   console.log(storedToken)
   //   if (storedToken || storedTokenCookie) checkActivity();
   // }, [])

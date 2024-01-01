@@ -12,7 +12,7 @@ import ProductSection3 from "@/app/components/Products/ProductSection3";
 import ProductSection7 from "@/app/components/Products/ProductSection7";
 import React from "react";
 import { useRef } from "react";
-const page = () => {
+const Page = () => {
   const ref = useRef(null);
   const handleClickScroll = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,4 +39,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

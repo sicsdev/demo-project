@@ -87,7 +87,7 @@ export const loginWithLink = async (body) => {
         const response = await axios.post(`${API_URL}/api/v1/accounts/magic-link-auth/login/`, body);
         return response;
     } catch (error) {
-        throw new Error(error.response)
+        return error
     }
 };
 
@@ -97,6 +97,6 @@ export const validateLinkLogin = async (body) => {
         const response = await axios.post(`${API_URL}/api/v1/accounts/magic-link-auth/validate/`, body);
         return response;
     } catch (error) {
-        throw new Error(error.response)
+        return error
     }
 };
