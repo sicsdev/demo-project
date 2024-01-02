@@ -28,7 +28,8 @@ const Customize = ({
   buttonLoading,
   DisablingButton,
   SubmitForm,
-  Submission
+  Submission,
+  Indicater
 }) => {
   const userState = useSelector((state) => state.user.data)
   const [botDetails, setBotDetails] = useState({});
@@ -469,117 +470,112 @@ const Customize = ({
           heading={"Hide widget on Certain URLs"}
         >
           <>
-            <div>
-              <h3 className="my-2 font-normal new_input_label text-sm text-heading">
-                Block paths you don't want the widget to appear on.
-              </h3>
-            </div>
+
             <div className="w-full sm:w-[70%]">
-              {blockedUrls.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center  mt-3 gap-2 "
-                >
-                  <div className="w-[120px]">
-                    <span
-                      className="new_input_label block text-sm text-heading
-                    "
-                    >
-                      URL Containing:
-                    </span>
-                  </div>
-                  <input
-                    value={blockedUrls[index]}
-                    name=""
-                    title={""}
-                    onChange={(e) => handleInputUrl(e, index)}
-                    placeholder="/path"
-                    type={"text"}
-                    id={""}
-                    paddingleft={"pl-6"}
-                    className="w-[200px] block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                  />
-                  {blockedUrls.length - 1 !== index ? (
-                    <button>
-                      <XMarkIcon
-                        fill="red"
-                        className="m-[10px] w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                        onClick={
-                          (e) => {
-                            setDebounceLoading(index)
-                            handleRemoveUrl(e, index)
-                          }
-                        }
-                        title="Delete URL"
-                        id={item}
-                      />
-                    </button>
-                  ) :
-                    <button></button>
-                  }
-                  {blockedUrls.length - 1 === index && (
-                    <button disabled={blockedUrls[index] === ""}>
-                      <PlusSmallIcon
-                        fill="green"
-                        className="w-[20px] h-[20px] mr-2 text-soft-green cursor-pointer rounded-full hover:text-black"
-                        title="Add URL"
-                        onClick={() => {
-                          setBlockedUrls(prev => {
-                            return [
-                              ...prev,
-                              "",
-                            ]
-                          })
-                        }}
-                      />
-                    </button>
-                  )}
-                  {index === debounceLoading && (
-                    <StatusIndicator loading={debounceLoading} driveLoad={driveLoading} />
-                  )}
-                </div>
-              ))}
-              {/* <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
-                <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                  <span className="new_input_label block text-sm text-heading">
-                    URL Containing:
+              <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
+                <div className="flex justify-start w-1/2 items-center">
+                  <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                    Show Chat Bot
                   </span>
                 </div>
-                <TextField
-                  onChange={(e) => {
-                    if (e.target.value && !e.target.value.startsWith("/")) {
-                      setNewBlockedUrl("/" + e.target.value);
-                    } else if (!e.target.value) {
-                      setNewBlockedUrl("");
-                    } else {
-                      setNewBlockedUrl(e.target.value);
-                    }
-                  }}
-                  value={newBlockedUrl}
-                  name="blockUrls"
-                  className="py-3 !pl-[23px]"
-                  // className="py-3 mt-1"
-                  title={""}
-                  placeholder="/path"
-                  type={""}
-                  id={"blockUrls"}
-                  paddingleft={"pl-6"}
-                />
-                 <XMarkIcon
-                    fill="red"
-                    className="w-[20px] opacity-0 h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                    onClick={(e) => handleRemoveUrl(e)}
-                    title="Delete URL"
-                  />
-                <PlusSmallIcon
-                  fill="green"
-                  className="w-[20px] h-[20px] text-soft-green mr-2 rounded-full cursor-pointer"
-                  title="Add URL"
-                  onClick={saveNewBlockedUrl}
-                />
-              </div> */}
+                <div className="flex justify-start h-[37.5px] w-1/2 items-center">
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value=""
+                      id="active"
+                      name="active"
+                      onChange={handleCheckBoxChange}
+                      className="sr-only peer"
+                      checked={preferences.active === true}
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
 
-              <div
+                    />
+                    <div
+                      className={`w-11 h-6 ${preferences.active === false
+                        ? "bg-border"
+                        : "bg-primary"
+                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                    ></div>
+                  </label>
+                </div>
+
+              </div>
+              {Indicater}
+            </div>
+
+            {preferences.active === true && (
+              <div className="w-full sm:w-[70%]">
+                <div>
+                  <h3 className="my-2 font-normal new_input_label text-sm text-heading">
+                    Block paths you don't want the widget to appear on.
+                  </h3>
+                </div>
+                {blockedUrls.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center  mt-3 gap-2 "
+                  >
+                    <div className="w-[120px]">
+                      <span
+                        className="new_input_label block text-sm text-heading
+                    "
+                      >
+                        URL Containing:
+                      </span>
+                    </div>
+                    <input
+                      value={blockedUrls[index]}
+                      name=""
+                      title={""}
+                      onChange={(e) => handleInputUrl(e, index)}
+                      placeholder="/path"
+                      type={"text"}
+                      id={""}
+                      paddingleft={"pl-6"}
+                      className="w-[200px] block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                    />
+                    {blockedUrls.length - 1 !== index ? (
+                      <button>
+                        <XMarkIcon
+                          fill="red"
+                          className="m-[10px] w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                          onClick={
+                            (e) => {
+                              setDebounceLoading(index)
+                              handleRemoveUrl(e, index)
+                            }
+                          }
+                          title="Delete URL"
+                          id={item}
+                        />
+                      </button>
+                    ) :
+                      <button></button>
+                    }
+                    {blockedUrls.length - 1 === index && (
+                      <button disabled={blockedUrls[index] === ""}>
+                        <PlusSmallIcon
+                          fill="green"
+                          className="w-[20px] h-[20px] mr-2 text-soft-green cursor-pointer rounded-full hover:text-black"
+                          title="Add URL"
+                          onClick={() => {
+                            setBlockedUrls(prev => {
+                              return [
+                                ...prev,
+                                "",
+                              ]
+                            })
+                          }}
+                        />
+                      </button>
+                    )}
+                    {index === debounceLoading && (
+                      <StatusIndicator loading={debounceLoading} driveLoad={driveLoading} />
+                    )}
+                  </div>
+                ))}
+                {/* <div
                 className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}
               >
                 <Button
@@ -589,8 +585,9 @@ const Customize = ({
                 >
                   Done
                 </Button>
+              </div> */}
               </div>
-            </div>
+            )}
           </>
         </SideModal>
       )}
@@ -856,34 +853,6 @@ const Customize = ({
                     </div>
                   </div>
 
-                </div>
-                <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
-                  <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
-                      Show Chat Bot
-                    </span>
-                  </div>
-                  <div className="flex justify-start h-[37.5px] w-1/2 items-center">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        value=""
-                        id="active"
-                        name="active"
-                        onChange={handleCheckBoxChange}
-                        className="sr-only peer"
-                        checked={preferences.active === true}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
-                      />
-                      <div
-                        className={`w-11 h-6 ${preferences.active === false
-                          ? "bg-border"
-                          : "bg-primary"
-                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
-                      ></div>
-                    </label>
-                  </div>
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">

@@ -202,8 +202,8 @@ const Logs = () => {
       };
     });
 
-    mergedArray.sort((a, b) => a.name.localeCompare(b.name))
     let combineData = combineArrays(mergedArray, usage, usedIn)
+    combineData.sort((a, b) => a.name.localeCompare(b.name))
     setBotValue(combineData);
     // getAdditionalData(mergedArray)
 
@@ -211,18 +211,18 @@ const Logs = () => {
 
 
     if (mergedArray?.length > 0) {
-      setSelectedBot(mergedArray[0].value);
-      firstTimeAnalytics(mergedArray[0].value)
+      setSelectedBot(combineData[0].value);
+      firstTimeAnalytics(combineData[0].value)
       setIndexVal(0);
 
       let queryParam = selectedWorkflowParam ? `&workflows=${selectedWorkflowParam}` : "&ordering=-number_of_messages&ordering=-created"
 
-      handlePageChange(mergedArray[0].value, 1, queryParam);
-      dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
+      handlePageChange(combineData[0].value, 1, queryParam);
+      dispatch(updateLogState({ ...logState.data, bot: combineData[0].value }));
     }
 
 
-    if (selectedWorkflowParam && mergedArray?.length > 0) {
+    if (selectedWorkflowParam && combineData?.length > 0) {
       let e = { target: { value: selectedWorkflowParam, name: "workflows" } }
       filterDataHandler(e)
     }
@@ -821,6 +821,7 @@ const Logs = () => {
 
   const getEmailPhoneData = (userState) => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
+      debugger
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
         // console.log(findBot, 'findBot')
@@ -850,6 +851,7 @@ const Logs = () => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
+        debugger
         return checkContentsName(findBot.usedIn)
       }
     }
