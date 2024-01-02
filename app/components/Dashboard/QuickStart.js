@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { ArrowRightIcon, CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -67,7 +67,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [profileComplete, setProfileComplete] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
-const [showWidget, setShowWidget] = useState(false);
+    const [showWidget, setShowWidget] = useState(false);
 
     const SideBarRoutes = [
         {
@@ -161,30 +161,30 @@ const [showWidget, setShowWidget] = useState(false);
 
     useEffect(() => {
         if (showWidget) {
-           
-          window.scrollTo({ top: 500, behavior: 'smooth' });
+
+            window.scrollTo({ top: 500, behavior: 'smooth' });
         }
-      }, [showWidget]);
+    }, [showWidget]);
 
 
     // outside click event for bottom text  
-      const handleClickOutside = (event) => {
-        
+    const handleClickOutside = (event) => {
+
         if (divRef.current && !divRef.current.contains(event.target)) {
-          setShowWidget(false);
-        console.log("outside");
+            setShowWidget(false);
+            console.log("outside");
         }
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         // Attach the click event listener to the document
         document.addEventListener('click', handleClickOutside);
-    
+
         // Cleanup the event listener when the component is unmounted
         return () => {
-          document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('click', handleClickOutside);
         };
-      }, []);
+    }, []);
 
 
 
@@ -208,7 +208,7 @@ const [showWidget, setShowWidget] = useState(false);
     useEffect(() => {
         if (user?.show_quick_start) { setIsExpand(true) } else { setIsExpand(false) }
     }, [user])
-    
+
 
 
     // Main functions
@@ -314,31 +314,31 @@ const [showWidget, setShowWidget] = useState(false);
                                         </p>
                                     </div>
                                     {billingState == "normal" && !profileComplete &&
-                                    <div className="flex items-center gap-4 justify-end">
-                                        <button
-                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg"
-                                            onClick={ExpandChange}>
-                                            {isExpand === true ? (
-                                                <>
-                                                    <p className="hidden sm:block "> Collapse</p>
-                                                    <ChevronUpIcon className="w-5 h-5" />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <p className="hidden sm:block"> Expand</p>
-                                                    <ChevronDownIcon className="w-5 h-5" />
-                                                </>
-                                            )}
-                                        </button>
-                                    </div>
-                                }
+                                        <div className="flex items-center gap-4 justify-end">
+                                            <button
+                                                className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg"
+                                                onClick={ExpandChange}>
+                                                {isExpand === true ? (
+                                                    <>
+                                                        <p className="hidden sm:block "> Collapse</p>
+                                                        <ChevronUpIcon className="w-5 h-5" />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <p className="hidden sm:block"> Expand</p>
+                                                        <ChevronDownIcon className="w-5 h-5" />
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
 
 
 
                                 {/* Only not-demo accounts can collapse and expand suggested actions. */}
 
-                              
+
 
 
 
@@ -447,7 +447,7 @@ const [showWidget, setShowWidget] = useState(false);
                                                                 </>
                                                                 :
                                                                 <button
-                                                                    onClick={() => {router.push("/dashboard/email-settings")}}
+                                                                    onClick={() => { router.push("/dashboard/email-settings") }}
                                                                     className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
                                                                 >
                                                                     Configure
@@ -687,7 +687,7 @@ const [showWidget, setShowWidget] = useState(false);
                                                             <button className={'flex items-center justify-center gap-2 border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>
                                                                 Go To
                                                                 <ArrowRightIcon className='h-4 w-5' />
-                                                                </button>
+                                                            </button>
                                                         }
                                                     </div>
                                                 </Link>
@@ -712,11 +712,11 @@ const [showWidget, setShowWidget] = useState(false);
                             <button onClick={() => setShowWidget(!showWidget)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center border-[0px]'} style={{ fontSize: '10px' }}>
                                 <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4 m-[auto] '></InformationCircleIcon>
 
-                              <p className='mt-[3px]' ref={divRef}>  Learn how to pass user's data to your widget</p>
+                                <p className='mt-[3px]' ref={divRef}>  Learn how to pass user's data to your widget</p>
                             </button>
                         </div>
-                      {showWidget === true && <div ><MetaDataInfo /></div>  }
-                        
+                        {showWidget === true && <div ><MetaDataInfo /></div>}
+
                     </>
                 )
 

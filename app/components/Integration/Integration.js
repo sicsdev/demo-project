@@ -221,7 +221,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     type={"text"}
                     id={"description"}
                     placeholder={"Enter your description"}
-                    rows="4"
+                    rows="2"
                     value={integrationFormData.description}
                     onChange={handleIntegrationInputChange} />
             </div>
@@ -395,7 +395,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 )}
             </div>
             {form === false && (
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-end">
                     {loading ? (
                         <LoaderButton />
                     ) : (
