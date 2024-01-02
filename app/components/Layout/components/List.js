@@ -12,7 +12,7 @@ const List = ({ nav_links, className, setShow }) => {
 
   const data = [
     {
-      name: "Chat Automation ",
+      name: "Chat & Email Automation",
       para: "Enhance your service capabilities",
       bgColor: "#e8f1fe",
       borderColor: "#1d74f5",
@@ -33,7 +33,7 @@ const List = ({ nav_links, className, setShow }) => {
       slug: "#learning-center",
     },
     {
-      name: "Workflow Builder",
+      name: "Actions Library",
       para: "Streamline your business processes      ",
       bgColor: "#f5e8f9",
       slug: "#workflow-builder",
@@ -130,40 +130,7 @@ const List = ({ nav_links, className, setShow }) => {
           </div>
         </div>
         <div className="grid grid-cols-2">
-          {nav_links?.map((element, key) => (
-            <div
-              key={key}
-              className={`p-1  ${key !== nav_links.length - 1 && ""}`}
-              style={{ borderColor: "#e3e3e3" }}
-            >
-              <div className=" flex gap-4">
-                <p>{element.icon}</p>
-                <h3 className="text-[#6c727a] !font-semibold uppercase text-sm  sm:pt-[4px]">
-                  {element.list_heading}
-                </h3>
-              </div>
-              <ul className="mt-5">
-                {element.data.map((element, key) => (
-                  <li
-                    className="cursor-pointer"
-                    key={key}
-                    onClick={(e) =>
-                      setShow(true)}
-                  >
-                    <Link href={element.link}>
-                      <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
-                        <div className="w-[100%]">
-                          <h3 className="text-heading text-semibold flex items-center gap-4 sm:gap-0 justify-between">
-                            {element.heading}
-                          </h3>
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          
           <div
             className="mt-[] w-[100%] bg-[#f7f8fa] p-[48px]  col-span-2"
             style={{
@@ -188,7 +155,7 @@ const List = ({ nav_links, className, setShow }) => {
             </div>
           </div>
         </div>
-        <div className="ml-[-181px] ">
+        <div className="ml-[-181px] mt-8">
           <XMarkIcon
             class="h-6 w-6 text-[#686d76] sm:font-semibold"
             onClick={() => setShow(true)}

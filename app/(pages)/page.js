@@ -71,30 +71,18 @@ export default function Home() {
   return (
     <>
       <main className="">
-
-        <Head></Head>
         <NewAbovepage />
         <Homeinte />
         <HeadText />
-        {/* <Testimonial /> */}
-        {/* <Communication /> */}
         <ServicePlatform />
-
-        {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Panelcardnew />
         <Exceptions />
-        {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
-        {/* <Help /> */}
-        {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <Homeintegration handleClickScroll={handleClickScroll} />
-          <div className="static sm:absolute right-0 left-0">
-            <AutoTabsComp handleClickScroll={handleClickScroll} />
-          </div>
-          <div className="hidden sm:block sm:mt-[35rem]">
-          </div>
-        {/* <Middlebar />
-        <Homeform reff={ref} /> */}
-        {/* <HomeComponent /> */}
+        <div className="static sm:absolute right-0 left-0">
+          <AutoTabsComp handleClickScroll={handleClickScroll} />
+        </div>
+        <div className="hidden sm:block sm:mt-[35rem]">
+        </div>
       </main>
     </>
   );

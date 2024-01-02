@@ -39,7 +39,7 @@ const ServicePlatform = () => {
       scroll:"phone-automation",
       content_video:
         "/solutions_/Phone/Instant%20voice%20responses.png",
-      h3: "Autonomous AI Phone Calls",
+      h3: "Powerful AI phone calls",
       p: "Deflection offers incoming and outgoing phone calls. Answer customers 24/7 or ask Deflection to call them with human-sounding and powerful voice interactions.",
       className: "bg-[#fcf7fc]",
       link: "/solutions/phone",
@@ -53,7 +53,7 @@ const ServicePlatform = () => {
 
       logo: <AcademicCapIcon className="h-[84px] w-10 text-gray-500" />,
       content_video: "/LearningCenter.png",
-      h3: "Our AI learns quickly from your interactions. ",
+      h3: "Self-learning from your interactions.",
       p: "Better than ChatGPT. Deflection only answers questions it knows how to and will automatically learn from your website, help center, historical tickets, and ongoing customer interactions. ",
       className: "bg-[#fff8f8]",
       link: "/features/learning-center",
