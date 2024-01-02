@@ -55,10 +55,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     // Dropdown of modifiers
     const [idToModify, setIdToModify] = useState('')
 
+    const [formattedMessages, setFormattedMessages] = useState([])
+
     useEffect(() => {
         getKnowledge()
         getDetails()
         handleResize()
+        formatMessages(messages)
 
 
         // responsive
@@ -69,6 +72,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         };
 
     }, [idOfOpenConversation, messages])
+
 
 
     useEffect(() => {
@@ -82,6 +86,25 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
     // Handlers 
+
+    const formatMessages = (messages) => {
+        const filteredMessages = []
+        let lastMessageIsHumanHandoff = false
+
+        messages.forEach((message) => {
+            if(!lastMessageIsHumanHandoff){
+                filteredMessages.push(message)
+            }
+
+            if (message?.content == "HUMAN-HANDOFF") {
+                lastMessageIsHumanHandoff = true
+            } else {
+                lastMessageIsHumanHandoff = false
+            }
+        })
+
+        setFormattedMessages(filteredMessages)
+    }
 
     async function getAllBots() {
         let bots = await getBotAllData()
@@ -197,7 +220,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             contentParts.push(content.substring(startIndex, endIndex + 1));
             startIndex = endIndex + 1;
         }
-        console.log("🚀 ~ file: Chats.js:199 ~ divideAnswer ~ contentParts:", contentParts)
 
         return (
             <div style={{ marginRight: '25px' }}>
@@ -580,8 +602,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         </div>
                                                     </div>
 
-                                                    {messages.map((element, key) => {
-                                                        console.log("🚀 ~ file: Chats.js:585 ~ {messages.map ~ element:", element)
+                                                    {formattedMessages.map((element, key) => {
+
                                                         return (
                                                             <>
                                                                 {element.sender === 'bot' &&
@@ -635,7 +657,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                             }
 
 
-                                                                            
+
                                                                             {/*************  SOURCES & INFORMATION ******************/}
                                                                             {
                                                                                 element.content !== 'OPTIONS'
@@ -667,7 +689,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                             {
                                                                                                 element?.knowledge?.length ?
-                                                                                                    element?.knowledge?.map(item => (
+                                                                                                    element?.knowledge?.map((item, key) => (
                                                                                                         <EditKnowledge
                                                                                                             message={element}
                                                                                                             setDropdownOpenId={setDropdownOpenId}
@@ -677,6 +699,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                             item={item}
                                                                                                             allKnowledge={allKnowledge}
                                                                                                             idOfOpenConversation={idOfOpenConversation}
+                                                                                                            key={key}
                                                                                                         >
                                                                                                         </EditKnowledge>
                                                                                                     ))
@@ -684,7 +707,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                     :
 
                                                                                                     element?.workflows?.length ?
-                                                                                                        element?.workflows?.map(workflow => (
+                                                                                                        element?.workflows?.map((workflow, key) => (
                                                                                                             <EditWorkflow
                                                                                                                 message={element}
                                                                                                                 allMessages={messages}
@@ -692,13 +715,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                                 item={workflow}
                                                                                                                 setDropdownOpenId={setDropdownOpenId}
                                                                                                                 dropdownOpenId={dropdownOpenId}
+                                                                                                                key={key}
                                                                                                             >
                                                                                                             </EditWorkflow>
                                                                                                         ))
 
-                                                                                                        :
+                                                                                                        ://Human Handoff
                                                                                                         <div className='flex gap-4 items-center mt-2'>
-                                                                                                            <small>LLM</small>
+                                                                                                            <small>LLM {element?.type_details == "HUMAN-HANDOFF" ? <><span style={{ letterSpacing: '-1px' }}>--</span>  Human Handoff</> : ""}</small>
                                                                                                         </div>
 
                                                                                             }
@@ -842,7 +866,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                 </small>
                                                                                             </small>
 
-                                                                                            {element?.workflows?.map(workflow => (
+                                                                                            {element?.workflows?.map((workflow, key) => (
                                                                                                 <EditWorkflow
                                                                                                     message={element}
                                                                                                     allMessages={messages}
@@ -850,6 +874,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                     item={workflow}
                                                                                                     setDropdownOpenId={setDropdownOpenId}
                                                                                                     dropdownOpenId={dropdownOpenId}
+                                                                                                    key={key}
                                                                                                 >
                                                                                                 </EditWorkflow>
                                                                                             ))}
@@ -988,7 +1013,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                     </small>
                                                                                                 </small>
 
-                                                                                                {element?.workflows?.map(workflow => (
+                                                                                                {element?.workflows?.map((workflow, key) => (
                                                                                                     <EditWorkflow
                                                                                                         message={element}
                                                                                                         allMessages={messages}
@@ -996,6 +1021,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                         item={workflow}
                                                                                                         setDropdownOpenId={setDropdownOpenId}
                                                                                                         dropdownOpenId={dropdownOpenId}
+                                                                                                        key={key}
                                                                                                     >
                                                                                                     </EditWorkflow>
                                                                                                 ))}
