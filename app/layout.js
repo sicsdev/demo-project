@@ -285,8 +285,6 @@ export default function RootLayout({ children }) {
         </NoSSRProviderWrapper>
 
 
-
-
         <Script
           dangerouslySetInnerHTML={{
             __html: ` 
@@ -337,6 +335,14 @@ _learnq.push(['account', 'UVQx8p']);
           type="text/javascript"
           async
         />
+
+
+{/* <!-- Google Tag Manager (noscript) --> */}
+<Script  src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
+height="0" width="0" style="display:none;visibility:hidden" />
+{/* <!-- End Google Tag Manager (noscript) --> */}
+
+
       </body>
       <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
     </html>
