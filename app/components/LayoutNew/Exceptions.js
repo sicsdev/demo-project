@@ -8,20 +8,20 @@ const Exceptions = () => {
   const reachData = [
     {
       reach: "99.999%",
-      name: "Higher CSATs",
-      para: "Companies using our platform can anticipate higher customer satisfaction scores, contributing to overall customer loyalty.",
+      name: "Better Satisfaction",
+      para: "American and outsourced customer service is terrible. Deflection improves customer satisfaction, meaning happier customers.  ",
       link_title: "Leverage your data",
     },
     {
       reach: "99.999%",
-      name: "More Deflections ",
-      para: "Experience a significant reduction in the number of tickets that require human intervention, optimizing your operations.",
+      name: "Instant Integration",
+      para: "Deflection AI automatically grabs your website data and integrations to set up your account for you. Get up and running in minutes, not days.",
       link_title: "Leverage your data",
     },
     {
       reach: "55++",
-      name: "24/7/365 Uptime",
-      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.",
+      name: "Always on the Clock",
+      para: "Benefit from magical 24/7 uptime and 0 minute response times, no staffing or humans required.",
       link_title: "Leverage your data",
     },
   ];
@@ -44,8 +44,8 @@ const Exceptions = () => {
                 <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  text-2xl sm:text-[26px] sm:w-[331px] md:w-[468px] lg:w-[500px] xl:w-[100%] md:text-[38px] font-bold sm:mb-0 sm:leading-[1.4em]">
                   {loading ? <SkeletonLoader count={2} height={35} width={"70%"} /> :
                     <>
-                      Platform for intelligent,{" "}<br />
-                      <span className="text-[#2563eb]">high-growth</span> companies{" "}
+                     Deflection is the leader in {" "}<br />
+                      <span className="text-[#2563eb]">customer service AI</span> {" "}
                     </>
                   }
                 </h1>
@@ -54,9 +54,9 @@ const Exceptions = () => {
                 <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
                   {loading ? <SkeletonLoader count={2} height={35} width={"100%"} /> :
                     <>
-                      Platform for intelligent,{" "}
-                      <span className="text-[#2563eb]">high-growth</span> companies{" "}
-                    </>
+                    Deflection is the leader in {" "}<br />
+                     <span className="text-[#2563eb]">customer service AI</span> {" "}
+                   </>
                   }
                 </h1>
               </div>
