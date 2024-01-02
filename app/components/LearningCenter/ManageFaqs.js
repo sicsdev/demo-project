@@ -666,7 +666,7 @@ const openBotModal=()=>{
 
                                 </li>
 
-                                <li className={`  ${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                                {/* <li className={`  ${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                                     getNagetiveQuestions(selected.id)
                                     setTab(2)
                                 }}>
@@ -679,7 +679,7 @@ const openBotModal=()=>{
                                         Prompt Modifiers
                                     </span>
 
-                                </li>
+                                </li> */}
 
                             </ul>
                         </div>

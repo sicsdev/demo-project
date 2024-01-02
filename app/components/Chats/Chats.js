@@ -437,9 +437,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                             {conversationDetails.type == 'chat' &&
                                 <div className=''>
-                                    <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                    <div className={`flex justify-center bg-graywhite items-center p-1 text-primary rounded-md gap-1`}>
                                         <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4" />
-                                        Chat
+                                        <span>Chat</span>
                                     </div>
                                 </div>
 

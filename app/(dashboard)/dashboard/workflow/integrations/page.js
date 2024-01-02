@@ -429,13 +429,13 @@ const Page = () => {
               {formData && (
                 <div>
                   <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
-
+ 
                     setFormData({})
                     setIntegrationform(false)
                   }
                   }></div>
-                  <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 p-5 sm:overflow-auto overflow-y-scroll sm:w-[50%] w-[100%] fixed sm:top-10 top-1 h-[auto] m-auto max-h-[100%] bg-white rounded-md sm:right-[0] md:right-[300px] lg:right-[300px] right-0`}>
-                    <NewCustomIntegrations
+                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white  ${billingState == "demo" ? "py-20" : ""}`}>
+                    <CustomIntegration
                       help={help}
                       fetchData={fetchIntegrations}
                       formData={formData}
