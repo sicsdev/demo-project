@@ -10,6 +10,7 @@ import {
   PencilIcon,
   BanknotesIcon,
   ChartBarIcon,
+  ChatBubbleLeftEllipsisIcon
 } from "@heroicons/react/24/solid";
 import {
   CodeBracketSquareIcon
@@ -57,8 +58,8 @@ export const EmbedCard = ({
     }
   }
   const [code, setCode] = useState("");
-   const [disabledStatus, setDisabledStatus] = useState(detailsData.map(() => false));
-   const [toggle, setToggle] = useState(null)
+  const [disabledStatus, setDisabledStatus] = useState(detailsData.map(() => false));
+  const [toggle, setToggle] = useState(null)
   const [embedCode, setEmbedCode] = useState("")
   const [mode, setMode] = useState('chat')
   const [showCode, setShowCode] = useState(element.usedIn.length === 0 ? element.id : null)
@@ -69,7 +70,7 @@ export const EmbedCard = ({
     setCode(element.code);
     addEmbedFlagToCode()
   }, [copied]);
- 
+
   function addEmbedFlagToCode() {
     // const updatedCode = code.includes("embed: true")
     //   ? code.replace("  embed: true\n", "")
@@ -82,7 +83,7 @@ export const EmbedCard = ({
     setEmbedCode(updatedCode);
   }
 
-  const [isEmbedEnabled, setIsEmbedEnabled] = useState(true);
+  const [isEmbedEnabled, setIsEmbedEnabled] = useState(null);
 
   const toggleEmbed = (type) => {
     if (type === 'embed') {
@@ -138,12 +139,14 @@ export const EmbedCard = ({
         <div className='flex justify-between items-center pt-4 px-4'>
           <input ref={(el) => (inputRefs.current[index] = el)} className={` block  px-2 py-2 bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none font-semibold text-heading focus:!border-0`} name="title" id="title" value={detailsData[index].title} onChange={(e) => {
             handleInput(e, index)
-          }}  disabled={activate === false} onBlur={(e) => { 
+          }} disabled={activate === false} onBlur={(e) => {
             setToggle(null)
-            updateNameOFBot(index) }} />
-          <div className="relative" onClick={(e) => { 
+            updateNameOFBot(index)
+          }} />
+          <div className="relative" onClick={(e) => {
             setActivate(true)
-            setToggle(prev => prev ? null : element.id) }}>
+            setToggle(prev => prev ? null : element.id)
+          }}>
             <EllipsisHorizontalIcon className="h-6 w-6 text-heading hover:bg-[#F6F6F6] hover:rounded-md" />
             {toggle === element.id && (
               <div className="z-10  w-48 bg-white rounded-lg shadow absolute right-0">
@@ -158,14 +161,38 @@ export const EmbedCard = ({
                     </div>
                   </li>
                   <li>
-                    <div className="flex items-center font-semibold justify-start gap-2 p-2 text-[#6d7480]  hover:bg-[#F6F6F6] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
+                    <div className="flex items-center font-semibold justify-start gap-2 p-2 text-[#6d7480]  hover:bg-[#F6F6F6] hover:text-primary rounded-[6px]" onClick={(e) => {
+                      setIsEmbedEnabled(null)
+                      setShowCode(prev => prev ? null : element.id)
+                    }}>
                       {showCode === element.id ?
                         <ChartBarIcon className="h-4 w-4 " />
                         :
-                        <CodeBracketSquareIcon className="h-4 w-4 " />
+                        <ChatBubbleLeftEllipsisIcon className="h-4 w-4 " />
                       }
 
-                      <p className="text-[13px]">{showCode === element.id ? "Show Usage" : "Show html"} </p>
+                      <p className="text-[13px]">{showCode === element.id ? "Show Usage" : "Chat html"} </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center font-semibold justify-start gap-2 p-2 text-[#6d7480]  hover:bg-[#F6F6F6] hover:text-primary rounded-[6px]" onClick={(e) => {
+
+                      if (showCode === null) {
+                        setIsEmbedEnabled(prev => prev ? null : element.id)
+                        setShowCode(prev => prev ? null : element.id)
+                      } else if (showCode && !isEmbedEnabled) {
+                        setIsEmbedEnabled(prev => prev ? null : element.id)
+                      } else {
+                        setIsEmbedEnabled(null)
+                      }
+
+
+                    }}>
+
+                      {isEmbedEnabled === element.id ? <ChatBubbleLeftEllipsisIcon className="h-4 w-4 " />
+                        :<CodeBracketSquareIcon className="h-4 w-4 " />}
+
+                      <p className="text-[13px]">{isEmbedEnabled === element.id ? "Chat html" : "Embed html"} </p>
                     </div>
                   </li>
                 </ul>
@@ -290,7 +317,7 @@ export const EmbedCard = ({
 
 
 
-              {isEmbedEnabled &&
+              {isEmbedEnabled === element.id &&
                 <div className='mt-5 relative'>
                   <hr className='opacity-10 my-2'></hr>
                   <div className='my-3'>

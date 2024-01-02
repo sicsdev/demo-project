@@ -109,6 +109,7 @@ const PhoneHandle = () => {
 
                 }
             })
+            data.sort((a, b) => a.options - b.options);
             setBasicFormData(data)
             setTimeout(() => {
                 setPageLoading(false)
