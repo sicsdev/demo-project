@@ -36,6 +36,8 @@ const PhoneHandle = () => {
     const [audioModal, setAudioModal] = useState(false)
     const [index, setIndex] = useState(null)
     const [greetingLoading, setGreetingLoading] = useState(false)
+    const [toggleLoading, setToggleLoading] = useState(false)
+    const [toggleDriveLoading, setToggleDriveLoading] = useState(false)
     const [greetingAudioLoading, setGreetingAudioLoading] = useState(false)
     const [greetingPhoneLoading, setGreetingPhoneLoading] = useState(false)
     const [modal, setModal] = useState(false)
@@ -122,6 +124,8 @@ const PhoneHandle = () => {
 
 
     const handleChange = () => {
+        setToggleLoading(true)
+        setToggleDriveLoading(false)
         if (basicField?.checked === true) {
             setBasicField(prev => {
                 return {
@@ -235,6 +239,11 @@ const PhoneHandle = () => {
             setModal(false)
             setAudioModal(false)
             setGreetingLoading(false)
+            setToggleLoading(false)
+            setToggleDriveLoading(true)
+            setTimeout(() => {
+                setToggleDriveLoading(false)
+            }, 2000);
             setFormLoading(false)
         } else {
             errorMessage(getErrorMessage(response.response.data))
@@ -468,6 +477,7 @@ const PhoneHandle = () => {
                                                 </label>
                                                 <p className='text-sm  text-heading font-normal bg-lowgray rounded-md px-3 py-1'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
                                             </div>
+                                            <StatusIndicator loading={toggleLoading} driveLoad={toggleDriveLoading} />
                                         </>
                                 }
 

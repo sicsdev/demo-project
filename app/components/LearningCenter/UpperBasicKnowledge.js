@@ -509,6 +509,32 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
                     <div className='block items-center my-3'>
                         <ul className="list-none p-0 m-0 w-100">
+                          
+                       
+
+                         
+
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div
+                                    onClick={() => {
+                                        handleCreateOptions('url');
+                                        setCreateMode('snippet');
+                                    }}
+                                    className="flex items-center"
+                                >
+                                    <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
+                                        <GlobeAmericasIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>URL</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">
+                                            A website or help center you’d like to train Deflection on.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                             <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
                                 <div
                                     onClick={() => {
@@ -528,20 +554,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     </div>
                                 </div>
                             </li>
-                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
-                                <div onClick={() => handleCreateOptions('pdf')} className="flex items-center">
-                                    <div className="flex-shrink-0 h-10 w-10 bg-primary rounded-lg p-2">
-                                        <PaperClipIcon className="h-full w-full text-white" />
-                                    </div>
-                                    <div className="ml-4">
-                                        <h3 className="text-sm font-bold">
-                                            <b>File Upload</b>
-                                        </h3>
-                                        <p className="text-xs font-normal">Txt or PDF FAQ or support file.</p>
-                                    </div>
-                                </div>
-                            </li>
-
                             <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
                                 <div
                                     onClick={() => {
@@ -563,28 +575,19 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     </div>
                                 </div>
                             </li>
-
                             <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
-                                <div
-                                    onClick={() => {
-                                        handleCreateOptions('url');
-                                        setCreateMode('snippet');
-                                    }}
-                                    className="flex items-center"
-                                >
-                                    <div className="flex-shrink-0 h-10 w-10 bg-[#FF6B20] rounded-lg p-2">
-                                        <GlobeAmericasIcon className="h-full w-full text-white" />
+                                <div onClick={() => handleCreateOptions('pdf')} className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10 bg-primary rounded-lg p-2">
+                                        <PaperClipIcon className="h-full w-full text-white" />
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-sm font-bold">
-                                            <b>Website</b>
+                                            <b>File</b>
                                         </h3>
-                                        <p className="text-xs font-normal">
-                                            A website or help center you’d like to train Deflection on.
-                                        </p>
+                                        <p className="text-xs font-normal">Txt or PDF FAQ or support file.</p>
                                     </div>
                                 </div>
-                            </li>
+                            </li>   
                         </ul>
                     </div>
                 </SideModal >
