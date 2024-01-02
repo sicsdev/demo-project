@@ -163,8 +163,17 @@ const NewCustomIntegrations = ({ setIntegrationform, help, formData, setFormData
         }
         return Object.values(customFields).some(field => field.trim() === '');
     };
+    const keyShouldBeHidden = (key) => {
+        let result;
 
-console.log("formData", payloadData)
+        try {
+            if (payloadData?.data[key]?.includes('hide:true')) { result = true } else { return false }
+        } catch (error) {
+            result = false
+        }
+        return result
+    }
+
     return (
         <>
             <div className="flex items-center justify-between
@@ -184,55 +193,60 @@ console.log("formData", payloadData)
             <div className="sm:pt-2 pt-2">
                 <div class="grid grid-cols-1 md:grid-cols-[70%,30%] items-start">
                     <div className="">
-                        <div className="sm:mr-8">
+                    <div className="sm:mr-8">
                             {checked ?
                                 <form>
-                                    {Object.keys(formData).map((key) => (
-                                        <div className='my-1' key={key}>
-                                            <TextField
-                                                onChange={(e) => handleIntegrationInputChange(e)}
-                                                value={payloadData?.data[key]}
-                                                name={key}
-                                                autoComplete={'off'}
-                                                labelClass={"font-bold mb-2"}
-                                                className="py-1 mt-2"
-                                                title={convertToTitleCase(key)}
-                                                placeholder={convertToTitleCase(key)}
-                                                type={"text"}
-                                                id={key}
-                                                // disabled={formData[key]}
-                                                // handleInputFocus={(e) => handleInputFocus(e, key)}
-                                                onKeyDown={handleDeleteKeyPress}
-                                            // disabled
-                                            />
-                                        </div>
-                                    ))}
+                                    {Object.keys(formData).map((key) => {
+                                        if (keyShouldBeHidden(key)) return;
+
+                                        return (
+                                            <div className='my-2' key={key}>
+                                                <TextField
+                                                    onChange={(e) => handleIntegrationInputChange(e)}
+                                                    value={payloadData?.data[key]}
+                                                    name={key}
+                                                    autoComplete={'off'}
+                                                    labelClass={"font-bold mb-2"}
+                                                    className="py-3 mt-2"
+                                                    title={convertToTitleCase(key)}
+                                                    placeholder={convertToTitleCase(key)}
+                                                    type={"text"}
+                                                    id={key}
+                                                    // disabled={formData[key]}
+                                                    // handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                    onKeyDown={handleDeleteKeyPress}
+                                                // disabled
+                                                />
+                                            </div>
+                                        )
+                                    }
+                                    )}
                                 </form>
                                 :
                                 <form>
-                                    {Object.keys(formData).map((key) => (
-                                        // formData[key] ? null : (
-                                        <div className='my-1' key={key}>
-                                            <TextField
-                                                onChange={(e) => handleIntegrationInputChange(e)}
-                                                value={payloadData?.data[key]}
-                                                name={key}
-                                                autoComplete={'off'}
-                                                labelClass={"font-bold mb-2"}
-                                                className="py-1"
-                                                title={convertToTitleCase(key)}
-                                                placeholder={convertToTitleCase(key)}
-                                                type={"text"}
-                                                id={key}
-                                                labelClassName={"mb-0"}
-                                                // disabled={formData[key]}
-                                                // handleInputFocus={(e) => handleInputFocus(e, key)}
-                                                onKeyDown={handleDeleteKeyPress}
-                                            // disabled
-                                            />
-                                        </div>
-                                        // )
-                                    ))}
+                                    {Object.keys(formData).map((key) => {
+                                        if (keyShouldBeHidden(key)) return;
+
+                                        return (
+                                            <div className='my-2' key={key}>
+                                                <TextField
+                                                    onChange={(e) => handleIntegrationInputChange(e)}
+                                                    value={payloadData?.data[key]}
+                                                    name={key}
+                                                    autoComplete={'off'}
+                                                    labelClass={"font-bold mb-2"}
+                                                    className="py-3 mt-2"
+                                                    title={convertToTitleCase(key)}
+                                                    placeholder={convertToTitleCase(key)}
+                                                    type={"text"}
+                                                    id={key}
+                                                    // handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                    onKeyDown={handleDeleteKeyPress}
+                                                />
+                                            </div>
+                                        )
+                                    }
+                                    )}
                                 </form>}
 
                         </div>
