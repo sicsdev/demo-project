@@ -9,11 +9,11 @@ const price_data = [
       btn_title: "Get a demo",
       feature_title: "PRO KEY FEATURES, PLUS",
       feature_list: [
-        { title: "Email, Chat, Phone Channels", alert_icon: "" },
-        { title: "Workflow Builder", alert_icon: "" },
-        { title: "Learning Center", alert_icon: "" },
+        { title: "Email, Chat Channels", alert_icon: "" },
+        { title: "API Actions Library", alert_icon: "" },
+        { title: "Automatically Learns", alert_icon: "" },
 
-        { title: "24/7 Support", alert_icon: "" },
+        { title: "24/7/365 SLA", alert_icon: "" },
       ],
     },
     {

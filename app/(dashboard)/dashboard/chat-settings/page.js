@@ -71,7 +71,7 @@ const page = () => {
       setTimeout(() => {
         setPageLoading(false);
         setSubLoading(false);
-      }, 300);
+      }, 2000);
     });
   };
 
@@ -100,7 +100,6 @@ const page = () => {
 
   const selectBotHandler = (id) => {
     setSelectedBot(id);
-    // setSubLoading(true);
     router.push(`/dashboard/chat-settings?id=${id}`);
     setPageLoading(true);
     getBotInfo(id);
@@ -184,8 +183,6 @@ const page = () => {
       .then((res) => {
         if (res?.status === 200 || res?.status === 201) {
           setLoading(false);
-          dispatch(fetchBot());
-          getBotInfo(selectedBot);
           setDriveLoad(true)
           setTimeout(() => {
             setDriveLoad(false)

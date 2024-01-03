@@ -11,9 +11,9 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             name: "Stefan Teubner",
             content: "Save More with Every Resolution",
             title: "Cost-Efficient",
-            description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand.",
-            side_heading: "Pay Per Resolution",
-            side_heading_m: <p>  Pay Per  <br />Resolution</p>,
+            description: "Pay per use. No minimums in our standard plans and no headcount requirements. Simple turn Deflection on and only use it for the interactions you want to. ",
+            side_heading: "Saves You Money",
+            side_heading_m: <p>  Saves You  <br />Money</p>,
 
             "points": ["Transparent, per-resolution pricing", "Significant cost savings", <Link href="/pricing">Learn more about pricing</Link>]
 
@@ -23,9 +23,9 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             name: "Niki Papazoglakis",
             content: "Tailored Onboarding Experience",
             title: "Personalized Setup",
-            description: "Our dedicated sales and implementation teams ensure your setup is seamless, efficient, and tailored to your business needs.",
-            side_heading: "White-Glove Onboarding",
-            side_heading_m: <p> White-Glove   <br />Onboarding</p>,
+            description: "Deflection integrates automatically. If you need more support, our implementation team will ensure your setup is seamless and tailored to your business needs.",
+            side_heading: "Instant Onboarding",
+            side_heading_m: <p> Instant <br />Onboarding</p>,
 
             "points": ['Expert implementation support', 'Customized setup and integration', 'Dedicated team for seamless transition']
         },
@@ -34,9 +34,9 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             name: "Oliver Jägle",
             content: "Speak To Your Customers, Anywhere",
             title: "Universal Communication",
-            description: "Our platform offers support in all languages across every channel, ensuring your business is always connected and responsive.",
-            side_heading: "Multi-Channel Synergy",
-            side_heading_m: <p>Multi-Channel <br />Synergy</p>,
+            description: "Our platform offers support in many languages and your most important channels 24/7, ensuring you are always responsive to customer needs, wherever and whoever they are are.",
+            side_heading: "Omnichannel & Multilingual ",
+            side_heading_m: <p>Omnichannel & <br />Multilingual</p>,
 
             "points": ['Multilingual support', '24/7 availability across all channels', 'Global reach for seamless communication']
         },
@@ -45,9 +45,9 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             title: "Trustworthy and Secure",
             name: "Niki Papazoglakis",
             content: "Upholding the Highest Standards",
-            description: "With robust compliance measures and advanced security protocols, we provide a safe and secure environment for all your interactions.",
-            side_heading: "Compliance and Security",
-            side_heading_m: <p>Compliance and <br />Security</p>,
+            description: "Robust compliance measures and data security means a safe experience for enterprises and highly-regulated businesses. ",
+            side_heading: "Compliant and Secure",
+            side_heading_m: <p>Compliant and <br />Secure</p>,
 
             "points": ['Adherence to strict compliance standards', 'Advanced security measures', 'Safe and secure data handling',]
         }
