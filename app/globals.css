@@ -1514,7 +1514,11 @@ div[data-column-id="used"] {
   justify-content: center;
 }
 div[data-column-id="question"] {
-  min-width:35%;
+  min-width:45%;
+}
+div[data-column-id="created"] {
+ display: flex;
+ justify-content: center;
 }
 
 div[data-column-id="term"] {

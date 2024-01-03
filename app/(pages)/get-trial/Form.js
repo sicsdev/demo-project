@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
 import React, { useState, useEffect } from "react";
 
-const TrialForm = ({ formData, setFormData, pop, setPop }) => {
+const TrialForm = ({ formData, setFormData, pop, setPop, namepop, setNamePop }) => {
   const formatPhoneNumber = (value) => {
     // Remove all characters except digits
     let numbersOnly = value.replace(/[^\d]/g, "");
@@ -235,12 +235,17 @@ setPop(false);
       </div>
       <div className="my-2 sm:my-0 grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
+        {namepop == true ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+            Please enter valid information
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div></> : ""}
           <TextField
             type="text"
             id="first_name"
             name="first_name"
             value={formData?.first_name ?? ""}
             onChange={handleInputValues}
+            onBlur={handleFirstName}
             className="py-3 mt-1 outline-none"
             title={
               <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">

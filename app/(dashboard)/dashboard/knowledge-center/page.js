@@ -27,7 +27,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Modal from "@/app/components/Common/Modal/Modal";
 import TextEditor from "@/app/components/URL/Richtext";
 import AnswersEditor from "./AnswersEditor";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import FaqHistoryTab from "@/app/components/LearningCenter/FaqHistoryTab";
 import SelectOption from "@/app/components/Common/Input/SelectOption";
 
@@ -39,6 +39,7 @@ const pusher = new Pusher("1fc282a0eb5e42789c23", {
 const Page = () => {
 
     const params = useSearchParams()
+    const router = useRouter();
 
     const workflowState = useSelector(state => state.workflow);
     const [pageVal1, setPageVal1] = useState(1)
@@ -262,6 +263,15 @@ const Page = () => {
         }
     };
 
+
+
+// const handleLogsRedirection=(row)=>{
+//     console.log("rowww", row.messages)
+
+// router.push(`/dashboard/analytics?id=${row.messages[0].conversation}`)
+
+// }
+
     const columns = [
         {
             name: <p className="font-[600]">Question</p>,
@@ -316,7 +326,7 @@ const Page = () => {
             center: true,
             cell: (row, index) => (
                 <>
-                   <p onClick={(e)=> {row.messages.length ? console.log("one") : console.log("two")}} className={`${row.messages.length ? "text-[black] cursor-pointer" : "text-[black]"}`}>{row.messages.length  ? `${row.number_of_messages}  conv.` :  "Uploaded"}</p>
+                   <div style={{ paddingTop: '15px', paddingBottom: '15px', margin:"auto" }}  className={`${row.messages.length ? "text-primary cursor-pointer p-[5px]" : "text-[black]"}`}>{row.messages.length  ? <Link href={`/dashboard/analytics?id=${row.id}`}> {row.number_of_messages}  conv.</Link>  : <p>Uploaded</p>}</div>
                 </>
             ),
         },
@@ -347,7 +357,7 @@ const Page = () => {
                                 
                                     <div>
                                         <button type="button">
-                                            <PlusCircleIcon className="h-6 w-6 text-success " />
+                                            <PlusCircleIcon className="h-6 w-6 text-[#2563eb] " />
                                         </button>
                                     </div>
                                     <>
@@ -355,7 +365,7 @@ const Page = () => {
                                             <ColorRing
                                                 height="30"
                                                 width="30"
-                                                color="#4fa94d"
+                                                color="#2563eb"
                                                 ariaLabel="tail-spin-loading"
                                                 radius="1"
                                                 wrapperClass="text-center"
@@ -369,7 +379,7 @@ const Page = () => {
                                                         deleteButtonHandler(row.id);
                                                     }}
                                                 >
-                                                    <XCircleIcon className="h-6 w-6 text-danger " /> 
+                                                    <XCircleIcon className="h-6 w-6 text-[#626060] " /> 
                                                 </button>
                                             </div>
                                         }
@@ -392,13 +402,10 @@ console.log("result", state?.data?.results);
 
         // Opciones para formatear la fecha
         const options = {
-            weekday: 'long',
-            year: 'numeric',
+            year: '2-digit',
             month: 'numeric',  // Use 'numeric' instead of '2-digit'
             day: 'numeric',    // Use 'numeric' instead of '2-digit'
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
+         
         };
 
         // Formatear la fecha
