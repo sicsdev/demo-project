@@ -11,9 +11,9 @@ const Homeinte = () => {
     { url: "/perry_logo.png" },
   ];
   const [loading, setLoading] = useState(true);
-  const [loadingEmbed, setLoadingEmbed] = useState(false)
   const [currentEmbedSelected, setCurrentEmbedSelected] = useState('')
   const [intervalId, setIntervalId] = useState(null);
+  const [stopCarrousel, setStopCarousel] = useState(false);
 
   useEffect(() => {
     let defaultId = "07edd680-e6fa-4ca3-ac1e-fcc10b4c6f71"
@@ -25,13 +25,26 @@ const Homeinte = () => {
 
     const id = setInterval(() => {
       changeEmbedWidgetIdToNext();
-    }, 10000);
+    }, 15000);
     setIntervalId(id);
 
+    getDivSuggestedQuestions();
+
     return () => { clearInterval(id) };
-
-
   }, []);
+
+  useEffect(() => {
+    if (stopCarrousel) {
+      clearInterval(intervalId);
+    }
+  }, [stopCarrousel])
+
+  const getDivSuggestedQuestions = () => {
+    const divSuggestedQuestions = document.getElementById("chatbot_widget")
+    if (divSuggestedQuestions) {
+      divSuggestedQuestions.addEventListener("click", handleStopCarousel)
+    }
+  }
 
   const changeEmbedWidgetIdToNext = () => {
     let embedId = sessionStorage.getItem('deflectionEmbedWidgetId')
@@ -57,6 +70,7 @@ const Homeinte = () => {
 
   const handleStopCarousel = () => {
     clearInterval(intervalId);
+    setStopCarousel(true)
   }
 
   const embedItems = [
@@ -87,7 +101,6 @@ const Homeinte = () => {
     handleStopCarousel()
   }
 
-
   return (
     <div className="icons pt-[1px] sm:pt-4 pb-12 w-full mx-auto mt-5">
       <div className="sm:mb-8 mx-auto max-w-[90%]">
@@ -117,8 +130,8 @@ const Homeinte = () => {
           ))}
         </div> */}
         <div className='flex overflow-x-auto gap-2 md:gap-5 xl:gap-10 justify-center hide-scrollbar mt-5'>
-          {embedItems.map(item => (
-            <div className={`flex-col flex justify-center md:flex gap-3 items-center px-3 md:px-5 pb-2 pt-3 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => handleChangeAndStopTimer(item.id)}>
+          {embedItems.map((item, key) => (
+            <div key={key} className={`flex-col flex justify-center md:flex gap-3 items-center px-3 md:px-5 pb-2 pt-3 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => handleChangeAndStopTimer(item.id)}>
               <img className="h-10 w-10 flex justify-center" src={item.imgSrc} alt={item.title} />
               <small className="truncate whitespace-nowrap overflow-hidden"><b>{item.title}</b></small>
             </div>
