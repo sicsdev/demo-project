@@ -245,7 +245,7 @@ setPop(false);
             name="first_name"
             value={formData?.first_name ?? ""}
             onChange={handleInputValues}
-            onBlur={handleFirstName}
+            // onBlur={handleFirstName}
             className="py-3 mt-1 outline-none"
             title={
               <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
