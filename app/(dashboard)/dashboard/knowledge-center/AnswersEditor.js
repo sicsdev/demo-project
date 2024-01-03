@@ -205,16 +205,16 @@ console.log("workFlowData.reccomodation",workFlowData.reccomodation)
                                     {subQuestions.length > 0 && showRecommendedQuestions && (
                                         <>
                                             <div className={`my-4 rounded-md p-3 px-2`}>
-                                                <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
+                                                <ul className="text-start py-2 text-sm text-gray-700" >
                                                     <h1 className="text-xs font-semibold">{defaultTitle} Answers:</h1>
                                                     {subQuestions?.map((element, key) =>
                                                         <li className='p-4 text-justify bg-[#96b2ed2e] text-heading my-2 cursor-pointer mr-3 rounded-lg' key={key}>
                                                             <p className="text-xs font-semibold">{element.data.question}</p>
                                                             <p className="text-xs  mt-2">{element.data.answer}</p>
                                                             <div className='mt-6'>
-                                                                <div className="flex justify-between items-center gap-2">
+                                                                <div className="flex justify-end items-center gap-2">
 
-                                                                    <div onClick={() => {
+                                                                    {/* <div onClick={() => {
                                                                         navigator.clipboard.writeText(element.data.answer);
                                                                         setCopying(key)
                                                                         setTimeout(() => {
@@ -222,7 +222,7 @@ console.log("workFlowData.reccomodation",workFlowData.reccomodation)
                                                                         }, 1500);
                                                                     }} className={`text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:text-white ${copying == key ? "text-white bg-success" : "text-sky hover:bg-sky"}`}>
                                                                    <small> copy</small>
-                                                                    </div>
+                                                                    </div> */}
 
                                                                     <div onClick={() => {
                                                                         if (!updateLoader1) {
@@ -416,7 +416,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                             {workFlowData.reccomodation.length > 0 && showRecommendedWorkflows && (
                                 <>
                                     <div className={` my-4 rounded-md `}>
-                                        <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
+                                        <ul className="text-start py-2 text-sm text-gray-700">
                                             <h1 className="text-xs font-semibold">Recommended {workFlowData.reccomodation.length===1    ?"Workflow":"Workflows"}:</h1>
                                             {workFlowData.reccomodation?.map((element, key) =>
                                                 <li className='p-4 text-justify bg-[#96b2ed2e] text-heading my-2 cursor-pointer mr-3 flex items center justify-between' key={key}>
@@ -457,7 +457,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                                                                     })
                                                                 }
                                                             }}
-                                                                className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                className='text-sm bg-skyblue rounded-xl inline-block p-1 px-3 hover:bg-sky hover:text-white text-sky'>
                                                                 <button
                                                                     type={"button"}
                                                                     className="border-none p-0 m-0 flex gap-1 items-center text-sm"
@@ -545,7 +545,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                                                                                 })
                                                                             }
                                                                         }}
-                                                                            className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                            className='text-sm bg-skyblue rounded-xl inline-block p-1 px-3 hover:bg-sky hover:text-white text-sky'>
                                                                             <button
                                                                                 type={"button"}
                                                                                 className="border-none p-0 m-0 flex gap-1 items-center text-sm"
