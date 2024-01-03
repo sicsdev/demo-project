@@ -570,7 +570,7 @@ const openBotModal=()=>{
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className='!h-[117vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
+                        className='!h-[900px] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
                         noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}

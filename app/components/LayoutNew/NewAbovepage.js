@@ -5,6 +5,7 @@ import { getCalApi } from "@calcom/embed-react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import Link from "next/link";
 import Cookies from "js-cookie";
+import Button from "../Common/Button/Button";
 
 const NewAbovepage = () => {
   const ref = useRef(null);
@@ -87,7 +88,18 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <div className="block sm:flex md:flex lg:flex gap-4  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
-              <Link href={setRedirectLink()}>
+              {/* <Link href={setRedirectLink()}>
+
+                <button
+                  className={
+                    "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[#F5455C] hover:bg-black dark:focus:ring-yellow-900 "
+                  }
+                >
+
+                  Get Started
+                </button>
+                </Link> */}
+
 
                 <button
                   className={
@@ -97,9 +109,20 @@ const NewAbovepage = () => {
                 // data-cal-config='{"layout":"month_view"}'
                 >
 
-                  Get Started
+                <div dangerouslySetInnerHTML={{
+                      __html: `
+       <a class="py-[18px] px-2" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/deflection-ai/custom-demo'});return false;">
+       Schedule Demo
+       </a>
+      `,
+                    }}
+                    />
                 </button>
-              </Link>
+
+
+
+
+
               <Link href={setRedirectLink()}>
                 <button
                   className={
