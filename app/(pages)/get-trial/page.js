@@ -29,6 +29,7 @@ const Trial = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [pop, setPop] = useState(false);
+  const [namepop, setNamePop] = useState(false)
 
 const validateEmail = (email) => {
   // This regular expression is more comprehensive and covers most RFC 5322 cases.
@@ -214,7 +215,7 @@ const DisablingButton = () => {
           basic content within 24 hours. Completely free and no commitment
           required.
         </p>
-        <TrialForm formData={formData} setFormData={setFormData} pop={pop} setPop={setPop} />
+        <TrialForm formData={formData} setFormData={setFormData} pop={pop} setPop={setPop} namepop={namepop} setNamePop={setNamePop} />
         <div className="flex justify-content-center">
           {errors.length > 0 &&
             errors.map((error, index) => (
@@ -227,7 +228,7 @@ const DisablingButton = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton() || pop || loading || !formData.checked}
+          disabled={DisablingButton() || pop || namepop || loading || !formData.checked}
           onClick={SubmitTheForm}
         >
           {loading ? "Loading" : "Submit"}
