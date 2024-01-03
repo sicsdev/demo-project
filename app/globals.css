@@ -1514,7 +1514,7 @@ div[data-column-id="used"] {
   justify-content: center;
 }
 div[data-column-id="question"] {
-  min-width:55%;
+  min-width:35%;
 }
 
 div[data-column-id="term"] {
@@ -1732,6 +1732,7 @@ body .rdt_Pagination select {
 
 body .rdt_Pagination {
   font-size: 12px !important;
+  padding-right: 19px !important;
 }
 
 .data-table-class {

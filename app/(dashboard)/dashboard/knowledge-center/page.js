@@ -202,12 +202,14 @@ const Page = () => {
     };
 
     const deleteButtonHandler = async (id) => {
+        
         setDeleteLoader(id)
+        console.log("id", id);
         try {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
-                const query = buildQueryString(currentFilters)
-                const response = await GetAllRecommendations(query)
+                const response = await GetAllRecommendations()
+                console.log("response", response)
                 if (response) {
                     dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                 }
@@ -283,16 +285,16 @@ const Page = () => {
                 }}> {row.question}</p >
             )
         },
-        {
-            name: <p className="font-[600] m">Count</p>,
-            selector: 'number_of_messages',
-            sortable: true,
-            reorder: true,
-            width: "100px",
-            center: true,
-            hide: "sm",
-            style: { paddingRight: "25px" }
-        },
+        // {
+        //     name: <p className="font-[600] m">Count</p>,
+        //     selector: 'number_of_messages',
+        //     sortable: true,
+        //     reorder: true,
+        //     width: "100px",
+        //     center: true,
+        //     hide: "sm",
+        //     style: { paddingRight: "25px" }
+        // },
         {
             name: <p className="font-[600] ">Created</p>,
             id: "created",
@@ -308,13 +310,26 @@ const Page = () => {
 
             )
         },
-
+         
+        {
+            name: <p className="font-[600] ">Source</p>,
+            center: true,
+            cell: (row, index) => (
+                <>
+                   <p onClick={(e)=> {row.messages.length ? console.log("one") : console.log("two")}} className={`${row.messages.length ? "text-[black] cursor-pointer" : "text-[black]"}`}>{row.messages.length  ? `${row.number_of_messages}  conv.` :  "Uploaded"}</p>
+                </>
+            ),
+        },
+    
 
         {
             name: "",
             center: true,
             cell: (row, index) => (
+
                 <>
+
+                {deleteLoader }
                     <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
                         setWorkflowView(row)
                         searchMatched({ question: row.question }, false)
@@ -328,6 +343,7 @@ const Page = () => {
                         {
                             row?.accepted === false && (
                                 <>
+                                
                                     <div>
                                         <button type="button">
                                             <PlusCircleIcon className="h-6 w-6 text-success " />
@@ -352,7 +368,7 @@ const Page = () => {
                                                         deleteButtonHandler(row.id);
                                                     }}
                                                 >
-                                                    <XCircleIcon className="h-6 w-6 text-danger " />
+                                                    <XCircleIcon className="h-6 w-6 text-danger " /> 
                                                 </button>
                                             </div>
                                         }
@@ -365,12 +381,9 @@ const Page = () => {
             ),
         },
 
-
-
-
     ];
 
-
+console.log("result", state?.data?.results);
 
     function formatISODate(isoDate) {
         // Crear un objeto de fecha a partir de la fecha en formato ISO
@@ -379,9 +392,9 @@ const Page = () => {
         // Opciones para formatear la fecha
         const options = {
             weekday: 'long',
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
+            year: 'numeric',
+            month: 'numeric',  // Use 'numeric' instead of '2-digit'
+            day: 'numeric',    // Use 'numeric' instead of '2-digit'
             hour: '2-digit',
             minute: '2-digit',
             hour12: true
@@ -964,11 +977,11 @@ const Page = () => {
 
                 {tab == 1 &&
                     <>
-                        <div className='flex w-full m-auto justify-center'>
+                        {/* <div className='flex w-full m-auto justify-center'>
                             <p className="text-sm p-2 m-auto opacity-80  text-[#333333]" style={{ fontFamily: 'sans-serif' }}>
                                 Questions your customers have asked that Deflection AI does not know how to answer
                             </p>
-                        </div>
+                        </div> */}
 
                         <div className="flex justify-end gap-4 items-center sm:mt-[20px] !w-[97.5%]">
                             <div className="w-full sm:w-[16%]">
@@ -1000,7 +1013,7 @@ const Page = () => {
                                 }
                             </div>
                         </div>
-                        <div className=" sm:mt-[20px]">
+                        <div className=" sm:mt-[20px] abc">
                             <DataTable
                                 title={''}
                                 fixedHeader
