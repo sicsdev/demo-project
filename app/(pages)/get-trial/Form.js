@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Swal from "sweetalert2";
 import React, { useState, useEffect } from "react";
 
-const TrialForm = ({ formData, setFormData, pop, setPop, namepop, setNamePop }) => {
+const TrialForm = ({ formData, setFormData, pop, setPop, namepop, setNamePop, setLastPop, lastpop }) => {
   const formatPhoneNumber = (value) => {
     // Remove all characters except digits
     let numbersOnly = value.replace(/[^\d]/g, "");
@@ -156,6 +156,28 @@ setPop(false);
     // link.click();
     // document.body.removeChild(link);
   };
+
+
+  const handleFirstName=(e)=>{
+
+if(formData?.first_name.toLowerCase() === "demo" || formData?.first_name.toLowerCase() === "test" || formData?.first_name.toLowerCase() ===  "sample")
+{setNamePop(true)}
+else
+{setNamePop(false)}
+
+  }
+  const handleLastName=(e)=>{
+
+    if(formData?.last_name.toLowerCase() === "demo" || formData?.last_name.toLowerCase() === "test" || formData?.last_name.toLowerCase() ===  "sample")
+    {setLastPop(true)}
+    else
+    {setLastPop(false)}
+    
+      }
+    
+
+console.log("formmmm", formData.first_name);
+console.log("popppp", namepop);
   return (
     <div className="w-full sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-5">
       <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
@@ -235,7 +257,7 @@ setPop(false);
       </div>
       <div className="my-2 sm:my-0 grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
-        {namepop == true ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+        {namepop ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
             Please enter valid information
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div></> : ""}
@@ -245,7 +267,7 @@ setPop(false);
             name="first_name"
             value={formData?.first_name ?? ""}
             onChange={handleInputValues}
-            // onBlur={handleFirstName}
+            onBlur={handleFirstName}
             className="py-3 mt-1 outline-none"
             title={
               <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
@@ -257,12 +279,17 @@ setPop(false);
           />
         </div>
         <div className='my-2 sm:my-0'>
+        {lastpop ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+            Please enter valid information
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div></> : ""}
           <TextField
             type="text"
             id="last_name"
             name="last_name"
             value={formData?.last_name ?? ""}
             onChange={handleInputValues}
+            onBlur={handleLastName}
             className="py-3 mt-1 outline-none"
             title={
               <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
