@@ -54,6 +54,10 @@ const Nav = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const handleCalendlyClick = () => {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/deflection-ai/custom-demo' });
+    return false;
+  };
   return (
     <>
       <nav
@@ -139,7 +143,7 @@ const Nav = () => {
         )
       ) : null}
 
-      <Link href={profile.email ? "/dashboard" : "/free-trial"}>
+      <Link href={profile.email ? "/dashboard" : "/checkout"}>
         <p
           onMouseEnter={() => setIsHovered({ ...isHovered, getStarted: true })}
           onMouseLeave={() => setIsHovered({ ...isHovered, getStarted: false })}
@@ -147,7 +151,7 @@ const Nav = () => {
         >
           {profile.email ? 'Dashboard' : 'Start now'}
           {isHovered.getStarted ? (
-       <ArrowRightIcon className="ml-2 h-5 w-5"style={{strokeWidth:"3px"}} />
+       <ArrowRightIcon className={`${profile.email ? "hidden":"" } ml-2 h-5 w-5`}style={{strokeWidth:"3px"}} />
        ) : (
          <ChevronRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} />
           )}

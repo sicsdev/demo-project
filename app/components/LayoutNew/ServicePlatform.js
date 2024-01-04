@@ -88,7 +88,10 @@ const ServicePlatform = () => {
       btnName1:"Contact sales"
     },
   ];
-
+  const handleCalendlyClick = () => {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/deflection-ai/custom-demo' });
+    return false;
+  };
   return (
     <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:pb-4 py-0 sm:py-8">
       <div className="">
@@ -143,7 +146,7 @@ const ServicePlatform = () => {
   {loading ? (
     <SkeletonLoader count={1} height={35} width={180} />
   ) : (
-    <Link href={"/get-trial"}>
+    <div onClick={handleCalendlyClick} className="cursor-pointer">
       <p
         onMouseEnter={() => setIsHovered({ ...isHovered, contactSales: true })}
         onMouseLeave={() => setIsHovered({ ...isHovered, contactSales: false })}
@@ -152,7 +155,7 @@ const ServicePlatform = () => {
 {element.btnName1}
         {isHovered.contactSales ? <ArrowRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} /> : <ChevronRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} />}
       </p>
-    </Link>
+    </div>
   )}
 </div>
 
