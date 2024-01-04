@@ -1943,7 +1943,6 @@ body .custome_table {
 }
 
 .video_popup {
-  width: 801px;
   margin: auto;
   height: auto;
   position: relative;
@@ -2396,4 +2395,12 @@ width: 65%;
 .myDataTable .rdt_TableCell{
   position: relative; right: 20px;
 }
+}
+.test-ideo{
+    height: 400px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background-color: rgba(203, 206, 209, .2);
+    border-radius: 5px;
+    padding: 10px;
 }

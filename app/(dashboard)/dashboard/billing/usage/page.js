@@ -518,7 +518,7 @@ const UsageLimit = () => {
 
       {tab === 0 && (
 
-        <div className="bg-white w-full sm:w-[750px] m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
+        <div className="bg-white w-full sm:w-[750px]   rounded-lg  mt-5 p-4">
 
           {loading ? (
             <div className="bg-white w-full  m-auto ">

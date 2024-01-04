@@ -8,9 +8,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { el } from "@faker-js/faker";
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const ServicePlatform = () => {
   const [loading, setLoading] = useState(true);
+  const [isHovered, setIsHovered] = useState({ getStarted: false, contactSales: false });
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -31,6 +34,8 @@ const ServicePlatform = () => {
       buttonColor: "bg-[#1d74f5]",
       textColor: "text-[#1d74f5]",
       link: "/solutions/chat-bot",
+      btnName:"Start with Chat",
+      btnName1:"Contact sales"
     },
     {
       id: "2",
@@ -45,6 +50,8 @@ const ServicePlatform = () => {
       link: "/solutions/phone",
       buttonColor: "bg-[#4ebe8c]",
       textColor: "text-[#4ebe8c]",
+      btnName:"Start with Phone",
+      btnName1:"Contact sales"
     },
     {
       id: "3",
@@ -59,6 +66,8 @@ const ServicePlatform = () => {
       link: "/features/learning-center",
       buttonColor: "bg-[#f5455c]",
       textColor: "text-[#f5455c]",
+      btnName:"Start with Learning Center",
+      btnName1:"Contact sales"
     },
     {
       id: "4",
@@ -75,9 +84,14 @@ const ServicePlatform = () => {
       link: "/integrations",
       buttonColor: "bg-[#9f22c7]",
       textColor: "text-[#9f22c7]",
+      btnName:"Start with Actions Library",
+      btnName1:"Contact sales"
     },
   ];
-
+  const handleCalendlyClick = () => {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/deflection-ai/custom-demo' });
+    return false;
+  };
   return (
     <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:pb-4 py-0 sm:py-8">
       <div className="">
@@ -88,7 +102,7 @@ const ServicePlatform = () => {
             id={element.scroll}
           >
             <div className="block bg-scroll lg:flex h-auto max-h-none lg:max-h-[376px] w-full">
-              <div className="flex items-start sm:px-[50px] lg:px-0 justify-between flex-col lg:w-1/2 max-w-none w-full lg:max-w-[420px]">
+              <div className="flex items-start sm:px-[50px] lg:px-0 justify-between flex-col lg:w-1/2 max-w-none w-full lg:max-w-[508px]">
                 <div className="w-full">
                   <div className="mb-[15px] lg:mb-[32px] text-sm leading-9 text-[#6c727a]">
                     {loading ? (
@@ -114,28 +128,37 @@ const ServicePlatform = () => {
                     )}
                   </p>
                 </div>
-                <div className="mt-[20px] lg:mt-[40px] flex gap-5  items-start">
-                  {loading ? (
-                    <SkeletonLoader count={1} height={35} width={180} />
-                  ) : (
-                    <Link
-                      href={`/checkout`}
-                      className={`rounded-[4px] text-[14px] text-white ${element.buttonColor} hover:bg-black hover:text-white text-center px-6 py-2 text-lg font-semibold leading-7 no-underline transition duration-300`}
-                    >
-                      Get started
-                    </Link>
-                  )}
-                  {loading ? (
-                    <SkeletonLoader count={1} height={35} width={180} />
-                  ) : (
-                    <Link
-                      href={"/get-trial"}
-                      className={`text-sm ${element.textColor} text-center m-auto lg:ml-[24px] cursor-pointer`}
-                    >
-                      <strong>Start for free</strong>
-                    </Link>
-                  )}
-                </div>
+                <div className="mt-[20px] lg:mt-[40px] flex flex-col sm:flex-row gap-[0.25rem] items-center">
+  {loading ? (
+    <SkeletonLoader count={1} height={35} width={180} />
+  ) : (
+    <Link href={`/checkout`}>
+      <p
+        onMouseEnter={() => setIsHovered({ ...isHovered, getStarted: true })}
+        onMouseLeave={() => setIsHovered({ ...isHovered, getStarted: false })}
+        className={`flex sm:items-center justify-center rounded-[4px] text-[14px] text-white ${element.buttonColor} hover:bg-black px-6 py-2 text-lg font-semibold leading-7 no-underline transition duration-300`}
+      >
+{element.btnName}
+        {isHovered.getStarted ? <ArrowRightIcon className="ml-2 h-5 w-5"  style={{strokeWidth:"3px"}} /> : <ChevronRightIcon className="ml-2 h-5 w-5"  style={{strokeWidth:"3px"}}/>}
+      </p>
+    </Link>
+  )}
+  {loading ? (
+    <SkeletonLoader count={1} height={35} width={180} />
+  ) : (
+    <div onClick={handleCalendlyClick} className="cursor-pointer">
+      <p
+        onMouseEnter={() => setIsHovered({ ...isHovered, contactSales: true })}
+        onMouseLeave={() => setIsHovered({ ...isHovered, contactSales: false })}
+        className={`flex sm:items-center justify-center text-lg ${element.textColor} hover:text-blue-600 text-center px-6 py-2 font-semibold leading-7 no-underline transition duration-300`}
+      >
+{element.btnName1}
+        {isHovered.contactSales ? <ArrowRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} /> : <ChevronRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} />}
+      </p>
+    </div>
+  )}
+</div>
+
               </div>
               <div className="relative lg:w-1/2 mt-[20px] lg:mt-[0px] max-w-none w-full">
                 {loading ? (

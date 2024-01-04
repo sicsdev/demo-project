@@ -41,7 +41,7 @@ const Panelcardnew = () => {
     <div className="bg-white px-[16px] sm:py-[64px] py-[34px]">
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
         {loading ? <SkeletonLoader count={1} height={35} width={"60%"} /> :
-          "AI Customer Service Solutions"
+          "Pricing built for businesses of all sizes"
         }
       </h2>
       <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
@@ -118,7 +118,7 @@ const Panelcardnew = () => {
                 <>
                   {loading ? <SkeletonLoader className="mt-4" count={1} height={20} width={"90%"} /> :
                     <p className="text-[#6C727A] font-normal text-sm mt-6">
-                      Custom pricing. Schedule demo for proposal.
+                      Custom <span className="text-black text-[18px]">pricing</span>. Schedule demo for proposal.
                     </p>
                   }
                 </>

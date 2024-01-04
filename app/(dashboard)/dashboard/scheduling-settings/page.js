@@ -160,7 +160,7 @@ const Page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar loader={pageSubLoading} title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
+            <TopBar loader={pageSubLoading} title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-grey" />} />
             <div className="bg-white w-full   border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
 
                 {pageSubLoading ?
@@ -176,7 +176,7 @@ const Page = () => {
                     :
                     <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
                         <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
-                            <AdjustmentsHorizontalIcon className="text-primary w-5" />
+                            <AdjustmentsHorizontalIcon className="text-[grey] w-5" />
                             <p className="text-base font-medium text-[#151D23]">
                                 {botValue?.length > 1 ? 'Select Bot' : 'Edit Settings'}
                             </p>

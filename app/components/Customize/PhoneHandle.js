@@ -438,13 +438,13 @@ const PhoneHandle = () => {
         let data = botValue.filter((x) => x.name !== value)
         return data
     }
-    // console.log("basicFormData", basicFormData)
+    console.log("basicFormData", basicFormData)
     return (
         <>
             <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
                 {showPhoneView ?
                     <div className='w-full xs:w-full sm:w-full md:w-full lg:w-[80%]'>
-                        <div className='block w-full xs:w-full sm:w-full md:w-full lg:w-[60%]  sm:block md:block lg:block xl:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
+                        <div className='block w-full xs:w-full sm:w-full md:w-full lg:w-[100%]  sm:block md:block lg:block xl:flex gap-8 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
                             {
                                 pageLoading ?
                                     <div>
@@ -730,7 +730,7 @@ const PhoneHandle = () => {
                                                                     </button>
                                                                 </>
                                                             )}
-                                                            {botValue.length > basicFormData.length && (
+                                                            {basicFormData.length  - 1 == key ?  (
                                                                 <>
                                                                     <button
                                                                         className='font-bold mt-0'
@@ -740,7 +740,7 @@ const PhoneHandle = () => {
                                                                         <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
                                                                     </button>
                                                                 </>
-                                                            )}
+                                                            ) :""}
 
                                                         </div>
                                                     </div>
