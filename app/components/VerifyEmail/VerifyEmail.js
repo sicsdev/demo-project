@@ -109,7 +109,6 @@ const CheckEmail = ({
               <SkeletonLoader height={20} width={150} />
             </h1>
           </div>
-          <hr className="text-[#F0F0F1]" />
           <div className=" p-4">
             <div className="">
               <div className="my-2">
@@ -399,7 +398,6 @@ const CheckEmail = ({
             </h1>
           </div>
 
-          <hr className="text-[#F0F0F1]" />
           <div className=" p-4">
             <div className="">
               <div className="my-2 sm:my-0">
@@ -467,7 +465,8 @@ const CheckEmail = ({
                     style={{ borderColor: isValid ? "initial" : "red" }}
                     title={
                       <div className="flex items-center gap-2">
-                        <span>Domain Name</span>
+                                     <h2 className="text-[14px] text-[#555] !font-[600] mb-2 flex gap-1 items-center sm:mt-4 ">
+Domain Name</h2>
                       </div>
                     }
                     placeholder={"Domain name"}

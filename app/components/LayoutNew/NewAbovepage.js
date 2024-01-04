@@ -6,10 +6,12 @@ import SkeletonLoader from "../Skeleton/Skeleton";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import Button from "../Common/Button/Button";
-
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 const NewAbovepage = () => {
   const ref = useRef(null);
   const [showVideo, setShowvideo] = useState(false);
+  const [hovered, setHovered] = useState({ start: false, sales: false });
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,11 +33,10 @@ const NewAbovepage = () => {
 
   useEffect(() => {
     const checkPlayer = () => {
-
       const player = document.querySelector("lottie-player");
       if (player) {
         if (ref.current) {
-          ref.current.addEventListener('complete', () => {
+          ref.current.addEventListener("complete", () => {
             player.seek(150);
             player.play();
           });
@@ -54,13 +55,14 @@ const NewAbovepage = () => {
     } else {
       return "/get-trial";
     }
-  }
-
+  };
+  const handleCalendlyClick = () => {
+    Calendly.initPopupWidget({ url: 'https://calendly.com/deflection-ai/custom-demo' });
+    return false;
+  };
   return (
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
-
-
         <div>
           {loading ? (
             <div className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black]">
@@ -68,7 +70,8 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <h2 className="block !font-[500] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[56px] my-[1rem] md:my-8 relative text-[black]">
-              <span className="text-[#f5455c]">Intelligent Automation</span> for Exceptional Customer Service{" "}
+              <span className="text-[#f5455c]">Intelligent Automation</span> for
+              Exceptional Customer Service{" "}
             </h2>
           )}
           {loading ? (
@@ -77,8 +80,8 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[17px] md:leading-8 gap-2">
-              Elevate customer satisfaction and agent efficiency with Deflection AI's
-              AI-driven solutions.
+              Elevate customer satisfaction and agent efficiency with Deflection
+              AI's AI-driven solutions.
             </p>
           )}
 
@@ -87,51 +90,50 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={200} />
             </div>
           ) : (
-            <div className="block sm:flex md:flex lg:flex gap-4  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
-              {/* <Link href={setRedirectLink()}>
-
+            <div className="block sm:flex gap-4 px-3 sm:px-0 items-center mt-8 mb-8 sm:ml-[62px] cursor-pointer">
+              <Link href="/checkout">
                 <button
+                  onMouseEnter={() => setHovered({ ...hovered, start: true })}
+                  onMouseLeave={() => setHovered({ ...hovered, start: false })}
                   className={
                     "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[#F5455C] hover:bg-black dark:focus:ring-yellow-900 "
                   }
                 >
-
-                  Get Started
-                </button>
-                </Link> */}
-
-
-                <button
-                  className={
-                    "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[#F5455C] hover:bg-black dark:focus:ring-yellow-900 "
-                  }
-                // data-cal-link="deflectionai/sales-call"
-                // data-cal-config='{"layout":"month_view"}'
-                >
-
-                <div dangerouslySetInnerHTML={{
-                      __html: `
-       <a class="py-[18px] px-2" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/deflection-ai/custom-demo'});return false;">
-       Schedule Demo
-       </a>
-      `,
-                    }}
+                  Start now
+                  {hovered.start ? (
+                    <ArrowRightIcon
+                      className="h-6 w-5 inline-block ml-1"
+                      style={{ strokeWidth: "3px" }}
                     />
-                </button>
-
-
-
-
-
-              <Link href={setRedirectLink()}>
-                <button
-                  className={
-                    "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
-                  }
-                >
-                  Get started free
+                  ) : (
+                    <ChevronRightIcon
+                      className="h-6 w-5 inline-block ml-1"
+                      style={{ strokeWidth: "3px" }}
+                    />
+                  )}
                 </button>
               </Link>
+
+              <button
+                onMouseEnter={() => setHovered({ ...hovered, sales: true })}
+                onMouseLeave={() => setHovered({ ...hovered, sales: false })}
+                onClick={handleCalendlyClick}
+
+                className="mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-primary hover:text-black  dark:focus:ring-yellow-900 "
+              >
+                Contact sales
+                {hovered.sales ? (
+                  <ArrowRightIcon
+                    className="h-6 w-5 inline-block ml-1"
+                    style={{ strokeWidth: "3px" }}
+                  />
+                ) : (
+                  <ChevronRightIcon
+                    className="h-6 w-5 inline-block ml-1"
+                    style={{ strokeWidth: "3px" }}
+                  />
+                )}
+              </button>
             </div>
           )}
 
@@ -224,18 +226,17 @@ const NewAbovepage = () => {
               <div className="absolute animate_lottie right-0">
                 <lottie-player
                   className="wrap_player"
-                  id={'linesLottieAnimation'}
+                  id={"linesLottieAnimation"}
                   ref={ref}
                   src="/lines-animation.json"
                   direction={1}
                   autoplay={0}
-                  renderer={'svg'}
+                  renderer={"svg"}
                   delay={0}
                   easing={""}
                   duration={4000}
                   value={100}
-                >
-                </lottie-player>
+                ></lottie-player>
               </div>
               <div className=" block">
                 <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">

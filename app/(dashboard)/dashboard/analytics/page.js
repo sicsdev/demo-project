@@ -8,7 +8,7 @@ import {
   CalendarIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftIcon,
-
+  MinusIcon,
   QueueListIcon,
   XCircleIcon,
   XMarkIcon,
@@ -93,7 +93,7 @@ const Logs = () => {
       name: <p className=" whitespace-break-spaces text-xs font-[600]">Created</p>,
       selector: (row) => row.created,
       sortable: true,
-      cell: (row) => formatDateFunc(row.created),
+      cell: (row) =><p className="text-[gray]">{formatDateFunc(row.created)}</p>,
       minWidth: "50px",
     },
     {
@@ -101,7 +101,8 @@ const Logs = () => {
         <p className=" whitespace-break-spaces text-xs font-[600]">Workflow Triggered</p>
       ),
       selector: (row) => (
-        <p className=" whitespace-normal">{row.is_workflow ? "Yes" : "No"}</p>
+        <p className=" whitespace-normal">{row.is_workflow ? <p className="text-[black]">Yes</p> : <MinusIcon class="h-4 w-6 text-gray-500" />
+      }</p>
       ),
       sortable: false,
       reorder: false,
@@ -112,7 +113,8 @@ const Logs = () => {
         <p className=" whitespace-break-spaces text-xs font-[600]">Escalated to Human</p>
       ),
       selector: (row) => (
-        <p className=" whitespace-normal">{row.human_handoff ? "Yes" : "No"}</p>
+        <p className=" whitespace-normal">{row.human_handoff ? <p className="text-[black]">Yes</p> : <MinusIcon class="h-4 w-6 text-gray-500" />
+      }</p>
       ),
       sortable: false,
       reorder: false,

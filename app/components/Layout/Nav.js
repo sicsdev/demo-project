@@ -13,11 +13,13 @@ import { getUserProfile } from "@/app/API/components/Sidebar";
 import VerifyEmailBanner from "./VerifyEmailBanner";
 import { usePathname } from "next/navigation";
 import DemoAccountsBanner from "./DemoAccountsBanner";
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const Nav = () => {
   const pathname = usePathname();
   const [show, setShow] = useState(false);
   const [showmenu, setShowmenu] = useState(false);
+  const [isHovered, setIsHovered] = useState({ signIn: false, dashboard: false });
 
   const [profile, setProfile] = useState({});
   useEffect(() => {
@@ -115,45 +117,44 @@ const Nav = () => {
                 ))}
               </ul>
             }
-            <div className="hidden  sm:hidden md:hidden lg:flex flex-row gap-10 items-center ml-auto">
-
-              {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ? "" :
-                profile.email ? (
-                  <>
-                    {" "}
-                    <p className="text-black">{profile.email}</p>
-                  </>
-                ) : (
-                  <Link href={"/login"}>
-                    {" "}
-                    <p className="text-black sm:py-[6px] sm:px-[12px]  hover:outline-[#F5455C] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
-                      Sign In
-                    </p>
-                  </Link>
-                )}
-
-              {profile.email ? (
-                <Link href={"/dashboard"}>
-                  {" "}
-                  <button
-                    type="button"
-                    className="inline-block rounded-sm  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-                  >
-                    Dashboard
-                  </button>{" "}
-                </Link>
+  <div className="hidden lg:flex flex-row gap-10 items-center ml-auto">
+      {pathname !== "/lp/chat-bot" && pathname !== "/lp/contact-center" ? (
+        profile.email ? (
+          <span className="text-black">{profile.email}</span>
+        ) : (
+          <Link href="/login">
+            <p
+              onMouseEnter={() => setIsHovered({ ...isHovered, signIn: true })}
+              onMouseLeave={() => setIsHovered({ ...isHovered, signIn: false })}
+              className="text-black border border-transparent hover:border-[#F5455C] rounded px-6 py-2 transition-all duration-150 flex items-center justify-center"
+            >
+              Contact sales
+              {isHovered.signIn ? (
+                <ArrowRightIcon className="ml-2 h-5 w-5"style={{strokeWidth:"3px"}} />
               ) : (
-                <Link href={"/free-trial"}>
-                  {" "}
-                  <button
-                    type="button"
-                    className="inline-block  rounded-sm  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-                  >
-                    Get Started
-                  </button>{" "}
-                </Link>
+                <ChevronRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} />
               )}
-            </div>
+            </p>
+          </Link>
+        )
+      ) : null}
+
+      <Link href={profile.email ? "/dashboard" : "/free-trial"}>
+        <p
+          onMouseEnter={() => setIsHovered({ ...isHovered, getStarted: true })}
+          onMouseLeave={() => setIsHovered({ ...isHovered, getStarted: false })}
+          className="text-xs font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white rounded px-6 py-2 transition-all duration-150 flex items-center justify-center"
+        >
+          {profile.email ? 'Dashboard' : 'Start now'}
+          {isHovered.getStarted ? (
+       <ArrowRightIcon className="ml-2 h-5 w-5"style={{strokeWidth:"3px"}} />
+       ) : (
+         <ChevronRightIcon className="ml-2 h-5 w-5" style={{strokeWidth:"3px"}} />
+          )}
+        </p>
+      </Link>
+    </div>
+
             <div className="flex sm:flex md:flex lg:hidden flex-row relative ml-auto cursor-pointer">
               {show === false ? (
                 <Bars4Icon
