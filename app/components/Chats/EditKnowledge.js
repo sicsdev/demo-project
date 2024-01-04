@@ -45,7 +45,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     }, [info])
 
 
-
     // Handlers
     const getAllNegativeFaqs = async () => {
         await getFaqNegative().then(results => {
