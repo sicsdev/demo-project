@@ -359,7 +359,7 @@ const openBotModal=()=>{
             maxWidth: "600px",
             id:"bots",
             cell: (row, index) =>
-                <div className="py-2 searchWrap overflow-x-scroll">
+                <div className="py-2 searchWrap overflow-x-scroll ">
  <Multiselect
                         className=''
                         options={bots ?? []}

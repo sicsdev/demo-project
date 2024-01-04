@@ -2408,6 +2408,6 @@ width: 65%;
 }
 
 .searchWrap::-webkit-scrollbar-thumb{
-  background: gray;
-  border-radius: 10px;
+  background: rgb(217, 215, 215);
+  border-radius: 12px;
 }

@@ -24,7 +24,7 @@ const DeleteWorkflow = ({ deleteID, data, setShow }) => {
                 <Button
                     type={"button"}
                     className="font-bold rounded bg-#fff px-6 pb-2 pt-2 text-sm text-[#707B89] leading-normal disabled:shadow-none  transition duration-150 ease-in-out border border-solid border-[#8a939e]"
-                    onClick={() => { setShow(false)}}
+                    onClick={() => setShow(false)}
                 >
                   
                      Cancel
@@ -35,7 +35,7 @@ const DeleteWorkflow = ({ deleteID, data, setShow }) => {
                     onClick={() => deleteID(data.id)}
                     className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-2.5 text-sm leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                 >
-                     Delete Question 
+                     Delete  
 
                 </Button>
             </div>

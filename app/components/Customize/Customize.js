@@ -464,8 +464,8 @@ const Customize = ({
 
 
   const changeText = (text) => {
-    if (text && text.length > 20) {
-      return text.substring(0, 20) + "..."
+    if (text && text.length > 45) {
+      return text.substring(0, 45) + "..."
     }
     if(!text){
       return "Select a bot"
@@ -905,7 +905,7 @@ const Customize = ({
                     <label className="relative inline-flex items-center cursor-pointer">
                       <p
                         type={"button"}
-                        className="inline-block mt-0 rounded  px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-primary disabled:shadow-none  transition duration-150 ease-in-out ]"
+                        className="contents mt-0 rounded  px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-primary disabled:shadow-none  transition duration-150 ease-in-out ]"
                         onClick={() => setShowManageHideUrls(true)}
 
                       >
