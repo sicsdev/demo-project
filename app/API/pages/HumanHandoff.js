@@ -15,7 +15,7 @@ export const addHumanHandoffWorkflowData = async (body) => {
 export const deleteHandoff = async (id) => {
     let config = returnConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/main/human-handoff/${id}/`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/human-handoff/${id}/`, config);
         return response;
     } catch (error) {
         return error

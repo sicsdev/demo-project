@@ -70,6 +70,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
     const handleRateNegative = async (type) => {
         let previousMessage = allMessages[indexOfMessage - 1]
+        
         let contentToSend;
 
         if (previousMessage.content === 'WORKFLOW') {
@@ -251,51 +252,52 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
                         </div>
 
-                        <button>
+                        {/* <button>
                             {showingNegativeOptions ?
                                 <XMarkIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Close' style={{ border: '1px solid gray', borderRadius: '50%' }}></XMarkIcon>
                                 :
                                 <MinusIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Report this Workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
                             }
-                        </button>
+                        </button> */}
                     </div >
 
 
 
-                    {showingNegativeOptions &&
-                        <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
-                            <button
-                                type="button"
-                                className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
-                                onClick={() => handleRateNegative('reduce')}
-                                data-tooltip-id={'tooltip'}
-                                data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
-                            >
-                                {rating == -0.1 ? "Reduced" : "Reduce"}
-                            </button>
-                            <button
-                                type="button"
-                                className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
-                                onClick={() => handleRateNegative('block')}
-                                data-tooltip-id={'tooltip'}
-                                data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
-                            >
-                                {rating == -1 ? "Blocked" : "Block"}
+                    {/* {showingNegativeOptions && */}
+                        <div className='flex gap-2 mb-1 mt-1 mr-10'>
+                            <small>
+                                <small
+                                    className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md px-2 focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none cursor-pointer`}
+                                    onClick={() => handleRateNegative('reduce')}
+                                    data-tooltip-id={'tooltip'}
+                                    data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
+                                >
+                                    {rating == -0.1 ? "Reduced" : "Reduce"}
+                                </small>
+                            </small>
+                            <small>
+                                <small
+                                    className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md px-2 focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none cursor-pointer`}
+                                    onClick={() => handleRateNegative('block')}
+                                    data-tooltip-id={'tooltip'}
+                                    data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
+                                >
+                                    {rating == -1 ? "Blocked" : "Block"}
+                                </small>
+                            </small>
 
-                            </button>
-
-                            <button
+                            {/* <button
                                 type="button"
-                                className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                                className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-4`}
                                 onClick={() => handleForceHandOff()}
                                 data-tooltip-id={'tooltip'}
                                 data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
                             >
                                 {isHandoff ? "Human Escaled" : "Human Escal"}
-                            </button>
+                            </button> */}
                             <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
                         </div>
-                    }
+                    
 
 
                     {/* {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>} */}

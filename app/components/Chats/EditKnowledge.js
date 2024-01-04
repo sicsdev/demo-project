@@ -11,8 +11,7 @@ import TextField from '../Common/Input/TextField'
 import Card from '../Common/Card/Card'
 import UpdateFaqModal from '../SideModal/UpdateFaqModal'
 
-const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message }) => {
-
+const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message, idOfOpenConversation }) => {
 
     // Local states
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
@@ -44,6 +43,12 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     useEffect(() => {
         handlePatchFaq()
     }, [info])
+
+    useEffect(() => {
+        setShowingNegativeOptions(false)
+        setisHandoff
+    }, [idOfOpenConversation])
+
 
     // Handlers
     const getAllNegativeFaqs = async () => {
@@ -319,13 +324,13 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                     </div>
 
 
-                    <button >
+                    {/* <button >
                         {showingNegativeOptions ?
                             <XMarkIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Close' style={{ border: '1px solid gray', borderRadius: '50%' }}></XMarkIcon>
                             :
                             <MinusIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
                         }
-                    </button>
+                    </button> */}
 
 
 
@@ -336,29 +341,31 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             }
             {/* //bg-gradiant-red-button */}
             {
-                showingNegativeOptions && (modifierMode == false) &&
-                < div className='flex gap-4 justify-between mb-4 mt-2  mr-10'>
-                    <div className='flex gap-2'>
-                        <button
+
+                < div className='flex gap-2 mb-1 mt-1 mr-10'>
+                    <small>
+                        <small
                             type="button"
-                            className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md px-2 focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none cursor-pointer`}
                             onClick={() => handleRateNegative('reduce')}
                             data-tooltip-id={'tooltip'}
                             data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                         >
                             {rating == -0.1 ? "Reduced" : "Reduce"}
-                        </button>
-                        <button
+                        </small>
+                    </small>
+                    <small>
+                        <small
                             type="button"
-                            className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                            className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md px-2 focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none cursor-pointer`}
                             onClick={() => handleRateNegative('block')}
                             data-tooltip-id={'tooltip'}
                             data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                         >
                             {rating == -1 ? "Blocked" : "Block"}
-
-                        </button>
-                        <button
+                        </small>
+                    </small>
+                    {/* <button
                             type="button"
                             className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-2 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none mr-4`}
                             onClick={() => handleForceHandOff()}
@@ -366,8 +373,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                             data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
                         >
                             {isHandoff ? "Human Escaled" : "Human Escal"}
-                        </button>
-                    </div>
+                        </button> */}
 
 
                     <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
