@@ -6,9 +6,12 @@ import SelectOption from "../Common/Input/SelectOption";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { isMobile, mobileModel } from "react-device-detect";
-import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import {
+  EllipsisHorizontalIcon,
+  EllipsisVerticalIcon,
+} from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from "react-tooltip";
 import { getPermissionHelper } from "../helper/returnPermissions";
 
 const TeamManagement = ({ state, removeMember, changeRole }) => {
@@ -16,19 +19,21 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   const [teams, setTeams] = useState(state?.data ?? []);
   const [perPage, setPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const userState = useSelector((state) => state.user.data)
+  const userState = useSelector((state) => state.user.data);
 
   function addSpaceAfterPrefix(phoneNumber) {
     // Use a regular expression to add a space after '+1' if it exists
-    return phoneNumber.replace(/(\+1)(\d+)/, '$1 $2');
+    return phoneNumber.replace(/(\+1)(\d+)/, "$1 $2");
   }
-
+  console.log("asdassadsad", teams);
   useEffect(() => {
     if (state?.data) {
       const mapData = state?.data.map((ele) => {
         let contact = ele.phone;
-        if (ele.phone_prefix && !ele.phone.includes('+1')) {
-          contact = ele.phone_prefix.includes('+') ? ele.phone_prefix : '+' + ele.phone_prefix + " " + ele.phone;
+        if (ele.phone_prefix && !ele.phone.includes("+1")) {
+          contact = ele.phone_prefix.includes("+")
+            ? ele.phone_prefix
+            : "+" + ele.phone_prefix + " " + ele.phone;
         } else {
           contact = addSpaceAfterPrefix(ele.phone);
         }
@@ -38,28 +43,30 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           name: ele.name,
           role: ele?.role,
           contact: contact,
+          phone: ele.phone,
         };
       });
 
-
       // Filter deflection team
-      let filteredData = mapData.filter(member => !(member.email.endsWith('@deflection.ai')))
+      let filteredData = mapData.filter(
+        (member) => !member.email.endsWith("@deflection.ai")
+      );
       setTeams(filteredData);
 
       // Remove Action for non-admin members.
-      if (!getPermissionHelper('MANAGE TEAM', userState?.role)) {
-        let newColumns = columns2.filter(column => column.name !== "Action")
-        setColumns2(newColumns)
+      if (!getPermissionHelper("MANAGE TEAM", userState?.role)) {
+        let newColumns = columns2.filter((column) => column.name !== "Action");
+        setColumns2(newColumns);
       }
-
     }
 
-
-    const handleResize = () => { setIsMobile(window.innerWidth <= 768); };
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
     window.addEventListener("resize", handleResize);
-    return () => { window.removeEventListener("resize", handleResize); };
-
-
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [state?.data]);
 
   function formatPhoneNumber(phoneNumber) {
@@ -73,7 +80,6 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   }
 
   const [columns2, setColumns2] = useState([
-
     // This logo column will be used for profile photo of the member in future.
     // {
     //   name: "Logo",
@@ -105,10 +111,13 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       name: "Email",
       id: "Email",
       selector: (row) => row?.email,
-      cell: (row) =>
-        <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>{row.email}</p>,
+      cell: (row) => (
+        <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>
+          {row.email}
+        </p>
+      ),
       reorder: true,
-      width: isMobile ? '220px' : '300px',
+      width: isMobile ? "220px" : "300px",
     },
     {
       name: "Name",
@@ -126,9 +135,10 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       cell: (row) => (
         <p className="whitespace-normal xs">
           {" "}
-          {row?.contact !== "" && row?.contact !== " "
+          {/* {row?.contact !== "" && row?.contact !== " "
             ? formatPhoneNumber(row?.contact)
-            : ""}
+            : ""} */}
+          <span>{`${row?.contact || "+1"} ${row?.phone}`}</span>
         </p>
       ),
       reorder: true,
@@ -139,9 +149,15 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     {
       name: "Role",
       id: " Role",
-      selector: row => row?.role,
+      selector: (row) => row?.role,
       cell: (element) => (
-        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : element.role == "COLLABORATOR" ? "Collaborator" : "Admin"}</p>
+        <p className="whitespace-normal text-xs flex items-center">
+          {element.role == "MEMBER"
+            ? "Member"
+            : element.role == "COLLABORATOR"
+            ? "Collaborator"
+            : "Admin"}
+        </p>
       ),
       // reorder: true,
       width: isMobile ? "120px" : "200px",
@@ -153,16 +169,22 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       id: "Action",
       selector: (row) => row?.action,
       cell: (ele) => (
-        <ButtonComponent ele={ele} show={show} setShow={setShow} removeMember={removeMember} changeRole={changeRole} role={ele.role} />
+        <ButtonComponent
+          ele={ele}
+          show={show}
+          setShow={setShow}
+          removeMember={removeMember}
+          changeRole={changeRole}
+          role={ele.role}
+        />
       ),
       reorder: true,
       width: "100px",
     },
-  ])
+  ]);
 
-
-  const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
-  const [show, setShow] = useState(null)
+  const data = ["ADMINISTRATOR", "Collaborator", "Remove"];
+  const [show, setShow] = useState(null);
   return (
     <div className="mt-5">
       <div className="w-full ">
@@ -184,22 +206,25 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           paginationPerPage={perPage}
         />
       </div>
-
     </div>
   );
 };
 
 export default TeamManagement;
 
-
-
-export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, role }) => {
-
+export const ButtonComponent = ({
+  ele,
+  show,
+  setShow,
+  removeMember,
+  changeRole,
+  role,
+}) => {
   const data = [
     { name: "Set as Admin", value: "ADMINISTRATOR" },
     { name: "Set as Member", value: "MEMBER" },
-    { name: "Set as Collaborator", value: "COLLABORATOR" }
-  ]
+    { name: "Set as Collaborator", value: "COLLABORATOR" },
+  ];
 
   const divRef = useRef(null);
   useEffect(() => {
@@ -212,46 +237,72 @@ export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, 
     }
 
     // Attach the event listener to the document body
-    document.body.addEventListener('click', handleClickOutside);
+    document.body.addEventListener("click", handleClickOutside);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.body.removeEventListener('click', handleClickOutside);
+      document.body.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
   return (
-    <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
-      setShow(prev => { if (prev === ele?.email) { return null } else { return ele?.email } })
-    }}>
+    <div
+      className="cursor-pointer relative"
+      ref={divRef}
+      onClick={(e) => {
+        setShow((prev) => {
+          if (prev === ele?.email) {
+            return null;
+          } else {
+            return ele?.email;
+          }
+        });
+      }}
+    >
       <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
       {show === ele?.email && (
         // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
-        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
-
+        <div
+          className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}
+        >
           <ul className="py-2 text-xs text-gray-700 ">
-            {data.map((element, key) =>
-              element.value !== role &&
-              <li className={`hover:bg-primary  hover:text-white text-heading my-1`} key={key}>
-                <button type='button' className="block px-4 py-2 " onClick={() => {
-                  changeRole(ele.email, element.value)
-                  setShow(null)
-                }}>{element.name}</button>
-              </li>
+            {data.map(
+              (element, key) =>
+                element.value !== role && (
+                  <li
+                    className={`hover:bg-primary  hover:text-white text-heading my-1`}
+                    key={key}
+                  >
+                    <button
+                      type="button"
+                      className="block px-4 py-2 "
+                      onClick={() => {
+                        changeRole(ele.email, element.value);
+                        setShow(null);
+                      }}
+                    >
+                      {element.name}
+                    </button>
+                  </li>
+                )
             )}
-            <li className={`hover:bg-danger  hover:text-white text-heading my-1`}>
-              <button type='button' className="block px-4 py-2 " onClick={() => {
-                removeMember(ele.email)
-                setShow(null)
-              }
-              } >Remove</button>
+            <li
+              className={`hover:bg-danger  hover:text-white text-heading my-1`}
+            >
+              <button
+                type="button"
+                className="block px-4 py-2 "
+                onClick={() => {
+                  removeMember(ele.email);
+                  setShow(null);
+                }}
+              >
+                Remove
+              </button>
             </li>
-
           </ul>
         </div>
-      )
-      }
-    </div >
-  )
-
-}
+      )}
+    </div>
+  );
+};

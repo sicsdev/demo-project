@@ -17,7 +17,7 @@ const page = () => {
             {" "}
             This Data Processing Addendum (“DPA”) is incorporated by reference
             into and made a part of the Terms of Service entered into between
-            Deflection Labs, Inc. (“Deflection AI”) and an individual or entity that
+            Deflection Labs, LLC (“Deflection AI”) and an individual or entity that
             accepted the Terms of Service(“Customer”) (the “TOS” or
             “Agreement”). This DPA sets forth certain duties and obligations of
             the Parties with respect to the protection, security, processing,
