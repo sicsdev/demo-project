@@ -326,7 +326,7 @@ const Page = () => {
             center: true,
             cell: (row, index) => (
                 <>
-                   <div style={{ paddingTop: '15px', paddingBottom: '15px', margin:"auto" }}  className={`${row.messages.length ? "text-primary cursor-pointer p-[5px]" : "text-[black]"}`}>{row.messages.length  ? <Link href={`/dashboard/analytics?id=${row.id}`}> {row.number_of_messages}  conv.</Link>  : <p>Uploaded</p>}</div>
+                   <div style={{ paddingTop: '15px', paddingBottom: '15px', margin:"auto" }}  className={`${row.messages.length ? "text-primary cursor-pointer p-[5px]" : "text-[black]"}`}>{row.messages.length  ? <Link href={`/dashboard/analytics?recommendation_id=${row.id}&count=${row.messages.length}`}> {row.number_of_messages}  conv</Link>  : <p>Uploaded</p>}</div>
                 </>
             ),
         },

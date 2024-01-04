@@ -562,7 +562,7 @@ const openBotModal=()=>{
                 />
             )}
 
-            <div className="knowledgebase_table  px-2 pt-2 w-[98%]">
+            <div className="knowledgebase_table  px-2 pt-2 w-[98%] knowledge">
                 <div className=' hidden sm:block md:block lg:block'>
                     <DataTable
                         title={''}
@@ -570,7 +570,7 @@ const openBotModal=()=>{
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className='!h-[117vh] !overflow-y-hidden !overflow-x-hidden  myDataTable'
+                        className={`${questions?.data?.results.length <= 5 ?"h-[300px] sm:h-[400px] overflow-y-scroll":"!h-[117vh] !overflow-y-hidden !overflow-x-hidden  "} myDataTable`}
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
                         noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}

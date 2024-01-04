@@ -1728,6 +1728,8 @@ body .rdt_Pagination select:focus {
   border: 1px solid rgb(19 95 194) !important;
 }
 
+
+
 body .rdt_Pagination select {
   border: 1px solid transparent !important;
   font-size: 12px !important;
@@ -1738,6 +1740,17 @@ body .rdt_Pagination {
   font-size: 12px !important;
   padding-right: 19px !important;
 }
+
+.knowledge .rdt_Pagination {
+  font-size: 12px !important;
+  margin-left: 31px !important;
+}
+.logss .rdt_Pagination {
+  font-size: 12px !important;
+  margin-left: 31px !important;
+}
+
+
 
 .data-table-class {
   min-height: 50vh !important;
