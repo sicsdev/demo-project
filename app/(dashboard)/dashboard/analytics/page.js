@@ -160,7 +160,8 @@ const Logs = () => {
     conversations: "all",
     viewed: "all",
     for_review: "all",
-    customer_id: "all"
+    customer_id: "all",
+    recommendation__id: "all"
   });
   const [additionalData, setAdditionalData] = useState({
     conversations: 0,
@@ -214,10 +215,13 @@ const Logs = () => {
       setSelectedBot(combineData[0].value);
       firstTimeAnalytics(combineData[0].value)
       setIndexVal(0);
-
+      const conversationCount = params.get("count")
       let queryParam = selectedWorkflowParam ? `&workflows=${selectedWorkflowParam}` : "&ordering=-number_of_messages&ordering=-created"
-
-      handlePageChange(combineData[0].value, 1, queryParam);
+      const recommendation__id = params.get("recommendation_id")
+      if (recommendation__id) {
+        queryParam = queryParam + "&recommendation_id=" + recommendation__id
+      }
+      handlePageChange(combineData[0].value, 1, queryParam, conversationCount ? conversationCount : 10);
       dispatch(updateLogState({ ...logState.data, bot: combineData[0].value }));
     }
 
@@ -569,7 +573,7 @@ const Logs = () => {
           ...selectedFilters,
           ordering: orderBy, // Update the selected value for the current dropdown
         });
-
+       
         try {
           const response = await getPaginateBotConversation(
             selectedBot,
@@ -821,7 +825,7 @@ const Logs = () => {
 
   const getEmailPhoneData = (userState) => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
-      debugger
+
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
         // console.log(findBot, 'findBot')
@@ -851,7 +855,7 @@ const Logs = () => {
     if (selectedBot !== "Select" && botValue.length !== 0) {
       const findBot = botValue.find((x) => x.value === selectedBot)
       if (findBot) {
-        debugger
+
         return checkContentsName(findBot.usedIn)
       }
     }
@@ -1239,6 +1243,7 @@ const Logs = () => {
 
 
           <>
+          <div className="logss">
             {/* {selectedBot !== 'Select' && ( */}
             <DataTable
               title={""}
@@ -1287,6 +1292,7 @@ const Logs = () => {
               conditionalRowStyles={conditionalRowStyles}
 
             />
+            </div>
             {/* )} */}
           </>
           {/* )} */}
@@ -1300,7 +1306,7 @@ const Logs = () => {
               {" "}
             </div>
             <div
-              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white ${billingState == "demo"? "py-20": "" }`}
+              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white ${billingState == "demo" ? "py-20" : ""}`}
             >
               <>
                 {/* <Card> */}
