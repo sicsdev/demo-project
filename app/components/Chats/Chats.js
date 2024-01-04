@@ -22,6 +22,7 @@ import ProductComponent from './ProductComponent/ProductComponent';
 import ModifiersComponent from './Modifiers/ModifiersComponent';
 import WorkflowUsageTable from '@/app/(dashboard)/dashboard/workflow/workflow-builder/logs/WorkflowUsageTable';
 import { getWorkflowLogsByCustomerID } from '@/app/API/pages/Workflow';
+import { addHumanHandoffWorkflowData, deleteHandoff } from '@/app/API/pages/HumanHandoff';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject, filterDataHandler, setShowChat, setChatDateTime, isShowWorkflowLogsUI, setIsShowWorkflowLogsUI }) => {
 
@@ -54,6 +55,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     // Dropdown of modifiers
     const [idToModify, setIdToModify] = useState('')
+    const [idToModifyHumanHandOff, setIdToModifyHumanHandOff] = useState('')
 
     const [formattedMessages, setFormattedMessages] = useState([])
 
@@ -92,7 +94,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         let lastMessageIsHumanHandoff = false
 
         messages.forEach((message) => {
-            if(!lastMessageIsHumanHandoff){
+            if (!lastMessageIsHumanHandoff) {
                 filteredMessages.push(message)
             }
 
@@ -116,7 +118,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
             if (convoDetails.data) {
-                console.log('convodetails,', convoDetails.data)
                 setNumberOfTicketsForThisCustomer(convoDetails.data.customer?.conversation_count)
                 setTotalWorkflowUsageRecordsCustomer({ ...totalWorkflowUsageRecordsCustomer, count: convoDetails.data.customer?.workflow_log_count })
                 getWorkflowUasgeByCustomerID(convoDetails.data.customer?.id)
@@ -420,6 +421,21 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         }
     }
 
+    const handleHummanHandOff = async (id) => {
+        const find = formattedMessages.find((item) => item.id == id)
+        console.log("🚀 ~ file: Chats.js:425 ~ handleHummanHandOff ~ find:", find)
+        let payload = {
+            search: find?.content
+        }
+        // await deleteHandoff(find?.id)
+        const response = await addHumanHandoffWorkflowData(payload)
+        if(response?.status){
+            setIdToModifyHumanHandOff(id)
+        }else{
+            setIdToModifyHumanHandOff(id)
+        }
+    }
+
     return (
         <>
             {botUnique?.id && !loadingData &&
@@ -699,7 +715,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                             item={item}
                                                                                                             allKnowledge={allKnowledge}
                                                                                                             idOfOpenConversation={idOfOpenConversation}
-                                                                                                            key={key}
                                                                                                         >
                                                                                                         </EditKnowledge>
                                                                                                     ))
@@ -874,7 +889,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                     item={workflow}
                                                                                                     setDropdownOpenId={setDropdownOpenId}
                                                                                                     dropdownOpenId={dropdownOpenId}
-                                                                                                    key={key}
                                                                                                 >
                                                                                                 </EditWorkflow>
                                                                                             ))}
@@ -1021,7 +1035,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                         item={workflow}
                                                                                                         setDropdownOpenId={setDropdownOpenId}
                                                                                                         dropdownOpenId={dropdownOpenId}
-                                                                                                        key={key}
                                                                                                     >
                                                                                                     </EditWorkflow>
                                                                                                 ))}
@@ -1111,16 +1124,29 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                             {
                                                                                 (element.content != "HUMAN-HANDOFF" && !element.content?.includes("WORKFLOW")) && (
-                                                                                    <div className='flex justify-end w-100 mr-2 mb-2' style={{ color: '#828282', alignSelf: 'flex-end' }}>
-                                                                                        <small className='flex gap-3 items-center'>
-                                                                                            <small
-                                                                                                onClick={() => handleModifyPrompt(element.id)}
-                                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#eefd9e] focus:shadow-[0_8px_9px_-4px_#0000ff8a]' >
-                                                                                                {
-                                                                                                    idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
-                                                                                                }
+                                                                                    <div className='flex gap-2 w-100 justify-end  mr-2 mb-2' style={{ alignSelf: 'flex-end' }}>
+                                                                                        <div className='' style={{ color: '#828282', }}>
+                                                                                            <small className='flex gap-3 items-center'>
+                                                                                                <small
+                                                                                                    onClick={() => handleModifyPrompt(element.id)}
+                                                                                                    className='px-1 border border-gray rounded-md cursor-pointer bg-[#eefd9e] focus:shadow-[0_8px_9px_-4px_#0000ff8a]' >
+                                                                                                    {
+                                                                                                        idToModify == element.id ? "Editing Prompt" : "Edit Prompt"
+                                                                                                    }
+                                                                                                </small>
                                                                                             </small>
-                                                                                        </small>
+                                                                                        </div>
+                                                                                        {/* <div className='' >
+                                                                                            <small className='flex gap-3 items-center'>
+                                                                                                <small
+                                                                                                    onClick={() => handleHummanHandOff(element.id)}
+                                                                                                    className='px-1 border rounded-md cursor-pointer border-black text-black focus:shadow-[0_8px_9px_-4px_#0000ff8a]' >
+                                                                                                    {
+                                                                                                        idToModifyHumanHandOff == element.id ? "Human Escaled" : "Human Escal"
+                                                                                                    }
+                                                                                                </small>
+                                                                                            </small>
+                                                                                        </div> */}
                                                                                     </div>
                                                                                 )
                                                                             }
