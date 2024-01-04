@@ -137,7 +137,7 @@ const NewAbovepage = () => {
             </div>
           )}
 
-          {/* {loading ? (
+          {loading ? (
             <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer">
               <SkeletonLoader height={60} width={200} />
             </div>
@@ -170,8 +170,8 @@ const NewAbovepage = () => {
               </p>
               <p className="font-semibold ml-3 see">Schedule Demo today </p>
             </div>
-          )} */}
-          {/* {showVideo ? (
+          )}
+          {showVideo ? (
             <div
               className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-0 z-[999999] overflow-hidden"
               onClick={() => {
@@ -214,7 +214,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             ""
-          )} */}
+          )}
         </div>
         <div className="relative">
           {loading ? (
