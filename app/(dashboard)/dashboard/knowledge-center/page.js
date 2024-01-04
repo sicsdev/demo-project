@@ -281,7 +281,7 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "85%" }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "85%" }} data-tag="allowRowEvents" className='whitespace-normal pl-0 sm:pl-[15px]' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -315,7 +315,7 @@ const Page = () => {
             cell: (row) => (
                 <>
 
-                    <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
+                    <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[0rem]'> {formatISODate(row.created)}</p >
                 </>
 
             )
@@ -1021,7 +1021,7 @@ console.log("result", state?.data?.results);
                                 }
                             </div>
                         </div>
-                        <div className=" sm:mt-[20px] abc">
+                        <div className=" sm:mt-[20px] abc knowledge-center-table">
                             <DataTable
                                 title={''}
                                 fixedHeader
@@ -1057,7 +1057,7 @@ console.log("result", state?.data?.results);
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className={`${state?.data?.results?.length <=5 ? "h-[300px] sm:h-[400px] overflow-y-scroll":"h-auto"}  !w-[95%] !m-[auto]   myDataTable`}
+                                className={`${state?.data?.results?.length <=5 ? "h-[300px] sm:h-[400px] overflow-y-scroll":"h-auto"}  !w-[100%] !m-[auto]   myDataTable`}
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}

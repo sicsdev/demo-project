@@ -10,7 +10,7 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
         <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-            Deflection Labs Inc.Company Privacy Notice{" "}
+        Deflection Labs LLC Company Privacy Notice{" "}
           </h2>
           <p className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date:{" "}
@@ -221,7 +221,7 @@ const Page = () => {
                 agreement you have with us, (c) detect, prevent, or otherwise
                 respond to fraud, security or technical concerns, (d) support
                 auditing and compliance functions, or (e) protect the rights,
-                property, or safety ofTempo, its users, or the public against
+                property, or safety of Deflection Labs, its users, or the public against
                 harm.
               </p>
             </li>

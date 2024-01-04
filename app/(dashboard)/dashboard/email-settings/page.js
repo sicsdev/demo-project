@@ -340,15 +340,15 @@ const page = () => {
                 <div
                   className={`block sm:flex justify-end  px-6  items-center gap-4 mt-3 sm:mt-[12px]`}
                 >
-                  <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
+                  <div className="pt-2 w-full sm:w-[40%] lg:w-1/4 flex items-start sm:items-center  gap-2">
                     <AdjustmentsHorizontalIcon className="text-primary w-5" />
                     <p className="text-base font-medium text-[#151D23]">
                       {botValue?.length > 1 ? "Select Bot" : "Edit Settings"}
                     </p>
                   </div>
-                  <div className="w-full sm:w-3/4  inline-block sm:flex items-center mt-3 email-scroll overflow-x-scroll sm:overflow-x-visible sm:mt-0 justify-between sm:justify-end gap-4">
+                  <div className="w-full lg:w-3/4  inline-block sm:flex items-center mt-3 email-scroll overflow-x-hidden sm:overflow-x-visible sm:mt-0 justify-between sm:justify-end gap-4">
                     <div
-                      className="w-[684px] sm:w-auto block sm:flex items-center   sm:overflow-x-hidden  schedule justify-end sm:justify-start sm:flex-wrap"
+                      className="w-[100%] sm:w-auto block sm:flex items-center   overflow-x-hidden  schedule justify-end sm:justify-start sm:flex-wrap"
                       style={{ rowGap: "4px" }}
                     >
                       {botValue?.length > 1 &&

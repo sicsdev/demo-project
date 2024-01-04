@@ -27,12 +27,12 @@ export const metadata = {
     appleTouchFullscreen: "yes",
     appleTouchIcon: "https://deflection.ai/logo-simple-negative.png",
     ogImage: "https://deflection.ai/logo-simple-negative.png",
-    ogUrl: "https://deflection.ai/",
+    ogUrl: "https://deflection.ai/",  
   },
   title:
     "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
   description:
-    "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+    "Elevate your customer support with Deflection AI's advanced solutions. Chatbot and email automations, trained on your knowledge base for seamless interactions and improved efficiency",
   icons: {
     icon: "https://deflection.ai/icon-simple.ico",
   },
