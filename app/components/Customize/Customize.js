@@ -249,11 +249,11 @@ const Customize = ({
         setBasicFormData((prev) => {
           return { ...prev, logo: result, logo_file_name: file.name };
         });
-      })
-    Submission({ ...basicFormData, logo: result, logo_file_name: file.name })
-      .catch((err) => {
+        Submission({ ...basicFormData, logo: result, logo_file_name: file.name })
+      }).catch((err) => {
         console.log(err);
       });
+
   };
 
   // **** Manage hide urls modal handlers ***
@@ -461,6 +461,19 @@ const Customize = ({
       }
     }),
   ];
+
+
+  const changeText = (text) => {
+    if (text && text.length > 20) {
+      return text.substring(0, 20) + "..."
+    }
+    if(!text){
+      return "Select a bot"
+    }
+    return text
+  }
+
+
   return (
     <>
       {/* Modal to manage hide urls */}
@@ -696,7 +709,7 @@ const Customize = ({
                     <label className="cursor-pointer bg-white rounded w-full">
                       <span className="border-gray h-[37.5px]  text-[12px] border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full new_input ">
                         {preferences.logo_file_name ? (
-                          preferences.logo_file_name
+                          changeText(preferences.logo_file_name)
                         ) : (
                           <>
                             <svg
@@ -713,11 +726,9 @@ const Customize = ({
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                               />
                             </svg>
-                            {"..." +
-                              preferences.thumbnail?.slice(
-                                preferences.thumbnail.length - 10,
-                                preferences.thumbnail.length
-                              ) || "Select file"}
+                            {
+                              changeText( preferences.thumbnail)
+                            }
                           </>
                         )}
                       </span>
@@ -892,14 +903,14 @@ const Customize = ({
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
-                      <Button
+                      <p
                         type={"button"}
-                        className="inline-block mt-0 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        className="inline-block mt-0 rounded  px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-primary disabled:shadow-none  transition duration-150 ease-in-out ]"
                         onClick={() => setShowManageHideUrls(true)}
 
                       >
                         Manage URLs
-                      </Button>
+                      </p>
                     </label>
                   </div>
                 </div>
@@ -984,13 +995,9 @@ const Customize = ({
 
                     <div class="chatbotwidget_footer">
                       <div className="reply_container">
-                        <textarea
-                          id="inputtext_chatwidget"
-                          className="input_question"
-                          type="text"
-                          maxlength="180"
-                          placeholder="Write a reply..."
-                        />
+                        <p
+                          className="text-[#808080b8]"
+                        >Write a reply...</p>
 
                         <div
                           className="send_audio_button"

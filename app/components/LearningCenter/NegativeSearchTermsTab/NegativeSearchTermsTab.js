@@ -141,18 +141,13 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
 
             {negative ?
                 <div className="mt-6">
-                    <SkeletonLoader height={100} width={"100%"} />
-                    <div className="mt-3">
-                        <SkeletonLoader height={40} width={"10%"} />
-                    </div>
+                   
+                
 
                     <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                         <div className="mt-1 flex items-center justify-between">
-                            <SkeletonLoader height={15} width={500} />
-                            <div className="flex items-center justify-between gap-2">
-                                <SkeletonLoader height={25} width={25} />
-                                <SkeletonLoader height={25} width={25} />
-                            </div>
+                            <SkeletonLoader height={85} width={700} />
+                           
                         </div>
                     </div>
 

@@ -505,7 +505,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     </div> */}
 
             {createModal === true && (
-                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'}>
+                <SideModal heading={'Add New Training Data'} setShow={setCreateModal} width={'sm:w-[500px]'}>
 
                     <div className='block items-center my-3'>
                         <ul className="list-none p-0 m-0 w-100">
@@ -554,6 +554,20 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                     </div>
                                 </div>
                             </li>
+                            
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div onClick={() => handleCreateOptions('pdf')} className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10 bg-primary rounded-lg p-2">
+                                        <PaperClipIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>File</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">Txt or PDF FAQ or support file.</p>
+                                    </div>
+                                </div>
+                            </li>  
                             <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
                                 <div
                                     onClick={() => {
@@ -574,20 +588,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                                         </p>
                                     </div>
                                 </div>
-                            </li>
-                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
-                                <div onClick={() => handleCreateOptions('pdf')} className="flex items-center">
-                                    <div className="flex-shrink-0 h-10 w-10 bg-primary rounded-lg p-2">
-                                        <PaperClipIcon className="h-full w-full text-white" />
-                                    </div>
-                                    <div className="ml-4">
-                                        <h3 className="text-sm font-bold">
-                                            <b>File</b>
-                                        </h3>
-                                        <p className="text-xs font-normal">Txt or PDF FAQ or support file.</p>
-                                    </div>
-                                </div>
-                            </li>   
+                            </li> 
                         </ul>
                     </div>
                 </SideModal >

@@ -458,11 +458,11 @@ body .custom-multselect .searchWrappery .chip {
 body .custom-multselect .searchWrapper .chip {
   font-size: 10px;
   line-height: 16px;
-  margin-bottom: 4px;
+  margin-bottom: 0px !important;
   font-weight: 400;
   margin-right: 0;
   /* background: #80808024  !important; */
-  background-color: #80808024;
+  background-color: #2563ebbf;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
@@ -2298,7 +2298,7 @@ input#domainName {
   font-weight: 400;
   width: 69%;
   border-radius: 5px;
-  background: #80808024  !important;
+  background: #2563ebbf  !important;
   color: #000;
   width: 92%;
 
@@ -2396,4 +2396,18 @@ width: 65%;
 .myDataTable .rdt_TableCell{
   position: relative; right: 20px;
 }
+}
+
+.searchWrap::-webkit-scrollbar{
+  width: 10px;
+  height: 4px;
+}
+
+.searchWrap::-webkit-scrollbar-track{
+  background: white;
+}
+
+.searchWrap::-webkit-scrollbar-thumb{
+  background: gray;
+  border-radius: 10px;
 }

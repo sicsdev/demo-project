@@ -317,7 +317,7 @@ const openBotModal=()=>{
             hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2 ml-[7px]" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
+                <div className="flex justify-start w-full items-center gap-2 ml-[7px] text-[#626060]" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -347,7 +347,7 @@ const openBotModal=()=>{
             maxWidth: "250px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2 ml-[35px]' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.knowledgefaq_usage_last_24_hours}</p>
+                <p className='whitespace-normal p-2 ml-[35px] text-[#626060]' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{parseInt(row.knowledgefaq_usage_last_24_hours).toLocaleString()}</p>
             ),
         },
         {
@@ -359,7 +359,7 @@ const openBotModal=()=>{
             maxWidth: "600px",
             id:"bots",
             cell: (row, index) =>
-                <div className="py-2 searchWrap">
+                <div className="py-2 searchWrap overflow-x-scroll">
  <Multiselect
                         className=''
                         options={bots ?? []}
@@ -570,7 +570,7 @@ const openBotModal=()=>{
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        className={`${questions?.data?.results.length <= 5 ?"h-[300px] sm:h-[400px] overflow-y-scroll":"!h-[117vh] !overflow-y-hidden !overflow-x-hidden  "} myDataTable`}
+                        className={`${questions?.data?.results?.length <= 5 ?"h-[300px] sm:h-[400px] overflow-y-scroll":"!h-[117vh] !overflow-y-hidden !overflow-x-hidden  "} myDataTable`}
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
                         noDataComponent={<><p className="text-center text-xs p-3">Answers to questions your customers may have will show here when you add them.</p></>}
                         data={questions?.data?.results}
