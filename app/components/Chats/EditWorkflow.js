@@ -156,8 +156,6 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     }
 
 
-
-
     return (
         <>
             {!deleted &&

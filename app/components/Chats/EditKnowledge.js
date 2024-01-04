@@ -44,10 +44,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
         handlePatchFaq()
     }, [info])
 
-    useEffect(() => {
-        setShowingNegativeOptions(false)
-        setisHandoff
-    }, [idOfOpenConversation])
 
 
     // Handlers
