@@ -191,10 +191,6 @@ const NewAbovepage = () => {
                   controls
                 >
 
-
-
-
-
                   <source
  src="Deflection AI.mp4"                    type="video/mp4"
                   />
@@ -251,7 +247,7 @@ const NewAbovepage = () => {
                       className="!static test-ideo"
                       width="600"
                       height="400"
-                      autoplay={true}
+                      autoPlay
                       muted
                       controls
                     >
