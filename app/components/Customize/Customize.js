@@ -29,9 +29,9 @@ const Customize = ({
   DisablingButton,
   SubmitForm,
   Submission,
-  Indicater
+  Indicater,
 }) => {
-  const userState = useSelector((state) => state.user.data)
+  const userState = useSelector((state) => state.user.data);
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
@@ -111,9 +111,11 @@ const Customize = ({
   // Primary functions
 
   const getValuesEscalationPlatformSelect = async () => {
-    let results = await getAllActivePlatforms()
-    if (results?.result) { setAvailableIntegrations(results.result) }
-  }
+    let results = await getAllActivePlatforms();
+    if (results?.result) {
+      setAvailableIntegrations(results.result);
+    }
+  };
 
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
@@ -131,7 +133,6 @@ const Customize = ({
         };
       });
       setBotDetails(res[0].data);
-      ;
       setPreferences(res[0].data);
       setBlockedUrls([...res[0].data.origins_blocked, [""]] ?? [""]);
       let data = res[0].data;
@@ -158,9 +159,10 @@ const Customize = ({
       };
     });
     Submission({
-      ...basicFormData, primary_color: color.code,
+      ...basicFormData,
+      primary_color: color.code,
       primary_text_color: color.text_color,
-    })
+    });
   };
 
   const handleSecondaryColorChange = (color) => {
@@ -180,7 +182,7 @@ const Customize = ({
       ...basicFormData,
       secondary_color: color.code,
       secondary_text_color: color.text_color,
-    })
+    });
   };
 
   const handleInputChange = (e) => {
@@ -191,8 +193,8 @@ const Customize = ({
     });
     Submission({
       ...basicFormData,
-      [name]: value
-    })
+      [name]: value,
+    });
   };
   const handleCheckBoxChange = (e) => {
     const { name } = e.target;
@@ -203,7 +205,10 @@ const Customize = ({
     setBasicFormData((prev) => {
       return { ...prev, [name]: preferences.active === false ? true : false };
     });
-    Submission({ ...basicFormData, [name]: preferences.active === false ? true : false })
+    Submission({
+      ...basicFormData,
+      [name]: preferences.active === false ? true : false,
+    });
   };
   const handleCheckBoxChange1 = (e) => {
     const { name } = e.target;
@@ -218,7 +223,10 @@ const Customize = ({
       };
     });
 
-    Submission({ ...basicFormData, [name]: preferences.chat_suggestions_show === false ? true : false, })
+    Submission({
+      ...basicFormData,
+      [name]: preferences.chat_suggestions_show === false ? true : false,
+    });
   };
 
   // Logo & thumbnail upload + base64 conversion
@@ -249,11 +257,15 @@ const Customize = ({
         setBasicFormData((prev) => {
           return { ...prev, logo: result, logo_file_name: file.name };
         });
-        Submission({ ...basicFormData, logo: result, logo_file_name: file.name })
-      }).catch((err) => {
+        Submission({
+          ...basicFormData,
+          logo: result,
+          logo_file_name: file.name,
+        });
+      })
+      .catch((err) => {
         console.log(err);
       });
-
   };
 
   // **** Manage hide urls modal handlers ***
@@ -274,12 +286,9 @@ const Customize = ({
             origins_blocked: res?.data?.origins_blocked,
           };
         });
-
       }
     });
   };
-
-
 
   const [tileAgentName, setTileAgentName] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -311,14 +320,17 @@ const Customize = ({
                 chat_suggestions: [...prev, makeCapital(trimmedName)],
               };
             });
-            Submission({ ...basicFormData, chat_suggestions: [...prev, makeCapital(trimmedName)], })
+            Submission({
+              ...basicFormData,
+              chat_suggestions: [...prev, makeCapital(trimmedName)],
+            });
             return [...prev, makeCapital(trimmedName)];
           });
         }
       });
     } else {
       setFormValues({ ...formValues, agent_name: value });
-      Submission({ ...formValues, agent_name: value })
+      Submission({ ...formValues, agent_name: value });
     }
   };
 
@@ -343,7 +355,10 @@ const Customize = ({
               };
             });
 
-            Submission({ ...basicFormData, chat_suggestions: [...prev, makeCapital(trimmedName)], })
+            Submission({
+              ...basicFormData,
+              chat_suggestions: [...prev, makeCapital(trimmedName)],
+            });
             return [...prev, makeCapital(trimmedName)];
           });
         }
@@ -370,7 +385,7 @@ const Customize = ({
         chat_suggestions: [...updatedChips],
       };
     });
-    Submission({ ...basicFormData, chat_suggestions: [...updatedChips], })
+    Submission({ ...basicFormData, chat_suggestions: [...updatedChips] });
   };
   const makeCapital = (str) => {
     if (str.includes(" ")) {
@@ -396,23 +411,28 @@ const Customize = ({
     textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [preferences.chat_default_message]);
   const Session = (value) => {
-    DebounceSubmitForm(value, saveNewBlockedUrlDebounce, setTypingTimeout, typingTimeout)
-  }
+    DebounceSubmitForm(
+      value,
+      saveNewBlockedUrlDebounce,
+      setTypingTimeout,
+      typingTimeout
+    );
+  };
   const handleInputUrl = (event, index) => {
-    let userInput = event.target.value
+    let userInput = event.target.value;
     let sanitizedInput = userInput.trim(); // Remove leading/trailing spaces
-    sanitizedInput = '/' + sanitizedInput.replace(/^\/+/, ''); // Ensure a single leading slash
-    let urls = [...blockedUrls]
-    urls[index] = sanitizedInput
-    setBlockedUrls(urls)
-    Session({ value: sanitizedInput, index })
-  }
-  const [typingTimeout, setTypingTimeout] = useState(null)
-  const [debounceLoading, setDebounceLoading] = useState(null)
-  const [driveLoading, setDriveLoading] = useState(false)
+    sanitizedInput = "/" + sanitizedInput.replace(/^\/+/, ""); // Ensure a single leading slash
+    let urls = [...blockedUrls];
+    urls[index] = sanitizedInput;
+    setBlockedUrls(urls);
+    Session({ value: sanitizedInput, index });
+  };
+  const [typingTimeout, setTypingTimeout] = useState(null);
+  const [debounceLoading, setDebounceLoading] = useState(null);
+  const [driveLoading, setDriveLoading] = useState(false);
 
   const saveNewBlockedUrlDebounce = (bot) => {
-    setDebounceLoading(bot.index)
+    setDebounceLoading(bot.index);
     addBlockedUrl(botDetails.id, { elements: [bot.value] }).then((res) => {
       if (res.data.origins_blocked) {
         setPreferences({
@@ -425,16 +445,13 @@ const Customize = ({
             origins_blocked: res?.data?.origins_blocked,
           };
         });
-        setBlockedUrls(prev => {
-          return [
-            ...prev,
-            ""
-          ]
-        })
-        setDebounceLoading(null)
-        setDriveLoading(true)
+        setBlockedUrls((prev) => {
+          return [...prev, ""];
+        });
+        setDebounceLoading(null);
+        setDriveLoading(true);
         setTimeout(() => {
-          setDriveLoading(false)
+          setDriveLoading(false);
         }, 2000);
       }
     });
@@ -453,26 +470,29 @@ const Customize = ({
             origins_blocked: res?.data?.origins_blocked,
           };
         });
-        setDebounceLoading(null)
-        setDriveLoading(true)
+        setDebounceLoading(null);
+        setDriveLoading(true);
         setTimeout(() => {
-          setDriveLoading(false)
+          setDriveLoading(false);
         }, 2000);
       }
     }),
   ];
 
-
-  const changeText = (text) => {
-    if (text && text.length > 45) {
-      return text.substring(0, 45) + "..."
+  const changeText = (fileUrl) => {
+    if (fileUrl) {
+      const urlSegments = fileUrl.split('/');
+      const fileName = urlSegments[urlSegments.length - 1];
+      return fileName;
     }
-    if(!text){
-      return "Select a bot"
+    // if (text && text.length > 45) {
+    //   return text.substring(0, 45) + "...";
+    // }
+    if (!fileUrl) {
+      return "Select a bot";
     }
-    return text
-  }
-
+    return text;
+  };
 
   return (
     <>
@@ -483,8 +503,7 @@ const Customize = ({
           heading={"Hide widget on Certain URLs"}
         >
           <>
-
-            <div className="w-full sm:w-[70%]">
+            <div className="mx-0 sm:mx-2 w-full sm:w-[70%]">
               <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                 <div className="flex justify-start w-1/2 items-center">
                   <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
@@ -501,34 +520,34 @@ const Customize = ({
                       onChange={handleCheckBoxChange}
                       className="sr-only peer"
                       checked={preferences.active === true}
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     />
                     <div
                       className={`w-11 h-6 ${preferences.active === false
-                        ? "bg-border"
-                        : "bg-primary"
+                          ? "bg-border"
+                          : "bg-primary"
                         } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                     ></div>
                   </label>
                 </div>
-
               </div>
-              {Indicater}
+              {/* {Indicater} */}
             </div>
 
             {preferences.active === true && (
-              <div className="w-full sm:w-[70%]">
+              <div className="mx-2 w-full sm:w-[70%]">
                 <div>
                   <h3 className="my-2 font-normal new_input_label text-sm text-heading">
                     Block paths you don't want the widget to appear on.
                   </h3>
                 </div>
                 {blockedUrls.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center  mt-3 gap-2 "
-                  >
+                  <div key={index} className="flex items-center  mt-3 gap-2 ">
                     <div className="w-[120px]">
                       <span
                         className="new_input_label block text-sm text-heading
@@ -553,19 +572,17 @@ const Customize = ({
                         <XMarkIcon
                           fill="red"
                           className="m-[10px] w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                          onClick={
-                            (e) => {
-                              setDebounceLoading(index)
-                              handleRemoveUrl(e, index)
-                            }
-                          }
+                          onClick={(e) => {
+                            setDebounceLoading(index);
+                            handleRemoveUrl(e, index);
+                          }}
                           title="Delete URL"
                           id={item}
                         />
                       </button>
-                    ) :
+                    ) : (
                       <button></button>
-                    }
+                    )}
                     {blockedUrls.length - 1 === index && (
                       <button disabled={blockedUrls[index] === ""}>
                         <PlusSmallIcon
@@ -573,19 +590,16 @@ const Customize = ({
                           className="w-[20px] h-[20px] mr-2 text-soft-green cursor-pointer rounded-full hover:text-black"
                           title="Add URL"
                           onClick={() => {
-                            setBlockedUrls(prev => {
-                              return [
-                                ...prev,
-                                "",
-                              ]
-                            })
+                            setBlockedUrls((prev) => {
+                              return [...prev, ""];
+                            });
                           }}
                         />
                       </button>
                     )}
-                    {index === debounceLoading && (
+                    {/* {index === debounceLoading && (
                       <StatusIndicator loading={debounceLoading} driveLoad={driveLoading} />
-                    )}
+                    )} */}
                   </div>
                 ))}
                 {/* <div
@@ -601,6 +615,14 @@ const Customize = ({
               </div> */}
               </div>
             )}
+
+            <div className="flex justify-start items-center pt-[20px] mx-2">
+              <StatusIndicator
+                loading={debounceLoading}
+                driveLoad={driveLoading}
+              />
+              {Indicater}
+            </div>
           </>
         </SideModal>
       )}
@@ -627,7 +649,12 @@ const Customize = ({
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat title"
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -647,8 +674,12 @@ const Customize = ({
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter description"
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -658,14 +689,18 @@ const Customize = ({
                   colorCodes={colorCodes}
                   onChange={handlePrimaryColorChange}
                   label="Primary Color"
-                  disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                  disabled={
+                    !getPermissionHelper("EDIT BOT SETTINGS", userState?.role)
+                  }
                 ></ColorSelector>
                 <ColorSelector
                   selectedColor={preferences.secondary_color}
                   colorCodes={colorCodes}
                   onChange={handleSecondaryColorChange}
                   label="Secondary Color"
-                  disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                  disabled={
+                    !getPermissionHelper("EDIT BOT SETTINGS", userState?.role)
+                  }
                 ></ColorSelector>
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
@@ -679,7 +714,12 @@ const Customize = ({
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                       className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
@@ -726,9 +766,7 @@ const Customize = ({
                                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                               />
                             </svg>
-                            {
-                              changeText( preferences.thumbnail)
-                            }
+                            {changeText(preferences.thumbnail)}
                           </>
                         )}
                       </span>
@@ -739,7 +777,12 @@ const Customize = ({
                         placeholder="Select logo"
                         name="logo"
                         onChange={handleFileChange}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                        disabled={
+                          !getPermissionHelper(
+                            "EDIT BOT SETTINGS",
+                            userState?.role
+                          )
+                        }
                       />
                     </label>
                   </div>
@@ -756,7 +799,12 @@ const Customize = ({
                       value={preferences.human_handoff_platform}
                       name="human_handoff_platform"
                       onChange={handleInputChange}
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                       className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400 0 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 border-input_color"
                     >
                       <option value="">Email</option>
@@ -764,11 +812,11 @@ const Customize = ({
                         <option value={name}>
                           {name.charAt(0).toUpperCase() + name.slice(1)}
                         </option>
-                      ))}|
+                      ))}
+                      |
                     </select>
                   </div>
                 </div>
-
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
@@ -784,8 +832,12 @@ const Customize = ({
                       type="email"
                       className="w-full block px-3 new_input bg-white focus:bg-white  border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter customer service email"
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -804,8 +856,12 @@ const Customize = ({
                       className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat default message"
                       rows={"1"}
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     >
                       {preferences.chat_default_message}
                     </textarea>
@@ -830,8 +886,6 @@ const Customize = ({
                     </span>
                   </div>
                   <div className="flex flex-col justify-start w-1/2">
-
-
                     <input
                       value={formValues.agent_name}
                       onKeyDown={handleKeyDown}
@@ -842,8 +896,12 @@ const Customize = ({
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       id={"chat_suggestions"}
                       name={"chat_suggestions"}
-                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                      disabled={
+                        !getPermissionHelper(
+                          "EDIT BOT SETTINGS",
+                          userState?.role
+                        )
+                      }
                     />
                     <div className="flex mt-2 flex-wrap items-center justify-start gap-1">
                       {tileAgentName.length > 0 &&
@@ -863,7 +921,6 @@ const Customize = ({
                         ))}
                     </div>
                   </div>
-
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
@@ -881,19 +938,22 @@ const Customize = ({
                         onChange={handleCheckBoxChange1}
                         className="sr-only peer"
                         checked={preferences.chat_suggestions_show === true}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-
+                        disabled={
+                          !getPermissionHelper(
+                            "EDIT BOT SETTINGS",
+                            userState?.role
+                          )
+                        }
                       />
                       <div
                         className={`w-11 h-6 ${preferences.chat_suggestions_show === false
-                          ? "bg-border"
-                          : "bg-primary"
+                            ? "bg-border"
+                            : "bg-primary"
                           } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                       ></div>
                     </label>
                   </div>
                 </div>
-
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
@@ -907,7 +967,6 @@ const Customize = ({
                         type={"button"}
                         className="contents mt-0 rounded  px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-primary disabled:shadow-none  transition duration-150 ease-in-out ]"
                         onClick={() => setShowManageHideUrls(true)}
-
                       >
                         Manage URLs
                       </p>
@@ -916,13 +975,11 @@ const Customize = ({
                 </div>
               </div>
 
-
-
-
               <div className="lg:hidden justify-end items-center px-2 mt-5 pt-5">
-                <div className='border border-b border-lowgray'></div>
+                <div className="border border-b border-lowgray"></div>
                 <div className="gap-3 flex justify-center items-center mt-3">
-                  <EyeIcon className='h-4 w-4 text-primary'></EyeIcon>  <h3>Preview</h3>
+                  <EyeIcon className="h-4 w-4 text-primary"></EyeIcon>{" "}
+                  <h3>Preview</h3>
                 </div>
               </div>
 
@@ -948,7 +1005,8 @@ const Customize = ({
                         <div className="subtitle_div">
                           <span className="subtitle_ChatBotWidget">
                             <span className="ai_icon">AI</span>{" "}
-                            {preferences.description || "Powered by Deflection AI"}
+                            {preferences.description ||
+                              "Powered by Deflection AI"}
                           </span>
                         </div>
                       </div>
@@ -995,9 +1053,7 @@ const Customize = ({
 
                     <div class="chatbotwidget_footer">
                       <div className="reply_container">
-                        <p
-                          className="text-[#808080b8]"
-                        >Write a reply...</p>
+                        <p className="text-[#808080b8]">Write a reply...</p>
 
                         <div
                           className="send_audio_button"
@@ -1050,8 +1106,6 @@ const Customize = ({
                 </div>
               </div>
             </div>
-
-
           </>
         )}
       </div>

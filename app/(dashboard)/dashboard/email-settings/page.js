@@ -330,12 +330,12 @@ const page = () => {
               </div>
             ) : (
               <div className="w-full   border-[#F0F0F1]">
-                <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg sm:mb-[16px]">
+                {/* <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg sm:mb-[16px]">
                   <h1 className="text-sm font-semibold flex items-center gap-2">
                     <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
                     {user?.enterprise?.domain}{" "}
                   </h1>
-                </div>
+                </div> */}
 
                 <div
                   className={`block sm:flex justify-end  px-6  items-center gap-4 mt-3 sm:mt-[12px]`}

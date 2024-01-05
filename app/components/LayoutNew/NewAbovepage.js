@@ -64,7 +64,7 @@ const NewAbovepage = () => {
   };
   return (
     <div className=" relative py-8 sm:py-14">
-      <div className="grid grid-cols-1 md:grid-cols-2 relative">
+      <div className="grid grid-cols-1 lg:grid-cols-2 relative">
         <div>
           {loading ? (
             <div className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black]">
@@ -77,11 +77,11 @@ const NewAbovepage = () => {
             </h2>
           )}
           {loading ? (
-            <div className="w-full md:ml-[56px] xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <div className="w-full md:ml-[56px] sm:w-[500px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
               <SkeletonLoader height={60} width={"90%"} />
             </div>
           ) : (
-            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[17px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[56px] sm:w-[500px] xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[17px] md:leading-8 gap-2">
               Elevate customer satisfaction and agent efficiency with Deflection
               AI's AI-driven solutions.
             </p>
@@ -175,7 +175,7 @@ const NewAbovepage = () => {
           */}
           {showVideo ? (
             <div
-              className="fixed  flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-[6px] z-[999999] overflow-hidden"
+              className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-[6px] z-[999999] overflow-hidden"
               onClick={() => {
                 document.body.classList.remove("modal-open");
 
@@ -190,10 +190,7 @@ const NewAbovepage = () => {
                   autoPlay={true}
                   controls
                 >
-
-                  <source
- src="Deflection AI.mp4"                    type="video/mp4"
-                  />
+                  <source src="Deflection AI.mp4" type="video/mp4" />
                 </video>
                 <div className="video_popup_cross">
                   <svg
@@ -216,16 +213,17 @@ const NewAbovepage = () => {
             </div>
           ) : (
             ""
-          )} 
+          )}
         </div>
         <div className="relative">
           {loading ? (
-            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
+            // <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
+            <div className="!m-auto mr-2 border-solid  relative mt-5 sm:mt-0  shrink-0 items-center justify-center leading-normal">
               <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />
             </div>
           ) : (
             <>
-              <div className="absolute animate_lottie right-0">
+              <div className="absolute animate_lottie right-0 sm:h-[451px] md:!h-[460px] md:left-0 xl:!h-auto">
                 <lottie-player
                   className="wrap_player"
                   id={"linesLottieAnimation"}
@@ -253,9 +251,6 @@ const NewAbovepage = () => {
                     >
                       <source src="Deflection AI.mp4" type="video/mp4" />
                     </video>
-           
-                  
-                  
                   </div>
                 </div>
               </div>
