@@ -479,11 +479,16 @@ const Customize = ({
     }),
   ];
 
-  const changeText = (text) => {
-    if (text && text.length > 45) {
-      return text.substring(0, 45) + "...";
+  const changeText = (fileUrl) => {
+    if (fileUrl) {
+      const urlSegments = fileUrl.split('/');
+      const fileName = urlSegments[urlSegments.length - 1];
+      return fileName;
     }
-    if (!text) {
+    // if (text && text.length > 45) {
+    //   return text.substring(0, 45) + "...";
+    // }
+    if (!fileUrl) {
       return "Select a bot";
     }
     return text;
@@ -523,11 +528,10 @@ const Customize = ({
                       }
                     />
                     <div
-                      className={`w-11 h-6 ${
-                        preferences.active === false
+                      className={`w-11 h-6 ${preferences.active === false
                           ? "bg-border"
                           : "bg-primary"
-                      } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                     ></div>
                   </label>
                 </div>
@@ -873,9 +877,8 @@ const Customize = ({
                 </div>
 
                 <div
-                  className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${
-                    tileAgentName.length > 0 ? "items-start" : "items-center"
-                  }`}
+                  className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${tileAgentName.length > 0 ? "items-start" : "items-center"
+                    }`}
                 >
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
@@ -943,11 +946,10 @@ const Customize = ({
                         }
                       />
                       <div
-                        className={`w-11 h-6 ${
-                          preferences.chat_suggestions_show === false
+                        className={`w-11 h-6 ${preferences.chat_suggestions_show === false
                             ? "bg-border"
                             : "bg-primary"
-                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                       ></div>
                     </label>
                   </div>
