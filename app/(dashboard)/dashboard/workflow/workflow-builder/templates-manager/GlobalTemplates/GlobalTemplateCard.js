@@ -48,7 +48,7 @@ const GlobalTemplateCard = ({ item, loading, key }) => {
     const redirectToIntegrations = () => {
         router.push('/dashboard/workflow/integrations')
     }
-
+console.log("neededIntegrationsToAddAsWorkflow",neededIntegrationsToAddAsWorkflow)
     return (
         <>
 
@@ -62,11 +62,11 @@ const GlobalTemplateCard = ({ item, loading, key }) => {
 
             {showConfigureIntegrations &&
                 <div className='absolute'>
-                    <Modal title={'Configure integrations'} show={showConfigureIntegrations} setShow={setShowConfigureIntegrations} className={'w-[40%] rounded-lg'} showCancel={true} >
+                    <Modal title={'Configure integrations'} show={showConfigureIntegrations} setShow={setShowConfigureIntegrations} className={' w-[100%] sm:w-[40%] rounded-lg'} showCancel={true} >
                         <div className='mb-4'>
                             <small>To create a workflow based on this template, you need to configure the following integrations.</small>
                         </div>
-                        {neededIntegrationsToAddAsWorkflow?.map(integration =>
+                        {neededIntegrationsToAddAsWorkflow.slice(0,1).map(integration =>
                             <div className='flex my-1 items-center gap-1 bg-[#ECF6FE] border-primary_hover border border-border p-3 rounded-md hover:bg-[#ECF6FE] hover:border-primary_hover'>
                                 <img src={integration.automation.integration.icon} alt={integration.automation.integration.name} className='w-5 h-5' />
                                 <small>  {integration.automation.integration.name}</small>

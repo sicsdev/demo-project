@@ -330,7 +330,7 @@ const page = () => {
               </div>
             ) : (
               <div className="w-full   border-[#F0F0F1]">
-                <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
+                <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg sm:mb-[16px]">
                   <h1 className="text-sm font-semibold flex items-center gap-2">
                     <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
                     {user?.enterprise?.domain}{" "}
@@ -341,8 +341,8 @@ const page = () => {
                   className={`block sm:flex justify-end  px-6  items-center gap-4 mt-3 sm:mt-[12px]`}
                 >
                   <div className="pt-2 w-full sm:w-[40%] lg:w-1/4 flex items-start sm:items-center  gap-2">
-                    <AdjustmentsHorizontalIcon className="text-primary w-5" />
-                    <p className="text-base font-medium text-[#151D23]">
+                    <AdjustmentsHorizontalIcon className="text-[grey] w-5" />
+                    <p className="text-sm font-medium text-[#151D23]">
                       {botValue?.length > 1 ? "Select Bot" : "Edit Settings"}
                     </p>
                   </div>
@@ -415,7 +415,7 @@ const page = () => {
                   {user && user?.enterprise?.domain !== "" && (
                     <>
                       <div
-                        className=" mt-4  p-3 sm:py-[1.75rem] sm:px-[22px] rounded-lg my-4"
+                        className=" mt-4  p-3 sm:py-4 sm:px-[22px] rounded-lg sm:mt-2"
                         style={{
                           border: "1px solid #d5dbe7",
                         }}
