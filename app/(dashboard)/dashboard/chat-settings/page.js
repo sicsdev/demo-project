@@ -25,7 +25,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 const page = () => {
-  const userState = useSelector((state) => state.user.data)
+  const userState = useSelector((state) => state.user.data);
   const [pageLoading, setPageLoading] = useState(true);
   const [tab, setTab] = useState(0);
   const [pageSubLoading, setSubLoading] = useState(true);
@@ -158,8 +158,8 @@ const page = () => {
       });
   };
 
-  const [typingTimeout, setTypingTimeout] = useState(null)
-  const [driveLoad, setDriveLoad] = useState(false)
+  const [typingTimeout, setTypingTimeout] = useState(null);
+  const [driveLoad, setDriveLoad] = useState(false);
 
   const Submission = async (formattedValue) => {
     setLoading(true);
@@ -183,9 +183,9 @@ const page = () => {
       .then((res) => {
         if (res?.status === 200 || res?.status === 201) {
           setLoading(false);
-          setDriveLoad(true)
+          setDriveLoad(true);
           setTimeout(() => {
-            setDriveLoad(false)
+            setDriveLoad(false);
           }, 2000);
           // successMessage("Changes successfully saved!");
           // router.push(`/dashboard`);
@@ -202,8 +202,13 @@ const page = () => {
   };
 
   const SubmissionForm = (formattedValue) => {
-    DebounceSubmitForm(formattedValue, Submission, setTypingTimeout, typingTimeout)
-  }
+    DebounceSubmitForm(
+      formattedValue,
+      Submission,
+      setTypingTimeout,
+      typingTimeout
+    );
+  };
 
   return (
     <div style={{ whiteSpace: "normal" }}>
@@ -249,10 +254,11 @@ const page = () => {
                             <button
                               onClick={(e) => selectBotHandler(element.value)}
                               key={key}
-                              className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot
-                                ? "text-white bg-primary"
-                                : "bg-white text-[#151D23]"
-                                } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                              className={`flex items-center gap-2 justify-center font-semibold ${
+                                element.value === selectedBot
+                                  ? "text-white bg-primary"
+                                  : "bg-white text-[#151D23]"
+                              } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                             >
                               {" "}
                               {element?.name}
@@ -361,12 +367,18 @@ const page = () => {
                       DisablingButton={DisablingButton}
                       SubmitForm={SubmitForm}
                       Submission={SubmissionForm}
-                      Indicater={  <div className="p-8">
-                      <StatusIndicator loading={loading} driveLoad={driveLoad} />
-                    </div>}
+                      Indicater={
+                        <StatusIndicator
+                          loading={loading}
+                          driveLoad={driveLoad}
+                        />
+                      }
                     />
                     <div className="p-8">
-                      <StatusIndicator loading={loading} driveLoad={driveLoad} />
+                      <StatusIndicator
+                        loading={loading}
+                        driveLoad={driveLoad}
+                      />
                     </div>
                   </>
                 )}

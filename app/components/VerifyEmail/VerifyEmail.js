@@ -99,17 +99,17 @@ const CheckEmail = ({
   };
 
   return (
-    <div className="bg-white w-full m-auto  rounded-lg border-[#F0F0F1] mt-5">
+    <div className="bg-white w-full m-auto  rounded-lg border-[#F0F0F1] mt-1">
       <></>
       {loader === true ? (
         <>
-          <div className=" p-4">
+          <div className="pt-0 p-4">
             <h1 className="text-sm font-semibold">
               {" "}
               <SkeletonLoader height={20} width={150} />
             </h1>
           </div>
-          <div className=" p-4">
+          <div className="p-4">
             <div className="">
               <div className="my-2">
                 <SkeletonLoader height={12} width={100} />
@@ -391,14 +391,14 @@ const CheckEmail = ({
         </>
       ) : (
         <>
-          <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
+          {/* <div className=" p-4 sm:mx-4 bg-lowgray rounded-lg">
             <h1 className="text-sm font-semibold flex items-center gap-2">
               <EnvelopeIcon className="h-5 w-5"></EnvelopeIcon>
               {user?.enterprise?.domain}{" "}
             </h1>
-          </div>
+          </div> */}
 
-          <div className=" p-4">
+          <div className="pt-0 p-4">
             <div className="">
               <div className="my-2 sm:my-0">
                 {user && user?.enterprise?.domain === "" && (

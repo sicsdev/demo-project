@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import Button from "../Common/Button/Button";
 import { useSelector } from "react-redux";
 import { makeCapital } from "../helper/capitalName";
@@ -25,9 +25,9 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     // Use a regular expression to add a space after '+1' if it exists
     return phoneNumber.replace(/(\+1)(\d+)/, "$1 $2");
   }
-  console.log("asdassadsad", teams);
+
   useEffect(() => {
-    if (state?.data) {
+    if (state?.data && userState !== null) {
       const mapData = state?.data.map((ele) => {
         let contact = ele.phone;
         if (ele.phone_prefix && !ele.phone.includes("+1")) {
@@ -54,10 +54,10 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       setTeams(filteredData);
 
       // Remove Action for non-admin members.
-      if (!getPermissionHelper("MANAGE TEAM", userState?.role)) {
-        let newColumns = columns2.filter((column) => column.name !== "Action");
-        setColumns2(newColumns);
-      }
+      // if (!getPermissionHelper("MANAGE TEAM", userState?.role)) {
+      //   let newColumns = columns2.filter((column) => column.name !== "Action");
+      //   setColumns2(newColumns);
+      // }
     }
 
     const handleResize = () => {
@@ -67,7 +67,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [state?.data]);
+  }, [state?.data, userState]);
 
   function formatPhoneNumber(phoneNumber) {
     // Use regular expressions to extract the different parts of the phone number
@@ -78,8 +78,190 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     const formattedNumber = `${countryCode} (${areaCode}) ${firstPart}-${secondPart}`;
     return formattedNumber;
   }
+  const data = ["ADMINISTRATOR", "Collaborator", "Remove"];
+  const [show, setShow] = useState(null);
 
-  const [columns2, setColumns2] = useState([
+  // const [columns2, setColumns2] = useState([
+  //   // This logo column will be used for profile photo of the member in future.
+  //   // {
+  //   //   name: "Logo",
+  //   //   id: "logo",
+  //   //   selector: (row) => row?.logo,
+  //   //   reorder: true,
+  //   //   cell: (row) => (
+  //   //     <>
+  //   //       {row?.logo ? (
+  //   //         <img
+  //   //           className="w-9 h-9 rounded-lg border border-border"
+  //   //           src={row?.logo}
+  //   //           alt="user photo"
+  //   //         />
+  //   //       ) : (
+  //   //         <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+  //   //           <span className="font-medium text-white normal-case">
+  //   //             {" "}
+  //   //             {row?.name.charAt(0)}
+  //   //           </span>
+  //   //         </div>
+  //   //       )}
+  //   //     </>
+  //   //   ),
+  //   //   width: "80px",
+  //   //   hide: "sm",
+  //   // },
+  //   {
+  //     name: "Email",
+  //     id: "Email",
+  //     selector: (row) => row?.email,
+  //     cell: (row) => (
+  //       <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>
+  //         {row.email}
+  //       </p>
+  //     ),
+  //     reorder: true,
+  //     width: isMobile ? "220px" : "300px",
+  //   },
+  //   {
+  //     name: "Name",
+  //     id: "Name",
+  //     selector: (row) => row?.name,
+  //     cell: (row) => <p className="whitespace-normal text-xs">{row?.name}</p>,
+  //     reorder: true,
+  //     width: isMobile ? "100px" : "200px",
+  //     hide: "sm",
+  //   },
+  //   {
+  //     name: "Contact",
+  //     id: "Contact",
+  //     selector: (row) => row?.contact,
+  //     cell: (row) => (
+  //       <p className="whitespace-normal xs">
+  //         {" "}
+  //         {/* {row?.contact !== "" && row?.contact !== " "
+  //           ? formatPhoneNumber(row?.contact)
+  //           : ""} */}
+  //         <span>{`${row?.contact || "+1"} ${row?.phone}`}</span>
+  //       </p>
+  //     ),
+  //     reorder: true,
+  //     width: "200px",
+  //     hide: "sm",
+  //   },
+
+  //   {
+  //     name: "Role",
+  //     id: " Role",
+  //     selector: (row) => row?.role,
+  //     cell: (element) => (
+  //       <p className="whitespace-normal text-xs flex items-center">
+  //         {element.role == "MEMBER"
+  //           ? "Member"
+  //           : element.role == "COLLABORATOR"
+  //             ? "Collaborator"
+  //             : "Admin"}
+  //       </p>
+  //     ),
+  //     // reorder: true,
+  //     width: isMobile ? "120px" : "200px",
+  //     hide: "",
+  //   },
+
+  //   {
+  //     name: "Action",
+  //     id: "Action",
+  //     selector: (row) => row?.action,
+  //     cell: (ele) => (
+  //       <ButtonComponent
+  //         ele={ele}
+  //         show={show}
+  //         setShow={setShow}
+  //         removeMember={removeMember}
+  //         changeRole={changeRole}
+  //         role={ele.role}
+  //       />
+  //     ),
+  //     reorder: true,
+  //     width: "100px",
+  //   },
+  // ]);
+
+  // const columns2 = [
+  //   {
+  //     name: "Email",
+  //     id: "Email",
+  //     selector: (row) => row?.email,
+  //     cell: (row) => (
+  //       <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>
+  //         {row.email}
+  //       </p>
+  //     ),
+  //     reorder: true,
+  //     width: isMobile ? "220px" : "300px",
+  //   },
+  //   {
+  //     name: "Name",
+  //     id: "Name",
+  //     selector: (row) => row?.name,
+  //     cell: (row) => <p className="whitespace-normal text-xs">{row?.name}</p>,
+  //     reorder: true,
+  //     width: isMobile ? "100px" : "200px",
+  //     hide: "sm",
+  //   },
+  //   {
+  //     name: "Contact",
+  //     id: "Contact",
+  //     selector: (row) => row?.contact,
+  //     cell: (row) => (
+  //       <p className="whitespace-normal xs">
+  //         {" "}
+  //         {/* {row?.contact !== "" && row?.contact !== " "
+  //           ? formatPhoneNumber(row?.contact)
+  //           : ""} */}
+  //         <span>{`${row?.contact || "+1"} ${row?.phone}`}</span>
+  //       </p>
+  //     ),
+  //     reorder: true,
+  //     width: "200px",
+  //     hide: "sm",
+  //   },
+
+  //   {
+  //     name: "Role",
+  //     id: " Role",
+  //     selector: (row) => row?.role,
+  //     cell: (element) => (
+  //       <p className="whitespace-normal text-xs flex items-center">
+  //         {element.role == "MEMBER"
+  //           ? "Member"
+  //           : element.role == "COLLABORATOR"
+  //             ? "Collaborator"
+  //             : "Admin"}
+  //       </p>
+  //     ),
+  //     // reorder: true,
+  //     width: isMobile ? "120px" : "200px",
+  //     hide: "",
+  //   },
+
+  //   {
+  //     name: "Action",
+  //     id: "Action",
+  //     selector: (row) => row?.action,
+  //     cell: (ele) => (
+  //       <ButtonComponent
+  //         ele={ele}
+  //         show={show}
+  //         setShow={setShow}
+  //         removeMember={removeMember}
+  //         changeRole={changeRole}
+  //         role={ele.role}
+  //       />
+  //     ),
+  //     reorder: true,
+  //     width: "100px",
+  //   },
+  // }
+  const columnData = [
     // This logo column will be used for profile photo of the member in future.
     // {
     //   name: "Logo",
@@ -136,8 +318,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
         <p className="whitespace-normal xs">
           {" "}
           {/* {row?.contact !== "" && row?.contact !== " "
-            ? formatPhoneNumber(row?.contact)
-            : ""} */}
+          ? formatPhoneNumber(row?.contact)
+          : ""} */}
           <span>{`${row?.contact || "+1"} ${row?.phone}`}</span>
         </p>
       ),
@@ -155,8 +337,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           {element.role == "MEMBER"
             ? "Member"
             : element.role == "COLLABORATOR"
-            ? "Collaborator"
-            : "Admin"}
+              ? "Collaborator"
+              : "Admin"}
         </p>
       ),
       // reorder: true,
@@ -176,15 +358,25 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           removeMember={removeMember}
           changeRole={changeRole}
           role={ele.role}
+          userEmail={userState?.email}
         />
       ),
       reorder: true,
       width: "100px",
     },
-  ]);
+  ]
 
-  const data = ["ADMINISTRATOR", "Collaborator", "Remove"];
-  const [show, setShow] = useState(null);
+  const columns2 = useMemo(() => {
+    if (!getPermissionHelper("MANAGE TEAM", userState?.role) && userState !== null) {
+      let newColumns = columnData.filter((column) => column.name !== "Action");
+      // setColumns2(newColumns);
+      return newColumns
+    } else {
+      return columnData
+    }
+  }, [userState, show])
+
+
   return (
     <div className="mt-5">
       <div className="w-full ">
@@ -199,7 +391,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           columns={columns2}
           noDataComponent={
             <>
-              <p className="text-center text-xs p-3">!</p>
+              <p className="text-center text-xs p-3">sdsd sdbsdb shdbvhsvd!</p>
             </>
           }
           data={teams}
@@ -219,13 +411,13 @@ export const ButtonComponent = ({
   removeMember,
   changeRole,
   role,
+  userEmail
 }) => {
   const data = [
     { name: "Set as Admin", value: "ADMINISTRATOR" },
     { name: "Set as Member", value: "MEMBER" },
     { name: "Set as Collaborator", value: "COLLABORATOR" },
   ];
-
   const divRef = useRef(null);
   useEffect(() => {
     // Function to handle clicks outside the div and dropdown
@@ -245,64 +437,77 @@ export const ButtonComponent = ({
     };
   }, []);
 
+  const openActionHandler = (ele) => {
+    // setShow(ele?.email);
+    setShow((prev) => {
+      if (prev === ele?.email) {
+        return null;
+      } else {
+        return ele?.email;
+      }
+    });
+  };
+
   return (
-    <div
-      className="cursor-pointer relative"
-      ref={divRef}
-      onClick={(e) => {
-        setShow((prev) => {
-          if (prev === ele?.email) {
-            return null;
-          } else {
-            return ele?.email;
-          }
-        });
-      }}
-    >
-      <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
-      {show === ele?.email && (
-        // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
-        <div
-          className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}
-        >
-          <ul className="py-2 text-xs text-gray-700 ">
-            {data.map(
-              (element, key) =>
-                element.value !== role && (
+    <>
+      {
+        ele?.email === userEmail
+          ?
+          <></>
+          :
+          <div
+            className="cursor-pointer relative"
+            ref={divRef}
+            onClick={(e) => {
+              openActionHandler(ele)
+            }}
+          >
+            <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
+            {show === ele?.email && (
+              // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
+              <div
+                className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}
+              >
+                <ul className="py-2 text-xs text-gray-700 ">
+                  {data.map(
+                    (element, key) =>
+                      element.value !== role && (
+                        <li
+                          className={`hover:bg-primary  hover:text-white text-heading my-1`}
+                          key={key}
+                        >
+                          <button
+                            type="button"
+                            className="block px-4 py-2 "
+                            onClick={() => {
+                              changeRole(ele.email, element.value);
+                              setShow(null);
+                            }}
+                          >
+                            {element.name}
+                          </button>
+                        </li>
+                      )
+                  )}
                   <li
-                    className={`hover:bg-primary  hover:text-white text-heading my-1`}
-                    key={key}
+                    className={`hover:bg-danger  hover:text-white text-heading my-1`}
                   >
                     <button
                       type="button"
                       className="block px-4 py-2 "
                       onClick={() => {
-                        changeRole(ele.email, element.value);
+                        removeMember(ele.email);
                         setShow(null);
                       }}
                     >
-                      {element.name}
+                      Remove
                     </button>
                   </li>
-                )
+                </ul>
+              </div>
             )}
-            <li
-              className={`hover:bg-danger  hover:text-white text-heading my-1`}
-            >
-              <button
-                type="button"
-                className="block px-4 py-2 "
-                onClick={() => {
-                  removeMember(ele.email);
-                  setShow(null);
-                }}
-              >
-                Remove
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+          </div>
+      }
+    </>
   );
 };
