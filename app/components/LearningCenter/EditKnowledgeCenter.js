@@ -396,7 +396,7 @@ export const ButtonComponent = ({ data, deleteRecord }) => {
         <EllipsisHorizontalIcon className="h-8 w-8 rounded-lg text-black  hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
         {showDelete === data.id && (
           <div
-            className={`absolute right-[0px] top-[20px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}
+            className={`absolute right-[8px] top-[33px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}
           >
             <button
               type="button"

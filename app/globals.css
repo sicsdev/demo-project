@@ -458,11 +458,11 @@ body .custom-multselect .searchWrappery .chip {
 body .custom-multselect .searchWrapper .chip {
   font-size: 10px;
   line-height: 16px;
-  margin-bottom: 4px;
+  margin-bottom: 0px !important;
   font-weight: 400;
   margin-right: 0;
   /* background: #80808024  !important; */
-  background-color: #80808024;
+  background-color: #2563ebbf;
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
@@ -2297,7 +2297,7 @@ input#domainName {
   font-weight: 400;
   width: 69%;
   border-radius: 5px;
-  background: #80808024  !important;
+  background: #2563ebbf  !important;
   color: #000;
   width: 92%;
 
@@ -2396,6 +2396,21 @@ width: 65%;
   position: relative; right: 20px;
 }
 }
+
+
+.searchWrap::-webkit-scrollbar{
+  width: 10px;
+  height: 4px;
+}
+
+.searchWrap::-webkit-scrollbar-track{
+  background: white;
+}
+
+.searchWrap::-webkit-scrollbar-thumb{
+  background: rgb(217, 215, 215);
+  border-radius: 12px;
+}
 .test-ideo{
     height: 400px;
     -webkit-backdrop-filter: blur(8px);
@@ -2403,4 +2418,5 @@ width: 65%;
     background-color: rgba(203, 206, 209, .2);
     border-radius: 5px;
     padding: 10px;
+
 }

@@ -447,7 +447,7 @@ export const ButtonComponent = ({ data, deleteRecord, deleteRecordNew }) => {
             }}>
                 <EllipsisHorizontalIcon className="h-5 w-5 font-bold text-heading cursor-pointer" />
                 {showDelete === data.id && (
-                    <div className={`absolute right-[0px] top-[20px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}>
+                    <div className={`absolute right-[8px] top-[33px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}>
                         <button type='button' className="text-heading font-xs font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 " onClick={() => {
                             deleteRecord(data.id)
                             deleteRecordNew(data.id)

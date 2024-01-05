@@ -315,7 +315,7 @@ const Page = () => {
             cell: (row) => (
                 <>
 
-                    <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
+                    <p style={{ paddingTop: '15px', paddingBottom: '15px', color:"#626060" }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
                 </>
 
             )
@@ -357,7 +357,7 @@ const Page = () => {
                                 
                                     <div>
                                         <button type="button">
-                                            <PlusCircleIcon className="h-6 w-6 text-[#2563eb] " />
+                                            <PlusCircleIcon className="h-6 w-6 text-[#0000ffad] " />
                                         </button>
                                     </div>
                                     <>
@@ -614,7 +614,7 @@ console.log("result", state?.data?.results);
     }
     const getWorkFlowReccomodation = async (question) => {
         const response = await searchReccomodationWorkflow('search=' + question)
-        debugger
+        
         setWorkFlowData((prev) => {
             return {
                 ...prev,
