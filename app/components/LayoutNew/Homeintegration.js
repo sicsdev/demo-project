@@ -61,7 +61,9 @@ const Homeintegration = (props) => {
                     }}
                     key={key}
                   >
-                    <div className="p-[20px] sm:p-2 sm:p-8 md:py-7 md:px-4 ">
+                    {/* <div className="p-[20px] sm:p-8 md:py-7 md:px-4 "> */}
+                    <div className="px-[20px] md:px-4 pt-[16px] sm:pt-[23px] pb-[16px] sm:pb-[8px]">
+
                       {/* <Link href={`${item.link}`} > */}
                       {loading ? (
                         <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto sm:mb-5">
