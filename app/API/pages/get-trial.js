@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { returnConfig } from '../_helpers/returnConfig';
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "";
 
 export const setDemoKnowledge = async (body) => {
     let config = returnConfig()

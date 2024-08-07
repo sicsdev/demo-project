@@ -1,2 +1,0 @@
-export const email_introduction_data = ['Hi {Name}','Hello {Name}','Dear {Name}','Howdy {Name}','No Introduction']
-export const email_sign_off_data = ['Best, {Agent Name}','Thanks, {Agent Name}','Thank You, {Agent Name}','Cheers, {Agent Name}','{Agent Name}']

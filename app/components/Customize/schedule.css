@@ -1,6 +1,0 @@
-input[type="time"]::-webkit-calendar-picker-indicator {
-    background: none;
-    position: absolute;
-    width: 100%;
-    cursor: pointer
-}
